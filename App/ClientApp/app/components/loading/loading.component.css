@@ -1,0 +1,45 @@
+﻿.loading-container {
+    text-align: center;
+}
+
+.spinner {
+    display: inline-block;
+}
+
+
+.dot-1, .dot-2, .dot-3 {
+    opacity: 0;
+    animation-iteration-count: infinite;
+    animation-duration: 1500ms;
+    animation-timing-function: ease-in-out;
+}
+
+.dot-1 {
+    animation-name: dot-1;
+}
+
+.dot-2 {
+    animation-name: dot-2;
+}
+
+.dot-3 {
+    animation-name: dot-3;
+}
+
+@keyframes dot-1 {
+    33% {
+        opacity: 1;
+    }
+}
+
+@keyframes dot-2 {
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes dot-3 {
+    75% {
+        opacity: 1;
+    }
+}

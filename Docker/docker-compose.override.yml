@@ -1,0 +1,8 @@
+version: '2.1'
+
+services:
+  midnightlizard.web.portal:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"

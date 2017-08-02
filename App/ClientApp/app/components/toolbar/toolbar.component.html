@@ -1,0 +1,32 @@
+﻿<md-toolbar color="primary" class="mat-elevation-z6">
+    <button md-icon-button (click)="onSidenavToggleClick.emit()"
+            mdTooltip="Navigation">
+        <md-icon>menu</md-icon>
+    </button>
+    <nav ngClass.lt-sm="small">
+        <a *ngFor="let item of items"
+           md-button routerLinkActive="active-link"
+           [ngClass]="item.class"
+           [mdTooltip]="item.tooltip"
+           [routerLink]="[item.link]"
+           #state="routerLinkActive"
+           [fxHide.lt-sm]="!state.isActive">
+            {{item.title}}
+        </a>
+    </nav>
+    <span fxFlex></span>
+    <button md-icon-button [mdMenuTriggerFor]="menu"
+            mdTooltip="Menu" fxHide ngClass.lt-sm="show">
+        <!--fxHide fxShow.lt-sm>-->
+        <md-icon>more_vert</md-icon>
+    </button>
+    <md-menu #menu="mdMenu" fxHide fxShow.lt-sm>
+        <a *ngFor="let item of items" md-menu-item
+           [routerLink]="[item.link]"
+           [mdTooltip]="item.tooltip"
+           mdTooltipPosition="left">
+            <md-icon>{{item.icon}}</md-icon>
+            <span>{{item.title}}</span>
+        </a>
+    </md-menu>
+</md-toolbar>

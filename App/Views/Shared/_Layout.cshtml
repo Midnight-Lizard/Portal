@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MidnightLizard</title>
+    <base href="/" />
+    <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
+    <link href="~/dist/styles.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+</head>
+<body class="mat-typography">
+    @RenderBody()
+
+    @RenderSection("scripts", required: false)
+
+    <div style="position: fixed; right:20px; bottom:0px; width:200px; text-align:right;">
+        @System.Runtime.InteropServices.RuntimeInformation.OSDescription
+    </div>
+</body>
+</html>

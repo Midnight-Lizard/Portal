@@ -1,0 +1,106 @@
+﻿@import '../../themes/light-theme.scss';
+
+md-sidenav-container
+{
+    background-color: mat-color($ml-background) !important;
+    flex: 1 1 100%;
+}
+
+.mat-sidenav-content
+{
+    margin-left: 20%;
+}
+
+[fxhide]:not(important)
+{
+    /*display: none;*/
+}
+
+md-sidenav
+{
+    width: 20%;
+    padding-bottom: 20px;
+}
+
+.over-80
+{
+    width: 80%;
+}
+
+.over-50
+{
+    width: 50%;
+}
+
+.root
+{
+    height: 100%;
+}
+
+.right-side
+{
+    padding: 20px;
+    background-color: mat-color($ml-background) !important;
+    flex: 1 1 100%;
+    max-width: 21%;
+    min-height: 100%;
+}
+
+.right-side.full-width
+{
+    max-width: initial;
+}
+
+.right-side-content
+{
+    position: sticky;
+    top: 20px;
+}
+
+.sidenav-content
+{
+    min-height: 100%;
+    flex-direction: row;
+    display: flex;
+}
+
+.center
+{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 100%;
+}
+
+.main-content
+{
+    padding: 20px;
+    background-color: mat-color($ml-content) !important;
+    flex: 1 1 100%;
+}
+
+ml-footer
+{
+    flex: 0 1 auto;
+}
+
+.loading
+{
+    display: none;
+}
+
+router-outlet + .loading
+{
+    display: block;
+}
+
+.mat-tooltip
+{
+    background: rgba(97, 97, 97, 0.95) !important;
+}
+
+.mat-button-toggle-label
+{
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+}

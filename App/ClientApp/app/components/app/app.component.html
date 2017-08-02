@@ -1,0 +1,35 @@
+<div fxLayout="column" ngClass="root">
+    <ml-toolbar (onSidenavToggleClick)="toggleSidenav()">
+    </ml-toolbar>
+
+    <md-sidenav-container fxFlex (backdropClick)="toggleSidenav()">
+        <md-sidenav [mode]="sidenavMode" [(opened)]="sidenavIsOpened"
+                    ngClass.sm="over-50" ngClass.lt-sm="over-80">
+            <router-outlet name="left-side"></router-outlet>
+        </md-sidenav>
+
+        <div [ngClass]="'sidenav-content'" fxLayout="row" fxLayout.lt-sm="column">
+            <div fxFlex [ngClass]="'center'" fxLayout="column">
+                <div [ngClass]="'main-content'" fxFlex>
+                    <router-outlet></router-outlet>
+                    <ml-loading class="loading"></ml-loading>
+                </div>
+                <ml-footer fxFlex="nogrow"></ml-footer>
+            </div>
+
+            <div ngClass="right-side"
+                 fxFlex="25%"
+                 fxFlex.sm="30%"
+                 fxFlex.lt-sm="nogrow"
+                 fxFlexOrder.lt-sm="-1"
+                 ngClass.lt-sm="right-side full-width">
+                <div class="right-side-content">
+                    <router-outlet name="right-side"></router-outlet>
+                </div>
+            </div>
+        </div>
+
+    </md-sidenav-container>
+
+
+</div>

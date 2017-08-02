@@ -1,0 +1,13 @@
+<h1>Counter</h1>
+
+<p>This is a simple example of an Angular form.</p>
+
+<form #counterForm="ngForm">
+    
+    <md-input-container color="accent">
+        <input mdInput placeholder="Current count" required id="currentCountInput" name="currentCount" [(ngModel)]="currentCount">
+    </md-input-container>
+    <br/>
+    <button md-raised-button color="accent" (click)="incrementCounter()">Increment</button>
+
+</form>

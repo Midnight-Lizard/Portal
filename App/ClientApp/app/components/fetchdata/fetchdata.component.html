@@ -1,0 +1,35 @@
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<md-table #table [dataSource]="data" mdSort>
+
+    <ng-container cdkColumnDef="dateFormatted">
+        <md-header-cell *cdkHeaderCellDef md-sort-header>Date</md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.dateFormatted}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="temperatureC">
+        <md-header-cell *cdkHeaderCellDef md-sort-header>Temp. (C)</md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.temperatureC}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="temperatureF">
+        <md-header-cell *cdkHeaderCellDef md-sort-header>Temp. (F)</md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.temperatureF}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="summary">
+        <md-header-cell *cdkHeaderCellDef md-sort-header>Summary</md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.summary}} </md-cell>
+    </ng-container>
+
+    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+    <md-row *cdkRowDef="let row; columns: displayedColumns"></md-row>
+</md-table>
+<md-paginator #paginator
+              [length]="(data.connect()|async).length"
+              [pageIndex]="0"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+</md-paginator>

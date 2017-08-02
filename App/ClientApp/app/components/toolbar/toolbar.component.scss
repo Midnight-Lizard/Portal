@@ -1,0 +1,75 @@
+﻿@import '../../themes/light-theme.scss';
+
+:host
+{
+    z-index: 1;
+}
+
+nav
+{
+    text-shadow: 0px 0px 1px mat-color($ml-background);
+    /*text-shadow: 0px 0px 1px black;*/
+}
+
+md-icon
+{
+    /*filter: drop-shadow(0px 0px 1px mat-color($ml-background));*/
+}
+
+nav
+{
+    height: 100%;
+
+    a
+    {
+        height: 100%;
+        border-radius: 0px;
+        vertical-align: middle;
+        line-height: 64px;
+    }
+}
+
+nav.small
+{
+    a
+    {
+        line-height: 54px;
+    }
+}
+
+nav a.home-link
+{
+    font-size: 18px !important;
+}
+
+nav a.home-link:before
+{
+    content: "";
+    background-image: url(/dist/ml-toolbar-icon-128.png);
+    background-size: 32px 32px;
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    margin: -10px 5px -10px 0px;
+}
+
+nav .active-link:after
+{
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    border-bottom: solid 2px mat-color($ml-accent, A700);
+}
+
+.mat-icon-button[fxhide]
+{
+    display: none;
+}
+
+.mat-icon-button.show
+{
+    display: inline-block !important;
+}
