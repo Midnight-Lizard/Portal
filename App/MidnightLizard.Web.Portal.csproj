@@ -32,6 +32,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ClientApp\app\themes\light-theme.scss" />
+    <Content Include="wwwroot\assets\ml-toolbar-icon-128.png" />
+    <Content Include="wwwroot\assets\styles.css" />
     <Content Include="wwwroot\dist\ml-toolbar-icon-128.png" />
     <Content Include="wwwroot\dist\styles.css" />
   </ItemGroup>
