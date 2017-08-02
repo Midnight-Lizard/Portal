@@ -11,7 +11,7 @@
     <IsPackable>false</IsPackable>
     <UserSecretsId>1f234e68-1319-4432-86bf-9d115cf20216</UserSecretsId>
     <StartupObject />
-    <DockerComposeProjectPath>..\Docker\docker-compose.dcproj</DockerComposeProjectPath>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
