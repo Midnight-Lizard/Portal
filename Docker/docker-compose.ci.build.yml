@@ -6,4 +6,4 @@ services:
     volumes:
       - .:/src
     working_dir: /src
-    command: /bin/bash -c "dir && dotnet restore ../MLPortal.sln && dotnet publish ../MLPortal.sln -c Release -o ./obj/Docker/publish"
+    command: /bin/bash -c "cd .. && dotnet restore ../MLPortal.sln && dotnet publish ../MLPortal.sln -c Release -o ./obj/Docker/publish"
