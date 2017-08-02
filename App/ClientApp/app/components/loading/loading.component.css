@@ -10,7 +10,7 @@
 .dot-1, .dot-2, .dot-3 {
     opacity: 0;
     animation-iteration-count: infinite;
-    animation-duration: 1500ms;
+    animation-duration: 2000ms;
     animation-timing-function: ease-in-out;
 }
 
@@ -27,19 +27,19 @@
 }
 
 @keyframes dot-1 {
-    33% {
+    20% {
         opacity: 1;
     }
 }
 
 @keyframes dot-2 {
-    50% {
+    40% {
         opacity: 1;
     }
 }
 
 @keyframes dot-3 {
-    75% {
+    60% {
         opacity: 1;
     }
 }
