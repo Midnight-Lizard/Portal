@@ -6,11 +6,11 @@ import
     ComponentFixture, ComponentFixtureAutoDetect
 } from '@angular/core/testing';
 import { FormsModule } from "@angular/forms";
-import { MaterialControlsModule } from "../../modules/material.module";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule, By } from "@angular/platform-browser";
 import { CounterComponent } from './counter.component';
+import { MaterialControlsModule } from '../../../shared/material.module';
 
 let component: CounterComponent;
 let fixture: ComponentFixture<CounterComponent>;

@@ -1,35 +1,40 @@
-﻿@import '../../themes/light-theme.scss';
+﻿@import '~midnight-lizard-vendor/themes/light-theme.scss';
 
-md-sidenav-container
+md-drawer-container
 {
-    background-color: mat-color($ml-background) !important;
+    background-color: $ml-background !important;
     flex: 1 1 100%;
 }
 
-.mat-sidenav-content
+.mat-drawer-content
 {
     margin-left: 20%;
+    overflow-y: scroll !important;
 }
 
-[fxhide]:not(important)
+.left-side
 {
-    /*display: none;*/
-}
 
-md-sidenav
-{
-    width: 20%;
-    padding-bottom: 20px;
-}
+    &.server
+    {
+        transform: translate3d(0px, 0px, 0px);
+    }
 
-.over-80
-{
-    width: 80%;
-}
+    &:not(important)
+    {
+        width: 20%;
+        padding-bottom: 20px;
+    }
 
-.over-50
-{
-    width: 50%;
+    &.over-80
+    {
+        width: 80%;
+    }
+
+    &.over-50
+    {
+        width: 50%;
+    }
 }
 
 .root
@@ -45,7 +50,7 @@ md-sidenav
 .right-side
 {
     padding: 20px;
-    background-color: mat-color($ml-background) !important;
+    background-color: $ml-background !important;
     flex: 1 1 100%;
     max-width: 21%;
     min-height: 100%;
@@ -98,9 +103,15 @@ router-outlet + .loading
     display: block;
 }
 
-.mat-tooltip
+.mat-tooltip:not(imp)
 {
-    background: rgba(97, 97, 97, 0.95) !important;
+    background: rgba(90, 90, 90, 0.95);
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin: 10px;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 14px;
 }
 
 .mat-button-toggle-label
@@ -108,4 +119,10 @@ router-outlet + .loading
     display: inline-block;
     width: 100%;
     cursor: pointer;
+}
+
+.mat-option.mat-selected:not(imp)
+{
+    background-color: mat-color($ml-accent, A100) !important;
+    color: $ml-text-color !important;
 }

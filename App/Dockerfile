@@ -1,4 +1,6 @@
-FROM microsoft/aspnetcore:1.1
+FROM microsoft/aspnetcore:2
+RUN apt-get update
+RUN apt-get install -y gnupg gnupg2 gnupg1
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
 RUN apt-get install -y nodejs
 ARG source

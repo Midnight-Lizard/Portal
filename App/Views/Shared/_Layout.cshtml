@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Midnight Lizard</title>
-    <base href="/" />
+    <base href="~/" />
     <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/assets/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
@@ -14,10 +14,9 @@
 
     @RenderSection("scripts", required: false)
 
-    <div style="position: fixed; right:20px; bottom:0px; width:200px; text-align:right;">
+    @*<div style="position: fixed; right:20px; bottom:0px; width:200px; text-align:right;">
         @System.Runtime.InteropServices.RuntimeInformation.OSDescription
         @Startup._env.EnvironmentName
-        @Startup._env.IsDevelopment()
-    </div>
+    </div>*@
 </body>
 </html>

@@ -1,27 +1,40 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { getSharedConfig } from './app.module.shared';
-import { Side, SideService } from "./services/side.service";
-import { ModuleLoaderService } from "./services/module.loader.service";
+import { SideService, Side } from "../shared/side.service";
+import { Settings } from "./models/settings.model";
+new SideService(Side.Client);
+Settings.initializeClientSideSettings();
 
-const sharedConfig = getSharedConfig(new ModuleLoaderService(new SideService(Side.Client)));
+import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BrowserModule } from '@angular/platform-browser';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+import { AppSharedModule } from './app.module.shared';
+import { AppComponent } from "./components/app/app.component";
+
+export let devTools = [];
+if (ENV !== "prod")
+{
+    devTools = [StoreDevtoolsModule.instrument()];
+}
 
 @NgModule({
-    bootstrap: sharedConfig.bootstrap,
-    declarations: sharedConfig.declarations,
+    bootstrap: [AppComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        FlexLayoutModule,
-        ...sharedConfig.imports
+        AppSharedModule,
+        ...devTools
     ],
     providers: [
-        { provide: 'ORIGIN_URL', useValue: location.origin },
-        { provide: 'SIDE', useValue: Side.Client },
-        ...sharedConfig.providers
+        { provide: 'BASE_URL', useFactory: getBaseUrl },
+        { provide: 'SIDE', useValue: Side.Client }
     ]
 })
-export class AppModule {
+export class AppModule
+{
+}
+
+export function getBaseUrl()
+{
+    return document.getElementsByTagName('base')[0].href;
 }

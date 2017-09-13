@@ -21,7 +21,7 @@ namespace MidnightLizard.Web.Portal.Controllers
             return Enumerable.Range(1, 50).Select(index => new WeatherForecast
             {
                 DateFormatted = DateTime.Now.AddDays(index).ToString("d"),
-                TemperatureC = rng.Next(-20, 55),
+                TemperatureC = rng.Next(-20, 30),
                 Summary = Summaries[rng.Next(Summaries.Length)]
             });
         }

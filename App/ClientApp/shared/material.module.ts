@@ -4,7 +4,7 @@ import {
     MdSidenavModule, MdIconModule, MdInputModule, MdMenuModule, MdTooltipModule,
     MdProgressSpinnerModule, MdTableModule, MdPaginatorModule, MdSortModule
 } from '@angular/material';
-import { CdkTableModule } from "@angular/cdk";
+import { CdkTableModule } from "@angular/cdk/table";
 
 @NgModule({
     imports: [

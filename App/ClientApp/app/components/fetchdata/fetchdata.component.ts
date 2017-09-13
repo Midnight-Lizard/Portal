@@ -2,7 +2,7 @@ import { Component, Inject, ViewChild, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Observable } from "rxjs/Observable";
-import { DataSource, CollectionViewer } from "@angular/cdk";
+import { DataSource } from "@angular/cdk/table";
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
@@ -16,10 +16,10 @@ export class FetchDataComponent implements OnInit
 {
     @ViewChild(MdSort) sort: MdSort;
     @ViewChild(MdPaginator) paginator: MdPaginator;
-    protected data: WeatherSource;
-    protected readonly displayedColumns = ["dateFormatted", "temperatureC", "temperatureF", "summary"];
+    public data: WeatherSource;
+    public readonly displayedColumns = ["dateFormatted", "temperatureC", "temperatureF", "summary"];
 
-    constructor(protected http: Http, @Inject('ORIGIN_URL') protected originUrl: string)
+    constructor(protected http: Http, @Inject('BASE_URL') protected originUrl: string)
     {
     }
 

@@ -1,16 +1,18 @@
+<ml-state *ngIf="execute.isServerSide"></ml-state>
 <div fxLayout="column" ngClass="root">
     <ml-toolbar (onSidenavToggleClick)="toggleSidenav()">
     </ml-toolbar>
 
     <md-sidenav-container fxFlex (backdropClick)="toggleSidenav()">
-        <md-sidenav [mode]="sidenavMode" [(opened)]="sidenavIsOpened"
-                    ngClass.sm="over-50" ngClass.lt-sm="over-80">
+        <md-sidenav class="left-side" [ngClass]="{server:execute.isServerSide}"
+                    ngClass.sm="over-50" ngClass.lt-sm="over-80"
+                    [mode]="sidenavMode" [(opened)]="sidenavIsOpened">
             <router-outlet name="left-side"></router-outlet>
         </md-sidenav>
 
-        <div [ngClass]="'sidenav-content'" fxLayout="row" fxLayout.lt-sm="column">
-            <div fxFlex [ngClass]="'center'" fxLayout="column">
-                <div [ngClass]="'main-content'" fxFlex>
+        <div ngClass="sidenav-content" fxLayout="row" fxLayout.lt-sm="column">
+            <div fxFlex ngClass="center" fxLayout="column">
+                <div ngClass="main-content" fxFlex>
                     <router-outlet></router-outlet>
                     <ml-loading class="loading"></ml-loading>
                 </div>

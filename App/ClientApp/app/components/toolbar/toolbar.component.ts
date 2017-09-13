@@ -9,7 +9,7 @@ export class ToolbarComponent {
     @Output()
     public onSidenavToggleClick = new EventEmitter<never>();
 
-    protected readonly items = new Set<{ link: string, icon: string, title: string, tooltip: string, class: string }>([
+    public readonly items = new Set<{ link: string, icon: string, title: string, tooltip: string, class: string }>([
         { icon: "home", link: "/home", title: "Midnight Lizard", tooltip: "Home", class: "home-link" },
         { icon: "palette", link: "/schemes", title: "SCHEMES", tooltip: "Color schemes", class: "normal-link" },
         { icon: "book", link: "/docs", title: "DOCS", tooltip: "Documentation", class: "normal-link" },

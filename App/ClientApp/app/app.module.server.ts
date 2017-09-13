@@ -1,28 +1,25 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ServerModule } from '@angular/platform-server';
-import { getSharedConfig } from './app.module.shared';
-import { Side, SideService } from "./services/side.service";
-import { ModuleLoaderService } from "./services/module.loader.service";
+import { SideService, Side } from "../shared/side.service";
+import { Settings } from "./models/settings.model";
+new SideService(Side.Server);
+Settings.initializeServerSideSettings();
+
 import { ObservableMedia } from "@angular/flex-layout";
 import { Subject } from "rxjs/Subject";
+import { NgModule, NO_ERRORS_SCHEMA, APP_INITIALIZER, Injector } from '@angular/core';
+import { ServerModule } from '@angular/platform-server';
 
-const sharedConfig = getSharedConfig(new ModuleLoaderService(new SideService(Side.Server)));
+import { AppSharedModule } from './app.module.shared';
+import { AppComponent } from "./components/app/app.component";
 
 @NgModule({
-    bootstrap: sharedConfig.bootstrap,
-    declarations: sharedConfig.declarations,
-    schemas: [NO_ERRORS_SCHEMA], // for disabling flex-layout directives
+    bootstrap: [AppComponent],
     imports: [
-        ServerModule,
-        ...sharedConfig.imports
+        ServerModule, AppSharedModule
     ],
     providers: [
         { provide: ObservableMedia, useClass: Subject },
-        { provide: 'ORIGIN_URL', useValue: "http://localhost:80" },
-        { provide: 'SIDE', useValue: Side.Server },
-        ...sharedConfig.providers
+        { provide: 'BASE_URL', useValue: "http://localhost:80" },
+        { provide: 'SIDE', useValue: Side.Server }
     ]
 })
-export class AppModule
-{
-}
+export class AppModule { }

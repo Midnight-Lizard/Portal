@@ -1,11 +1,11 @@
-﻿@import '../../themes/light-theme.scss';
+﻿@import '~midnight-lizard-vendor/themes/light-theme.scss';
 
 .footer-root
 {
     background-color: mat-color($ml-primary, 800);
     text-shadow: 0px 0px 1px black;
-    color: mat-color($ml-background);
-    fill: mat-color($ml-background);
+    color: $ml-background;
+    fill: $ml-background;
     padding: 20px;
     box-sizing: border-box;
     max-height: 100%;
@@ -80,8 +80,8 @@
 {
     a, svg
     {
-        color: mat-color($ml-background);
-        fill: mat-color($ml-background);
+        color: $ml-background;
+        fill: $ml-background;
     }
 }
 

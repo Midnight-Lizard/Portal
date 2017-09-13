@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MidnightLizard.Web.Portal.Infrastructure;
 
 namespace MidnightLizard.Web.Portal
 {
@@ -17,7 +18,7 @@ namespace MidnightLizard.Web.Portal
 
         public Startup(IHostingEnvironment env)
         {
-            Startup._env = env;
+            _env = env;
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -44,6 +45,16 @@ namespace MidnightLizard.Web.Portal
             });
             // Add framework services.
             services.AddMvc();
+            services.AddSingleton<IConfiguration>(Configuration);
+            if (_env.IsDevelopment())
+            {
+                services.AddNodeServices(options =>
+                {
+                    // chrome-devtools://
+                    options.LaunchWithDebugging = true;
+                    options.DebuggingPort = 9228;
+                });
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

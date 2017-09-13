@@ -1,6 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LoadingFailComponent } from "../components/loading/loading.fail.component";
+import { LoadingFailComponent } from "./loading.fail.component";
 import { MdIconModule, MdButtonModule } from "@angular/material";
 
 @NgModule({

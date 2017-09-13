@@ -1,9 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const AotPlugin = require('@ngtools/webpack').AotPlugin;
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 
-module.exports = (env) => {
+module.exports = (env) =>
+{
     // Configuration in common to both client-side and server-side bundles
     const isDevBuild = !(env && env.prod);
     const sharedConfig = {
@@ -27,7 +29,12 @@ module.exports = (env) => {
                 }
             ]
         },
-        plugins: [new CheckerPlugin()]
+        plugins: [
+            new CheckerPlugin(),
+            new webpack.DefinePlugin({
+                ENV: JSON.stringify(process.env.ENV)
+            })
+        ]
     };
 
     // Configuration for client-side bundle suitable for running in browsers
@@ -48,7 +55,12 @@ module.exports = (env) => {
             })
         ] : [
                 // Plugins that apply in production builds only
-                new webpack.optimize.UglifyJsPlugin()
+                new webpack.optimize.UglifyJsPlugin(),
+                new AotPlugin({
+                    tsConfigPath: './tsconfig.json',
+                    entryModule: path.join(__dirname, 'ClientApp/app/app.module.client#AppModule'),
+                    exclude: ['./**/*.server.ts']
+                })
             ])
     });
 
@@ -63,7 +75,14 @@ module.exports = (env) => {
                 sourceType: 'commonjs2',
                 name: './vendor'
             })
-        ],
+        ].concat(isDevBuild ? [] : [
+            // Plugins that apply in production builds only
+            new AotPlugin({
+                tsConfigPath: './tsconfig.json',
+                entryModule: path.join(__dirname, 'ClientApp/app/app.module.server#AppModule'),
+                exclude: ['./**/*.client.ts']
+            })
+        ]),
         output: {
             libraryTarget: 'commonjs',
             path: path.join(__dirname, './ClientApp/dist')

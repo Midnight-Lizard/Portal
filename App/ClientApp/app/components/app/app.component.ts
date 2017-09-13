@@ -1,38 +1,51 @@
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { ObservableMedia, MediaChange } from "@angular/flex-layout";
-import { SideService, Side } from "../../services/side.service";
+import { SideService, Side } from "../../../shared/side.service";
 
 @Component({
-    selector: 'app',
+    selector: 'ml-app',
     templateUrl: './app.component.html',
-    encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./app.component.scss', '../../themes/core-theme.scss']
+    styleUrls: ['./app.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
-export class AppComponent {
+export class AppComponent
+{
     public sidenavMode: "over" | "side" = "side";
     public sidenavIsOpened: boolean = true;
     protected _sidenavIsOpened_UserDefined = this.sidenavIsOpened;
 
-    public toggleSidenav() {
+    public toggleSidenav()
+    {
         this._sidenavIsOpened_UserDefined = this.sidenavIsOpened = !this.sidenavIsOpened;
     }
 
-    constructor(media: ObservableMedia,
-        protected readonly execute: SideService)
+    constructor(media: ObservableMedia, readonly execute: SideService)
     {
-        execute.on(Side.Client, () => window.addEventListener("resize", () => { }));
+        execute.on(Side.Client, () =>
+        {
+            window.addEventListener("resize", () =>
+            {
+                +(document.querySelector("mat-drawer-content") as HTMLDivElement).offsetLeft;
+            });
+            window.dispatchEvent(new Event('resize'));
+        });
 
-        media.subscribe((change: MediaChange) => {
-            if (/xs|sm/.test(change.mqAlias)) {
+        media.subscribe((change: MediaChange) =>
+        {
+            if (/xs|sm/.test(change.mqAlias))
+            {
                 this.sidenavIsOpened = false;
             }
-            else {
+            else
+            {
                 this.sidenavIsOpened = this._sidenavIsOpened_UserDefined;
             }
-            if (/xs|sm/.test(change.mqAlias)) {
+            if (/xs|sm/.test(change.mqAlias))
+            {
                 this.sidenavMode = "over";
             }
-            else {
+            else
+            {
                 this.sidenavMode = "side";
             }
         });

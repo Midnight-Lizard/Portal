@@ -1,5 +1,8 @@
-@*<app>Loading...</app>*@
-<app asp-prerender-module="ClientApp/dist/main-server">Loading...</app>
+
+@Html.Hidden("Settings", ViewData["Settings"])
+
+@*<ml-app>Loading...</ml-app>*@
+<ml-app asp-prerender-module="ClientApp/dist/main-server">Loading...</ml-app>
 
 <script src="~/dist/vendor.js" asp-append-version="true"></script>
 @section scripts {

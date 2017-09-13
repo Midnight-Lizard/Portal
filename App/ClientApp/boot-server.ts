@@ -10,14 +10,14 @@ enableProdMode();
 
 export default createServerRenderer(params => {
     const providers = [
-        { provide: INITIAL_CONFIG, useValue: { document: '<app></app>', url: params.url } },
+        { provide: INITIAL_CONFIG, useValue: { document: '<ml-app></ml-app>', url: params.url } },
         { provide: 'ORIGIN_URL', useValue: params.origin }
     ];
 
     return platformDynamicServer(providers).bootstrapModule(AppModule).then(moduleRef => {
         const appRef = moduleRef.injector.get(ApplicationRef);
         const state = moduleRef.injector.get(PlatformState);
-        const zone = moduleRef.injector.get(NgZone);
+        const zone = moduleRef.injector.get(NgZone) as NgZone;
 
         return new Promise<RenderResult>((resolve, reject) => {
             zone.onError.subscribe(errorInfo => reject(errorInfo));
