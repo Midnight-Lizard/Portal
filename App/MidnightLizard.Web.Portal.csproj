@@ -15,12 +15,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Files not to show in IDE -->
-    <None Remove="ClientApp\app\store\app.actions.ts" />
-    <None Remove="ClientApp\app\store\app.effects.ts" />
-    <None Remove="ClientApp\app\store\app.reducer.ts" />
-    <None Remove="ClientApp\app\store\app.state.ts" />
-    <None Remove="ClientApp\external\script.loader.service.ts" />
-    <None Remove="ClientApp\shared\environment.ts" />
     <None Remove="MidnightLizard.Web.Portal.csproj.vspscc" />
     <None Remove="Properties\PublishProfiles\Midnight-Lizard.pubxml" />
     <None Remove="yarn.lock" />
@@ -35,19 +29,11 @@
     <Folder Include="ClientApp\dist\" />
     <Folder Include="wwwroot\dist\" />
   </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app\models\settings.model.ts" />
-    <TypeScriptCompile Include="ClientApp\app\store\app.actions.ts" />
-    <TypeScriptCompile Include="ClientApp\app\store\app.effects.ts" />
-    <TypeScriptCompile Include="ClientApp\app\store\app.reducer.ts" />
-    <TypeScriptCompile Include="ClientApp\app\store\app.state.ts" />
-    <TypeScriptCompile Include="ClientApp\external\script.loader.service.ts" />
-    <TypeScriptCompile Include="ClientApp\shared\environment.ts" />
-  </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
-    <Exec Command="SET NODE_ENV=production&amp;&amp; npm install" />
-    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
+    <Exec Command="npm install" />
+    <Exec Command="npm run --prefix ./node_modules/midnight-lizard-vendor prod-build" />
+    <Exec Command="ENV=prod node node_modules/webpack/bin/webpack.js --env.prod" />
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>

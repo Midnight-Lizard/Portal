@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  ci-tests:
+    image: ci-tests
+    build:
+      context: ./App
+      dockerfile: Dockertest.local
