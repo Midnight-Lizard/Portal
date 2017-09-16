@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  midnightlizard.web.portal:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Develepment
+      - ENV=dev
+      - SCHEMES_URL=http://localhost:7001
+      - NODE_ENV=develepment
+    ports:
+      - "80"

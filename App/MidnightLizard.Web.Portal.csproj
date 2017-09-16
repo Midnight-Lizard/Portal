@@ -11,7 +11,7 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <IsPackable>false</IsPackable>
     <UserSecretsId>1f234e68-1319-4432-86bf-9d115cf20216</UserSecretsId>
-    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <DockerComposeProjectPath>..\docker-compose-ci\docker-compose-ci.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
   <ItemGroup>
     <!-- Files not to show in IDE -->
@@ -33,7 +33,7 @@
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Exec Command="npm install" />
     <Exec Command="npm run --prefix ./node_modules/midnight-lizard-vendor prod-build" />
-    <Exec Command="ENV=prod node node_modules/webpack/bin/webpack.js --env.prod" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>

@@ -1,8 +1,0 @@
-version: '3'
-
-services:
-  build:
-    image: build
-    build:
-      context: ./
-      dockerfile: Dockerbuild
