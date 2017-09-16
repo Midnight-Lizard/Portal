@@ -35,7 +35,7 @@ export class WeatherSource extends DataSource<WeatherForecast>
     constructor(http: Http, originUrl: string, protected _sort: MdSort, protected _paginator: MdPaginator)
     {
         super();
-        http.get(originUrl + '/api/SampleData/WeatherForecasts').subscribe(result =>
+        http.get(originUrl + 'api/SampleData/WeatherForecasts').subscribe(result =>
         {
             this._data.next(result.json() as WeatherForecast[]);
         });

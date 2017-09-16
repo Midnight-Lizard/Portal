@@ -25,7 +25,7 @@ export class AppComponent
         {
             window.addEventListener("resize", () =>
             {
-                +(document.querySelector("mat-drawer-content") as HTMLDivElement).offsetLeft;
+                
             });
             window.dispatchEvent(new Event('resize'));
         });
