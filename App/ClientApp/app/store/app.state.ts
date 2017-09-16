@@ -22,7 +22,7 @@ export function loadInitialState(): RootState
         const mlState = document.querySelector("ml-state");
         if (mlState)
         {
-            return JSON.parse(mlState.textContent);
+            return JSON.parse(mlState.textContent!);
         }
         else return initialState;
     }

@@ -3,7 +3,7 @@
 @Injectable()
 export class Settings
 {
-    static current: Settings | undefined;
+    static current: Settings;
 
     public SCHEMES_URL: string;
     public ENV: "prod" | "test" | "dev";

@@ -11,20 +11,20 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppSharedModule } from './app.module.shared';
 import { AppComponent } from "./components/app/app.component";
 
-export let devTools = [];
+export let imports: any[] = [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppSharedModule
+];
+
 if (ENV !== "prod")
 {
-    devTools = [StoreDevtoolsModule.instrument()];
+    imports.push(StoreDevtoolsModule.instrument());
 }
 
 @NgModule({
     bootstrap: [AppComponent],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppSharedModule,
-        ...devTools
-    ],
+    imports: imports,
     providers: [
         { provide: 'BASE_URL', useFactory: getBaseUrl },
         { provide: 'SIDE', useValue: Side.Client }
