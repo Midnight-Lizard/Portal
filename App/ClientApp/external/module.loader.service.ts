@@ -61,7 +61,7 @@ export class ExternalModuleLoader implements NgModuleFactoryLoader
 
     load(modulePath: ExternalPath): Promise<NgModuleFactory<any>>
     {
-        const moduleName = ExternalModule[modulePath.split("#").pop()];
+        const moduleName = ExternalModule[modulePath.split("#").pop() as keyof typeof ExternalModule];
         let sides = [this.loadExternalModule(moduleName, this.env.side)];
         if (this.env.isServerSide)
         {
