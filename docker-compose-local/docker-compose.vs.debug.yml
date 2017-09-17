@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  build:
+    image: build:dev
+    build:
+      context: ../
+      dockerfile: docker-build
+    volumes:
+      - publish:/build/app/publish
+    command: echo "hi from build"
+
+  midnightlizard.web.portal:
+    volumes:
+      - publish:/app
+      - ../app/bin:/app/bin
+      - ../app/obj:/app/obj
+      - ../app/Views:/app/Views
+    depends_on:
+      - build
+
+volumes:
+  publish:

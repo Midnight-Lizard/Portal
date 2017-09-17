@@ -13,4 +13,4 @@ services:
         cd /build &&
         rm -r ./App/node_modules &&
         dotnet restore ./MLPortal.sln &&
-        dotnet publish ./MLPortal.sln -c Release -o ./obj/Docker/publish"
+        dotnet publish ./MLPortal.sln -c Release -o ./publish"

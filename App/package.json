@@ -8,8 +8,8 @@
   "scripts": {
     "dev-test": "SET ENV=test&& karma start ClientApp/test/karma.conf.js",
     "ci-test": "SET ENV=test&& karma start --single-run --browsers ChromeCI --reporters progress,tfs ClientApp/test/karma.conf.js",
-    "docker-test": "cd ../DockerLocal&&docker-compose -f docker-compose.test.yml up --build --abort-on-container-exit",
-    "docker-build": "cd ../DockerLocal&&docker-compose -f docker-compose.build.yml up --build --abort-on-container-exit",
+    "docker-test": "cd ../docker-compose-local&&docker-compose -f docker-compose.test.yml up --build --abort-on-container-exit",
+    "docker-build": "cd ../docker-compose-local&&docker-compose -f docker-compose.build.yml up --build --abort-on-container-exit",
     "prod-build": "SET ENV=prod&& webpack -p --env.prod",
     "dev-build": "SET ENV=dev&& webpack",
     "vendor-prod-build": "npm run --prefix ./node_modules/midnight-lizard-vendor prod-build",

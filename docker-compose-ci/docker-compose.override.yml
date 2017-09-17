@@ -3,9 +3,9 @@ version: '3'
 services:
   midnightlizard.web.portal:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Develepment
-      - ENV=dev
-      - SCHEMES_URL=http://localhost:7001
-      - NODE_ENV=develepment
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ENV=prod
+      - SCHEMES_URL=http://midnight-lizard-web-schemes.azurewebsites.net
+      - NODE_ENV=production
     ports:
       - "80"

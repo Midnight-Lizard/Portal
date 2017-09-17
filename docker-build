@@ -1,0 +1,6 @@
+FROM microsoft/aspnetcore-build:2
+COPY . /build
+WORKDIR /build
+RUN rm -r ./app/node_modules
+RUN dotnet restore ./MLPortal.sln
+RUN dotnet publish ./MLPortal.sln -c Release -o ./publish

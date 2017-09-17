@@ -1,8 +1,8 @@
-version: '3'
+version: '3.3'
 
 services:
   midnightlizard.web.portal:
     image: midnightlizard.web.portal
     build:
-      context: ./App
+      context: ../App
       dockerfile: Dockerfile
