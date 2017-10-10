@@ -19,7 +19,7 @@ build:
   - echo $CI_BUILD_REF
   - echo $CI_PIPELINE_ID
   - kubectl config set-cluster $GCE_CLUSTER_NAME --server=$GCE_CLUSTER_URL --insecure-skip-tls-verify=true
-  - kubectl config set-credentials $GCE_USER_NAME --token=GCE_TOKEN
+  - kubectl config set-credentials $GCE_USER_NAME --user=$GCE_USER_NAME --password=$GCE_USER_PASSWORD
   - kubectl config set-context gce --user=$GCE_USER_NAME --cluster=$GCE_CLUSTER_NAME
   - kubectl config use-context gce
   - kubectl get pods
