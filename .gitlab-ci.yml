@@ -6,8 +6,8 @@ variables:
 before_script:
 - docker info
 - apk add -U openssl curl bash ca-certificates
-- curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
- chmod +x /usr/local/bin/kubectl && \
+- curl -L -o /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl && \
+ chmod +x /usr/bin/kubectl && \
  kubectl version --client
 
 build:
