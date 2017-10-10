@@ -5,6 +5,10 @@ variables:
   DOCKER_DRIVER: overlay
 before_script:
 - docker info
+- curl -L -o /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/latest.txt)/bin/linux/amd64/kubectl && \
+  chmod +x /usr/bin/kubectl && \
+  kubectl version --client
+
 stages:
   - build
   - test
@@ -14,5 +18,7 @@ build:
   only:
   - master
   script:
-  - ls
-  - kubectl version
+  - echo $CI_BUILD_REF_NAME
+  - echo $CI_BUILD_REF
+  - echo $K8S_TOKEN
+  - echo $K8S_URL
