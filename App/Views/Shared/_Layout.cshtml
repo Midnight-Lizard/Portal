@@ -14,9 +14,17 @@
 
     @RenderSection("scripts", required: false)
 
-    @*<div style="position: fixed; right:20px; bottom:0px; width:200px; text-align:right;">
+    <div style="position: fixed; right:20px; bottom:0px; width:200px; text-align:right;">
+        <dl>
+            @foreach (var claim in User.Claims)
+            {
+                <dt>@claim.Type</dt>
+                <dd>@claim.Value</dd>
+            }
+        </dl>
+
         @System.Runtime.InteropServices.RuntimeInformation.OSDescription
         @Startup._env.EnvironmentName
-    </div>*@
+    </div>
 </body>
 </html>

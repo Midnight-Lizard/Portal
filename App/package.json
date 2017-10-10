@@ -16,7 +16,7 @@
     "vendor-dev-build": "npm run --prefix ./node_modules/midnight-lizard-vendor dev-build"
   },
   "dependencies": {
-    "midnight-lizard-vendor": "2.5.0"
+    "midnight-lizard-vendor": "2.5.2"
   },
   "devDependencies": {
     "karma": "1.7.1",

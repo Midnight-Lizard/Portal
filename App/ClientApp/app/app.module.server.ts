@@ -18,7 +18,7 @@ import { AppComponent } from "./components/app/app.component";
     ],
     providers: [
         { provide: ObservableMedia, useClass: Subject },
-        { provide: 'BASE_URL', useValue: "http://localhost:80" },
+        //{ provide: 'BASE_URL', useValue: "http://localhost:80" },
         { provide: 'SIDE', useValue: Side.Server }
     ]
 })

@@ -1,6 +1,16 @@
 FROM microsoft/aspnetcore-build:2
+
+COPY ./app/package.json /build/app/
+WORKDIR /build/app
+RUN npm install
+RUN npm run --prefix ./node_modules/midnight-lizard-vendor prod-build
+
+COPY ./app/ClientApp /build/app/ClientApp
+COPY ./app/tsconfig.json /build/app/
+COPY ./app/webpack.config.js /build/app/
+RUN node ./node_modules/webpack/bin/webpack.js --env.prod
+
 COPY . /build
 WORKDIR /build
-RUN rm -r ./app/node_modules
-RUN dotnet restore ./MLPortal.sln
-RUN dotnet publish ./MLPortal.sln -c Release -o ./publish
+RUN dotnet restore ./Portal.sln
+RUN dotnet publish ./Portal.sln -c Release -o ./publish

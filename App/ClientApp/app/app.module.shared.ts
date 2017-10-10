@@ -25,6 +25,10 @@ import { ExternalModuleLoader } from '../external/module.loader.service';
 import { LoadingModule } from '../loading/loading.module';
 import { Settings } from './models/settings.model';
 import { ExternalScriptLoader } from '../external/script.loader.service';
+import { AppEffects } from './store/app.effects';
+import { AuthenticationService } from './security/authentication.service';
+import { LoadingComponent } from '../loading/loading.component';
+import { UserNavComponent } from './components/user-nav/user-nav.component';
 
 @NgModule({
     declarations: [
@@ -34,7 +38,8 @@ import { ExternalScriptLoader } from '../external/script.loader.service';
         FooterComponent,
         CounterComponent,
         FetchDataComponent,
-        StateComponent
+        StateComponent,
+        UserNavComponent
     ],
     imports: [
         CommonModule,
@@ -49,6 +54,13 @@ import { ExternalScriptLoader } from '../external/script.loader.service';
             { path: 'home', component: HomeComponent },
             { path: 'docs', component: CounterComponent },
             { path: 'issues', component: FetchDataComponent },
+            { path: 'signin', component: LoadingComponent },
+            { path: 'silentin', component: LoadingComponent },
+            { path: 'signedin', component: LoadingComponent },
+            { path: 'signout', component: LoadingComponent },
+            { path: 'signout-callback-oidc', component: LoadingComponent },
+            { path: 'signedout', component: LoadingComponent },
+            { path: 'profile', component: LoadingComponent },
             {
                 path: ExternalModule.SchemesModule,
                 loadChildren: ExternalPath.SchemesModule
@@ -57,9 +69,10 @@ import { ExternalScriptLoader } from '../external/script.loader.service';
         ]),
         StoreRouterConnectingModule,
         StoreModule.forRoot({ ML: appReducer }, { initialState: loadInitialState }),
-        EffectsModule.forRoot([])
+        EffectsModule.forRoot([AppEffects])
     ],
-    providers: [SideService, ExternalScriptLoader,
+    providers: [
+        SideService, ExternalScriptLoader, AuthenticationService,
         { provide: NgModuleFactoryLoader, useClass: ExternalModuleLoader }
     ]
 })

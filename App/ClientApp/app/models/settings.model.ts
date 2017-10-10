@@ -6,6 +6,7 @@ export class Settings
     static current: Settings;
 
     public SCHEMES_URL: string;
+    public IDENTITY_URL: string;
     public ENV: "prod" | "test" | "dev";
 
     public static initializeServerSideSettings()

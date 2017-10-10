@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using MidnightLizard.Web.Portal.Infrastructure;
 
 namespace MidnightLizard.Web.Portal
@@ -32,17 +35,49 @@ namespace MidnightLizard.Web.Portal
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAllHeaders",
-                      builder =>
-                      {
-                          builder.AllowAnyOrigin()
-                                 .AllowAnyHeader()
-                                 .AllowAnyMethod()
-                                 .AllowCredentials();
-                      });
-            });
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowAllHeaders",
+            //          builder =>
+            //          {
+            //              builder.AllowAnyOrigin()
+            //                     .AllowAnyHeader()
+            //                     .AllowAnyMethod()
+            //                     .AllowCredentials();
+            //          });
+            //});
+
+            // Authentication
+            services
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+                    //options.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                })
+                .AddCookie(
+                //options =>
+                //{
+                //    options.SlidingExpiration = true;
+                //    options.AccessDeniedPath = "/AccessDenied";
+                //    options.ExpireTimeSpan = new TimeSpan(2, 0, 0);
+                //}
+                )
+                .AddOpenIdConnect(options =>
+                {
+                    options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.SignOutScheme= CookieAuthenticationDefaults.AuthenticationScheme;
+                    //options.ClientSecret = "secret";
+
+                    options.Authority = Configuration.GetValue<string>(nameof(Settings.IDENTITY_URL));
+                    options.RequireHttpsMetadata = false;
+
+                    options.ClientId = "portal-client";
+                    options.ResponseType = "id_token token";
+                    options.SaveTokens = true;
+                });
+
             // Add framework services.
             services.AddMvc();
             services.AddSingleton<IConfiguration>(Configuration);
@@ -77,9 +112,11 @@ namespace MidnightLizard.Web.Portal
                 //app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseCors("AllowAllHeaders");
+            //app.UseCors("AllowAllHeaders");
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

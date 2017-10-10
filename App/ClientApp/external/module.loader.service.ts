@@ -7,8 +7,9 @@ import { SideService, Side } from '../shared/side.service';
 import { ExternalModule, ExternalPath } from './external.module';
 import { RouterFailModule } from '../loading/router.fail.module';
 import { RootState } from "../app/store/app.state";
-import { Actions as Act } from "../app/store/app.actions";
+import * as Act from "../app/store/app.actions";
 import { ExternalScriptLoader } from "./script.loader.service";
+import { buildUrl } from "../shared/url.helper";
 
 
 @Injectable()
@@ -16,7 +17,7 @@ export class ExternalModuleLoader implements NgModuleFactoryLoader
 {
     protected readonly _modulesCache = new Map<ExternalModule, any>();
     protected readonly _modules = {
-        [ExternalModule.SchemesModule]: Settings.current.SCHEMES_URL + '/dist/schemes-module'
+        [ExternalModule.SchemesModule]: buildUrl(Settings.current.SCHEMES_URL, '/dist/schemes-module')
     }
 
     constructor(

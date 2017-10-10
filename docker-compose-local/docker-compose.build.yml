@@ -2,7 +2,7 @@ version: '3'
 
 services:
   build:
-    image: build
+    image: microsoft/aspnetcore-build:2
     environment:
       - ENV=prod
     volumes:

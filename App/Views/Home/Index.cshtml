@@ -2,7 +2,8 @@
 @Html.Hidden("Settings", ViewData["Settings"])
 
 @*<ml-app>Loading...</ml-app>*@
-<ml-app asp-prerender-module="ClientApp/dist/main-server">Loading...</ml-app>
+<ml-app asp-prerender-module="ClientApp/dist/main-server"
+        asp-prerender-data='new { user = ViewData["User"] }'>Loading...</ml-app>
 
 <script src="~/dist/vendor.js" asp-append-version="true"></script>
 @section scripts {

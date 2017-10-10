@@ -63,6 +63,22 @@ module.exports = (env) =>
                 })
             ])
     });
+    const signinSilentBundleConfig = merge(sharedConfig, {
+        entry: { 'silent-signedin-handler': './ClientApp/app/security/silent-signedin.handler.ts' },
+        output: { path: path.join(__dirname, clientBundleOutputDir) },
+        plugins: [
+
+        ].concat(isDevBuild ? [
+            // Plugins that apply in development builds only
+            new webpack.SourceMapDevToolPlugin({
+                filename: '[file].map', // Remove this line if you prefer inline source maps
+                moduleFilenameTemplate: path.relative(clientBundleOutputDir, '[resourcePath]') // Point sourcemap entries to the original file locations on disk
+            })
+        ] : [
+                // Plugins that apply in production builds only
+                new webpack.optimize.UglifyJsPlugin()
+            ])
+    });
 
     // Configuration for server-side (prerendering) bundle suitable for running in Node
     const serverBundleConfig = merge(sharedConfig, {
@@ -91,5 +107,5 @@ module.exports = (env) =>
         devtool: 'inline-source-map'
     });
 
-    return [clientBundleConfig, serverBundleConfig];
+    return [clientBundleConfig, serverBundleConfig, signinSilentBundleConfig];
 };

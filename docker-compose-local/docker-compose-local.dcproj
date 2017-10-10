@@ -19,4 +19,7 @@
     </None>
     <None Include="docker-compose.yml" />
   </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="@FOR /f 'tokens=*' %i IN ('docker-machine env default') DO @%i" />
+  </Target>
 </Project>

@@ -1,0 +1,5 @@
+**/node_modules/
+**/dist/
+docker-compose-ci
+docker-compose-local
+kube

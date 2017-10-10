@@ -15,6 +15,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Files not to show in IDE -->
+    <None Remove="ClientApp\shared\url.helper.ts" />
     <None Remove="MidnightLizard.Web.Portal.csproj.vspscc" />
     <None Remove="Properties\PublishProfiles\Midnight-Lizard.pubxml" />
     <None Remove="yarn.lock" />
@@ -23,18 +24,19 @@
     <Content Remove="ClientApp\**" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="IdentityModel" Version="2.11.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ClientApp\dist\" />
     <Folder Include="wwwroot\dist\" />
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\shared\url.helper.ts" />
+  </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
-    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
-    <Exec Command="npm install" />
-    <Exec Command="npm run --prefix ./node_modules/midnight-lizard-vendor prod-build" />
-    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
-
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="wwwroot\dist\**; ClientApp\dist\**" />
@@ -44,4 +46,5 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 </Project>

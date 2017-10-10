@@ -1,6 +1,6 @@
 ﻿<md-toolbar color="primary" class="mat-elevation-z6">
     <button md-icon-button (click)="onSidenavToggleClick.emit()"
-            mdTooltip="Navigation">
+            mdTooltip="Toggle<br/>navigation">
         <md-icon>menu</md-icon>
     </button>
     <nav ngClass.lt-sm="small">
@@ -17,7 +17,6 @@
     <span fxFlex></span>
     <button md-icon-button [mdMenuTriggerFor]="menu"
             mdTooltip="Menu" fxHide ngClass.lt-sm="show">
-        <!--fxHide fxShow.lt-sm>-->
         <md-icon>more_vert</md-icon>
     </button>
     <md-menu #menu="mdMenu" fxHide fxShow.lt-sm>
@@ -29,4 +28,5 @@
             <span>{{item.title}}</span>
         </a>
     </md-menu>
+    <ml-user-nav></ml-user-nav>
 </md-toolbar>

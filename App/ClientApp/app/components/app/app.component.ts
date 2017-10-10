@@ -1,5 +1,6 @@
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { ObservableMedia, MediaChange } from "@angular/flex-layout";
+
 import { SideService, Side } from "../../../shared/side.service";
 
 @Component({
@@ -25,7 +26,7 @@ export class AppComponent
         {
             window.addEventListener("resize", () =>
             {
-                
+
             });
             window.dispatchEvent(new Event('resize'));
         });

@@ -5,9 +5,10 @@
     templateUrl: './toolbar.component.html',
     styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent {
-    @Output()
-    public onSidenavToggleClick = new EventEmitter<never>();
+export class ToolbarComponent
+{
+    @Output() onSidenavToggleClick = new EventEmitter<never>();
+    @Output() onSignInClick = new EventEmitter<never>();
 
     public readonly items = new Set<{ link: string, icon: string, title: string, tooltip: string, class: string }>([
         { icon: "home", link: "/home", title: "Midnight Lizard", tooltip: "Home", class: "home-link" },

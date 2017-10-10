@@ -27,7 +27,8 @@ if (ENV !== "prod")
     imports: imports,
     providers: [
         { provide: 'BASE_URL', useFactory: getBaseUrl },
-        { provide: 'SIDE', useValue: Side.Client }
+        { provide: 'SIDE', useValue: Side.Client },
+        { provide: 'USER', useValue: undefined }
     ]
 })
 export class AppModule
