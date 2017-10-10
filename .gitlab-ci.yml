@@ -1,0 +1,18 @@
+image: docker:latest
+services:
+- docker:dind
+variables:
+  DOCKER_DRIVER: overlay
+before_script:
+- docker info
+stages:
+  - build
+  - test
+  - deploy
+build:
+  stage: build
+  only:
+  - master
+  script:
+  - ls
+  - kubectl version
