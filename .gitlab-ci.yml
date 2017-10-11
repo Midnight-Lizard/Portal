@@ -26,4 +26,4 @@ gce-deploy:
   - gcloud config set container/use_client_certificate True
   - gcloud container clusters get-credentials $GCE_CLUSTER_NAME
   - kubectl get pods
-  - docker image ls
+  - gcloud docker -- image ls
