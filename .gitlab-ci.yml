@@ -9,7 +9,7 @@ docker-build:
   only:
   - master
   script:
-  - docker-compose -f "./docker/docker-compose.yml" build
+  - docker build -t portal ./app
 
 gce-deploy:
   image: google/cloud-sdk
