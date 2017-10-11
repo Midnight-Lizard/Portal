@@ -3,14 +3,9 @@ services:
 - docker:dind
 variables:
   DOCKER_DRIVER: overlay
-before_script:
-- docker info
-- apk add -U openssl curl bash ca-certificates
-- curl -L -o /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl
-- chmod +x /usr/bin/kubectl
-- kubectl version --client
 
 build:
+  image: google/cloud-sdk
   stage: build
   only:
   - master
@@ -18,8 +13,10 @@ build:
   - echo $CI_BUILD_REF_NAME
   - echo $CI_BUILD_REF
   - echo $CI_PIPELINE_ID
-  - kubectl config set-cluster $GCE_CLUSTER_NAME --server=$GCE_CLUSTER_URL --insecure-skip-tls-verify=true
-  - kubectl config set-credentials $GCE_USER_NAME --user=$GCE_USER_NAME --password=$GCE_USER_PASSWORD
-  - kubectl config set-context gce --user=$GCE_USER_NAME --cluster=$GCE_CLUSTER_NAME
-  - kubectl config use-context gce
+  - echo "$GCE_KEY" > key.json
+  - gcloud auth activate-service-account --key-file key.json
+  - gcloud config set compute/zone $GCE_CLUSTER_ZONE
+  - gcloud config set project midnight-lizard
+  - gcloud config set container/use_client_certificate True
+  - gcloud container clusters get-credentials $GCE_CLUSTER_NAME
   - kubectl get pods
