@@ -14,6 +14,7 @@ build:
   - echo $CI_BUILD_REF
   - echo $CI_PIPELINE_ID
   - echo "$GCE_KEY" > key.json
+  - ls
   - gcloud auth activate-service-account --key-file key.json
   - gcloud config set compute/zone $GCE_CLUSTER_ZONE
   - gcloud config set project midnight-lizard
