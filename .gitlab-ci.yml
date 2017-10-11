@@ -4,21 +4,26 @@ services:
 variables:
   DOCKER_DRIVER: overlay
 
-build:
-  image: google/cloud-sdk
+docker-build:
   stage: build
   only:
   - master
   script:
-  - echo $CI_BUILD_REF_NAME
-  - echo $CI_BUILD_REF
+  - docker-compose -f "./docker/docker-compose.yml" build
+
+gce-deploy:
+  image: google/cloud-sdk
+  stage: deploy
+  only:
+  - master
+  script:
   - echo $CI_PIPELINE_ID
   - echo $GCE_CLUSTER_NAME
   - echo "$GCE_KEY" > key.json
-  #- base64 -i key.txt -d > key.json
   - gcloud auth activate-service-account --key-file key.json
   - gcloud config set compute/zone $GCE_CLUSTER_ZONE
   - gcloud config set project midnight-lizard
   - gcloud config set container/use_client_certificate True
   - gcloud container clusters get-credentials $GCE_CLUSTER_NAME
   - kubectl get pods
+  - docker image ls
