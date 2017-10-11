@@ -13,6 +13,7 @@ build:
   - echo $CI_BUILD_REF_NAME
   - echo $CI_BUILD_REF
   - echo $CI_PIPELINE_ID
+  - echo $GCE_CLUSTER_NAME
   - echo "$GCE_KEY" > key.json
   #- base64 -i key.txt -d > key.json
   - gcloud auth activate-service-account --key-file key.json
