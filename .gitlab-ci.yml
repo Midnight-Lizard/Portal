@@ -6,12 +6,23 @@ variables:
   PROJ: portal
   GROUP: midnight-lizard
 
+# docker-build:
+#   stage: build
+#   only:
+#   - master
+#   script:
+#   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY;
+#   - docker build -t $CI_REGISTRY/$GROUP/$PROJ:$CI_PIPELINE_ID ./app;
+#   - docker push $CI_REGISTRY/$GROUP/$PROJ:$CI_PIPELINE_ID;
+
 gce-deploy:
   image: google/cloud-sdk
   stage: deploy
   only:
   - master
   script:
+  - chmod +x ./shell/gcloud-config.sh
+  - chmod +x ./shell/helm-deploy.sh
   - ./shell/gcloud-config.sh -k $GCE_KEY -z $GCE_CLUSTER_ZONE -p $GROUP -c $GCE_CLUSTER_NAME;
   - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash;
   - ./shell/helm-deploy.sh -i $CI_REGISTRY/$GROUP/$PROJ:12814158 -r $PROJ -c ./kube/$PROJ
