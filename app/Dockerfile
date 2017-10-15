@@ -13,8 +13,10 @@ COPY ./tsconfig.json /build/
 COPY ./webpack.config.js /build/
 RUN node ./node_modules/webpack/bin/webpack.js --env.prod -p
 
-COPY . /build
+COPY *.csproj .
 RUN dotnet restore
+
+COPY . /build
 RUN dotnet publish -c Release -o ./results
 
 #===========================================#

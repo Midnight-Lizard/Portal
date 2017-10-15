@@ -1,0 +1,39 @@
+# Default values for portal.
+replicaCount: 1
+image: portal:latest
+pullPolicy: IfNotPresent
+antiAffinity:
+  weight: 100
+  apps:
+    - schemes
+    - identity
+service:
+  name: portal
+  type: NodePort
+  externalPort: 80
+  internalPort: 80
+ingress:
+  name: ml-ingress
+  enabled: true
+  rules:
+    portal:
+      "midnight-lizard.online": 80
+      "*.midnight-lizard.online": 80
+    schemes:
+      "schemes.midnight-lizard.online": 80
+    identity:
+      "identity.midnight-lizard.online": 80
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: ml-static-ip
+    ingress.kubernetes.io/rewrite-target: /
+  tls:
+    # Secrets must be manually created in the namespace.
+    # - secretName: chart-example-tls
+    #   hosts:
+    #     - chart-example.local
+env:
+  ASPNETCORE_ENVIRONMENT: Production
+  ENV: prod
+  NODE_ENV: production
+  SCHEMES_URL: http://schemes.midnight-lizard.online
+  IDENTITY_URL: http://identity.midnight-lizard.online
