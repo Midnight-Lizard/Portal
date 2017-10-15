@@ -12,9 +12,6 @@
         -p | --project)
             PROJECT=$2
             ;;
-        -z | --zone)
-            GCE_CLUSTER_ZONE=$2
-            ;;
         *)
             echo "ERROR: unknown parameter \"$1\""
             exit 1
