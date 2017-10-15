@@ -1,4 +1,5 @@
-﻿#!/bin/sh
+﻿export PATH=$PATH:/bin/sh
+#!/bin/sh
 
 while [ "$1"!="" ]; do
     case $1 in
