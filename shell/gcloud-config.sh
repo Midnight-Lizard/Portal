@@ -1,4 +1,5 @@
-﻿while [ "$1" != "" ]; do
+﻿#!/bin/bash
+while [ "$1" != "" ]; do
     case $1 in
         -k | --key)
             GCE_KEY=$2
@@ -22,6 +23,7 @@
     esac
     shift 2
 done
+
 echo activating GCE cluster...
 echo "$GCE_KEY" > key.json;
 gcloud auth activate-service-account --key-file key.json;
