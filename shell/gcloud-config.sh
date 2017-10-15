@@ -24,7 +24,7 @@ while [ "$1" != "" ]; do
     esac
     shift 2
 done
-
+echo activating GCE cluster...
 echo "$GCE_KEY" > key.json;
 gcloud auth activate-service-account --key-file key.json;
 gcloud config set compute/zone $GCE_CLUSTER_ZONE;
