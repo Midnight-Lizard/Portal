@@ -21,6 +21,6 @@ gce-deploy:
   only:
   - master
   script:
-  - ./shell/gcloud-config.sh -k $GCE_KEY -z $GCE_CLUSTER_ZONE -p $GROUP -c $GCE_CLUSTER_NAME;
+  - bash ./shell/gcloud-config.sh -k $GCE_KEY -z $GCE_CLUSTER_ZONE -p $GROUP -c $GCE_CLUSTER_NAME;
   - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash;
-  - ./shell/helm-deploy.sh -i $CI_REGISTRY/$GROUP/$PROJ:$CI_PIPELINE_ID -r $PROJ -c ./kube/$PROJ
+  - bash ./shell/helm-deploy.sh -i $CI_REGISTRY/$GROUP/$PROJ:$CI_PIPELINE_ID -r $PROJ -c ./kube/$PROJ
