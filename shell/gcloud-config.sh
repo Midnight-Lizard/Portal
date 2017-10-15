@@ -1,4 +1,6 @@
-﻿while [ "$1"!="" ]; do
+﻿#!/bin/sh
+
+while [ "$1"!="" ]; do
     case $1 in
         -k | --key)
             GCE_KEY=$2
