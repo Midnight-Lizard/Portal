@@ -23,7 +23,8 @@ while [ "$1"!="" ]; do
 done
 
 echo "activating GCE cluster..."
-echo "$GCE_KEY" > key.json;
+echo "$GCE_KEY" > key.txt;
+base64 -i key.txt -d > key.json
 gcloud auth activate-service-account --key-file key.json;
 gcloud config set compute/zone $GCE_CLUSTER_ZONE;
 gcloud config set project $PROJECT;
