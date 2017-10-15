@@ -21,6 +21,7 @@ gce-deploy:
   only:
   - master
   script:
+  - which bash
   - chmod +x ./shell/gcloud-config.sh
   - chmod +x ./shell/helm-deploy.sh
   - ./shell/gcloud-config.sh -k $GCE_KEY -z $GCE_CLUSTER_ZONE -p $GROUP -c $GCE_CLUSTER_NAME
