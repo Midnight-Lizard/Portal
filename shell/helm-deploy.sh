@@ -1,5 +1,3 @@
-#!/bin/sh
-
 while [ "$1" != "" ]; do
     case $1 in
         -i | --image)
