@@ -1,9 +1,11 @@
-﻿import { Component } from '@angular/core';
+﻿import "rxjs/add/operator/map";
+import "rxjs/add/operator/startWith";
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-
-import { RootState } from '../../store/app.state';
 import { Observable } from 'rxjs/Observable';
 import { User } from 'oidc-client';
+
+import { RootState } from '../../store/app.state';
 
 @Component({
     selector: 'ml-user-nav',

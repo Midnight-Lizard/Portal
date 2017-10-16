@@ -1,3 +1,4 @@
+/// <reference path="../shared/environment.ts" />
 import { SideService, Side } from "../shared/side.service";
 import { Settings } from "./models/settings.model";
 new SideService(Side.Client);

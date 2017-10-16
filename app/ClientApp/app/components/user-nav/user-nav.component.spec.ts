@@ -1,18 +1,18 @@
-﻿/// <reference path="../../../../node_modules/@types/jasmine/index.d.ts" />
-import { TestBed, async, ComponentFixture, ComponentFixtureAutoDetect } from '@angular/core/testing';
-import { BrowserModule, By } from "@angular/platform-browser";
+﻿import { TestBed, fakeAsync, ComponentFixture, ComponentFixtureAutoDetect } from '@angular/core/testing';
+import { By } from "@angular/platform-browser";
 import { UserNavComponent } from './user-nav.component';
+import { AppTestingModule } from '../../app.module.testing';
 
 let component: UserNavComponent;
 let fixture: ComponentFixture<UserNavComponent>;
 
 describe('user-nav component', () =>
 {
-    beforeEach(async(() =>
+    beforeEach(fakeAsync(() =>
     {
         TestBed.configureTestingModule({
             declarations: [UserNavComponent],
-            imports: [ BrowserModule ],
+            imports: [AppTestingModule],
             providers: [
                 { provide: ComponentFixtureAutoDetect, useValue: true }
             ]
@@ -21,7 +21,7 @@ describe('user-nav component', () =>
         component = fixture.componentInstance;
     }));
 
-    it('should do something', async(() =>
+    it('should do something', fakeAsync(() =>
     {
         expect(true).toEqual(true);
     }));

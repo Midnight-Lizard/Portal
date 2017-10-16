@@ -3,6 +3,8 @@ import { User } from "oidc-client";
 import { ActionFakeTypes, Action } from "./app.action-sets";
 
 
+export const AppFeature: keyof RootState = "ML";
+
 export interface ActionError 
 {
     readonly errorMessage?: string,

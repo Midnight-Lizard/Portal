@@ -1,5 +1,6 @@
-﻿import * as Actions from "./app.actions";
-import { Observable } from "rxjs/Observable";
+﻿import { Observable } from "rxjs/Observable";
+import { Actions } from "@ngrx/effects";
+import * as Acts from "./app.actions";
 
 declare module "@ngrx/effects" {
     export class Actions<V> extends Observable<V>
@@ -8,17 +9,17 @@ declare module "@ngrx/effects" {
     }
 }
 
-export declare type Action = typeof Actions[keyof typeof Actions]["prototype"];
-export declare type ActionFakeTypes = keyof typeof Actions;
-export type ActionType<T extends ActionFakeTypes> = typeof Actions[T]["prototype"];
-export const ActionType: {[x in keyof typeof Actions]: x} = (() =>
+export declare type Action = typeof Acts[keyof typeof Acts]["prototype"];
+export declare type ActionFakeTypes = keyof typeof Acts;
+export type ActionType<T extends ActionFakeTypes> = typeof Acts[T]["prototype"];
+export const ActionType: {[x in keyof typeof Acts]: x} = (() =>
 {
     const actType = {} as any;
     let actionClassName: ActionFakeTypes;
-    for (actionClassName in Actions)
+    for (actionClassName in Acts)
     {
         (<any>actType)[actionClassName] = new (<any>(<any>
-            Actions[actionClassName].prototype).constructor)().type
+            Acts[actionClassName].prototype).constructor)().type
     }
     return actType;
 })();

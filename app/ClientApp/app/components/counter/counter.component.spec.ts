@@ -10,6 +10,7 @@ import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule, By } from "@angular/platform-browser";
 import { CounterComponent } from './counter.component';
 import { MaterialControlsModule } from '../../../shared/material.module';
+import { AppTestingModule } from '../../app.module.testing';
 
 let component: CounterComponent;
 let fixture: ComponentFixture<CounterComponent>;
@@ -21,11 +22,7 @@ describe('Counter component', () =>
         TestBed.configureTestingModule({
             declarations: [CounterComponent],
             imports: [
-                BrowserModule,
-                NoopAnimationsModule,
-                FormsModule,
-                MaterialControlsModule,
-                FlexLayoutModule
+                AppTestingModule
             ],
             providers: [
                 { provide: ComponentFixtureAutoDetect, useValue: true }
