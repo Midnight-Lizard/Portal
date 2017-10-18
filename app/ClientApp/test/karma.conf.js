@@ -30,7 +30,7 @@ module.exports = function (config) {
             },
             ChromeCI: {
                 base: 'ChromeHeadless',
-                chromeDataDir: '~/Chrome',
+                chromeDataDir: '/Chrome',
                 flags: ['--no-sandbox']
             }
         },
