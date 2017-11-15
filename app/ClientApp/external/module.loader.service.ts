@@ -1,5 +1,6 @@
 ﻿import "rxjs";
 import { Injectable, NgModuleFactoryLoader, NgModuleFactory, Compiler, Type } from '@angular/core';
+import { HttpHeaders } from "@angular/common/http";
 import { Store } from "@ngrx/store";
 
 import { Settings } from '../app/models/settings.model';
@@ -43,11 +44,25 @@ export class ExternalModuleLoader implements NgModuleFactoryLoader
             }
 
             const modulePromise = moduleCodePromise
-                .then(code => code || this.scriptLoader.load(this.getScriptUrl(moduleName, side)))
+                .then(code =>
+                {
+                    if (code)
+                    {
+                        return Promise.resolve({
+                            body: code as string | null,
+                            headers: undefined as HttpHeaders | undefined
+                        });
+                    }
+                    else
+                    {
+                        return this.scriptLoader.load(this.getScriptUrl(moduleName, side));
+                    }
+                })
                 .then(code =>
                 {
                     const exports = { default: {} as any };
-                    eval(code);
+                    eval(code.body!);
+                    this.evaluateExternalModule(moduleName, code.headers);
                     return exports.default;
                 })
                 .then(module => module, error =>
@@ -81,6 +96,21 @@ export class ExternalModuleLoader implements NgModuleFactoryLoader
     protected getScriptUrl(moduleName: ExternalModule, side: Side)
     {
         return `${this._modules[moduleName]}-${side}.js`;
+    }
+
+    protected evaluateExternalModule(moduleName: ExternalModule, headers?: HttpHeaders): void
+    {
+        let settings: any | undefined;
+        if (headers && headers.has("settings"))
+        {
+            const settingsHeaders = headers.get("settings");
+            if (settingsHeaders)
+            {
+                settings = settingsHeaders.split(",").reduce(
+                    (payload, setting) => payload[setting] = headers.get(setting), {} as any);
+            }
+        }
+        this.store$.dispatch(new Act.ExternalModuleEvaluated({ moduleName, settings }));
     }
 }
 

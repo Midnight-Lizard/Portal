@@ -63,3 +63,12 @@ export class ExternalModuleScriptDownloded
         script: string
     }) { }
 }
+
+export class ExternalModuleEvaluated
+{
+    readonly type = "ExternalModuleEvaluated";
+    constructor(readonly payload: {
+        moduleName: ExternalModule,
+        settings?: any
+    }) { }
+}

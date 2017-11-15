@@ -9,6 +9,7 @@ export class ExternalScriptLoader
 
     load(url: string)
     {
-        return this.http.get(url, { responseType: 'text' }).toPromise();
+        return this.http.get(url, { observe: "response", responseType: 'text' })
+            .toPromise();
     }
 }
