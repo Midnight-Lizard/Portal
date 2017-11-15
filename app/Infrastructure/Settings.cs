@@ -7,6 +7,7 @@ namespace MidnightLizard.Web.Portal.Infrastructure
 {
     public class Settings
     {
+        public string PORTAL_URL { get; set; }
         public string SCHEMES_URL { get; set; }
         public string IDENTITY_URL { get; set; }
     }
