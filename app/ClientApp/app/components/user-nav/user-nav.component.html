@@ -1,17 +1,17 @@
-﻿<button md-icon-button mdTooltip="Account menu"
-        [mdMenuTriggerFor]="menu">
-    <md-icon>person</md-icon>
+﻿<button mat-icon-button matTooltip="Account menu"
+        [matMenuTriggerFor]="menu">
+    <mat-icon>person</mat-icon>
 </button>
-<md-menu #menu="mdMenu" yPosition="below" xPosition="before" [overlapTrigger]="false">
-    <span *ngIf="user$|async" md-menu-item disabled class="user-menu-header">
+<mat-menu #menu="matMenu" yPosition="below" xPosition="before" [overlapTrigger]="false">
+    <span *ngIf="user$|async" mat-menu-item disabled class="user-menu-header">
         Signed in as <strong>{{(user$|async).profile.preferred_username}}</strong>
     </span>
     <hr *ngIf="user$|async" class="user-menu-separator"/>
-    <a *ngFor="let item of items$|async" md-menu-item
+    <a *ngFor="let item of items$|async" mat-menu-item
        [routerLink]="[item.link]"
-       [mdTooltip]="item.tooltip"
-       mdTooltipPosition="left">
-        <md-icon>{{item.icon}}</md-icon>
+       [matTooltip]="item.tooltip"
+       matTooltipPosition="left">
+        <mat-icon>{{item.icon}}</mat-icon>
         <span>{{item.title}}</span>
     </a>
-</md-menu>
+</mat-menu>

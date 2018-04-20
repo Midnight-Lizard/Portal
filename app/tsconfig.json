@@ -9,7 +9,11 @@
     "emitDecoratorMetadata": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
-    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": false,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
     "lib": [ "es6", "dom" ]
   },
   "exclude": [ "bin", "node_modules" ],

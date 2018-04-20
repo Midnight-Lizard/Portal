@@ -1,23 +1,23 @@
 ﻿import { NgModule } from '@angular/core';
 import {
-    MdButtonModule, MdCheckboxModule, MdToolbarModule, MdListModule,
-    MdSidenavModule, MdIconModule, MdInputModule, MdMenuModule, MdTooltipModule,
-    MdProgressSpinnerModule, MdTableModule, MdPaginatorModule, MdSortModule
+    MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
+    MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule, MatTooltipModule,
+    MatProgressSpinnerModule, MatTableModule, MatPaginatorModule, MatSortModule
 } from '@angular/material';
 import { CdkTableModule } from "@angular/cdk/table";
 
 @NgModule({
     imports: [
-        MdButtonModule, MdCheckboxModule, MdToolbarModule, MdListModule,
-        MdSidenavModule, MdIconModule, MdInputModule, MdMenuModule, MdTooltipModule,
-        MdProgressSpinnerModule, MdTableModule, MdPaginatorModule,
-        CdkTableModule, MdSortModule
+        MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
+        MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule, MatTooltipModule,
+        MatProgressSpinnerModule, MatTableModule, MatPaginatorModule,
+        CdkTableModule, MatSortModule
     ],
     exports: [
-        MdButtonModule, MdCheckboxModule, MdToolbarModule, MdListModule,
-        MdSidenavModule, MdIconModule, MdInputModule, MdMenuModule, MdTooltipModule,
-        MdProgressSpinnerModule, MdTableModule, MdPaginatorModule,
-        CdkTableModule, MdSortModule
+        MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
+        MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule, MatTooltipModule,
+        MatProgressSpinnerModule, MatTableModule, MatPaginatorModule,
+        CdkTableModule, MatSortModule
     ]
 })
 export class MaterialControlsModule {

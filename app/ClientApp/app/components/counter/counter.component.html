@@ -4,10 +4,10 @@
 
 <form #counterForm="ngForm">
     
-    <md-input-container color="accent">
-        <input mdInput placeholder="Current count" required id="currentCountInput" name="currentCount" [(ngModel)]="currentCount">
-    </md-input-container>
+    <mat-form-field color="accent">
+        <input matInput placeholder="Current count" required id="currentCountInput" name="currentCount" [(ngModel)]="currentCount">
+    </mat-form-field>
     <br/>
-    <button md-raised-button color="warn" (click)="incrementCounter()">Increment</button>
+    <button mat-raised-button color="warn" (click)="incrementCounter()">Increment</button>
 
 </form>

@@ -6,7 +6,7 @@ import { DataSource } from "@angular/cdk/table";
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
-import { MdSort, MdPaginator } from "@angular/material";
+import { MatSort, MatPaginator } from "@angular/material";
 
 @Component({
     selector: 'fetchdata',
@@ -14,8 +14,8 @@ import { MdSort, MdPaginator } from "@angular/material";
 })
 export class FetchDataComponent implements OnInit
 {
-    @ViewChild(MdSort) sort: MdSort;
-    @ViewChild(MdPaginator) paginator: MdPaginator;
+    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
     public data: WeatherSource;
     public readonly displayedColumns = ["dateFormatted", "temperatureC", "temperatureF", "summary"];
 
@@ -32,7 +32,7 @@ export class FetchDataComponent implements OnInit
 export class WeatherSource extends DataSource<WeatherForecast>
 {
     protected readonly _data: BehaviorSubject<WeatherForecast[]> = new BehaviorSubject([]);
-    constructor(http: Http, originUrl: string, protected _sort: MdSort, protected _paginator: MdPaginator)
+    constructor(http: Http, originUrl: string, protected _sort: MatSort, protected _paginator: MatPaginator)
     {
         super();
         http.get(originUrl + 'api/SampleData/WeatherForecasts').subscribe(result =>
@@ -45,7 +45,7 @@ export class WeatherSource extends DataSource<WeatherForecast>
     {
         return Observable.merge(
             this._data.asObservable(),
-            this._sort.mdSortChange,
+            this._sort.sortChange,
             this._paginator.page).map(() =>
             {
                 return this.getSortedData();

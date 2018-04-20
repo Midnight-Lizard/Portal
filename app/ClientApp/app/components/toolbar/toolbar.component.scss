@@ -1,8 +1,10 @@
 ﻿@import '~midnight-lizard-vendor/themes/light-theme.scss';
+@import '~@angular/material/theming';
 
 :host
 {
-    z-index: 1;
+    z-index: 100;
+    @include mat-elevation(6);
 }
 
 nav

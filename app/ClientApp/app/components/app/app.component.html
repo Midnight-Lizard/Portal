@@ -3,12 +3,12 @@
     <ml-toolbar (onSidenavToggleClick)="toggleSidenav()">
     </ml-toolbar>
 
-    <md-sidenav-container fxFlex (backdropClick)="toggleSidenav()">
-        <md-sidenav class="left-side" [ngClass]="{server:execute.isServerSide}"
+    <mat-sidenav-container fxFlex="100" (backdropClick)="toggleSidenav()">
+        <mat-sidenav class="left-side" [ngClass]="{server:execute.isServerSide}"
                     ngClass.sm="over-50" ngClass.lt-sm="over-80"
                     [mode]="sidenavMode" [(opened)]="sidenavIsOpened">
             <router-outlet name="left-side"></router-outlet>
-        </md-sidenav>
+        </mat-sidenav>
 
         <div ngClass="sidenav-content" fxLayout="row" fxLayout.lt-sm="column">
             <div fxFlex ngClass="center" fxLayout="column">
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-    </md-sidenav-container>
+    </mat-sidenav-container>
 
 
 </div>
