@@ -22,7 +22,7 @@ export class AuthenticationService
         authority: Settings.current.IDENTITY_URL,
         client_id: "portal-client",
         response_type: "id_token token",
-        scope: "openid profile",
+        scope: "openid profile schemes-commander schemes-querier",
         post_logout_redirect_uri: buildUrl(this.baseUrl, "signedout"),
     };
 
@@ -49,7 +49,9 @@ export class AuthenticationService
         else
         {
             const userManager = new UserManager(this.config);
-            return userManager.signinSilent({ redirect_uri: buildUrl(this.baseUrl, "silentsignedin") });
+            return userManager.signinSilent({
+                redirect_uri: buildUrl(this.baseUrl, "silentsignedin")
+            });
         }
     }
 

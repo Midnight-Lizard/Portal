@@ -18,6 +18,7 @@ export class StateComponent
     /** state ctor */
     constructor(store$: Store<RootState>, execute: SideService)
     {
+        console.log("StateComponent" + execute.side);
         execute.on(Side.Server, () => this.state = store$
             .map(s => JSON.stringify(s, null, 0)));
     }

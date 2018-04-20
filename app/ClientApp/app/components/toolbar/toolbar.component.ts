@@ -14,6 +14,7 @@ export class ToolbarComponent
         { icon: "home", link: "/home", title: "Midnight Lizard", tooltip: "Home", class: "home-link" },
         { icon: "palette", link: "/schemes", title: "SCHEMES", tooltip: "Color schemes", class: "normal-link" },
         { icon: "book", link: "/docs", title: "DOCS", tooltip: "Documentation", class: "normal-link" },
-        { icon: "bug_report", link: "/issues", title: "ISSUES", tooltip: "Bug tracker", class: "normal-link" }
+        { icon: "bug_report", link: "/issues", title: "ISSUES", tooltip: "Bug tracker", class: "normal-link" },
+        { icon: "device_hub", link: "/api", title: "API", tooltip: "Commander API", class: "normal-link" }
     ]);
 }

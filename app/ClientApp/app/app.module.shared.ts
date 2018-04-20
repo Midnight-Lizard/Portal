@@ -2,7 +2,7 @@ import { NgModule, NgModuleFactoryLoader } from '@angular/core';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { HttpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
@@ -29,6 +29,7 @@ import { AppEffects } from './store/app.effects';
 import { AuthenticationService } from './security/authentication.service';
 import { LoadingComponent } from '../loading/loading.component';
 import { UserNavComponent } from './components/user-nav/user-nav.component';
+import { CommanderComponent } from './components/commander/commander.component';
 
 @NgModule({
     declarations: [
@@ -37,6 +38,7 @@ import { UserNavComponent } from './components/user-nav/user-nav.component';
         ToolbarComponent,
         FooterComponent,
         CounterComponent,
+        CommanderComponent,
         FetchDataComponent,
         StateComponent,
         UserNavComponent
@@ -45,7 +47,7 @@ import { UserNavComponent } from './components/user-nav/user-nav.component';
         CommonModule,
         FlexLayoutModule,
         MaterialControlsModule,
-        FormsModule,
+        FormsModule, ReactiveFormsModule,
         HttpModule,
         LoadingModule,
         HttpClientModule,
@@ -53,6 +55,7 @@ import { UserNavComponent } from './components/user-nav/user-nav.component';
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
             { path: 'docs', component: CounterComponent },
+            { path: 'api', component: CommanderComponent },
             { path: 'issues', component: FetchDataComponent },
             { path: 'signin', component: LoadingComponent },
             { path: 'silentin', component: LoadingComponent },

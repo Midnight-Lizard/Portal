@@ -29,12 +29,12 @@ namespace MidnightLizard.Web.Portal.Controllers
             this.logger = logger;
             settings = new Settings();
             config.Bind(settings);
-            ViewData["Settings"] = JsonConvert.SerializeObject(settings);
         }
 
         //[AllowAnonymous]
         public async Task<IActionResult> Index()
         {
+            ViewData["Settings"] = JsonConvert.SerializeObject(settings);
             try
             {
                 if (Request.Path == "/signedout")

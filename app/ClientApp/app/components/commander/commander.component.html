@@ -1,0 +1,17 @@
+﻿<form [formGroup]="apiForm" (ngSubmit)="onPublish()">
+    <md-input-container class="text-container" color="accent">
+        <textarea mdInput formControlName="json" placeholder="JSON"
+                  mdTextareaAutosize mdAutosizeMinRows="10" mdAutosizeMaxRows="10">
+        </textarea>
+    </md-input-container>
+    <br />
+    <br />
+    <button md-raised-button color="warn" type="submit">Publish</button>
+    <br />
+    <br />
+    <md-input-container class="text-container" color="warn">
+        <textarea mdInput formControlName="results" placeholder="Results"
+                  mdTextareaAutosize mdAutosizeMinRows="10" mdAutosizeMaxRows="10">
+        </textarea>
+    </md-input-container>
+</form>

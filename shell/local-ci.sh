@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-TAG=4
+TAG=$(date +"%Y-%m-%d--%H-%M-%S")
 PROJ=portal
 REGISTRY=localhost:5000
 IMAGE=$REGISTRY/$PROJ:$TAG
@@ -12,4 +12,8 @@ docker build -t $IMAGE \
     ../app
 kubectl config set-context minikube
 docker push $IMAGE
-./helm-deploy.sh -i $IMAGE -r $PROJ -c ../kube/$PROJ -s ingress.enabled=false
+./helm-deploy.sh -i $IMAGE -r $PROJ -c ../kube/$PROJ \
+    -s ingress.enabled=false \
+    -s env.ASPNETCORE_ENVIRONMENT=Development \
+    -s env.IDENTITY_URL=http://192.168.1.44:32326/
+
