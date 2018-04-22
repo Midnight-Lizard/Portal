@@ -48,21 +48,26 @@
 
     .home-link
     {
-        margin-left: -32px;
-        font-size: 18px !important;
+        font-size: 20px !important;
         vertical-align: middle;
     }
 
-    .home-link:before
-    {
-        content: "";
-        background-image: url(/assets/ml-toolbar-icon-128.png);
-        background-size: 32px 32px;
+    .home-link .mat-icon.logo {
+        line-height: 32px;
         width: 32px;
         height: 32px;
-        display: inline-block;
-        margin: -10px 5px -10px 0px;
     }
+
+    // .home-link:before
+    // {
+    //     content: "";
+    //     background-image: url(/assets/ml-toolbar-icon-128.png);
+    //     background-size: 32px 32px;
+    //     width: 32px;
+    //     height: 32px;
+    //     display: inline-block;
+    //     margin: -10px 5px -10px 0px;
+    // }
 
     .copyright
     {

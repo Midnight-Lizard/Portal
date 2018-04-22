@@ -1,6 +1,8 @@
 ﻿<mat-toolbar color="primary">
     <button mat-icon-button (click)="onSidenavToggleClick.emit()"
-            matTooltip="Toggle<br/>navigation">
+            matTooltip="Toggle navigation"
+            matTooltipPosition="right"
+            class="mat-button mat-icon-button">
         <mat-icon>menu</mat-icon>
     </button>
     <nav ngClass.lt-sm="small">
@@ -11,12 +13,15 @@
            [routerLink]="[item.link]"
            #state="routerLinkActive"
            [fxHide.lt-sm]="!state.isActive">
+            <mat-icon *ngIf="item.link==='/home'" class="logo"
+                       svgIcon="midnight-lizard"></mat-icon>
             {{item.title}}
         </a>
     </nav>
     <span fxFlex></span>
     <button mat-icon-button [matMenuTriggerFor]="menu"
-            matTooltip="Menu" fxHide ngClass.lt-sm="show">
+            matTooltip="Menu" fxHide ngClass.lt-sm="show"
+            class="mat-button mat-icon-button">
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu" fxHide fxShow.lt-sm>

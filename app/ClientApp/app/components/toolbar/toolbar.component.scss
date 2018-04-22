@@ -1,62 +1,55 @@
 ﻿@import '~midnight-lizard-vendor/themes/light-theme.scss';
 @import '~@angular/material/theming';
-
-:host
-{
+:host {
     z-index: 100;
     @include mat-elevation(6);
 }
 
-nav
-{
+nav {
     text-shadow: 0px 0px 1px $ml-background;
     /*text-shadow: 0px 0px 1px black;*/
 }
 
-nav
-{
+nav {
     height: 100%;
-
-    a
-    {
+    a {
         height: 100%;
         border-radius: 0px;
         vertical-align: middle;
         line-height: 64px;
     }
-
-    a[style*="block"]
-    {
+    a[style*="block"],
+    a[class*="flex-layout"] {
         display: inline-block !important;
+    }
+    .mat-icon.logo {
+        line-height: 32px;
+        width: 32px;
+        height: 32px;
     }
 }
 
-nav.small
-{
-    a
-    {
+nav.small {
+    a {
         line-height: 54px;
     }
 }
 
-nav a.home-link
-{
-    font-size: 18px !important;
+nav a.home-link {
+    font-size: 20px !important;
 }
 
-nav a.home-link:before
-{
-    content: "";
-    background-image: url(/assets/ml-toolbar-icon-128.png);
-    background-size: 32px 32px;
-    width: 32px;
-    height: 32px;
-    display: inline-block;
-    margin: -10px 5px -10px 0px;
-}
+// nav a.home-link:before {
+//     content: "";
+//     background-image: url(/assets/ml-toolbar-icon-128.png);
+//     background-size: 32px 32px;
+//     width: 32px;
+//     height: 32px;
+//     display: inline-block;
+//     margin: -10px 5px -10px 0px;
+// }
 
-nav .active-link:after
-{
+nav .active-link:after {
     content: "";
     position: absolute;
     bottom: 0px;
@@ -66,12 +59,10 @@ nav .active-link:after
     border-bottom: solid 2px mat-color($ml-accent, A700);
 }
 
-.mat-icon-button[fxhide]
-{
+.mat-icon-button[fxhide] {
     display: none;
 }
 
-.mat-icon-button.show
-{
+.mat-icon-button.show {
     display: inline-block !important;
 }

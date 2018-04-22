@@ -1,20 +1,28 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <base href="@(Url.Content("~/"))" />
+    <title>@ViewData["Title"]</title>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Midnight Lizard</title>
-    <base href="~/" />
+    @Html.Raw(ViewData["Meta"])
+
     <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/assets/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    @Html.Raw(ViewData["Links"])
+
+    @Html.Raw(ViewData["Styles"])
 </head>
 <body class="mat-typography">
     @RenderBody()
 
+    @Html.Raw(ViewData["TransferData"])
+    @Html.Raw(ViewData["Scripts"])
     @RenderSection("scripts", required: false)
-
-    <div style="position: fixed; right:20px; bottom:0px; width:200px; text-align:right;">
+    
+    <div style="position: fixed; z-index:1000; right:20px; bottom:5px; width:300px; text-align:right;">
         <dl>
             @foreach (var claim in User.Claims)
             {

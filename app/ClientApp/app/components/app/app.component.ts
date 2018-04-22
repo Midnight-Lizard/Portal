@@ -1,5 +1,7 @@
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { ObservableMedia, MediaChange } from "@angular/flex-layout";
+import { MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { SideService, Side } from "../../../shared/side.service";
 
@@ -20,8 +22,14 @@ export class AppComponent
         this._sidenavIsOpened_UserDefined = this.sidenavIsOpened = !this.sidenavIsOpened;
     }
 
-    constructor(media: ObservableMedia, readonly execute: SideService)
+    constructor(media: ObservableMedia,
+        iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
+        readonly execute: SideService)
     {
+        iconRegistry.addSvgIcon(
+            'midnight-lizard',
+            sanitizer.bypassSecurityTrustResourceUrl('assets/ml-icon-512.svg'));
+
         execute.on(Side.Client, () =>
         {
             window.addEventListener("resize", () =>
