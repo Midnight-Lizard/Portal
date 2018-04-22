@@ -17,15 +17,19 @@ import { buildUrl } from "../shared/url.helper";
 export class ExternalModuleLoader implements NgModuleFactoryLoader
 {
     protected readonly _modulesCache = new Map<ExternalModule, any>();
-    protected readonly _modules = {
-        [ExternalModule.SchemesModule]: buildUrl(Settings.current.SCHEMES_URL, '/dist/schemes-module')
-    }
+    protected readonly _modules: {[p in typeof ExternalModule[keyof typeof ExternalModule]]: string}
 
     constructor(
         protected readonly env: SideService,
         protected readonly compiler: Compiler,
         protected readonly store$: Store<RootState>,
-        protected readonly scriptLoader: ExternalScriptLoader) { }
+        protected readonly scriptLoader: ExternalScriptLoader,
+        protected readonly settings: Settings)
+    {
+        this._modules = {
+            [ExternalModule.SchemesModule]: buildUrl(settings.schemesUrl, '/dist/schemes-module')
+        }
+    }
 
     protected loadExternalModule(moduleName: ExternalModule, side: Side = Side.Client)
     {

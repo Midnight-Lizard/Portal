@@ -1,24 +1,25 @@
 ﻿import { Injectable } from "@angular/core";
 
+declare const TRANSFER_CACHE: { settings: Settings };
+
 @Injectable()
 export class Settings
 {
-    static current: Settings;
+    constructor() { }
 
-    public SCHEMES_URL: string;
-    public IDENTITY_URL: string;
-    public ENV: "prod" | "test" | "dev";
+    // static current: Settings;
 
-    public static initializeServerSideSettings()
-    {
-        Settings.current = new Settings();
-        Object.assign(Settings.current, process.env);
-    }
+    public schemesUrl: string;
+    public identityUrl: string;
+    public env: "prod" | "test" | "dev";
 
-    public static initializeClientSideSettings()
-    {
-        Settings.current = new Settings();
-        Object.assign(Settings.current,
-            JSON.parse((document.getElementById("Settings") as HTMLInputElement).value));
-    }
+    // public static initializeServerSideSettings()
+    // {
+    //     return Object.assign(new Settings(), process.env);
+    // }
+
+    // public static initializeClientSideSettings()
+    // {
+    //     return TRANSFER_CACHE.settings;
+    // }
 }

@@ -1,4 +1,5 @@
 import { NgModule, NgModuleFactoryLoader } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -8,6 +9,7 @@ import { HttpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreRouterConnectingModule } from "@ngrx/router-store";
 import { EffectsModule } from "@ngrx/effects";
+// import { PrebootModule } from 'preboot';
 
 import { AppComponent } from './components/app/app.component'
 import { HomeComponent } from './components/home/home.component';
@@ -72,7 +74,9 @@ import { CommanderComponent } from './components/commander/commander.component';
         ]),
         StoreRouterConnectingModule,
         StoreModule.forRoot({ ML: appReducer }, { initialState: loadInitialState }),
-        EffectsModule.forRoot([AppEffects])
+        EffectsModule.forRoot([AppEffects]),
+        BrowserModule.withServerTransition({ appId: 'ml' }),
+        // PrebootModule.withConfig({ appRoot: 'ml-app' }) -> works weird
     ],
     providers: [
         SideService, ExternalScriptLoader, AuthenticationService,

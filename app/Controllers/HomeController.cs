@@ -19,22 +19,21 @@ namespace MidnightLizard.Web.Portal.Controllers
     //[Authorize]
     public class HomeController : Controller
     {
-        protected readonly Settings settings;
         protected readonly ILogger<HomeController> logger;
+        private readonly IConfiguration config;
+        private Dictionary<string, object> user;
 
         public HomeController(
             IConfiguration config,
             ILogger<HomeController> logger)
         {
+            this.config = config;
             this.logger = logger;
-            settings = new Settings();
-            config.Bind(settings);
         }
 
         //[AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            ViewData["Settings"] = JsonConvert.SerializeObject(settings);
             try
             {
                 if (Request.Path == "/signedout")
@@ -53,13 +52,12 @@ namespace MidnightLizard.Web.Portal.Controllers
                     }
                     if (result.Succeeded)
                     {
-                        var user = result.Properties.GetTokens()
+                        this.user = result.Properties.GetTokens()
                             .ToDictionary(x => x.Name, x => x.Value as object);
-                        user.Add("profile", result.Principal.Claims
+                        this.user.Add("profile", result.Principal.Claims
                             .ToDictionary(c => c.Type, c => c.Value));
-                        user.Add("session_state", result.Properties.Items[".sessionState"]);
-                        user.Add("expired", true);
-                        ViewData["User"] = user;
+                        this.user.Add("session_state", result.Properties.Items[".sessionState"]);
+                        this.user.Add("expired", true);
                     }
                 }
             }
@@ -67,12 +65,26 @@ namespace MidnightLizard.Web.Portal.Controllers
             {
                 this.logger.LogError(ex, ex.Message);
             }
+            await this.Prerendering();
             return View();
         }
 
         public IActionResult Error()
         {
             return View();
+        }
+
+        private async Task Prerendering()
+        {
+            var prerenderResult = await Request.BuildPrerender(this.config, this.user);
+
+            ViewData["SpaHtml"] = prerenderResult.Html; // our <app-root /> from Angular
+            ViewData["Title"] = prerenderResult.Globals["title"]; // set our <title> from Angular
+            ViewData["Styles"] = prerenderResult.Globals["styles"]; // put styles in the correct place
+            ViewData["Scripts"] = prerenderResult.Globals["scripts"]; // scripts (that were in our header)
+            ViewData["Meta"] = prerenderResult.Globals["meta"]; // set our <meta> SEO tags
+            ViewData["Links"] = prerenderResult.Globals["links"]; // set our <link rel="canonical"> etc SEO tags
+            ViewData["TransferData"] = prerenderResult.Globals["transferData"]; // our transfer data set to window.TRANSFER_CACHE = {};
         }
     }
 }

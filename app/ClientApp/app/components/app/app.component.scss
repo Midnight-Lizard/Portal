@@ -1,44 +1,31 @@
 ﻿@import '~midnight-lizard-vendor/themes/light-theme.scss';
-
-mat-sidenav-container
-{
+mat-sidenav-container {
     background-color: $ml-background !important;
     flex: 1 1 100%;
 }
 
-.mat-drawer-content
-{
-    margin-left: 20%;
+.root.server .mat-drawer-content {
+    margin-left: 20% !important;
     overflow-y: scroll !important;
 }
 
-.left-side
-{
-
-    &.server
-    {
+.left-side {
+    &.server {
         transform: translate3d(0px, 0px, 0px);
     }
-
-    &:not(important)
-    {
+    &:not(important) {
         width: 20%;
         padding-bottom: 20px;
     }
-
-    &.over-80
-    {
+    &.over-80 {
         width: 80%;
     }
-
-    &.over-50
-    {
+    &.over-50 {
         width: 50%;
     }
 }
 
-.root
-{
+.root {
     height: 100%;
     display: flex;
     box-sizing: border-box;
@@ -47,8 +34,7 @@ mat-sidenav-container
     -webkit-box-direction: normal;
 }
 
-.right-side
-{
+.right-side {
     padding: 20px;
     background-color: $ml-background !important;
     flex: 1 1 100%;
@@ -56,55 +42,46 @@ mat-sidenav-container
     min-height: 100%;
 }
 
-.right-side.full-width
-{
+.right-side.full-width {
     max-width: initial;
 }
 
-.right-side-content
-{
+.right-side-content {
     position: sticky;
     top: 20px;
 }
 
-.sidenav-content
-{
+.sidenav-content {
     min-height: 100%;
     flex-direction: row;
     display: flex;
 }
 
-.center
-{
+.center {
     display: flex;
     flex-direction: column;
     flex: 1 1 100%;
 }
 
-.main-content
-{
+.main-content {
     padding: 20px;
     background-color: mat-color($ml-content) !important;
     flex: 1 1 100%;
 }
 
-ml-footer
-{
+ml-footer {
     flex: 0 1 auto;
 }
 
-.loading
-{
+.loading {
     display: none;
 }
 
-router-outlet + .loading
-{
+router-outlet+.loading {
     display: block;
 }
 
-.mat-tooltip:not(imp)
-{
+.mat-tooltip:not(imp) {
     background: rgba(90, 90, 90, 0.95);
     padding-top: 8px;
     padding-bottom: 8px;
@@ -114,15 +91,13 @@ router-outlet + .loading
     font-size: 14px;
 }
 
-.mat-button-toggle-label
-{
+.mat-button-toggle-label {
     display: inline-block;
     width: 100%;
     cursor: pointer;
 }
 
-.mat-option.mat-selected:not(imp)
-{
+.mat-option.mat-selected:not(imp) {
     background-color: mat-color($ml-accent, A100) !important;
     color: $ml-text-color !important;
 }

@@ -1,14 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const AotPlugin = require('@ngtools/webpack').AotPlugin;
+const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 
-module.exports = (env) =>
-{
+module.exports = (env) => {
     // Configuration in common to both client-side and server-side bundles
     const isDevBuild = !(env && env.prod);
-    const sharedConfig = {
+    const sharedConfig = (useAoT) => ({
         stats: { modules: false },
         context: __dirname,
         resolve: { extensions: ['.js', '.ts'] },
@@ -18,7 +17,11 @@ module.exports = (env) =>
         },
         module: {
             rules: [
-                { test: /\.ts$/, include: /ClientApp/, use: ['awesome-typescript-loader?silent=true', 'angular2-template-loader', 'angular-router-loader'] },
+                {
+                    test: /\.ts$/, include: /ClientApp/, use: useAoT
+                        ? "@ngtools/webpack"
+                        : ['awesome-typescript-loader?silent=true', 'angular2-template-loader', 'angular-router-loader']
+                },
                 { test: /\.html$/, use: 'html-loader?minimize=false' },
                 { test: /\.css$/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize'] },
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' },
@@ -35,11 +38,11 @@ module.exports = (env) =>
                 ENV: JSON.stringify(process.env.ENV)
             })
         ]
-    };
+    });
 
     // Configuration for client-side bundle suitable for running in browsers
     const clientBundleOutputDir = './wwwroot/dist';
-    const clientBundleConfig = merge(sharedConfig, {
+    const clientBundleConfig = merge(sharedConfig(!isDevBuild), {
         entry: { 'main-client': './ClientApp/boot-client.ts' },
         output: { path: path.join(__dirname, clientBundleOutputDir) },
         plugins: [
@@ -56,14 +59,14 @@ module.exports = (env) =>
         ] : [
                 // Plugins that apply in production builds only
                 new webpack.optimize.UglifyJsPlugin(),
-                new AotPlugin({
+                new AngularCompilerPlugin({
                     tsConfigPath: './tsconfig.json',
                     entryModule: path.join(__dirname, 'ClientApp/app/app.module.client#AppModule'),
                     exclude: ['./**/*.server.ts']
                 })
             ])
     });
-    const signinSilentBundleConfig = merge(sharedConfig, {
+    const signinSilentBundleConfig = merge(sharedConfig(false), {
         entry: { 'silent-signedin-handler': './ClientApp/app/security/silent-signedin.handler.ts' },
         output: { path: path.join(__dirname, clientBundleOutputDir) },
         plugins: [
@@ -81,7 +84,7 @@ module.exports = (env) =>
     });
 
     // Configuration for server-side (prerendering) bundle suitable for running in Node
-    const serverBundleConfig = merge(sharedConfig, {
+    const serverBundleConfig = merge(sharedConfig(!isDevBuild), {
         resolve: { mainFields: ['main'] },
         entry: { 'main-server': './ClientApp/boot-server.ts' },
         plugins: [
@@ -93,7 +96,16 @@ module.exports = (env) =>
             })
         ].concat(isDevBuild ? [] : [
             // Plugins that apply in production builds only
-            new AotPlugin({
+            // new webpack.optimize.UglifyJsPlugin({
+            //     mangle: false,
+            //     compress: false,
+            //     output: {
+            //         ascii_only: true,
+            //         comments: false,
+            //         beautify: false
+            //     }
+            // }),
+            new AngularCompilerPlugin({
                 tsConfigPath: './tsconfig.json',
                 entryModule: path.join(__dirname, 'ClientApp/app/app.module.server#AppModule'),
                 exclude: ['./**/*.client.ts']

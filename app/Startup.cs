@@ -67,7 +67,7 @@ namespace MidnightLizard.Web.Portal
                 .AddOpenIdConnect(options =>
                 {
                     options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.SignOutScheme= CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.SignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     //options.ClientSecret = "secret";
 
                     options.Authority = Configuration.GetValue<string>(nameof(Settings.IDENTITY_URL));
@@ -81,15 +81,15 @@ namespace MidnightLizard.Web.Portal
             // Add framework services.
             services.AddMvc();
             services.AddSingleton<IConfiguration>(Configuration);
-            if (_env.IsDevelopment())
+            services.AddNodeServices(options =>
             {
-                services.AddNodeServices(options =>
+                if (_env.IsDevelopment())
                 {
                     // chrome-devtools://
                     options.LaunchWithDebugging = true;
                     options.DebuggingPort = 9228;
-                });
-            }
+                }
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

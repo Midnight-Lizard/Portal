@@ -1,5 +1,6 @@
 <ml-state *ngIf="execute.isServerSide"></ml-state>
-<div fxLayout="column" ngClass="root">
+<div fxLayout="column"
+     [ngClass]="{'root': true, 'server': execute.isServerSide, 'client': execute.isClientSide}">
     <ml-toolbar (onSidenavToggleClick)="toggleSidenav()">
     </ml-toolbar>
 
@@ -32,6 +33,5 @@
         </div>
 
     </mat-sidenav-container>
-
 
 </div>
