@@ -12,25 +12,6 @@ service:
   type: NodePort
   externalPort: 80
   internalPort: 80
-ingress:
-  name: ml-ingress
-  enabled: true
-  rules:
-    portal:
-      "midnight-lizard.online": 80
-      "*.midnight-lizard.online": 80
-    schemes:
-      "schemes.midnight-lizard.online": 80
-    identity:
-      "identity.midnight-lizard.online": 80
-  annotations:
-    kubernetes.io/ingress.global-static-ip-name: ml-static-ip
-    ingress.kubernetes.io/rewrite-target: /
-  tls:
-    # Secrets must be manually created in the namespace.
-    # - secretName: chart-example-tls
-    #   hosts:
-    #     - chart-example.local
 env:
   ASPNETCORE_ENVIRONMENT: Production
   ENV: prod
