@@ -60,6 +60,7 @@ module.exports = (env) => {
                 // Plugins that apply in production builds only
                 new webpack.optimize.UglifyJsPlugin(),
                 new AngularCompilerPlugin({
+                    mainPath: path.join(__dirname, 'ClientApp/boot-client.ts'),
                     tsConfigPath: './tsconfig.json',
                     entryModule: path.join(__dirname, 'ClientApp/app/app.module.client#AppModule'),
                     exclude: ['./**/*.server.ts']
@@ -86,7 +87,11 @@ module.exports = (env) => {
     // Configuration for server-side (prerendering) bundle suitable for running in Node
     const serverBundleConfig = merge(sharedConfig(!isDevBuild), {
         resolve: { mainFields: ['main'] },
-        entry: { 'main-server': './ClientApp/boot-server.ts' },
+        entry: {
+            'main-server': isDevBuild
+                ? './ClientApp/boot-server.ts'
+                : './ClientApp/boot-server-prod.ts'
+        },
         plugins: [
             new webpack.DllReferencePlugin({
                 context: __dirname,
@@ -106,6 +111,7 @@ module.exports = (env) => {
             //     }
             // }),
             new AngularCompilerPlugin({
+                mainPath: path.join(__dirname, 'ClientApp/boot-server-prod.ts'),
                 tsConfigPath: './tsconfig.json',
                 entryModule: path.join(__dirname, 'ClientApp/app/app.module.server#AppModule'),
                 exclude: ['./**/*.client.ts']
