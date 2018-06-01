@@ -16,14 +16,14 @@ RUN node ./node_modules/webpack/bin/webpack.js ${WEBPACK_CONFIG}
 #===========================================#
 #				ANGULAR	TEST				#
 #===========================================#
-# FROM microsoft/aspnetcore-build:2 as ng-test
-# RUN apt-get update
-# RUN apt-get install -y gconf-service libasound2 libatk1.0-0 libcairo2 libcups2 libdbus-1-3 libfontconfig1 libgconf-2-4 libgdk-pixbuf2.0-0
-# RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-# RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
-# WORKDIR /test
-# COPY --from=ng-build /build .
-# RUN npm run ci-test
+FROM microsoft/aspnetcore-build:2 as ng-test
+RUN apt-get update
+RUN apt-get install -y gconf-service libasound2 libatk1.0-0 libcairo2 libcups2 libdbus-1-3 libfontconfig1 libgconf-2-4 libgdk-pixbuf2.0-0
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
+WORKDIR /test
+COPY --from=ng-build /build .
+RUN npm run ci-test
 
 #===========================================#
 #				DOTNET	BUILD				#
