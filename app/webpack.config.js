@@ -101,15 +101,6 @@ module.exports = (env) => {
             })
         ].concat(isDevBuild ? [] : [
             // Plugins that apply in production builds only
-            // new webpack.optimize.UglifyJsPlugin({
-            //     mangle: false,
-            //     compress: false,
-            //     output: {
-            //         ascii_only: true,
-            //         comments: false,
-            //         beautify: false
-            //     }
-            // }),
             new AngularCompilerPlugin({
                 mainPath: path.join(__dirname, 'ClientApp/boot-server-prod.ts'),
                 tsConfigPath: './tsconfig.json',

@@ -27,7 +27,7 @@ export default createServerRenderer(params =>
     {
         // Apply your transferData to response.globals
         response.globals.transferData = createTransferScript({
-            settings: params.data.settings // example of data coming from dotnet, in HomeController
+            settings: params.data.settings // settings coming from dotnet, in HomeController
         });
 
         return ({
