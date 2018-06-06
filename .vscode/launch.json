@@ -14,7 +14,7 @@
             ]
         },
         {
-            "name": "ng ssr",
+            "name": "ng ssr:chrome",
             "type": "chrome",
             "request": "launch",
             "preLaunchTask": "ng ssr",
@@ -23,6 +23,29 @@
             "userDataDir": false,
             "runtimeArgs": [
                 "--user-data-dir=${workspaceFolder}/../karma"
+            ]
+        },
+        {
+            "name": "ng ssr:node",
+            "type": "node",
+            "request": "launch",
+            // "preLaunchTask": "ng build",
+            "cwd": "${workspaceFolder}/app",
+            "runtimeExecutable": "npm",
+            "port": 9229,
+            "protocol": "inspector",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "sourceMaps": true,
+            "outFiles": [
+              "${workspaceFolder}/app/dist/portal-server/main.js"
+            ],
+            "env": {
+                "PORT": "7000"
+            },
+            "runtimeArgs": [
+                "run",
+                "debug:ssr"
             ]
         },
         {

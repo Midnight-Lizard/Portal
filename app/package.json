@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start:ssr": "node dist/portal-server",
+    "debug:ssr": "node --inspect-brk=9229 dist/portal-server",
     "hmr": "ng serve --hmr",
     "build": "npm run build:server && ng build",
     "build:server": "ng run portal:server:production && npm run webpack:server",

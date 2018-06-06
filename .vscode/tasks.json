@@ -3,27 +3,6 @@
     "runner": "terminal",
     "tasks": [
         {
-            "label": "Angular Build",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "dependsOn": [
-                "npm run build"
-            ]
-        },
-        {
-            "label": "Angular Tests",
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
-            "dependsOn": [
-                "ng test",
-                "ng e2e"
-            ]
-        },
-        {
             "label": "ng serve",
             "command": "ng serve --hmr",
             "type": "shell",
@@ -80,7 +59,7 @@
         },
         {
             "label": "ng build",
-            "command": "ng build",
+            "command": "npm run build",
             "type": "shell",
             "isBackground": false,
             "options": {
