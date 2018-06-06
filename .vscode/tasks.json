@@ -9,7 +9,7 @@
                 "isDefault": true
             },
             "dependsOn": [
-                "ng build"
+                "npm run build"
             ]
         },
         {
@@ -46,6 +46,35 @@
                     "activeOnStart": true,
                     "beginsPattern": "^.*Angular.*$",
                     "endsPattern": "^.*Compiled successfully\\.$"
+                }
+            }
+        },
+        {
+            "label": "ng ssr",
+            "command": "npm run build && npm run start:ssr",
+            "type": "shell",
+            "isBackground": true,
+            "options": {
+                "cwd": "${workspaceFolder}/app",
+                "env": {
+                    "PORT": "7000"
+                }
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            },
+            "problemMatcher": {
+                "owner": "custom",
+                "pattern": {
+                    "regexp": "пусто"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^.*building.*$",
+                    "endsPattern": "^.*listening.*$"
                 }
             }
         },

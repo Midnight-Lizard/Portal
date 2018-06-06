@@ -17,13 +17,10 @@
             "name": "ng ssr",
             "type": "chrome",
             "request": "launch",
-            "preLaunchTask": "ng srr",
+            "preLaunchTask": "ng ssr",
             "url": "http://localhost:7000/#",
             "webRoot": "${workspaceFolder}/app",
             "userDataDir": false,
-            "env": {
-                "PORT": "7000"
-            },
             "runtimeArgs": [
                 "--user-data-dir=${workspaceFolder}/../karma"
             ]
