@@ -11,7 +11,6 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <IsPackable>false</IsPackable>
     <UserSecretsId>1f234e68-1319-4432-86bf-9d115cf20216</UserSecretsId>
-    <DockerComposeProjectPath>..\docker\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
   <ItemGroup>
     <!-- Files not to show in IDE -->

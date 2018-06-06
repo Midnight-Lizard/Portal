@@ -1,20 +1,20 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "module": "es2015",
-    "moduleResolution": "node",
-    "target": "es5",
-    "removeComments": true,
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
     "sourceMap": true,
-    "experimentalDecorators": true,
+    "declaration": false,
+    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
-    "skipDefaultLibCheck": true,
-    "skipLibCheck": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "noImplicitReturns": false,
-    "strictNullChecks": true,
-    "lib": [ "es6", "dom" ]
-  },
-  "exclude": [ "bin", "node_modules" ],
-  "atom": { "rewriteTsconfig": false }
+    "experimentalDecorators": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ]
+  }
 }

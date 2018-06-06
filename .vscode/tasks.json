@@ -1,16 +1,115 @@
 {
-    "version": "0.1.0",
-    "command": "dotnet",
-    "isShellCommand": true,
-    "args": [],
+    "version": "2.0.0",
+    "runner": "terminal",
     "tasks": [
         {
-            "taskName": "build",
-            "args": [
-                "${workspaceRoot}/app/MidnightLizard.Web.Portal.csproj"
-            ],
-            "isBuildCommand": true,
-            "problemMatcher": "$msCompile"
+            "label": "Angular Build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "ng build"
+            ]
+        },
+        {
+            "label": "Angular Tests",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "ng test",
+                "ng e2e"
+            ]
+        },
+        {
+            "label": "ng serve",
+            "command": "ng serve --hmr",
+            "type": "shell",
+            "isBackground": true,
+            "options": {
+                "cwd": "${workspaceFolder}/app"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            },
+            "problemMatcher": {
+                "owner": "custom",
+                "pattern": {
+                    "regexp": "пусто"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^.*Angular.*$",
+                    "endsPattern": "^.*Compiled successfully\\.$"
+                }
+            }
+        },
+        {
+            "label": "ng build",
+            "command": "ng build",
+            "type": "shell",
+            "isBackground": false,
+            "options": {
+                "cwd": "${workspaceFolder}/app"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated"
+            },
+            "problemMatcher": [
+                "$tsc"
+            ]
+        },
+        {
+            "label": "ng test",
+            "command": "ng test",
+            "type": "shell",
+            "isBackground": true,
+            "options": {
+                "cwd": "${workspaceFolder}/app"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            },
+            "problemMatcher": {
+                "owner": "custom",
+                "pattern": {
+                    "regexp": "пусто"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^.*building.*$",
+                    "endsPattern": "^.*Executed.*$"
+                }
+            }
+        },
+        {
+            "label": "ng e2e",
+            "command": "ng e2e",
+            "type": "shell",
+            "isBackground": false,
+            "options": {
+                "cwd": "${workspaceFolder}/app"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated"
+            },
+            "problemMatcher": [
+                "$tsc"
+            ]
         }
     ]
 }
