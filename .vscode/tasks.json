@@ -3,7 +3,7 @@
     "runner": "terminal",
     "tasks": [
         {
-            "label": "ng serve",
+            "label": "ng serve:hmr",
             "command": "npm run start:hmr",
             "type": "shell",
             "isBackground": true,
@@ -58,7 +58,7 @@
             }
         },
         {
-            "label": "ng build",
+            "label": "ng build:dev",
             "command": "npm run build:dev",
             "type": "shell",
             "isBackground": false,

@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "compounds": [
         {
-            "name": "ng ssr:node + Chrome launch",
+            "name": "ng ssr:node/chrome",
             "configurations": [
                 "ng ssr:node",
                 "Chrome launch"
@@ -22,10 +22,10 @@
             ]
         },
         {
-            "name": "ng serve",
+            "name": "ng serve:hmr",
             "type": "chrome",
             "request": "launch",
-            "preLaunchTask": "ng serve",
+            "preLaunchTask": "ng serve:hmr",
             "url": "http://localhost:7000/#",
             "webRoot": "${workspaceFolder}/app",
             "userDataDir": false,
@@ -49,7 +49,7 @@
             "name": "ng ssr:node",
             "type": "node",
             "request": "launch",
-            // "preLaunchTask": "ng build",
+            // "preLaunchTask": "ng build:dev",
             "cwd": "${workspaceFolder}/app",
             "runtimeExecutable": "npm",
             "port": 9229,
@@ -68,7 +68,7 @@
             "name": "ng prerender",
             "type": "node",
             "request": "launch",
-            // "preLaunchTask": "ng build",
+            // "preLaunchTask": "ng build:dev",
             "cwd": "${workspaceFolder}/app",
             "runtimeExecutable": "npm",
             "port": 9229,
@@ -96,7 +96,7 @@
             "name": "ng e2e",
             "type": "node",
             "request": "launch",
-            "preLaunchTask": "ng serve",
+            "preLaunchTask": "ng serve:hmr",
             "program": "${workspaceFolder}/app/node_modules/protractor/bin/protractor",
             "protocol": "inspector",
             "args": [
