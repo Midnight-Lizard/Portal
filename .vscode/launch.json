@@ -49,6 +49,26 @@
             ]
         },
         {
+            "name": "ng prerender",
+            "type": "node",
+            "request": "launch",
+            // "preLaunchTask": "ng build",
+            "cwd": "${workspaceFolder}/app",
+            "runtimeExecutable": "npm",
+            "port": 9229,
+            "protocol": "inspector",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "sourceMaps": true,
+            "outFiles": [
+              "${workspaceFolder}/app/dist/**/*.js"
+            ],
+            "runtimeArgs": [
+                "run",
+                "debug:prerender"
+            ]
+        },
+        {
             "name": "ng test",
             "type": "chrome",
             "request": "launch",
