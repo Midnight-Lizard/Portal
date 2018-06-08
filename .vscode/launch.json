@@ -1,6 +1,26 @@
 {
     "version": "0.2.0",
+    "compounds": [
+        {
+            "name": "ng ssr:node + Chrome launch",
+            "configurations": [
+                "ng ssr:node",
+                "Chrome launch"
+            ]
+        }
+    ],
     "configurations": [
+        {
+            "name": "Chrome launch",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:7000/home",
+            "webRoot": "${workspaceFolder}/app",
+            "userDataDir": false,
+            "runtimeArgs": [
+                "--user-data-dir=${workspaceFolder}/../karma"
+            ]
+        },
         {
             "name": "ng serve",
             "type": "chrome",
@@ -36,10 +56,6 @@
             "protocol": "inspector",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
-            "sourceMaps": true,
-            "outFiles": [
-              "${workspaceFolder}/app/dist/portal-server/main.js"
-            ],
             "env": {
                 "PORT": "7000"
             },
@@ -59,10 +75,6 @@
             "protocol": "inspector",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
-            "sourceMaps": true,
-            "outFiles": [
-              "${workspaceFolder}/app/dist/**/*.js"
-            ],
             "runtimeArgs": [
                 "run",
                 "debug:prerender"

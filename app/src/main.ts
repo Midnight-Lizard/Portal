@@ -6,31 +6,29 @@ import { environment } from './environments/environment';
 
 import { hmrBootstrap } from './hmr';
 
-document.addEventListener('DOMContentLoaded', () =>
+
+if (environment.production)
 {
-    if (environment.production)
+    enableProdMode();
+}
+
+const bootstrap = () => platformBrowserDynamic().bootstrapModule(AppModule);
+
+
+if (environment.hmr)
+{
+    if (module['hot'])
     {
-        enableProdMode();
-    }
-
-    const bootstrap = () => platformBrowserDynamic()
-        .bootstrapModule(AppModule)
-        .catch(err => console.log(err) as any);
-
-
-    if (environment.hmr)
-    {
-        if (module['hot'])
-        {
-            hmrBootstrap(module, bootstrap);
-        }
-        else
-        {
-            console.error('HMR is not enabled for webpack-dev-server!');
-        }
+        hmrBootstrap(module, bootstrap);
+        console.log('HMR Bootstrap is used');
     }
     else
     {
-        bootstrap();
+        console.error('HMR is not enabled for webpack-dev-server!');
     }
-});
+}
+else
+{
+    document.addEventListener('DOMContentLoaded',
+        () => bootstrap().catch(err => console.log(err)));
+}

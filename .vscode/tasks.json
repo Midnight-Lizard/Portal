@@ -4,7 +4,7 @@
     "tasks": [
         {
             "label": "ng serve",
-            "command": "ng serve --hmr",
+            "command": "npm run start:hmr",
             "type": "shell",
             "isBackground": true,
             "options": {
@@ -30,7 +30,7 @@
         },
         {
             "label": "ng ssr",
-            "command": "npm run build && npm run start:ssr",
+            "command": "npm run build:dev && npm run start:ssr",
             "type": "shell",
             "isBackground": true,
             "options": {
@@ -59,7 +59,7 @@
         },
         {
             "label": "ng build",
-            "command": "npm run build",
+            "command": "npm run build:dev",
             "type": "shell",
             "isBackground": false,
             "options": {
@@ -77,7 +77,7 @@
         },
         {
             "label": "ng test",
-            "command": "ng test",
+            "command": "npm test",
             "type": "shell",
             "isBackground": true,
             "options": {

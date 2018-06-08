@@ -33,7 +33,7 @@ module.exports = (env) => {
       ].concat(isDevBuild ?
         [ // dev
           {
-            // loading source maps from main.js files
+            // loading source maps from main.js files only
             test: /main\.js$/,
             use: ["source-map-loader"],
             enforce: "pre"
