@@ -28,10 +28,10 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "^6.0.4",
-    "@angular/core": "^6.0.4",
-    "@angular/compiler": "^6.0.4",
     "@angular/animations": "^6.0.4",
+    "@angular/common": "^6.0.4",
+    "@angular/compiler": "^6.0.4",
+    "@angular/core": "^6.0.4",
     "@angular/forms": "^6.0.4",
     "@angular/http": "^6.0.4",
     "@angular/platform-browser": "^6.0.4",
@@ -43,6 +43,7 @@
     "@nguniversal/module-map-ngfactory-loader": "^6.0.0",
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
+    "schemes": "^1.1.1",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
