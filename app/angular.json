@@ -153,6 +153,46 @@
           }
         }
       }
+    },
+    "schemes": {
+      "root": "projects/schemes",
+      "sourceRoot": "projects/schemes/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/schemes/tsconfig.lib.json",
+            "project": "projects/schemes/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/schemes/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/schemes/src/test.ts",
+            "tsConfig": "projects/schemes/tsconfig.spec.json",
+            "karmaConfig": "projects/schemes/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/schemes/tsconfig.lib.json",
+              "projects/schemes/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "portal",
