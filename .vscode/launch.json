@@ -93,6 +93,18 @@
             ]
         },
         {
+            "name": "ng test:schemes",
+            "type": "chrome",
+            "request": "launch",
+            "preLaunchTask": "ng test:schemes",
+            "url": "http://localhost:9876/debug.html",
+            "webRoot": "${workspaceFolder}/app/projects/schemes",
+            "userDataDir": false,
+            "runtimeArgs": [
+                "--user-data-dir=${workspaceFolder}/../karma"
+            ]
+        },
+        {
             "name": "ng e2e",
             "type": "node",
             "request": "launch",

@@ -102,8 +102,34 @@
             }
         },
         {
+            "label": "ng test:schemes",
+            "command": "npm run test:schemes",
+            "type": "shell",
+            "isBackground": true,
+            "options": {
+                "cwd": "${workspaceFolder}/app"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            },
+            "problemMatcher": {
+                "owner": "custom",
+                "pattern": {
+                    "regexp": "пусто"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^.*building.*$",
+                    "endsPattern": "^.*Executed.*$"
+                }
+            }
+        },
+        {
             "label": "ng e2e",
-            "command": "ng e2e",
+            "command": "npm run e2e",
             "type": "shell",
             "isBackground": false,
             "options": {
