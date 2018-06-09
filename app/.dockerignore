@@ -1,0 +1,17 @@
+**/.dockerignore
+**/.gitignore
+**/.vscode
+**/.vs
+**/.git
+**/Dockerfile
+**/node_modules/
+**/dist/
+**/coverage/
+**/bin/
+**/obj/
+**/shell/
+**/kube/
+**/README.md
+**/readme.md
+**/LICENSE
+**/license

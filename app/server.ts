@@ -33,8 +33,11 @@ app.engine('html', ngExpressEngine({
 app.set('view engine', 'html');
 app.set('views', join(DIST_FOLDER, 'portal-browser'));
 
-// Example Express Rest API endpoints
-// app.get('/api/**', (req, res) => { });
+// Kubernetes liveness and readiness probe
+app.get([
+    '/status/isready',
+    '/status/isalive'
+], (req, res) => res.status(200).send('OK'));
 
 // Server static files from /browser
 app.get('*.*', express.static(join(DIST_FOLDER, 'portal-browser'), {
