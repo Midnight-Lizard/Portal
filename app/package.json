@@ -1,6 +1,7 @@
 {
   "name": "portal",
   "version": "0.0.0",
+  "author": "Pavel Agarkov",
   "scripts": {
     "start": "ng serve",
     "start:hmr": "ng serve -c hmr --port 7000",
@@ -39,6 +40,7 @@
     "@angular/common": "^6.0.4",
     "@angular/compiler": "^6.0.4",
     "@angular/core": "^6.0.4",
+    "@angular/flex-layout": "^6.0.0-beta.16",
     "@angular/forms": "^6.0.4",
     "@angular/http": "^6.0.4",
     "@angular/material": "^6.2.1",
