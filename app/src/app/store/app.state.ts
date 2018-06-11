@@ -1,8 +1,9 @@
-﻿import { User } from 'oidc-client';
+﻿import { ActionReducerMap } from '@ngrx/store';
+import { TransferState, makeStateKey } from '@angular/platform-browser';
+
+import { User } from 'core';
 import { ActionFakeTypes, Action } from './app.action-sets';
-
-
-export const AppFeature: keyof RootState = 'ML';
+import { appReducer } from './app.reducer';
 
 export interface ActionError
 {
@@ -22,17 +23,17 @@ export interface RootState
     ML: AppState;
 }
 
-export const initialState: RootState = { ML: { returnUrl: '/' } };
+export const rootReducers: ActionReducerMap<RootState> = {
+    ML: appReducer
+};
 
-export function loadInitialState(): RootState
-{
-    if (typeof document === 'object')
-    {
-        const mlState = document.querySelector('ml-state');
-        if (mlState && mlState.textContent)
-        {
-            return JSON.parse(mlState.textContent);
-        }
+const initialState: RootState = {
+    ML: {
+        returnUrl: '/'
     }
-    return initialState;
+};
+const stateKey = makeStateKey<RootState>('state');
+export function loadInitialState(serverState: TransferState): RootState
+{
+    return serverState.get(stateKey, initialState);
 }

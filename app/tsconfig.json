@@ -22,6 +22,18 @@
       ],
       "schemes/*": [
         "dist/schemes/*"
+      ],
+      "shared": [
+        "dist/shared"
+      ],
+      "shared/*": [
+        "dist/shared/*"
+      ],
+      "core": [
+        "dist/core"
+      ],
+      "core/*": [
+        "dist/core/*"
       ]
     }
   }
