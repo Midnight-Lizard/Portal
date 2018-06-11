@@ -50,7 +50,18 @@ app.get(STATIC_ROUTES, express.static(join(DIST_FOLDER, 'portal-static'), {
 // All regular routes use the Universal engine
 app.get('*', (req, res) =>
 {
-    res.render('index', { req });
+    const protocol = req.headers['x-forwarded-proto'] === undefined
+        ? 'https' : req.headers['x-forwarded-proto'];
+    res.render('index', {
+        req: req,
+        res: res,
+        providers: [
+            {
+                provide: 'ORIGIN_URL',
+                useValue: (`${protocol}://${req.headers.host}`)
+            }
+        ]
+    });
 });
 
 // Start up the Node server
