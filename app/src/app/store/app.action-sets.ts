@@ -5,7 +5,8 @@ import * as Acts from './app.actions';
 declare module '@ngrx/effects' {
     export class Actions<V> extends Observable<V>
     {
-        ofType<T extends ActionFakeTypes>(...allowedTypes: T[]): Actions<ActionType<T>>;
+        ofType<T extends ActionFakeTypes>(...allowedTypes: T[]):
+            Actions<ActionType<T>>;
     }
     export function ofType<T extends ActionFakeTypes>(...allowedTypes: T[]):
         OperatorFunction<Action, ActionType<T>>;

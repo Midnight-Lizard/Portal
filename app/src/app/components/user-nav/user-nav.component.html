@@ -1,0 +1,20 @@
+﻿<button mat-icon-button matTooltip="Account menu"
+        [matMenuTriggerFor]="menu" #menuTrigger
+        class="mat-button mat-icon-button"
+        (menuClosed)="menuTrigger.focus()">
+    <mat-icon>person</mat-icon>
+</button>
+<mat-menu #menu="matMenu" yPosition="below" xPosition="before"
+          [overlapTrigger]="false">
+    <span *ngIf="user$|async" mat-menu-item disabled class="user-menu-header">
+        Signed in as <strong>{{(user$|async).profile.preferred_username}}</strong>
+    </span>
+    <hr *ngIf="user$|async" class="user-menu-separator"/>
+    <a *ngFor="let item of items$|async" mat-menu-item
+       [routerLink]="[item.link]"
+       [matTooltip]="item.tooltip"
+       matTooltipPosition="left">
+        <mat-icon>{{item.icon}}</mat-icon>
+        <span>{{item.title}}</span>
+    </a>
+</mat-menu>
