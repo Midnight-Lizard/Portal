@@ -1,0 +1,15 @@
+<div class="error-container">
+    <mat-icon class="problem" color="warn">error</mat-icon>
+    <h2>This section is unavailable right now</h2>
+    <p>Please try again later</p>
+    <div class="commands">
+        <a mat-raised-button routerLink="/home" class="mat-raised-button">
+            <mat-icon>home</mat-icon>
+            Return to home page
+        </a>
+        <button mat-raised-button onclick="window.location.reload()" class="mat-raised-button">
+            <mat-icon>refresh</mat-icon>
+            Refresh the page
+        </button>
+    </div>
+</div>

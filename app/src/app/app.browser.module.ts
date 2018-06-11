@@ -18,7 +18,8 @@ import { loadInitialState } from './store/app.state';
       provide: INITIAL_STATE,
       useFactory: loadInitialState,
       deps: [TransferState]
-    }
+    },
+    { provide: 'ORIGIN_URL', useValue: location.origin }
   ],
   bootstrap: [AppComponent]
 })

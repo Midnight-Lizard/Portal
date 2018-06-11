@@ -17,7 +17,7 @@ const bootstrap = () => platformBrowserDynamic().bootstrapModule(AppBrowserModul
 
 if (environment.hmr)
 {
-    if (module['hot'])
+    if ((module as any).hot)
     {
         hmrBootstrap(module, bootstrap);
         console.log('HMR Bootstrap is used');

@@ -5,6 +5,7 @@
     "@angular/common": "^6.0.0",
     "@angular/cdk": "^6.2.0",
     "@angular/core": "^6.0.0",
-    "@angular/material": "^6.2.1"
+    "@angular/material": "^6.2.1",
+    "@angular/router": "^6.0.0"
   }
 }

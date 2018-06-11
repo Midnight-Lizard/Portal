@@ -7,13 +7,13 @@ import { Component, OnInit } from '@angular/core';
       shared works!
     </p>
   `,
-  styles: []
+  styleUrls: ['./shared.component.scss']
 })
-export class SharedComponent implements OnInit {
-
+export class SharedComponent implements OnInit
+{
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit()
+  {
   }
-
 }

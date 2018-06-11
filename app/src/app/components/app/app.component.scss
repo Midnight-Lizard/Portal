@@ -1,0 +1,103 @@
+@import 'theme.scss';
+mat-sidenav-container {
+    background-color: $ml-background !important;
+    flex: 1 1 100%;
+}
+
+.root.server .mat-drawer-content {
+    margin-left: 20% !important;
+    overflow-y: scroll !important;
+}
+
+.left-side {
+    &.server {
+        transform: translate3d(0px, 0px, 0px);
+    }
+    &:not(important) {
+        width: 20%;
+        padding-bottom: 20px;
+    }
+    &.over-80 {
+        width: 80%;
+    }
+    &.over-50 {
+        width: 50%;
+    }
+}
+
+.root {
+    height: 100%;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+}
+
+.right-side {
+    padding: 20px;
+    background-color: $ml-background !important;
+    flex: 1 1 100%;
+    max-width: 21%;
+    min-height: 100%;
+}
+
+.right-side.full-width {
+    max-width: initial;
+}
+
+.right-side-content {
+    position: sticky;
+    top: 20px;
+}
+
+.sidenav-content {
+    min-height: 100%;
+    flex-direction: row;
+    display: flex;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 100%;
+}
+
+.main-content {
+    padding: 20px;
+    background-color: mat-color($ml-content) !important;
+    flex: 1 1 100%;
+}
+
+ml-footer {
+    flex: 0 1 auto;
+}
+
+.loading {
+    display: none;
+}
+
+router-outlet+.loading {
+    display: block;
+}
+
+.mat-tooltip:not(imp) {
+    background: rgba(90, 90, 90, 0.95);
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin: 10px;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 14px;
+}
+
+.mat-button-toggle-label {
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+}
+
+.mat-option.mat-selected:not(imp) {
+    background-color: mat-color($ml-accent, A100) !important;
+    color: $ml-text-color !important;
+}

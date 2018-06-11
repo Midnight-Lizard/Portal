@@ -1,0 +1,5 @@
+@import '~@angular/material/theming';
+@import 'theme.scss';
+@include mat-core();
+$ml-theme: mat-light-theme($ml-primary, $ml-accent, $ml-warn);
+@include angular-material-theme($ml-theme);

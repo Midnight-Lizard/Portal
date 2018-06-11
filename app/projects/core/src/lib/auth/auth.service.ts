@@ -1,4 +1,4 @@
-﻿import { Injectable, Inject } from '@angular/core';
+﻿import { Injectable, Inject, Optional } from '@angular/core';
 import { UserManager, Log, UserManagerSettings } from 'oidc-client';
 
 import { SideService } from '../side.service';
@@ -14,9 +14,9 @@ export class AuthService
     protected readonly config: UserManagerSettings;
 
     constructor(
-        @Inject('USER')
-        protected readonly user: User,
-        @Inject('BASE_URL')
+        @Inject('USER') @Optional()
+        protected readonly user: User | null,
+        @Inject('ORIGIN_URL')
         protected readonly baseUrl: string,
         protected readonly env: SideService,
         protected readonly settingsService: SettingsService)
@@ -47,7 +47,7 @@ export class AuthService
         return new UserManager({}).signinRedirectCallback();
     }
 
-    public signinSilent(): Promise<User>
+    public signinSilent(): Promise<User | null>
     {
         if (this.env.isServerSide)
         {

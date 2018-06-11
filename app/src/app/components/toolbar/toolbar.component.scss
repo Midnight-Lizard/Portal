@@ -1,5 +1,4 @@
-﻿@import '~theme.scss';
-@import '~@angular/material/theming';
+﻿@import 'theme.scss';
 :host {
     z-index: 100;
     @include mat-elevation(6);
@@ -48,7 +47,6 @@ nav a.home-link {
 //     display: inline-block;
 //     margin: -10px 5px -10px 0px;
 // }
-
 nav .active-link:after {
     content: "";
     position: absolute;

@@ -14,7 +14,7 @@ export class SideService
 {
     readonly side: Side;
 
-    constructor(@Inject(PLATFORM_ID) private readonly platform_id)
+    constructor(@Inject(PLATFORM_ID) private readonly platform_id: Object)
     {
         this.side = isPlatformBrowser(platform_id) ? Side.Browser : Side.Server;
     }
