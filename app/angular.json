@@ -40,6 +40,12 @@
           },
           "configurations": {
             "hmr": {
+              "tsConfig": "src/tsconfig.debug.json",
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "projects/shared/src/styles"
+                ]
+              },
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -122,7 +128,12 @@
           "options": {
             "outputPath": "dist/portal-server",
             "main": "src/main.server.ts",
-            "tsConfig": "src/tsconfig.server.json"
+            "tsConfig": "src/tsconfig.server.json",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "dist/shared/styles"
+              ]
+            }
           },
           "configurations": {
             "production": {

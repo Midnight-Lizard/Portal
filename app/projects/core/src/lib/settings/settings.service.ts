@@ -17,7 +17,7 @@ export class SettingsService
     public getSettings()
     {
         return this.state.get(this.settingsKey, {
-            identityUrl: 'http://192.168.1.47:7002'
+            identityUrl: 'http://192.168.1.46:32326/'
         });
     }
 

@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.app.json",
+  "angularCompilerOptions": {
+    "paths": {
+      "schemes": [
+        "projects/schemes/src/public_api"
+      ],
+      "dist/shared": [
+        "projects/shared/src/public_api"
+      ],
+      "shared": [
+        "projects/shared/src/public_api"
+      ],
+      "core": [
+        "projects/core/src/public_api"
+      ]
+    }
+  }
+}

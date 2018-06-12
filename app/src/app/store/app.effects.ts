@@ -125,15 +125,11 @@ export class AppEffects
     {
         const route$ = this.actions$.pipe(
             ofType(ActionType.RouterNavigation),
-            map(navAction => navAction.payload.routerState.root),
-            filter(root =>
+            filter(navAction =>
             {
-                if (root.firstChild && root.firstChild.routeConfig)
-                {
-                    return section.test(root.firstChild.routeConfig.path || '');
-                }
-                return false;
-            }));
+                return section.test(navAction.payload.routerState.url);
+            }),
+            map(navAction => navAction.payload.routerState.root));
 
         return route$.pipe(
             withLatestFrom(this.store$),

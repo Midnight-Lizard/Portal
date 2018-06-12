@@ -10,7 +10,7 @@ import
 {
     SharedModule as PortalSharedModule,
     LoadingModule as PortalLoadingModule
-} from '../../dist/shared';
+} from 'dist/shared';
 import { CoreModule as PortalCoreModule } from 'core';
 import { AppComponent } from './components/app/app.component';
 import { routingComponents, AppRoutingModule } from './app.routing.module';

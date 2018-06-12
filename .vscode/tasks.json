@@ -24,7 +24,7 @@
                 "background": {
                     "activeOnStart": true,
                     "beginsPattern": "^.*Angular.*$",
-                    "endsPattern": "^.*Compiled successfully\\.$"
+                    "endsPattern": "^.*Compiled.*$"
                 }
             }
         },

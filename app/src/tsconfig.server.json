@@ -5,7 +5,22 @@
     "baseUrl": ".",
     "module": "commonjs"
   },
+  "exclude": [
+    "src/test.ts",
+    "**/*.spec.ts"
+  ],
   "angularCompilerOptions": {
-    "entryModule": "app/app.server.module#AppServerModule"
+    "entryModule": "app/app.server.module#AppServerModule",
+    "paths": {
+      "schemes": [
+        "../dist/schemes"
+      ],
+      "shared": [
+        "../dist/shared"
+      ],
+      "core": [
+        "../dist/core"
+      ]
+    }
   }
 }
