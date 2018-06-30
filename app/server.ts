@@ -20,7 +20,6 @@ import { Settings, defaultSettings, AuthConstants, User } from './dist/core';
 const MemoryStore = require('memorystore')(session);
 
 
-
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
 
