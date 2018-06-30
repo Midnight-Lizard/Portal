@@ -6,6 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { CookieService } from 'ngx-cookie-service';
 import
 {
     SharedModule as PortalSharedModule,
@@ -26,7 +27,6 @@ import { FooterComponent } from './components/footer/footer.component';
         AppComponent, routingComponents,
         UserNavComponent,
         ToolbarComponent,
-        HomeComponent,
         FooterComponent
     ],
     imports: [
@@ -38,6 +38,6 @@ import { FooterComponent } from './components/footer/footer.component';
         StoreModule.forRoot(rootReducers),
         EffectsModule.forRoot([AppEffects]),
     ],
-    providers: []
+    providers: [CookieService]
 })
 export class AppSharedModule { }

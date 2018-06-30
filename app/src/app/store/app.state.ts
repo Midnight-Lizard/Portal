@@ -1,39 +1,35 @@
-﻿import { ActionReducerMap } from '@ngrx/store';
+﻿import { Injector, InjectionToken } from '@angular/core';
+import { ActionReducerMap } from '@ngrx/store';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
 
-import { User } from 'core';
-import { ActionFakeTypes, Action } from './app.action-sets';
+import { User, AuthRootState, authInitialState } from 'core';
 import { appReducer } from './app.reducer';
-
-export interface ActionError
-{
-    readonly errorMessage?: string;
-    readonly originalError: any;
-    readonly source: ActionFakeTypes | Action;
-}
-
-export interface AppState
-{
-    user?: User;
-    returnUrl: string;
-}
 
 export interface RootState
 {
     ML: AppState;
 }
 
+// tslint:disable-next-line:no-empty-interface
+export interface AppState
+{
+}
+
 export const rootReducers: ActionReducerMap<RootState> = {
     ML: appReducer
 };
 
-const initialState: RootState = {
-    ML: {
-        returnUrl: '/'
-    }
+export const initialState: RootState & AuthRootState = {
+    ML: {},
+    AUTH: authInitialState
 };
-const stateKey = makeStateKey<RootState>('state');
-export function loadInitialState(serverState: TransferState): RootState
+export const STORE_STATE_KEY = makeStateKey<RootState & AuthRootState>('state');
+export function loadBrowserInitialState(serverState: TransferState): RootState
 {
-    return serverState.get(stateKey, initialState);
+    return serverState.get(STORE_STATE_KEY, initialState);
+}
+export function loadServerInitialState(user: User): RootState
+{
+    initialState.AUTH = { USER: { user } };
+    return initialState;
 }

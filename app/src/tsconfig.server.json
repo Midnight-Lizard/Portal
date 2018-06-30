@@ -7,13 +7,18 @@
   },
   "exclude": [
     "src/test.ts",
-    "**/*.spec.ts"
+    "src/main.ts",
+    "**/*.spec.ts",
+    "**/*.browser.module.ts"
   ],
   "angularCompilerOptions": {
     "entryModule": "app/app.server.module#AppServerModule",
     "paths": {
       "schemes": [
         "../dist/schemes"
+      ],
+      "dist/shared": [
+        "../dist/shared"
       ],
       "shared": [
         "../dist/shared"

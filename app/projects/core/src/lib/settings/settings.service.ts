@@ -1,7 +1,7 @@
 import { TransferState, makeStateKey } from '@angular/platform-browser';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, Optional } from '@angular/core';
 
-import { Settings } from './settings';
+import { Settings, defaultSettings } from './settings';
 
 @Injectable({
     providedIn: 'root'
@@ -10,19 +10,22 @@ export class SettingsService
 {
     private readonly settingsKey = makeStateKey<Settings>('settings');
 
-    constructor(private readonly state: TransferState)
+    constructor(state: TransferState,
+        @Inject('SETTINGS') @Optional()
+        private settings: Settings | null)
     {
+        if (settings)
+        {
+            state.set(this.settingsKey, settings);
+        }
+        else
+        {
+            this.settings = state.get(this.settingsKey, defaultSettings);
+        }
     }
 
-    public getSettings()
+    public getSettings(): Settings
     {
-        return this.state.get(this.settingsKey, {
-            identityUrl: 'http://192.168.1.46:32326/'
-        });
-    }
-
-    public setSettings(settings: Settings)
-    {
-        this.state.set(this.settingsKey, settings);
+        return { ...this.settings! };
     }
 }

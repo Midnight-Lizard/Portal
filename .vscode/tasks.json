@@ -144,6 +144,21 @@
             "problemMatcher": [
                 "$tsc"
             ]
+        },
+        {
+            "label": "export secrets",
+            "command": "./export-secrets.sh",
+            "type": "shell",
+            "isBackground": false,
+            "options": {
+                "cwd": "${workspaceFolder}/shell"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated"
+            }
         }
     ]
 }

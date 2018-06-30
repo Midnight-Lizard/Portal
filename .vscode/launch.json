@@ -14,7 +14,7 @@
             "name": "Chrome launch",
             "type": "chrome",
             "request": "launch",
-            "url": "http://localhost:7000/home",
+            "url": "http://localhost:7000/signin",
             "webRoot": "${workspaceFolder}/app",
             "userDataDir": false,
             "runtimeArgs": [
@@ -49,9 +49,8 @@
             "name": "ng ssr:node",
             "type": "node",
             "request": "launch",
-            // "preLaunchTask": "ng build:dev",
-            "cwd": "${workspaceFolder}/app",
-            "runtimeExecutable": "npm",
+            "cwd": "${workspaceFolder}/shell",
+            "runtimeExecutable": "bash",
             "port": 9229,
             "protocol": "inspector",
             "console": "integratedTerminal",
@@ -60,8 +59,7 @@
                 "PORT": "7000"
             },
             "runtimeArgs": [
-                "run",
-                "debug:ssr"
+                "./debug-ssr-with-secrets.sh"
             ]
         },
         {

@@ -1,80 +1,48 @@
 ﻿import { Injectable, Inject, Optional } from '@angular/core';
-import { UserManager, Log, UserManagerSettings } from 'oidc-client';
+import { HttpClient } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
+import { first, delay } from 'rxjs/operators';
+import { Store, select } from '@ngrx/store';
 
-import { SideService } from '../side.service';
-import { SettingsService } from '../settings/settings.service';
 import { User } from './user';
-
+import { AuthRootState } from '../store/auth/auth.state';
+import * as AuthActions from '../store/auth/auth.actions';
+import { SideService } from '../side.service';
+import { AuthConstants } from './auth.constants';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService
 {
-    protected readonly config: UserManagerSettings;
-
     constructor(
-        @Inject('USER') @Optional()
-        protected readonly user: User | null,
         @Inject('ORIGIN_URL')
-        protected readonly baseUrl: string,
-        protected readonly env: SideService,
-        protected readonly settingsService: SettingsService)
+        private readonly baseUrl: string,
+        private readonly http: HttpClient,
+        cookieService: CookieService,
+        env: SideService,
+        store$: Store<AuthRootState>)
     {
-        // Log.logger = console;
-        this.config = {
-            authority: settingsService.getSettings().identityUrl,
-            client_id: 'portal-client',
-            response_type: 'id_token token',
-            scope: [
-                'openid', 'profile', 'schemes-commander', 'schemes-querier'
-            ].join(' '),
-            post_logout_redirect_uri: this.urlJoin(this.baseUrl, 'signedout'),
-        };
-    }
-
-    public signin(returnUrl: string): Promise<User>
-    {
-        const userManager = new UserManager(this.config);
-        return userManager.signinRedirect({
-            redirect_uri: this.urlJoin(this.baseUrl, 'signedin'),
-            state: { returnUrl: returnUrl }
-        });
-    }
-
-    public signinCallback(): Promise<User>
-    {
-        return new UserManager({}).signinRedirectCallback();
-    }
-
-    public signinSilent(): Promise<User | null>
-    {
-        if (this.env.isServerSide)
+        if (env.isBrowserSide)
         {
-            return Promise.resolve(this.user);
-        }
-        else
-        {
-            const userManager = new UserManager(this.config);
-            return userManager.signinSilent({
-                redirect_uri: this.urlJoin(this.baseUrl, 'silentsignedin')
-            });
+            store$.pipe(
+                select(x => x.AUTH.USER.user),
+                delay(1000),
+                first())
+                .subscribe(user =>
+                {
+                    if (user || cookieService.get(AuthConstants.Cookies.SignedIn) === 'true')
+                    {
+                        store$.dispatch(new AuthActions.RefreshUser({ immediately: !user }));
+                    }
+                });
         }
     }
 
-    public signout()
+    public refreshUser(): Observable<User>
     {
-        return new UserManager(this.config).signoutRedirect();
-    }
-
-    public signoutCallback()
-    {
-        return new UserManager({}).signoutRedirectCallback();
-    }
-
-    public getUser(): Promise<User>
-    {
-        return new UserManager({}).getUser();
+        return this.http.post<User>(this.urlJoin(this.baseUrl, 'refresh-user'), null);
     }
 
     private urlJoin(...urlParts: string[])

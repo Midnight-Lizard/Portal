@@ -9,6 +9,8 @@
   },
   "exclude": [
     "src/test.ts",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "**/*.server.module.ts",
+    "**/*.server.ts"
   ]
 }

@@ -7,7 +7,7 @@
 <mat-menu #menu="matMenu" yPosition="below" xPosition="before"
           [overlapTrigger]="false">
     <span *ngIf="user$|async" mat-menu-item disabled class="user-menu-header">
-        Signed in as <strong>{{(user$|async).profile.preferred_username}}</strong>
+        Signed in as <strong>{{(user$|async)!.claims.preferred_username}}</strong>
     </span>
     <hr *ngIf="user$|async" class="user-menu-separator"/>
     <a *ngFor="let item of items$|async" mat-menu-item

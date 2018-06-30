@@ -1,6 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LoadingComponent } from './loading.component';
+import { LoadingComponent } from './normal/loading.component';
 import { LoadingModule } from './loading.module';
 
 @NgModule({

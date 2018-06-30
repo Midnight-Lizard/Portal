@@ -1,6 +1,9 @@
-import * as oidc from 'oidc-client';
-
-// tslint:disable-next-line:no-empty-interface
-export class User extends oidc.User
+export interface User
 {
+    access_token: string;
+    claims: {
+        [claim: string]: string;
+        preferred_username: string
+    };
+    expired: boolean;
 }

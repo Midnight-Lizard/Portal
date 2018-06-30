@@ -2,7 +2,7 @@
 import { RouterModule } from '@angular/router';
 import { MatIconModule, MatButtonModule } from '@angular/material';
 
-import { LoadingFailComponent } from './loading-fail.component';
+import { LoadingFailComponent } from './fail/loading-fail.component';
 
 @NgModule({
     declarations: [LoadingFailComponent],

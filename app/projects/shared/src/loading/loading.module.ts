@@ -1,17 +1,22 @@
 ﻿import { NgModule } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material';
 
-import { LoadingComponent } from './loading.component';
+import { LoadingComponent } from './normal/loading.component';
+import { ReloadFromServerComponent } from './server/reload-from-server.component';
+
+const publicComponents = [
+    LoadingComponent, ReloadFromServerComponent
+];
 
 @NgModule({
     declarations: [
-        LoadingComponent
+        publicComponents
     ],
     imports: [
         MatProgressSpinnerModule,
     ],
     exports: [
-        LoadingComponent
+        publicComponents
     ]
 })
 export class LoadingModule { }

@@ -15,7 +15,10 @@ module.exports = (env) => {
     target: 'node',
     resolve: { extensions: ['.ts', '.js'] },
     // Make sure we include all node_modules etc
-    externals: [/node_modules/],
+    externals: [
+      /node_modules/, {
+        'electron': true
+      }],
     output: {
       // Puts the output at the root of the dist folder
       path: path.join(__dirname, 'dist'),
@@ -23,7 +26,7 @@ module.exports = (env) => {
     },
     module: {
       rules: [
-        { test: /\.ts$/, loader: 'ts-loader' },
+        { test: /\.ts$/, loader: 'ts-loader?configFile=tsconfig.webpack.json' },
         {
           // Mark files inside `@angular/core` as using SystemJS style dynamic imports.
           // Removing this will cause deprecation warnings to appear.

@@ -2,17 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
-import { LoadingComponent } from 'shared';
+import { LoadingComponent, ReloadFromServerComponent } from 'shared';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'signin', component: LoadingComponent },
-    { path: 'silentin', component: LoadingComponent },
-    { path: 'signedin', component: LoadingComponent },
-    { path: 'signout', component: LoadingComponent },
-    { path: 'signout-callback-oidc', component: LoadingComponent },
-    { path: 'signedout', component: LoadingComponent },
+    { path: 'signin', component: ReloadFromServerComponent },
+    { path: 'signout', component: ReloadFromServerComponent },
     { path: 'profile', component: LoadingComponent },
     { path: '**', redirectTo: 'home' }
 ];
@@ -23,4 +19,6 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-export const routingComponents = [];
+export const routingComponents = [
+    HomeComponent
+];

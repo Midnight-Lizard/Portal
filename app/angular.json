@@ -39,8 +39,11 @@
             "scripts": []
           },
           "configurations": {
+            "debug": {
+              "tsConfig": "src/tsconfig.app.debug.json"
+            },
             "hmr": {
-              "tsConfig": "src/tsconfig.debug.json",
+              "tsConfig": "src/tsconfig.app.debug.json",
               "stylePreprocessorOptions": {
                 "includePaths": [
                   "projects/shared/src/styles"
@@ -136,6 +139,9 @@
             }
           },
           "configurations": {
+            "debug": {
+              "tsConfig": "src/tsconfig.server.debug.json"
+            },
             "production": {
               "fileReplacements": [
                 {

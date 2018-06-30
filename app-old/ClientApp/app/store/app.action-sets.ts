@@ -2,12 +2,12 @@
 import { Actions } from "@ngrx/effects";
 import * as Acts from "./app.actions";
 
-declare module "@ngrx/effects" {
-    export class Actions<V> extends Observable<V>
-    {
-        ofType<T extends ActionFakeTypes>(...allowedTypes: T[]): Actions<ActionType<T>>;
-    }
-}
+// declare module "@ngrx/effects" {
+//     export class Actions<V> extends Observable<V>
+//     {
+//         ofType<T extends ActionFakeTypes>(...allowedTypes: T[]): Actions<ActionType<T>>;
+//     }
+// }
 
 export declare type Action = typeof Acts[keyof typeof Acts]["prototype"];
 export declare type ActionFakeTypes = keyof typeof Acts;

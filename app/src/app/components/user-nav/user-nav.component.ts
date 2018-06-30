@@ -1,11 +1,9 @@
 ﻿import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { User } from 'core';
-
-import { RootState } from '../../store/app.state';
-import { select } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+import { AuthRootState, User } from 'core';
 
 declare interface MenuItem
 {
@@ -24,7 +22,7 @@ declare interface MenuItem
 export class UserNavComponent
 {
     public items$: Observable<MenuItem[]>;
-    public user$: Observable<User | undefined>;
+    public user$: Observable<User | undefined | null>;
     protected readonly noUserMenu: MenuItem[] = [
         {
             title: 'Sign in', tooltip: 'Login or create a new user',
@@ -32,9 +30,9 @@ export class UserNavComponent
         }
     ];
 
-    constructor(protected readonly store$: Store<RootState>)
+    constructor(protected readonly store$: Store<AuthRootState>)
     {
-        this.user$ = store$.pipe(select(s => s.ML.user));
+        this.user$ = store$.pipe(select(s => s.AUTH.USER.user));
         this.items$ = this.user$.pipe(
             map(user =>
             {
@@ -46,7 +44,7 @@ export class UserNavComponent
                             icon: 'account_box', link: '/profile', class: ''
                         },
                         {
-                            title: 'Sign out', tooltip: `Sign out from ${user.profile.preferred_username}`,
+                            title: 'Sign out', tooltip: `Sign out from ${user.claims.preferred_username}`,
                             icon: 'exit_to_app', link: '/signout', class: ''
                         }
                     ];
