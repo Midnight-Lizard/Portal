@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'lib-schemes',
+  selector: 'schemes-list',
   template: `
     <p>
       schemes works!

@@ -7,6 +7,7 @@ import { LoadingComponent, ReloadFromServerComponent } from 'shared';
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
+    { path: 'schemes', loadChildren: '../../dist/schemes#SchemesModule' },
     { path: 'signin', component: ReloadFromServerComponent },
     { path: 'signout', component: ReloadFromServerComponent },
     { path: 'profile', component: LoadingComponent },

@@ -1,4 +1,4 @@
-export class AuthConstants
+export abstract class AuthConstants
 {
     static readonly Cookies = new class
     {

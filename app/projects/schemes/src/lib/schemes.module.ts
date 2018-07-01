@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
-import { SchemesComponent } from './schemes.component';
+
+import { schemesRoutingComponents, SchemesRoutingModule } from './schemes.routing.module';
+import { SchemesService } from './backend/schemes.service';
 
 @NgModule({
+  declarations: [schemesRoutingComponents],
   imports: [
+    SchemesRoutingModule
   ],
-  declarations: [SchemesComponent],
-  exports: [SchemesComponent]
+  providers: [SchemesService]
 })
 export class SchemesModule { }
