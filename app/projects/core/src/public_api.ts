@@ -16,6 +16,7 @@ export * from './lib/store/strong-actions';
 
 export * from './lib/store/nav/nav.state';
 export * from './lib/store/nav/nav.actions';
+export * from './lib/store/nav/navigation-handler';
 
 export * from './lib/store/auth/auth.state';
 export * from './lib/store/auth/auth.actions';

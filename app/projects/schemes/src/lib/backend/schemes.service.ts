@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { delay, first } from 'rxjs/operators';
 
-import { SchemesFilters } from '../model/schemes.filters';
+import { SchemesFilters } from '../model/schemes-filters';
 import { PublicScheme } from '../model/public-scheme';
 import { ScreenshotSize } from '../model/screenshot';
 import { SchemeSide } from '../model/scheme-side';
@@ -30,30 +30,33 @@ export class SchemesService
 {
     constructor() { }
 
-    public getPublicSchemes(filters: SchemesFilters, size: number, cursor: string | null)
+    public getPublicSchemes(filters: SchemesFilters, size: number, cursor?: string | null)
     {
-        return new BehaviorSubject<PublicScheme[]>(new Array(size).map(_ =>
-        {
-            const side = filters.side === SchemeSide.None
-                ? Math.random() > 0.3 ? SchemeSide.Dark : SchemeSide.Light
-                : filters.side;
-            const screenshots = side === SchemeSide.Dark ? darkSchemes : lightSchemes;
+        return new BehaviorSubject<{ data: PublicScheme[], cursor: string }>(({
+            cursor: this.randomString(4),
+            data: new Array(size).map(_ =>
+            {
+                const side = filters.side === SchemeSide.None
+                    ? Math.random() > 0.3 ? SchemeSide.Dark : SchemeSide.Light
+                    : filters.side;
+                const screenshots = side === SchemeSide.Dark ? darkSchemes : lightSchemes;
 
-            return ({
-                id: this.randomString(8),
-                name: `${this.randomString(4)} ${filters.name}${this.randomString(6 - (filters.name || '').length)}`,
-                publisher: {
+                return ({
                     id: this.randomString(8),
-                    name: `${this.randomString(6)} ${this.randomString(4)}`
-                },
-                side: side,
-                screenshots: [{
-                    title: '',
-                    urls: {
-                        [ScreenshotSize._1280x800]: screenshots[Math.floor(Math.random() * screenshots.length)]
-                    }
-                }]
-            });
+                    name: `${this.randomString(4)} ${filters.name}${this.randomString(6 - (filters.name || '').length)}`,
+                    publisher: {
+                        id: this.randomString(8),
+                        name: `${this.randomString(6)} ${this.randomString(4)}`
+                    },
+                    side: side,
+                    screenshots: [{
+                        title: '',
+                        urls: {
+                            [ScreenshotSize._1280x800]: screenshots[Math.floor(Math.random() * screenshots.length)]
+                        }
+                    }]
+                });
+            })
         })).pipe(delay(300), first());
     }
 
