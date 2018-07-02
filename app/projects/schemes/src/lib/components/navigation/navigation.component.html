@@ -1,0 +1,66 @@
+﻿<mat-nav-list>
+    <a mat-list-item
+       routerLink="/schemes/index/full"
+       routerLinkActive="active-section"
+       matTooltip="All Midnight Lizard color schemes"
+       matTooltipPosition="right">
+        <mat-icon mat-list-icon>styles</mat-icon>
+        <p matLine>All schemes</p>
+    </a>
+
+    <mat-divider></mat-divider>
+
+    <h3 matSubheader
+        matTooltip="My personal lists"
+        matTooltipPosition="right">
+        Personal lists
+    </h3>
+    <a mat-list-item
+       routerLink="/schemes/index/my"
+       routerLinkActive="active-section"
+       matTooltip="Schemes created by me"
+       matTooltipPosition="right">
+        <mat-icon mat-list-icon>account_circle</mat-icon>
+        <p matLine>My schemes</p>
+    </a>
+    <a mat-list-item
+       routerLink="/schemes/index/favorites"
+       routerLinkActive="active-section"
+       matTooltip="My favorite schemes"
+       matTooltipPosition="right">
+        <mat-icon mat-list-icon>favorite</mat-icon>
+        <p matLine>Favorites</p>
+    </a>
+    <a mat-list-item
+       routerLink="/schemes/index/likes"
+       routerLinkActive="active-section"
+       matTooltip="Schemes I like"
+       matTooltipPosition="right">
+        <mat-icon mat-list-icon>thumb_up</mat-icon>
+        <p matLine>Liked schemes</p>
+    </a>
+
+    <mat-divider></mat-divider>
+
+    <h3 matSubheader
+        matTooltip="Public lists"
+        matTooltipPosition="right">
+        Public lists
+    </h3>
+    <a mat-list-item
+       routerLink="/schemes/index/ml"
+       routerLinkActive="active-section"
+       matTooltip="Schemes created by Midnight Lizard"
+       matTooltipPosition="right">
+        <mat-icon mat-list-icon>verified_user</mat-icon>
+        <p matLine>Original</p>
+    </a>
+    <a mat-list-item
+       routerLink="/schemes/index/com"
+       routerLinkActive="active-section"
+       matTooltip="Schemes created by community members"
+       matTooltipPosition="right">
+        <mat-icon mat-list-icon>people</mat-icon>
+        <p matLine>Community</p>
+    </a>
+</mat-nav-list>
