@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
-import { SchemesComponent } from './components/schemes.component';
 import { Routes, RouterModule } from '@angular/router';
+
+import { SchemesComponent } from './components/schemes.component';
+import { SchemesFilterComponent } from './components/filter/filter.component';
 
 const index = 'index';
 
@@ -9,7 +11,7 @@ const routes: Routes = [
     {
         path: `${index}/:list`, children: [
             { path: '', component: SchemesComponent },
-            { path: '', component: SchemesComponent, outlet: 'right-side' },
+            { path: '', component: SchemesFilterComponent, outlet: 'right-side' },
             { path: '', component: SchemesComponent, outlet: 'left-side' }
         ]
     }
@@ -22,5 +24,6 @@ const routes: Routes = [
 export class SchemesRoutingModule { }
 
 export const schemesRoutingComponents = [
-    SchemesComponent
+    SchemesComponent,
+    SchemesFilterComponent
 ];

@@ -1,21 +1,33 @@
 import { NgModule } from '@angular/core';
-import { SharedComponent } from './shared.component';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import
 {
-  MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
-  MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule, MatTooltipModule,
-  MatProgressSpinnerModule, MatPaginatorModule, MatSortModule
+    MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
+    MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule,
+    MatTooltipModule, MatProgressSpinnerModule, MatPaginatorModule,
+    MatSortModule, MatButtonToggleModule
 } from '@angular/material';
 
+import { SharedComponent } from './shared.component';
+
 const materialModules = [
-  MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
-  MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule, MatTooltipModule,
-  MatProgressSpinnerModule, MatPaginatorModule, MatSortModule
+    MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
+    MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule,
+    MatTooltipModule, MatProgressSpinnerModule, MatPaginatorModule,
+    MatSortModule, MatButtonToggleModule
 ];
 
 @NgModule({
-  imports: materialModules,
-  declarations: [SharedComponent],
-  exports: [materialModules, SharedComponent]
+    imports: [
+        materialModules,
+        CommonModule,
+        FormsModule,
+        FlexLayoutModule,
+        ReactiveFormsModule,
+    ],
+    declarations: [SharedComponent],
+    exports: [materialModules, SharedComponent]
 })
 export class SharedModule { }

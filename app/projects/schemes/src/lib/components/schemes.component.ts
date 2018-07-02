@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'schemes-list',
-  template: `
+    selector: 'schemes-list',
+    template: `
     <p>
       schemes works!
     </p>
   `,
-  styles: []
+    styles: []
 })
-export class SchemesComponent implements OnInit {
+export class SchemesComponent implements OnInit
+{
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit()
+    {
+    }
 
 }
