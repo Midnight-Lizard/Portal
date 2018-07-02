@@ -16,18 +16,14 @@ import { getSchemesListFromRoute } from '../model/schemes-lists';
 @Injectable()
 export class SchemesEffects
 {
-    private readonly handleNavigation:
-        <TResult>(path: RegExp, callback: INavigationCallback<SchemesState, TResult>)
-            => Observable<NavigationFailed | TResult>;
+    private readonly handleNavigation = createNavigationHandler(
+        this.actions$, this.store$, (store) => store.SCHEMES.schemes);
 
     constructor(
         private readonly actions$: Actions<SchemesAction, typeof SchActs>,
         private readonly store$: Store<SchemesRootState>,
-        private readonly schSvc: SchemesService)
-    {
-        this.handleNavigation = createNavigationHandler(
-            actions$, store$, (store) => store.SCHEMES.schemes);
-    }
+        private readonly schSvc: SchemesService
+    ) { }
 
     @Effect()
     onSearchNavigated$ = this.handleNavigation(/schemes\/index/, (route, state) =>

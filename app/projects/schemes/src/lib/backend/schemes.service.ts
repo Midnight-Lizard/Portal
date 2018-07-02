@@ -34,10 +34,10 @@ export class SchemesService
     {
         return new BehaviorSubject<{ data: PublicScheme[], cursor: string }>(({
             cursor: this.randomString(4),
-            data: new Array(size).map(_ =>
+            data: Array.apply(null, Array(size)).map(() =>
             {
                 const side = filters.side === SchemeSide.None
-                    ? Math.random() > 0.3 ? SchemeSide.Dark : SchemeSide.Light
+                    ? Math.random() > 0.25 ? SchemeSide.Dark : SchemeSide.Light
                     : filters.side;
                 const screenshots = side === SchemeSide.Dark ? darkSchemes : lightSchemes;
 

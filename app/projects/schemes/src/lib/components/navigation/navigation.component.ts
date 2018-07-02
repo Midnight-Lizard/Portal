@@ -1,4 +1,8 @@
 ﻿import { Component } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import { AuthRootState, User } from 'core';
 
 @Component({
     selector: 'schemes-nav',
@@ -7,5 +11,10 @@
 })
 export class SchemesNavigationComponent
 {
-    constructor() { }
+    protected readonly user$: Observable<User | null | undefined>;
+
+    constructor(store$: Store<AuthRootState>)
+    {
+        this.user$ = store$.pipe(select(x => x.AUTH.USER.user));
+    }
 }

@@ -5,7 +5,7 @@ export enum SchemesList
     Full = 'full',
     My = 'my',
     Favorites = 'fav',
-    Likes = 'likes',
+    Liked = 'liked',
     Original = 'ml',
     Community = 'com'
 }
@@ -18,5 +18,5 @@ export function getSchemesListFromRoute(route: ActivatedRouteSnapshot): SchemesL
     {
         index = index.firstChild;
     }
-    return index.params.list ? SchemesList[index.params.list] as any : SchemesList.Full;
+    return index.params.list || SchemesList.Full;
 }

@@ -1,0 +1,43 @@
+﻿@import 'theme.scss';
+
+.filter-container
+{
+    width: 100%;
+}
+
+mat-card
+{
+    margin: 3px;
+}
+
+mat-card-actions .mat-icon:not(important)
+{
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+}
+
+mat-card-actions .mat-icon-button
+{
+    line-height: 36px;
+    width: 36px;
+    height: 36px;
+}
+
+mat-card-actions
+{
+    text-align: center;
+}
+
+.mat-card-title
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*.mat-grid-tile
+{
+    background-color: gray;
+}*/

@@ -10,8 +10,8 @@ export interface SchemesFilters
 export function getFiltersFromRoute(route: ActivatedRouteSnapshot): SchemesFilters
 {
     return {
-        name: route.queryParams.sn || '',
-        side: route.queryParams.ss ? route.queryParams.ss : SchemeSide.None
+        name: route.queryParams.q || '',
+        side: route.queryParams.side ? route.queryParams.side : SchemeSide.None
     };
 }
 
@@ -19,8 +19,8 @@ export function createRouteParamsFromFilters(filters: SchemesFilters): Params
 {
     const params: Params = {};
 
-    params.sn = filters.name || '';
-    params.ss = filters.side;
+    params.q = filters.name || '';
+    params.side = filters.side;
 
     return params;
 }

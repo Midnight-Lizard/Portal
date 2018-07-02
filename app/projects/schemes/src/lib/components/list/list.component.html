@@ -1,0 +1,20 @@
+﻿<mat-grid-list [cols]="cols"
+               gutterSize="20"
+               [rowHeight]="aspect">
+  <mat-grid-tile *ngFor="let scheme of schemes$|async; index as ix; trackBy: trackById">
+    <mat-card [tabindex]="100+ix"
+              [attr.sid]="scheme.id">
+      <mat-card-header [matTooltip]="scheme.name"
+                       matTooltipPosition="above">
+        <mat-icon mat-card-avatar>palette</mat-icon>
+        <a mat-card-title
+           [href]="scheme.screenshots[0].urls['1280x800']"
+           target="_blank">
+          {{scheme.name}}
+        </a>
+      </mat-card-header>
+      <img mat-card-image
+           [src]="scheme.screenshots[0].urls['1280x800']">
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

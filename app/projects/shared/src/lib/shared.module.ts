@@ -7,7 +7,7 @@ import
     MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
     MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule,
     MatTooltipModule, MatProgressSpinnerModule, MatPaginatorModule,
-    MatSortModule, MatButtonToggleModule
+    MatSortModule, MatButtonToggleModule, MatGridListModule, MatCardModule
 } from '@angular/material';
 
 import { SharedComponent } from './shared.component';
@@ -16,7 +16,8 @@ const materialModules = [
     MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
     MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule,
     MatTooltipModule, MatProgressSpinnerModule, MatPaginatorModule,
-    MatSortModule, MatButtonToggleModule
+    MatSortModule, MatButtonToggleModule, MatGridListModule,
+    MatCardModule
 ];
 
 @NgModule({
