@@ -32,8 +32,9 @@ export class SchemesService
 
     public getPublicSchemes(filters: SchemesFilters, size: number, cursor?: string | null)
     {
-        return new BehaviorSubject<{ data: PublicScheme[], cursor: string }>(({
+        return new BehaviorSubject(({
             cursor: this.randomString(4),
+            done: Math.random() > 0.7,
             data: Array.apply(null, Array(size)).map(() =>
             {
                 const side = filters.side === SchemeSide.None
@@ -57,7 +58,7 @@ export class SchemesService
                     }]
                 });
             })
-        })).pipe(delay(300), first());
+        })).pipe(delay(cursor ? 600 : 300), first());
     }
 
     private randomString(length: number)

@@ -75,6 +75,7 @@
     "memorystore": "^1.6.0",
     "mkdirp": "^0.5.1",
     "ngx-cookie-service": "^1.0.10",
+    "ngx-infinite-scroll": "^6.0.1",
     "openid-client": "^2.1.0",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"

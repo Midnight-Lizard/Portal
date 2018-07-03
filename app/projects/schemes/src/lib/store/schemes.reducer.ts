@@ -6,15 +6,27 @@ export function schemesReducer(state: SchemesState, action: SchemesAction): Sche
     switch (action.type)
     {
         case SchemesActionTypes.FirstSchemesChunkLoaded: {
-            return { ...state, ...action.payload };
+            return {
+                ...state,
+                ...action.payload
+            };
         }
 
         case SchemesActionTypes.NextSchemesChunkLoaded: {
-            return { ...state, data: [...state.data, ...action.payload.data] };
+            return {
+                ...state,
+                data: [...state.data, ...action.payload.data],
+                done: action.payload.done,
+                cursor: action.payload.cursor
+            };
         }
 
         case SchemesActionTypes.SchemesSearchChanged: {
-            return { ...state, ...action.payload };
+            return {
+                ...state,
+                ...action.payload,
+                done: false
+            };
         }
 
         default:

@@ -24,6 +24,7 @@ export interface SchemesState
     readonly data: PublicScheme[];
     readonly filters: SchemesFilters;
     readonly cursor?: string;
+    readonly done: boolean;
 }
 
 export const schemesReducers: ActionReducerMap<SchemesFeatureState> = {
@@ -37,6 +38,7 @@ export const schemesInitialState: SchemesFeatureState = {
             name: '',
             side: SchemeSide.None
         },
-        data: []
+        data: [],
+        done: false
     }
 };

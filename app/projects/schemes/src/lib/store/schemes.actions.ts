@@ -13,7 +13,8 @@ export class NextSchemesChunkLoaded
     readonly type = 'NextSchemesChunkLoaded';
     constructor(readonly payload: Readonly<{
         data: PublicScheme[],
-        cursor: string
+        cursor: string,
+        done: boolean
     }>) { }
 }
 
@@ -22,7 +23,8 @@ export class FirstSchemesChunkLoaded
     readonly type = 'FirstSchemesChunkLoaded';
     constructor(readonly payload: Readonly<{
         data: PublicScheme[],
-        cursor: string
+        cursor: string,
+        done: boolean
     }>) { }
 }
 

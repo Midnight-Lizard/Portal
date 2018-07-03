@@ -4,6 +4,7 @@ import { EffectsModule, Actions } from '@ngrx/effects';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { SharedModule } from 'shared';
 import { schemesRoutingComponents, SchemesRoutingModule } from './schemes.routing.module';
@@ -15,7 +16,7 @@ import { SchemesEffects } from './store/schemes.effects';
     declarations: [schemesRoutingComponents],
     imports: [
         CommonModule, FormsModule, FlexLayoutModule, ReactiveFormsModule,
-        SchemesRoutingModule, SharedModule,
+        SchemesRoutingModule, SharedModule, InfiniteScrollModule,
         StoreModule.forFeature(SchemesFeature, schemesReducers, { initialState: schemesInitialState }),
         EffectsModule.forFeature([SchemesEffects])
     ],

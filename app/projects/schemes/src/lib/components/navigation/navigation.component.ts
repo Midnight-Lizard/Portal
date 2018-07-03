@@ -11,7 +11,7 @@ import { AuthRootState, User } from 'core';
 })
 export class SchemesNavigationComponent
 {
-    protected readonly user$: Observable<User | null | undefined>;
+    readonly user$: Observable<User | null | undefined>;
 
     constructor(store$: Store<AuthRootState>)
     {
