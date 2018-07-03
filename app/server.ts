@@ -17,6 +17,7 @@ import * as auth from './auth';
 
 import * as session from 'express-session';
 import { Settings, defaultSettings, AuthConstants, User } from './dist/core';
+import { AppConstants } from './src/app/app.constants';
 const MemoryStore = require('memorystore')(session);
 
 
@@ -150,7 +151,8 @@ auth.initAuth(settings).then(() =>
             providers: [
                 { provide: 'ORIGIN_URL', useValue: settings.PORTAL_URL },
                 { provide: 'SETTINGS', useValue: settings },
-                { provide: 'USER', useValue: auth.getUser(req.session!.id) }
+                { provide: 'USER', useValue: auth.getUser(req.session!.id) },
+                { provide: 'MEDIA', useValue: req.cookies[AppConstants.Cookies.Media] },
             ]
         });
     });

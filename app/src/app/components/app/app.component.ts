@@ -1,9 +1,11 @@
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
-import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material';
+import { CookieService } from 'ngx-cookie-service';
 
 import { SideService, Side } from 'core';
+import { AppConstants } from '../../app.constants';
 
 @Component({
     selector: 'ml-portal',
@@ -22,39 +24,31 @@ export class AppComponent
         this._sidenavIsOpened_UserDefined = this.sidenavIsOpened = !this.sidenavIsOpened;
     }
 
-    constructor(media: ObservableMedia,
-        iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
-        readonly execute: SideService)
+    constructor(
+        media: ObservableMedia,
+        iconRegistry: MatIconRegistry,
+        sanitizer: DomSanitizer,
+        cookieService: CookieService,
+        readonly env: SideService)
     {
         iconRegistry.addSvgIcon(
             'midnight-lizard',
             sanitizer.bypassSecurityTrustResourceUrl('assets/ml-logo.svg'));
 
-        execute.on(Side.Browser, () =>
-        {
-            window.addEventListener('resize', () =>
-            {
-
-            });
-            window.dispatchEvent(new Event('resize'));
-        });
-
         media.subscribe((change: MediaChange) =>
         {
+            if (env.isBrowserSide)
+            {
+                cookieService.set(AppConstants.Cookies.Media, change.mqAlias, 30);
+            }
             if (/xs|sm/.test(change.mqAlias))
             {
                 this.sidenavIsOpened = false;
-            }
-            else
-            {
-                this.sidenavIsOpened = this._sidenavIsOpened_UserDefined;
-            }
-            if (/xs|sm/.test(change.mqAlias))
-            {
                 this.sidenavMode = 'over';
             }
             else
             {
+                this.sidenavIsOpened = this._sidenavIsOpened_UserDefined;
                 this.sidenavMode = 'side';
             }
         });

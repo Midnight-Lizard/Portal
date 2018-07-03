@@ -1,12 +1,13 @@
-﻿import { Component, OnDestroy, TrackByFunction, HostBinding } from '@angular/core';
+﻿import { Component, OnDestroy, TrackByFunction, HostBinding, Inject, Optional } from '@angular/core';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
-import { Store, select } from '@ngrx/store';
 import { Subscription, Observable, Subject } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { takeUntil } from 'rxjs/operators';
 
 import { SchemesFeatureState, SchemesRootState } from '../../store/schemes.state';
 import { PublicScheme as SchemeEntry } from '../../model/public-scheme';
 import * as Act from '../../store/schemes.actions';
-import { takeUntil } from 'rxjs/operators';
+import { SideService } from 'core';
 
 @Component({
     selector: 'schemes-list',
@@ -22,7 +23,10 @@ export class SchemesListComponent implements OnDestroy
     protected readonly _mediaSub: Subscription;
     @HostBinding('class.show-loading') isLoading = false;
 
-    constructor(media: ObservableMedia,
+    constructor(
+        media: ObservableMedia,
+        env: SideService,
+        @Inject('MEDIA') @Optional() lastMedia: string | null,
         protected readonly store$: Store<SchemesRootState>)
     {
         this.schemes$ = store$.pipe(select(s => s.SCHEMES.schemes.data));
@@ -36,7 +40,12 @@ export class SchemesListComponent implements OnDestroy
         });
         this._mediaSub = media.subscribe((change: MediaChange) =>
         {
-            switch (change.mqAlias)
+            let mq = lastMedia || 'default';
+            if (env.isBrowserSide && change.matches)
+            {
+                mq = change.mqAlias;
+            }
+            switch (mq)
             {
                 case 'xs':
                     this.cols = 1;

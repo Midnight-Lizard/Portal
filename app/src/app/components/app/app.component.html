@@ -1,8 +1,8 @@
-<div fxLayout="column" [ngClass]="{'root': true, 'server': execute.isServerSide, 'client': execute.isBrowserSide}">
+<div fxLayout="column" [ngClass]="{'root': true, 'server': env.isServerSide, 'client': env.isBrowserSide}">
     <ml-toolbar (sidenavToggleClick)="toggleSidenav()">
     </ml-toolbar>
     <mat-sidenav-container fxFlex="100" (backdropClick)="toggleSidenav()">
-        <mat-sidenav class="left-side" [ngClass]="{server:execute.isServerSide}" ngClass.sm="over-50" ngClass.lt-sm="over-80" [mode]="sidenavMode"
+        <mat-sidenav class="left-side" [ngClass]="{server:env.isServerSide}" ngClass.sm="over-50" ngClass.lt-sm="over-80" [mode]="sidenavMode"
             [(opened)]="sidenavIsOpened">
             <router-outlet name="left-side"></router-outlet>
         </mat-sidenav>
