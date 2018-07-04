@@ -70,6 +70,7 @@
     "compression": "^1.7.2",
     "cookie-parser": "^1.4.3",
     "core-js": "^2.5.4",
+    "domino": "^2.0.2",
     "express-session": "^1.15.6",
     "hammerjs": "^2.0.8",
     "memorystore": "^1.6.0",

@@ -1,5 +1,5 @@
 import * as url from 'url';
-import { Settings, User } from './dist/core';
+import { Settings, User } from '../dist/core';
 
 const { Issuer } = require('openid-client');
 

@@ -18,7 +18,7 @@ import { Settings, defaultSettings } from './dist/core';
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/portal-server/main');
 
-const BROWSER_FOLDER = join(process.cwd(), 'portal-static');
+const STATIC_FOLDER = join(process.cwd(), 'portal-static');
 
 // Load the index.html file containing referances to your application bundle.
 const index = readFileSync(join('portal-browser', 'index.html'), 'utf8');
@@ -32,7 +32,7 @@ Object.keys(settings)
 // Iterate each route path
 STATIC_ROUTES.forEach(route =>
 {
-    const fullPath = join(BROWSER_FOLDER, route);
+    const fullPath = join(STATIC_FOLDER, route);
 
     // Make sure the directory structure is there
     createPathSync(fullPath);

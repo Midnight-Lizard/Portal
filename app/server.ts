@@ -13,13 +13,14 @@ import * as compression from 'compression';
 import * as cookieparser from 'cookie-parser';
 const bodyParser = require('body-parser');
 import { STATIC_ROUTES } from './static.paths';
-import * as auth from './auth';
+import * as auth from './src/auth';
 
 import * as session from 'express-session';
 import { Settings, defaultSettings, AuthConstants, User } from './dist/core';
 import { AppConstants } from './src/app/app.constants';
+// import { readFileSync } from 'fs';
 const MemoryStore = require('memorystore')(session);
-
+// const domino = require('domino');
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
@@ -33,6 +34,23 @@ const DIST_FOLDER = join(process.cwd(), 'dist');
 // NOTE: leave this as require() since this file is built Dynamically from webpack
 const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/portal-server/main');
 const H24 = 86400000;
+
+// const index = readFileSync(join(DIST_FOLDER, 'portal-browser', 'index.html'), 'utf8');
+// const win = domino.createWindow(index, settings.PORTAL_URL);
+// (global as any).window = win;
+// (global as any).document = win.document;
+// Object.defineProperty(win.document.body.style, 'transform', {
+//     value: () => ({
+//         enumerable: true,
+//         configurable: true
+//     })
+// });
+// Object.defineProperty(win.document.body.style, 'box-shadow', {
+//     value: () => ({
+//         enumerable: true,
+//         configurable: true
+//     })
+// });
 
 auth.initAuth(settings).then(() =>
 {
