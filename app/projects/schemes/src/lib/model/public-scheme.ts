@@ -11,4 +11,7 @@ export interface PublicScheme
     readonly side: SchemeSide;
     readonly name: string;
     readonly screenshots: Screenshot[];
+    readonly liked: boolean;
+    readonly likes: number;
+    readonly favorited: boolean;
 }

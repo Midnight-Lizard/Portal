@@ -35,7 +35,7 @@ export class SchemesService
         return new BehaviorSubject(({
             cursor: this.randomString(4),
             done: Math.random() > 0.7,
-            data: Array.apply(null, Array(size)).map(() =>
+            data: (Array.apply(null, Array(size)) as null[]).map(() =>
             {
                 const side = filters.side === SchemeSide.None
                     ? Math.random() > 0.25 ? SchemeSide.Dark : SchemeSide.Light
@@ -44,11 +44,14 @@ export class SchemesService
 
                 return ({
                     id: this.randomString(8),
-                    name: `${this.randomString(4)} ${filters.name}${this.randomString(6 - (filters.name || '').length)}`,
+                    name: `Fake ${this.randomString(4)} ${filters.name}${this.randomString(6 - (filters.name || '').length)}`,
                     publisher: {
                         id: this.randomString(8),
                         name: `${this.randomString(6)} ${this.randomString(4)}`
                     },
+                    favorited: Math.random() > 0.5,
+                    liked: Math.random() > 0.5,
+                    likes: Math.floor(Math.random() * 100),
                     side: side,
                     screenshots: [{
                         title: '',
