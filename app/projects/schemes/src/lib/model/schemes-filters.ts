@@ -11,7 +11,7 @@ export function getFiltersFromRoute(route: ActivatedRouteSnapshot): SchemesFilte
 {
     return {
         name: route.queryParams.q || '',
-        side: route.queryParams.side ? route.queryParams.side : SchemeSide.None
+        side: route.queryParams.side ? route.queryParams.side : SchemeSide.None,
     };
 }
 

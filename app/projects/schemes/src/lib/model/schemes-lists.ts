@@ -6,7 +6,7 @@ export enum SchemesList
     My = 'my',
     Favorites = 'fav',
     Liked = 'liked',
-    Original = 'ml',
+    MidnightLizard = 'ml',
     Community = 'com'
 }
 

@@ -27,23 +27,24 @@ export class SchemesEffects
 
     @Effect()
     onSearchNavigated$ = this.handleNavigation(/schemes\/index/, (route, state) =>
-    {
-        return of(new SchActs.SchemesSearchChanged({
+        of(new SchActs.SchemesSearchChanged({
             filters: getFiltersFromRoute(route),
             list: getSchemesListFromRoute(route)
-        }));
-    });
+        })));
 
     @Effect()
     onSearchChanged$ = this.actions$.ofType(SchActTypes.SchemesSearchChanged).pipe(
-        switchMap(act => this.schSvc.getPublicSchemes(act.payload.filters, 10, null)),
+        switchMap(act => this.schSvc.getPublicSchemes(
+            act.payload.filters, act.payload.list, 10, null)),
         map(result => new SchActs.FirstSchemesChunkLoaded(result))
     );
 
     @Effect()
     loadNextChunk$ = this.actions$.ofType(SchActTypes.LoadNextSchemesChunk).pipe(
         withLatestFrom(this.store$),
-        switchMap(([act, state]) => this.schSvc.getPublicSchemes(state.SCHEMES.schemes.filters, 10, state.SCHEMES.schemes.cursor)),
+        switchMap(([act, state]) => this.schSvc.getPublicSchemes(
+            state.SCHEMES.schemes.filters, state.SCHEMES.schemes.list, 10,
+            state.SCHEMES.schemes.cursor)),
         map(result => new SchActs.NextSchemesChunkLoaded(result))
     );
 }

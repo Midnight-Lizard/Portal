@@ -1,40 +1,42 @@
 ﻿@import 'theme.scss';
-
-.filter-container
-{
-    width: 100%;
-}
-
-mat-card
-{
+mat-card {
     margin: 3px;
 }
 
-mat-card-actions .mat-icon:not(important)
-{
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    font-size: 20px;
+.mat-card-actions:last-child:not(imp) {
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-bottom: -10px;
+    .mat-icon:not(important) {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        font-size: 20px;
+    }
+    .mat-icon-button {
+        margin: 3px;
+        line-height: 36px;
+        width: 36px;
+        height: 36px;
+    }
 }
 
-mat-card-actions .mat-icon-button
-{
-    line-height: 36px;
-    width: 36px;
-    height: 36px;
-}
-
-mat-card-actions
-{
-    text-align: center;
-}
-
-.mat-card-title
-{
+.mat-card-title {
+    font-size: 16px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.mat-card-subtitle {
+    font-size: 12px;
+    .mat-icon:not(important) {
+        padding-left: 3px;
+        width: 14px;
+        height: 14px;
+        line-height: 14px;
+        font-size: 11px;
+    }
 }
 
 /*.mat-grid-tile

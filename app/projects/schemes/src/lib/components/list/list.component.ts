@@ -5,7 +5,7 @@ import { Store, select } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
 
 import { SchemesFeatureState, SchemesRootState } from '../../store/schemes.state';
-import { PublicScheme as SchemeEntry } from '../../model/public-scheme';
+import { PublicScheme } from '../../model/public-scheme';
 import * as Act from '../../store/schemes.actions';
 import { SideService } from 'core';
 
@@ -19,7 +19,7 @@ export class SchemesListComponent implements OnDestroy
     cols = 2;
     aspect = '4:5';
     private readonly disposed = new Subject<boolean>();
-    readonly schemes$: Observable<SchemeEntry[] | undefined>;
+    readonly schemes$: Observable<PublicScheme[]>;
     protected readonly _mediaSub: Subscription;
     @HostBinding('class.show-loading') isLoading = false;
 
@@ -64,7 +64,7 @@ export class SchemesListComponent implements OnDestroy
 
                 case 'lg':
                     this.cols = 2;
-                    this.aspect = '95:100';
+                    this.aspect = '6:7';
                     break;
 
                 case 'xl':
@@ -86,10 +86,24 @@ export class SchemesListComponent implements OnDestroy
         this._mediaSub.unsubscribe();
     }
 
-    trackById: TrackByFunction<SchemeEntry> = (index, item) => item ? item.id : null;
+    trackById: TrackByFunction<PublicScheme> = (index, item) => item ? item.id : null;
 
     onScroll()
     {
         this.store$.dispatch(new Act.LoadNextSchemesChunk());
+    }
+
+    toggleSchemeLiked(scheme: PublicScheme)
+    {
+        this.store$.dispatch(scheme.liked
+            ? new Act.DislikeScheme(scheme)
+            : new Act.LikeScheme(scheme));
+    }
+
+    toggleSchemeFavorited(scheme: PublicScheme)
+    {
+        this.store$.dispatch(scheme.favorited
+            ? new Act.RemoveSchemeFromFavorites(scheme)
+            : new Act.AddSchemeToFavorites(scheme));
     }
 }

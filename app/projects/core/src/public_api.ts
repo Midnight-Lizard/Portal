@@ -13,6 +13,7 @@ export * from './lib/auth/auth.service';
 export * from './lib/auth/auth.constants';
 
 export * from './lib/store/strong-actions';
+export * from './lib/store/command-actions';
 
 export * from './lib/store/nav/nav.state';
 export * from './lib/store/nav/nav.actions';

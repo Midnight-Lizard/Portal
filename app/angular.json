@@ -44,6 +44,15 @@
             },
             "hmr": {
               "tsConfig": "src/tsconfig.app.debug.json",
+              "assets": [
+                "src/favicon.ico",
+                "src/assets",
+                {
+                  "glob": "**/*",
+                  "input": "projects/shared/src/assets/",
+                  "output": "/assets/"
+                }
+              ],
               "stylePreprocessorOptions": {
                 "includePaths": [
                   "projects/shared/src/styles"

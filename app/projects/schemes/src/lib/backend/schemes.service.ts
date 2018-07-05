@@ -6,6 +6,7 @@ import { SchemesFilters } from '../model/schemes-filters';
 import { PublicScheme } from '../model/public-scheme';
 import { ScreenshotSize } from '../model/screenshot';
 import { SchemeSide } from '../model/scheme-side';
+import { SchemesList } from '../model/schemes-lists';
 
 const darkSchemes = [
     // tslint:disable-next-line:max-line-length
@@ -30,7 +31,7 @@ export class SchemesService
 {
     constructor() { }
 
-    public getPublicSchemes(filters: SchemesFilters, size: number, cursor?: string | null)
+    public getPublicSchemes(filters: SchemesFilters, list: SchemesList, size: number, cursor?: string | null)
     {
         return new BehaviorSubject(({
             cursor: this.randomString(4),
@@ -44,10 +45,13 @@ export class SchemesService
 
                 return ({
                     id: this.randomString(8),
-                    name: `Fake ${this.randomString(4)} ${filters.name}${this.randomString(6 - (filters.name || '').length)}`,
+                    name: `Fake ${this.randomString(4)} scheme ${filters.name}`,
                     publisher: {
                         id: this.randomString(8),
-                        name: `${this.randomString(6)} ${this.randomString(4)}`
+                        name: `${this.randomString(6)} ${this.randomString(4)}`,
+                        community: list === SchemesList.Community ? true :
+                            list === SchemesList.MidnightLizard ? false :
+                                Math.random() > 0.5
                     },
                     favorited: Math.random() > 0.5,
                     liked: Math.random() > 0.5,
