@@ -5,11 +5,17 @@ import { MatIconRegistry, MatSnackBar } from '@angular/material';
 import { CookieService } from 'ngx-cookie-service';
 import { Store, select } from '@ngrx/store';
 import { map, filter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
-import { SideService, Side, InfoRootState } from 'core';
+import { SideService, Side, InfoRootState, NotificationLevel } from 'core';
 import { AppConstants } from '../../app.constants';
 import { InfoBarComponent } from '../info-bar/info-bar.component';
+
+const notificationDuration = new Map<NotificationLevel, number>([
+    [NotificationLevel.Info, 5000],
+    [NotificationLevel.Warning, 10000],
+    [NotificationLevel.Error, 60000]
+]);
 
 @Component({
     selector: 'ml-portal',
@@ -23,6 +29,7 @@ export class AppComponent implements OnDestroy
     public sidenavIsOpened = true;
     protected _sidenavIsOpened_UserDefined = this.sidenavIsOpened;
     private disposed = new Subject<boolean>();
+    private readonly mediaSubscription: Subscription;
 
     constructor(
         media: ObservableMedia,
@@ -44,11 +51,14 @@ export class AppComponent implements OnDestroy
             takeUntil(this.disposed)
         ).subscribe(msg =>
         {
-            const snackBarRef = snackBar.openFromComponent(InfoBarComponent, { data: msg });
+            const snackBarRef = snackBar.openFromComponent(InfoBarComponent, {
+                data: msg,
+                duration: notificationDuration.get(msg!.level)
+            });
             snackBarRef.instance.snackBarRef = snackBarRef;
         });
 
-        media.subscribe((change: MediaChange) =>
+        this.mediaSubscription = media.subscribe((change: MediaChange) =>
         {
             if (env.isBrowserSide)
             {
@@ -75,5 +85,6 @@ export class AppComponent implements OnDestroy
     ngOnDestroy(): void
     {
         this.disposed.next(true);
+        this.mediaSubscription.unsubscribe();
     }
 }
