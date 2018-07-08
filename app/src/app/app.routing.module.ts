@@ -8,8 +8,8 @@ const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
     { path: 'schemes', loadChildren: './lazy/schemes.loader.module#SchemesLoaderModule' },
-    { path: 'signin', component: ReloadFromServerComponent },
-    { path: 'signout', component: ReloadFromServerComponent },
+    { path: 'signin', component: ReloadFromServerComponent, data: { server: true } },
+    { path: 'signout', component: ReloadFromServerComponent, data: { server: true } },
     { path: 'profile', component: LoadingComponent },
     { path: '**', redirectTo: 'home' }
 ];

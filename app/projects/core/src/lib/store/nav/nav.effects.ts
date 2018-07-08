@@ -1,7 +1,8 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { ActivatedRouteSnapshot } from '@angular/router';
+import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { of, Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, filter, map } from 'rxjs/operators';
 
 import { NavAction, NavActionTypes } from './nav.action-sets';
 import * as NavActions from './nav.actions';
@@ -22,4 +23,20 @@ export class NavEffects
             data: user.payload.error
         })))
     );
+
+    @Effect() handleNavigation$ = this.actions$.ofType(NavActionTypes.RouterNavigation).pipe(
+        filter(act => !this.getLastChild(act.payload.routerState.root).data.server),
+        map(act => new NavActions.ReturnUrlChanged({
+            returnUrl: act.payload.routerState.url
+        }))
+    );
+
+    private getLastChild(route: ActivatedRouteSnapshot): ActivatedRouteSnapshot
+    {
+        if (route.firstChild)
+        {
+            return this.getLastChild(route.firstChild);
+        }
+        return route;
+    }
 }

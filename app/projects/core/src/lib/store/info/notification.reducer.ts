@@ -8,7 +8,7 @@ export function notificationReducer(state: NotificationState, action: InfoAction
         case InfoActionTypes.NotifyUser: {
             return {
                 ...state,
-                messages: [...state.messages, action.payload]
+                messages: [action.payload, ...state.messages]
             };
         }
 

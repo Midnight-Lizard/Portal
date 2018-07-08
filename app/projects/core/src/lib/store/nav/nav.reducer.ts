@@ -5,8 +5,8 @@ export function navReducer(state: NavState, action: NavAction): NavState
 {
     switch (action.type)
     {
-        case NavActionTypes.RouterNavigation: {
-            return { ...state, returnUrl: action.payload.routerState.url };
+        case NavActionTypes.ReturnUrlChanged: {
+            return { ...state, ...action.payload };
         }
 
         default:

@@ -20,3 +20,11 @@ export class NavigationFailed
     readonly type = 'NavigationFailed';
     constructor(readonly payload: ActionErrorPayload) { }
 }
+
+export class ReturnUrlChanged
+{
+    readonly type = 'ReturnUrlChanged';
+    constructor(readonly payload: Readonly<{
+        returnUrl: string
+    }>) { }
+}
