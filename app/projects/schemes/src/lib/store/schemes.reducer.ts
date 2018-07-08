@@ -81,7 +81,7 @@ export function schemesReducer(state: SchemesState, action: SchemesAction): Sche
 
         case SchemesActionTypes.AddSchemeToFavoritesFailed: {
             return updateScheme(state, action.payload.id, {
-                favorited: true
+                favorited: false
             });
         }
 
@@ -94,7 +94,7 @@ export function schemesReducer(state: SchemesState, action: SchemesAction): Sche
 
         case SchemesActionTypes.RemoveSchemeFromFavoritesFailed: {
             return updateScheme(state, action.payload.id, {
-                favorited: false
+                favorited: true
             });
         }
 

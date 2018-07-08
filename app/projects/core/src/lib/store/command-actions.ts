@@ -1,9 +1,3 @@
-export interface CommandErrorPayload
-{
-    readonly errorMessage: string;
-    readonly originalError?: any;
-}
-
 export class StandardAction<TActionType extends string, TActionPayload>
 {
     type: TActionType;
@@ -18,7 +12,7 @@ export interface ActionType<TActionType extends string, TActionPayload> extends 
 
 export function createCommandActions<
     TCommandName extends string, TSuccessName extends string, TFailureName extends string,
-    TCommandPayload, TSuccessPayload = TCommandPayload, TFailurePayload = TCommandPayload & CommandErrorPayload>
+    TCommandPayload, TSuccessPayload = TCommandPayload, TFailurePayload = TCommandPayload>
     (options: {
         commandName: TCommandName,
         successName: TSuccessName,
@@ -29,21 +23,24 @@ export function createCommandActions<
     })
 {
     return [
-        class {
+        class
+        {
             type = options.commandName;
             constructor(readonly payload: TCommandPayload) { }
         },
-        class {
+        class
+        {
             type = options.successName;
             constructor(readonly payload: TSuccessPayload) { }
         },
-        class {
+        class
+        {
             type = options.failureName;
             constructor(readonly payload: TFailurePayload) { }
         }
     ] as [
-        ActionType<TCommandName, TCommandPayload>,
-        ActionType<TSuccessName, TSuccessPayload>,
-        ActionType<TFailureName, TFailurePayload>
-    ];
+            ActionType<TCommandName, TCommandPayload>,
+            ActionType<TSuccessName, TSuccessPayload>,
+            ActionType<TFailureName, TFailurePayload>
+        ];
 }

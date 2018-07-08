@@ -6,12 +6,21 @@
         fxFlex
         fxFlexAlign="center">{{msg.message}}</span>
   <button *ngIf="msg.data"
+          fxFlexAlign="center"
           mat-button
           matTooltip="Show message details"
           (click)="showDetails()">
     DETAILS
   </button>
+  <a *ngFor="let act of msg.actions"
+     mat-button
+     fxFlexAlign="center"
+     [matTooltip]="act.description"
+     [routerLink]="act.route">
+    {{act.title}}
+  </a>
   <button mat-icon-button
+          fxFlexAlign="center"
           matTooltip="Close"
           (click)="close()">
     <mat-icon>close</mat-icon>

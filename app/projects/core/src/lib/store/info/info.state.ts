@@ -1,4 +1,5 @@
-﻿import { ActionReducerMap } from '@ngrx/store';
+﻿import { Params } from '@angular/router';
+import { ActionReducerMap } from '@ngrx/store';
 
 import { notificationReducer } from './notification.reducer';
 
@@ -6,24 +7,33 @@ export const InfoFeature: keyof InfoRootState = 'INFO';
 
 export interface InfoRootState
 {
-    INFO: InfoFeatureState;
+    readonly INFO: InfoFeatureState;
 }
 
 export interface InfoFeatureState
 {
-    notification: NotificationState;
+    readonly notification: NotificationState;
 }
 
 export interface NotificationState
 {
-    messages: NotificationMessage[];
+    readonly messages: NotificationMessage[];
 }
 
 export interface NotificationMessage
 {
-    level: NotificationLevel;
-    message: string;
-    data?: any;
+    readonly level: NotificationLevel;
+    readonly message: string;
+    readonly data?: any;
+    readonly actions?: NotificationAction[];
+}
+
+export interface NotificationAction
+{
+    readonly title: string;
+    readonly description: string;
+    readonly route: string;
+    readonly routeParams?: Params;
 }
 
 export enum NotificationLevel

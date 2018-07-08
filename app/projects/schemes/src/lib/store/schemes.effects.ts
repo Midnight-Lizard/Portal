@@ -16,6 +16,12 @@ import { SchemesService } from '../backend/schemes.service';
 import { getFiltersFromRoute } from '../model/schemes-filters';
 import { getSchemesListFromRoute } from '../model/schemes-lists';
 
+const signinAction = [{
+    route: '/signin',
+    title: 'SIGN IN',
+    description: 'Sign in or create a new user'
+}];
+
 @Injectable()
 export class SchemesEffects
 {
@@ -78,13 +84,74 @@ export class SchemesEffects
                 })) as any;
             }
             return [
-                new SchActs.LikeSchemeFailed({
-                    ...act.payload,
-                    errorMessage: ''
-                }),
+                new SchActs.LikeSchemeFailed(act.payload),
                 new NotifyUser({
                     message: 'Please sign in to be able to like color schemes',
                     level: NotificationLevel.Info,
+                    actions: signinAction
+                })];
+        })
+    );
+
+    @Effect()
+    dislikeScheme$ = this.actions$.ofType(SchActTypes.DislikeScheme).pipe(
+        withLatestFrom(this.store$),
+        switchMap(([act, state]) =>
+        {
+            if (state.AUTH.user)
+            {
+                // TODO: implement real dislike
+                return of(new SchActs.SchemeDisliked({
+                    ...act.payload,
+                    likes: 123
+                })) as any;
+            }
+            return [
+                new SchActs.DislikeSchemeFailed(act.payload),
+                new NotifyUser({
+                    message: 'Please sign in to be able to manage your likes',
+                    level: NotificationLevel.Info,
+                    actions: signinAction
+                })];
+        })
+    );
+
+    @Effect()
+    addSchemeToFavorites$ = this.actions$.ofType(SchActTypes.AddSchemeToFavorites).pipe(
+        withLatestFrom(this.store$),
+        switchMap(([act, state]) =>
+        {
+            if (state.AUTH.user)
+            {
+                // TODO: implement real add
+                return of(new SchActs.SchemeAddedToFavorites(act.payload)) as any;
+            }
+            return [
+                new SchActs.AddSchemeToFavoritesFailed(act.payload),
+                new NotifyUser({
+                    message: 'Please sign in to be able to manage your favorites',
+                    level: NotificationLevel.Info,
+                    actions: signinAction
+                })];
+        })
+    );
+
+    @Effect()
+    removeSchemeFromFavorites$ = this.actions$.ofType(SchActTypes.RemoveSchemeFromFavorites).pipe(
+        withLatestFrom(this.store$),
+        switchMap(([act, state]) =>
+        {
+            if (state.AUTH.user)
+            {
+                // TODO: implement real remove
+                return of(new SchActs.SchemeRemovedFromFavorites(act.payload)) as any;
+            }
+            return [
+                new SchActs.RemoveSchemeFromFavoritesFailed(act.payload),
+                new NotifyUser({
+                    message: 'Please sign in to be able to manage your favorites',
+                    level: NotificationLevel.Info,
+                    actions: signinAction
                 })];
         })
     );

@@ -13,4 +13,14 @@
     </button>
   </div>
   <pre>{{msg.data | json | trim: '"'}}</pre>
+  <div *ngIf="msg.actions"
+       fxLayoutAlign="end">
+    <a *ngFor="let act of msg.actions"
+       mat-raised-button
+       fxFlexAlign="center"
+       [matTooltip]="act.description"
+       [routerLink]="act.route">
+      {{act.title}}
+    </a>
+  </div>
 </div>
