@@ -41,13 +41,7 @@ export function createNavigationHandler<
         return route$.pipe(
             withLatestFrom(store$),
             switchMap(([route, state]) => callback(route, stateSelector(state))),
-            catchError(error => of(new NavActions.NavigationFailed({
-                error: {
-                    originalError: error,
-                    source: NavActionTypes.RouterNavigation,
-                    errorMessage: 'Navigation has failed.'
-                }
-            }))));
+            catchError(error => of(new NavActions.NavigationFailed({ error }))));
     };
 }
 

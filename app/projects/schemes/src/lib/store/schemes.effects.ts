@@ -5,7 +5,11 @@ import { Store } from '@ngrx/store';
 import { of, Observable } from 'rxjs';
 import { switchMap, filter, map, withLatestFrom, catchError } from 'rxjs/operators';
 
-import { createNavigationHandler, INavigationCallback, NavigationFailed } from 'core';
+import
+{
+    createNavigationHandler, INavigationCallback, NavigationFailed,
+    NotifyUser, NotificationLevel
+} from 'core';
 import { SchemesState, SchemesRootState } from './schemes.state';
 import { SchemesAction, SchemesActionTypes as SchActTypes } from './schemes.action-sets';
 import * as SchActs from './schemes.actions';
@@ -35,8 +39,15 @@ export class SchemesEffects
     @Effect()
     onSearchChanged$ = this.actions$.ofType(SchActTypes.SchemesSearchChanged).pipe(
         switchMap(act => this.schSvc.getPublicSchemes(
-            act.payload.filters, act.payload.list, 10, null)),
-        map(result => new SchActs.FirstSchemesChunkLoaded(result))
+            act.payload.filters, act.payload.list, 10, null).pipe(
+                map(result => new SchActs.FirstSchemesChunkLoaded(result)),
+                catchError(error => of(new NotifyUser({
+                    message: 'Failed to retrieve color schemes',
+                    level: NotificationLevel.Error,
+                    data: error
+                })))
+            )
+        )
     );
 
     @Effect()
@@ -44,7 +55,13 @@ export class SchemesEffects
         withLatestFrom(this.store$),
         switchMap(([act, state]) => this.schSvc.getPublicSchemes(
             state.SCHEMES.schemes.filters, state.SCHEMES.schemes.list, 10,
-            state.SCHEMES.schemes.cursor)),
-        map(result => new SchActs.NextSchemesChunkLoaded(result))
+            state.SCHEMES.schemes.cursor).pipe(
+                map(result => new SchActs.NextSchemesChunkLoaded(result)),
+                catchError(error => of(new NotifyUser({
+                    message: 'Failed to retrieve more color schemes',
+                    level: NotificationLevel.Error,
+                    data: error
+                })))
+            ))
     );
 }

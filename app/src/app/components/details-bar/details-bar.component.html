@@ -1,0 +1,16 @@
+<div fxLayout="column">
+  <div fxLayout="row">
+    <mat-icon class="level"
+              fxFlexAlign="center"
+              [ngClass]="msg.level">{{msg.level}}</mat-icon>
+    <span class="message"
+          fxFlex
+          fxFlexAlign="center">{{msg.message}}</span>
+    <button mat-icon-button
+            matTooltip="Close"
+            (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <pre>{{msg.data | json | trim: '"'}}</pre>
+</div>

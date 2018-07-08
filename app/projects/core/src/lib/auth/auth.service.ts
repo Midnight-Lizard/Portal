@@ -27,7 +27,7 @@ export class AuthService
         if (env.isBrowserSide)
         {
             store$.pipe(
-                select(x => x.AUTH.USER.user),
+                select(x => x.AUTH.user),
                 delay(1000),
                 first())
                 .subscribe(user =>

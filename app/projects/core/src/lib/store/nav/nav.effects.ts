@@ -5,6 +5,8 @@ import { switchMap } from 'rxjs/operators';
 
 import { NavAction, NavActionTypes } from './nav.action-sets';
 import * as NavActions from './nav.actions';
+import { NotifyUser } from '../info/info.actions';
+import { NotificationLevel } from '../info/info.state';
 
 @Injectable()
 export class NavEffects
@@ -13,10 +15,11 @@ export class NavEffects
         protected readonly actions$: Actions<NavAction, typeof NavActions>
     ) { }
 
-
-    @Effect() routerNavigated$ = this.actions$.ofType(NavActionTypes.RouterNavigation).pipe(
-        switchMap(act =>
-        {
-            return of(new NavActions.RouterNavigated(act.payload));
-        }));
+    @Effect() refreshUser$ = this.actions$.ofType(NavActionTypes.NavigationFailed).pipe(
+        switchMap(user => of(new NotifyUser({
+            message: 'Navigation has failed',
+            level: NotificationLevel.Error,
+            data: user.payload.error
+        })))
+    );
 }

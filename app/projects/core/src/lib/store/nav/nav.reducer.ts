@@ -5,7 +5,7 @@ export function navReducer(state: NavState, action: NavAction): NavState
 {
     switch (action.type)
     {
-        case NavActionTypes.RouterNavigated: {
+        case NavActionTypes.RouterNavigation: {
             return { ...state, returnUrl: action.payload.routerState.url };
         }
 

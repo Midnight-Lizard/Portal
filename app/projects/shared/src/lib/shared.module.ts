@@ -9,7 +9,8 @@ import
     MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule,
     MatTooltipModule, MatProgressSpinnerModule, MatPaginatorModule,
     MatSortModule, MatButtonToggleModule, MatGridListModule,
-    MatCardModule, MatBadgeModule, MatIconRegistry
+    MatCardModule, MatBadgeModule, MatIconRegistry, MatSnackBarModule,
+    MatBottomSheetModule
 } from '@angular/material';
 
 import { SharedComponent } from './shared.component';
@@ -19,7 +20,7 @@ const materialModules = [
     MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule,
     MatTooltipModule, MatProgressSpinnerModule, MatPaginatorModule,
     MatSortModule, MatButtonToggleModule, MatGridListModule,
-    MatCardModule, MatBadgeModule
+    MatCardModule, MatBadgeModule, MatSnackBarModule, MatBottomSheetModule
 ];
 
 @NgModule({

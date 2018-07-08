@@ -30,6 +30,6 @@ export function loadBrowserInitialState(serverState: TransferState): RootState
 }
 export function loadServerInitialState(user: User): RootState
 {
-    initialState.AUTH = { USER: { user } };
+    initialState.AUTH = { user };
     return initialState;
 }

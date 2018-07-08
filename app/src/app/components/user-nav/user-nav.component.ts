@@ -32,7 +32,7 @@ export class UserNavComponent
 
     constructor(protected readonly store$: Store<AuthRootState>)
     {
-        this.user$ = store$.pipe(select(s => s.AUTH.USER.user));
+        this.user$ = store$.pipe(select(s => s.AUTH.user));
         this.items$ = this.user$.pipe(
             map(user =>
             {

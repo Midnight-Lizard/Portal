@@ -15,6 +15,6 @@ export class SchemesNavigationComponent
 
     constructor(store$: Store<AuthRootState>)
     {
-        this.user$ = store$.pipe(select(x => x.AUTH.USER.user));
+        this.user$ = store$.pipe(select(x => x.AUTH.user));
     }
 }

@@ -10,6 +10,9 @@ import * as AuthActions from './auth.actions';
 import { AuthService } from '../../auth/auth.service';
 import { SettingsService } from '../../settings/settings.service';
 import { Settings } from '../../settings/settings';
+import { InfoActionTypes } from '../info/info.action-sets';
+import { NotifyUser } from '../info/info.actions';
+import { NotificationLevel } from '../info/info.state';
 
 @Injectable()
 export class AuthEffects
@@ -27,11 +30,16 @@ export class AuthEffects
     @Effect() refreshUser$ = this.actions$.ofType(AuthActionTypes.RefreshUser).pipe(
         switchMap(act => timer(act.payload.immediately ? 0 : this.refreshInterval, this.refreshInterval)),
         switchMap(i => this.auth.refreshUser()),
-        map(user => new AuthActions.UserChanged({ user })),
+        map(user => new AuthActions.UserChanged(user)),
         catchError(error =>
         {
-            console.error(error);
-            return of(new AuthActions.UserChanged({ user: null }));
+            return [
+                new AuthActions.UserChanged(null),
+                new NotifyUser({
+                    message: 'Failed to refresh user tokens',
+                    level: NotificationLevel.Error,
+                    data: error
+                })];
         })
     );
 }

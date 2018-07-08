@@ -12,16 +12,11 @@ export interface AuthRootState
 
 export interface AuthFeatureState
 {
-    USER: UserState;
-}
-
-export interface UserState
-{
     user?: User | null;
 }
 
 export const authReducers: ActionReducerMap<AuthFeatureState> = {
-    USER: userReducer
+    user: userReducer
 };
 
-export const authInitialState: AuthFeatureState = { USER: {} };
+export const authInitialState: AuthFeatureState = {};

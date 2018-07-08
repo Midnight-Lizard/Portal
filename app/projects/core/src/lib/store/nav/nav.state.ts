@@ -22,18 +22,11 @@ export interface NavState
     returnUrl: string;
 }
 
-export interface ActionError
-{
-    readonly errorMessage?: string;
-    readonly originalError: any;
-    readonly source: NavActionTypes | NavAction;
-}
-
 export const navReducers: ActionReducerMap<NavFeatureState> = {
     NAV: navReducer
 };
 
-export const initialState: NavFeatureState = {
+export const navInitialState: NavFeatureState = {
     NAV: {
         returnUrl: '/'
     }

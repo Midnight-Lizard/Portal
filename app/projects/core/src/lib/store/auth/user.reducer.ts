@@ -1,7 +1,7 @@
-﻿import { UserState } from './auth.state';
+﻿import { User } from '../../auth/user';
 import { AuthAction, AuthActionTypes } from './auth.action-sets';
 
-export function userReducer(state: UserState, action: AuthAction): UserState
+export function userReducer(state: User, action: AuthAction): User
 {
     switch (action.type)
     {

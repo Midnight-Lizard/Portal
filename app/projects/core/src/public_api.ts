@@ -21,3 +21,6 @@ export * from './lib/store/nav/navigation-handler';
 
 export * from './lib/store/auth/auth.state';
 export * from './lib/store/auth/auth.actions';
+
+export * from './lib/store/info/info.actions';
+export * from './lib/store/info/info.state';

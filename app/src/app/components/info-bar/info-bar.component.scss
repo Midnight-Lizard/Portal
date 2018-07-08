@@ -1,0 +1,18 @@
+@import "theme.scss";
+.mat-icon {
+    &.level {
+        &.error {
+            color: mat-color($ml-warn, A100);
+        }
+        &.warning {
+            color: mat-color($ml-alert);
+        }
+        &.info {
+            color: mat-color($ml-accent, A200);
+        }
+    }
+}
+
+.message {
+    padding: 0px 5px 0px 15px;
+}

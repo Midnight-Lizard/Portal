@@ -7,6 +7,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { CookieService } from 'ngx-cookie-service';
+import { NgStringPipesModule } from 'ngx-pipes';
 import
 {
     SharedModule as PortalSharedModule,
@@ -21,18 +22,24 @@ import { UserNavComponent } from './components/user-nav/user-nav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { InfoBarComponent } from './components/info-bar/info-bar.component';
+import { DetailsBarComponent } from './components/details-bar/details-bar.component';
 
 @NgModule({
     declarations: [
         AppComponent, routingComponents,
         UserNavComponent,
         ToolbarComponent,
-        FooterComponent
+        FooterComponent,
+        InfoBarComponent,
+        DetailsBarComponent
     ],
+    entryComponents: [InfoBarComponent, DetailsBarComponent],
     imports: [
         BrowserModule.withServerTransition({ appId: 'portal' }),
         AppRoutingModule, PortalSharedModule, PortalCoreModule, PortalLoadingModule,
         FormsModule, ReactiveFormsModule, FlexLayoutModule,
+        NgStringPipesModule,
         HttpClientModule,
         StoreRouterConnectingModule,
         StoreModule.forRoot(rootReducers),

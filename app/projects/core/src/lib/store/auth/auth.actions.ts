@@ -3,9 +3,7 @@
 export class UserChanged
 {
     readonly type = 'UserChanged';
-    constructor(readonly payload: {
-        user: User | null
-    }) { }
+    constructor(readonly payload: User | null) { }
 }
 
 export class RefreshUser

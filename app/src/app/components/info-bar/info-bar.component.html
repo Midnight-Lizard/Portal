@@ -1,0 +1,19 @@
+<div fxLayout="row">
+  <mat-icon class="level"
+            fxFlexAlign="center"
+            [ngClass]="msg.level">{{msg.level}}</mat-icon>
+  <span class="message"
+        fxFlex
+        fxFlexAlign="center">{{msg.message}}</span>
+  <button *ngIf="msg.data"
+          mat-button
+          matTooltip="Show message details"
+          (click)="showDetails()">
+    DETAILS
+  </button>
+  <button mat-icon-button
+          matTooltip="Close"
+          (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>

@@ -60,14 +60,12 @@
                 (click)="toggleSchemeLiked(scheme)">
           <mat-icon *ngIf="scheme.liked"
                     matBadgeColor="warn"
-                    style="z-index: 1000;"
                     matBadgeSize="small"
                     matBadgeOverlap="true"
                     matBadgePosition="below before"
                     [matBadge]="scheme.likes">thumb_up</mat-icon>
           <mat-icon *ngIf="!scheme.liked"
                     matBadgeColor="warn"
-                    style="z-index: 1000;"
                     matBadgeSize="small"
                     matBadgeOverlap="true"
                     matBadgePosition="below before"

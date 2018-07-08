@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { delay, first } from 'rxjs/operators';
 
 import { SchemesFilters } from '../model/schemes-filters';
@@ -33,6 +33,10 @@ export class SchemesService
 
     public getPublicSchemes(filters: SchemesFilters, list: SchemesList, size: number, cursor?: string | null)
     {
+        if (Math.random() > 0.5)
+        {
+            return throwError('test');
+        }
         return new BehaviorSubject(({
             cursor: this.randomString(4),
             done: Math.random() > 0.7,
