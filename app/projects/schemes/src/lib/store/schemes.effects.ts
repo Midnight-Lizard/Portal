@@ -7,8 +7,7 @@ import { switchMap, filter, map, withLatestFrom, catchError } from 'rxjs/operato
 
 import
 {
-    createNavigationHandler, INavigationCallback, NavigationFailed,
-    NotifyUser, NotificationLevel
+    createNavigationHandler, NotifyUser, NotificationLevel, AuthRootState
 } from 'core';
 import { SchemesState, SchemesRootState } from './schemes.state';
 import { SchemesAction, SchemesActionTypes as SchActTypes } from './schemes.action-sets';
@@ -25,7 +24,7 @@ export class SchemesEffects
 
     constructor(
         private readonly actions$: Actions<SchemesAction, typeof SchActs>,
-        private readonly store$: Store<SchemesRootState>,
+        private readonly store$: Store<SchemesRootState & AuthRootState>,
         private readonly schSvc: SchemesService
     ) { }
 
@@ -63,5 +62,30 @@ export class SchemesEffects
                     data: error
                 })))
             ))
+    );
+
+    @Effect()
+    likeScheme$ = this.actions$.ofType(SchActTypes.LikeScheme).pipe(
+        withLatestFrom(this.store$),
+        switchMap(([act, state]) =>
+        {
+            if (state.AUTH.user)
+            {
+                // TODO: implement real like
+                return of(new SchActs.SchemeLiked({
+                    ...act.payload,
+                    likes: 123
+                })) as any;
+            }
+            return [
+                new SchActs.LikeSchemeFailed({
+                    ...act.payload,
+                    errorMessage: ''
+                }),
+                new NotifyUser({
+                    message: 'Please sign in to be able to like color schemes',
+                    level: NotificationLevel.Info,
+                })];
+        })
     );
 }
