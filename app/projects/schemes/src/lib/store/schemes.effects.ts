@@ -13,7 +13,7 @@ import { SchemesState, SchemesRootState } from './schemes.state';
 import { SchemesAction, SchemesActionTypes as SchActTypes } from './schemes.action-sets';
 import * as SchActs from './schemes.actions';
 import { SchemesService } from '../backend/schemes.service';
-import { getFiltersFromRoute } from '../model/schemes-filters';
+import { getFiltersFromRoute, filtersAreEqual } from '../model/schemes-filters';
 import { getSchemesListFromRoute } from '../model/schemes-lists';
 
 const signinAction = [{
@@ -36,10 +36,18 @@ export class SchemesEffects
 
     @Effect()
     onSearchNavigated$ = this.handleNavigation(/schemes\/index/, (route, state) =>
-        of(new SchActs.SchemesSearchChanged({
-            filters: getFiltersFromRoute(route),
-            list: getSchemesListFromRoute(route)
-        })));
+    {
+        const filters = getFiltersFromRoute(route),
+            list = getSchemesListFromRoute(route);
+        if (list !== state.list || !filtersAreEqual(filters, state.filters))
+        {
+            return of(new SchActs.SchemesSearchChanged({
+                filters: filters,
+                list: list
+            }));
+        }
+        return of();
+    });
 
     @Effect()
     onSearchChanged$ = this.actions$.ofType(SchActTypes.SchemesSearchChanged).pipe(

@@ -33,7 +33,7 @@ export const schemesReducers: ActionReducerMap<SchemesFeatureState> = {
 
 export const schemesInitialState: SchemesFeatureState = {
     schemes: {
-        list: SchemesList.Full,
+        list: SchemesList.Empty,
         filters: {
             name: '',
             side: SchemeSide.None

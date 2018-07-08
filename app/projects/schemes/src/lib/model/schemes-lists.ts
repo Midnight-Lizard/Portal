@@ -2,6 +2,7 @@
 
 export enum SchemesList
 {
+    Empty = 'empty',
     Full = 'full',
     My = 'my',
     Favorites = 'fav',
