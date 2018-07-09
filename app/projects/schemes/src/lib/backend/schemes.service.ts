@@ -75,9 +75,9 @@ export class SchemesService
     private randomString(length: number)
     {
         const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let text = '';
+        let text = possible.charAt(Math.floor(Math.random() * (possible.length - 10)));
 
-        for (let i = 0; i < length; i++)
+        for (let i = 0; i < length - 1; i++)
         {
             text += possible.charAt(Math.floor(Math.random() * possible.length));
         }
