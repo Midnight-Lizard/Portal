@@ -9,7 +9,7 @@
           fxFlexAlign="center"
           mat-button
           matTooltip="Show message details"
-          (click)="showDetails()">
+          (click)="showMessageDetails()">
     DETAILS
   </button>
   <a *ngFor="let act of msg.actions"
@@ -22,7 +22,7 @@
   <button mat-icon-button
           fxFlexAlign="center"
           matTooltip="Dismiss"
-          (click)="close()">
+          (click)="dismissMessage()">
     <mat-icon>close</mat-icon>
   </button>
 </div>

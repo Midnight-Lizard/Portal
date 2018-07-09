@@ -1,21 +1,12 @@
-import { Component, Inject, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry, MatSnackBar } from '@angular/material';
 import { CookieService } from 'ngx-cookie-service';
-import { Store, select } from '@ngrx/store';
-import { map, filter, takeUntil } from 'rxjs/operators';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
-import { SideService, Side, InfoRootState, NotificationLevel } from 'core';
+import { SideService } from 'core';
 import { AppConstants } from '../../app.constants';
-import { InfoBarComponent } from '../info-bar/info-bar.component';
-
-const notificationDuration = new Map<NotificationLevel, number>([
-    [NotificationLevel.Info, 5000],
-    [NotificationLevel.Warning, 10000],
-    [NotificationLevel.Error, 60000]
-]);
 
 @Component({
     selector: 'ml-portal',
@@ -28,7 +19,6 @@ export class AppComponent implements OnDestroy
     public sidenavMode: 'over' | 'side' = 'side';
     public sidenavIsOpened = true;
     protected _sidenavIsOpened_UserDefined = this.sidenavIsOpened;
-    private disposed = new Subject<boolean>();
     private readonly mediaSubscription: Subscription;
 
     constructor(
@@ -36,27 +26,11 @@ export class AppComponent implements OnDestroy
         iconRegistry: MatIconRegistry,
         sanitizer: DomSanitizer,
         cookieService: CookieService,
-        snackBar: MatSnackBar,
-        store$: Store<InfoRootState>,
         readonly env: SideService)
     {
         iconRegistry.addSvgIcon(
             'midnight-lizard',
             sanitizer.bypassSecurityTrustResourceUrl('assets/ml-logo.svg'));
-
-        store$.pipe(
-            select(x => x.INFO.notification.messages),
-            map(messages => messages && messages.length ? messages[0] : null),
-            filter(msg => !!msg),
-            takeUntil(this.disposed)
-        ).subscribe(msg =>
-        {
-            const snackBarRef = snackBar.openFromComponent(InfoBarComponent, {
-                data: msg,
-                duration: notificationDuration.get(msg!.level)
-            });
-            snackBarRef.instance.snackBarRef = snackBarRef;
-        });
 
         this.mediaSubscription = media.subscribe((change: MediaChange) =>
         {
@@ -84,7 +58,6 @@ export class AppComponent implements OnDestroy
 
     ngOnDestroy(): void
     {
-        this.disposed.next(true);
         this.mediaSubscription.unsubscribe();
     }
 }

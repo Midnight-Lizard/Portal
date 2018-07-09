@@ -12,19 +12,24 @@ export function notificationReducer(state: NotificationState, action: InfoAction
             };
             return {
                 ...state,
-                messages: [newMessage, ...state.messages]
+                messages: [newMessage, ...state.messages],
+                lastMessage: newMessage
             };
         }
 
         case InfoActionTypes.DismissAllNotifications: {
-            return { ...state, messages: [] };
+            return { ...state, messages: [], lastMessage: undefined };
         }
 
         case InfoActionTypes.DismissNotification: {
             const messages = state.messages && state.messages.length
                 ? state.messages.filter(msg => msg.id !== action.payload.id)
                 : [];
-            return { ...state, messages };
+            return {
+                ...state, messages, lastMessage:
+                    state.lastMessage && state.lastMessage.id === action.payload.id
+                        ? undefined : state.lastMessage
+            };
         }
 
         default:

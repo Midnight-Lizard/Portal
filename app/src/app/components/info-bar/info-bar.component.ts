@@ -15,43 +15,31 @@ import { DetailsBarComponent } from '../details-bar/details-bar.component';
 export class InfoBarComponent implements OnDestroy
 {
     private readonly disposed$ = new Subject<boolean>();
-    snackBarRef?: MatSnackBarRef<InfoBarComponent>;
 
     constructor(
         @Inject(MAT_SNACK_BAR_DATA)
         readonly msg: NotificationMessage,
+        private readonly snackBarRef: MatSnackBarRef<InfoBarComponent>,
         private readonly bottomSheet: MatBottomSheet,
         private readonly store$: Store<InfoRootState>)
     {
-        const self = this;
         store$.pipe(
             select(x => x.INFO.notification.messages),
             takeUntil(this.disposed$),
             skip(1),
             take(1)
-        ).subscribe(x => self.snackBarRef && self.snackBarRef.dismiss());
+        ).subscribe(x => snackBarRef.dismiss());
     }
 
-    close()
+    showMessageDetails()
     {
         this.dismissMessage();
-        if (this.snackBarRef)
-        {
-            this.snackBarRef.dismiss();
-        }
-    }
-
-    showDetails()
-    {
-        this.dismissMessage();
-        const bottomSheetRef = this.bottomSheet.open(DetailsBarComponent, {
+        this.bottomSheet.open(DetailsBarComponent, {
             data: this.msg
         });
-        bottomSheetRef.instance.bottomSheetRef = bottomSheetRef;
-        this.close();
     }
 
-    private dismissMessage()
+    dismissMessage()
     {
         this.store$.dispatch(new DismissNotification(this.msg));
     }

@@ -10,18 +10,14 @@ import { NotificationMessage } from 'core';
 })
 export class DetailsBarComponent
 {
-    bottomSheetRef?: MatBottomSheetRef<DetailsBarComponent, boolean>;
-
     constructor(
         @Inject(MAT_BOTTOM_SHEET_DATA)
-        readonly msg: NotificationMessage) { }
+        readonly msg: NotificationMessage,
+        private readonly bottomSheetRef: MatBottomSheetRef<DetailsBarComponent, boolean>) { }
 
     close()
     {
-        if (this.bottomSheetRef)
-        {
-            this.bottomSheetRef.dismiss();
-        }
+        this.bottomSheetRef.dismiss();
     }
 
 }

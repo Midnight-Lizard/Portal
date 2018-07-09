@@ -18,6 +18,7 @@ export interface InfoFeatureState
 export interface NotificationState
 {
     readonly messages: NotificationMessage[];
+    readonly lastMessage?: NotificationMessage;
 }
 
 export interface NotificationMessage

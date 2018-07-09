@@ -1,23 +1,35 @@
-import { MatBottomSheet } from '@angular/material';
-import { Component } from '@angular/core';
+import { MatBottomSheet, MatSnackBar } from '@angular/material';
+import { Component, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-
-import { InfoRootState, NotificationMessage, DismissAllNotifications, DismissNotification } from 'core';
+import { map, filter, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import
+{
+    InfoRootState, NotificationMessage, DismissAllNotifications,
+    DismissNotification, NotificationLevel
+} from 'core';
 import { DetailsBarComponent } from '../details-bar/details-bar.component';
+import { InfoBarComponent } from '../info-bar/info-bar.component';
+
+const notificationDuration = new Map<NotificationLevel, number>([
+    [NotificationLevel.Info, 5000],
+    [NotificationLevel.Warning, 10000],
+    [NotificationLevel.Error, 60000]
+]);
 
 @Component({
     selector: 'ml-info-nav',
     templateUrl: './info-nav.component.html',
     styleUrls: ['./info-nav.component.scss']
 })
-export class InfoNavComponent
+export class InfoNavComponent implements OnDestroy
 {
     readonly notofications$: Observable<NotificationMessage[]>;
+    private disposed = new Subject<boolean>();
     readonly msgCount$: Observable<number>;
 
     constructor(
+        snackBar: MatSnackBar,
         private readonly store$: Store<InfoRootState>,
         private readonly bottomSheet: MatBottomSheet)
     {
@@ -25,6 +37,15 @@ export class InfoNavComponent
         this.msgCount$ = this.notofications$.pipe(
             map(notifications => notifications ? notifications.length : 0)
         );
+        store$.pipe(
+            select(x => x.INFO.notification.messages),
+            map(messages => messages && messages.length ? messages[0] : null),
+            filter(msg => !!msg),
+            takeUntil(this.disposed)
+        ).subscribe(msg => snackBar.openFromComponent(InfoBarComponent, {
+            data: msg,
+            duration: notificationDuration.get(msg!.level)
+        }));
     }
 
     dismissAll()
@@ -36,10 +57,13 @@ export class InfoNavComponent
     {
         this.store$.dispatch(new DismissNotification(msg));
 
-        const bottomSheetRef = this.bottomSheet.open(DetailsBarComponent, {
+        this.bottomSheet.open(DetailsBarComponent, {
             data: msg
         });
-        bottomSheetRef.instance.bottomSheetRef = bottomSheetRef;
     }
 
+    ngOnDestroy(): void
+    {
+        this.disposed.next(true);
+    }
 }
