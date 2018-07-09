@@ -24,6 +24,7 @@ const materialModules = [
 ];
 
 const svgIcons = [
+    { key: 'midnight-lizard', path: 'assets/ml-logo.svg' },
     { key: 'outline-thumb-up', path: 'assets/outline-thumb_up.svg' },
     { key: 'mark-as-read', path: 'assets/mark-as-read.svg' }
 ];

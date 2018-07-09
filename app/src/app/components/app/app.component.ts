@@ -1,7 +1,5 @@
 import { Component, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconRegistry, MatSnackBar } from '@angular/material';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 
@@ -23,15 +21,9 @@ export class AppComponent implements OnDestroy
 
     constructor(
         media: ObservableMedia,
-        iconRegistry: MatIconRegistry,
-        sanitizer: DomSanitizer,
         cookieService: CookieService,
         readonly env: SideService)
     {
-        iconRegistry.addSvgIcon(
-            'midnight-lizard',
-            sanitizer.bypassSecurityTrustResourceUrl('assets/ml-logo.svg'));
-
         this.mediaSubscription = media.subscribe((change: MediaChange) =>
         {
             if (env.isBrowserSide)
