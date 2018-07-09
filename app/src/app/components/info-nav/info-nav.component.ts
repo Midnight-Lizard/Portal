@@ -38,8 +38,7 @@ export class InfoNavComponent implements OnDestroy
             map(notifications => notifications ? notifications.length : 0)
         );
         store$.pipe(
-            select(x => x.INFO.notification.messages),
-            map(messages => messages && messages.length ? messages[0] : null),
+            select(x => x.INFO.notification.lastMessage),
             filter(msg => !!msg),
             takeUntil(this.disposed)
         ).subscribe(msg => snackBar.openFromComponent(InfoBarComponent, {
