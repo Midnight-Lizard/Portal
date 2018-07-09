@@ -51,8 +51,9 @@
           </button>
         </mat-menu>
       </mat-card-header>
-      <img mat-card-image
-           [src]="scheme.screenshots[0].urls['1280x800']">
+      <schemes-thumbnails mat-card-image
+                          [screenshots]="scheme.screenshots">
+      </schemes-thumbnails>
       <mat-card-actions fxLayout="row">
         <button mat-icon-button
                 [color]="scheme.liked ? 'accent' : ''"

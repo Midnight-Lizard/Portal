@@ -106,4 +106,9 @@ export class SchemesListComponent implements OnDestroy
             ? new Act.RemoveSchemeFromFavorites(scheme)
             : new Act.AddSchemeToFavorites(scheme));
     }
+
+    expandImage()
+    {
+        alert('fuck');
+    }
 }

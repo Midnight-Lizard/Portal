@@ -33,10 +33,10 @@ export class SchemesService
 
     public getPublicSchemes(filters: SchemesFilters, list: SchemesList, size: number, cursor?: string | null)
     {
-        if (Math.random() > 0.5)
-        {
-            return throwError('test');
-        }
+        // if (Math.random() > 0.5)
+        // {
+        //     return throwError('test');
+        // }
         return new BehaviorSubject(({
             cursor: this.randomString(4),
             done: Math.random() > 0.7,

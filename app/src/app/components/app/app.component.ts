@@ -28,7 +28,7 @@ export class AppComponent implements OnDestroy
         {
             if (env.isBrowserSide)
             {
-                cookieService.set(AppConstants.Cookies.Media, change.mqAlias, 30);
+                cookieService.set(AppConstants.Cookies.Media, change.mqAlias, 30, '/');
             }
             if (/xs|sm/.test(change.mqAlias))
             {

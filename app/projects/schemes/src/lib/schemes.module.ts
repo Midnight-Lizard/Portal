@@ -11,15 +11,20 @@ import { schemesRoutingComponents, SchemesRoutingModule } from './schemes.routin
 import { SchemesFeature, schemesReducers, schemesInitialState } from './store/schemes.state';
 import { SchemesService } from './backend/schemes.service';
 import { SchemesEffects } from './store/schemes.effects';
+import { ThumbnailsComponent } from './components/thumbnails/thumbnails.component';
+import { ScreenshotsComponent } from './components/screenshots/screenshots.component';
 
 @NgModule({
-    declarations: [schemesRoutingComponents],
+    declarations: [
+        schemesRoutingComponents, ThumbnailsComponent, ScreenshotsComponent
+    ],
     imports: [
         CommonModule, FormsModule, FlexLayoutModule, ReactiveFormsModule,
         SchemesRoutingModule, SharedModule, InfiniteScrollModule,
         StoreModule.forFeature(SchemesFeature, schemesReducers, { initialState: schemesInitialState }),
         EffectsModule.forFeature([SchemesEffects])
     ],
-    providers: [SchemesService, Actions, SchemesEffects]
+    providers: [SchemesService, Actions, SchemesEffects],
+    entryComponents: [ScreenshotsComponent]
 })
 export class SchemesModule { }
