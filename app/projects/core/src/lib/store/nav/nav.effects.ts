@@ -20,6 +20,7 @@ export class NavEffects
         switchMap(user => of(new NotifyUser({
             message: 'Navigation has failed',
             level: NotificationLevel.Error,
+            isLocal: true,
             data: user.payload.error
         })))
     );

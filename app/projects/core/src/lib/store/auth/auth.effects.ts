@@ -38,6 +38,7 @@ export class AuthEffects
                 new NotifyUser({
                     message: 'Failed to refresh user tokens',
                     level: NotificationLevel.Error,
+                    isLocal: true,
                     data: error
                 })];
         })

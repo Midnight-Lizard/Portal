@@ -57,6 +57,7 @@ export class SchemesEffects
                 catchError(error => of(new NotifyUser({
                     message: 'Failed to retrieve color schemes',
                     level: NotificationLevel.Error,
+                    isLocal: true,
                     data: error
                 })))
             )
@@ -73,6 +74,7 @@ export class SchemesEffects
                 catchError(error => of(new NotifyUser({
                     message: 'Failed to retrieve more color schemes',
                     level: NotificationLevel.Error,
+                    isLocal: true,
                     data: error
                 })))
             ))
@@ -96,6 +98,7 @@ export class SchemesEffects
                 new NotifyUser({
                     message: 'Please sign in to be able to like color schemes',
                     level: NotificationLevel.Info,
+                    isLocal: true,
                     actions: signinAction
                 })];
         })
@@ -119,6 +122,7 @@ export class SchemesEffects
                 new NotifyUser({
                     message: 'Please sign in to be able to manage your likes',
                     level: NotificationLevel.Info,
+                    isLocal: true,
                     actions: signinAction
                 })];
         })
@@ -139,6 +143,7 @@ export class SchemesEffects
                 new NotifyUser({
                     message: 'Please sign in to be able to manage your favorites',
                     level: NotificationLevel.Info,
+                    isLocal: true,
                     actions: signinAction
                 })];
         })
@@ -159,6 +164,7 @@ export class SchemesEffects
                 new NotifyUser({
                     message: 'Please sign in to be able to manage your favorites',
                     level: NotificationLevel.Info,
+                    isLocal: true,
                     actions: signinAction
                 })];
         })

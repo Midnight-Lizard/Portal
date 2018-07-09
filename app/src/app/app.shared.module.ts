@@ -24,6 +24,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { InfoBarComponent } from './components/info-bar/info-bar.component';
 import { DetailsBarComponent } from './components/details-bar/details-bar.component';
+import { InfoNavComponent } from './components/info-nav/info-nav.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { DetailsBarComponent } from './components/details-bar/details-bar.compon
         ToolbarComponent,
         FooterComponent,
         InfoBarComponent,
-        DetailsBarComponent
+        DetailsBarComponent,
+        InfoNavComponent
     ],
     entryComponents: [InfoBarComponent, DetailsBarComponent],
     imports: [

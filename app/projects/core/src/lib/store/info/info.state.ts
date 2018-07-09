@@ -22,8 +22,10 @@ export interface NotificationState
 
 export interface NotificationMessage
 {
+    readonly id?: number;
     readonly level: NotificationLevel;
     readonly message: string;
+    readonly isLocal: boolean;
     readonly data?: any;
     readonly actions?: NotificationAction[];
 }

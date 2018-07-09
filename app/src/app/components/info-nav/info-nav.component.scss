@@ -1,0 +1,27 @@
+@import "theme.scss";
+.mat-menu-item {
+    &.empty-list
+    {
+        color: $ml-gray-text-color;
+    }
+    .mat-icon {
+        &.error {
+            color: mat-color($ml-warn, 500);
+        }
+        &.warning {
+            color: mat-color($ml-alert, A700);
+        }
+        &.info {
+            color: mat-color($ml-accent, A200);
+        }
+    }
+}
+
+.menu-separator
+{
+    border-style: solid;
+    border-top-width: 1px;
+    border-bottom-width: 0;
+    color: $ml-gray-text-color;
+    opacity: 0.8;
+}

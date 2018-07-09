@@ -13,6 +13,12 @@ declare interface MenuItem
     tooltip: string;
     class: string;
 }
+const noUserMenu: MenuItem[] = [
+    {
+        title: 'Sign in', tooltip: 'Login or create a new user',
+        icon: 'vpn_key', link: '/signin', class: ''
+    }
+];
 
 @Component({
     selector: 'ml-user-nav',
@@ -23,12 +29,6 @@ export class UserNavComponent
 {
     public items$: Observable<MenuItem[]>;
     public user$: Observable<User | undefined | null>;
-    protected readonly noUserMenu: MenuItem[] = [
-        {
-            title: 'Sign in', tooltip: 'Login or create a new user',
-            icon: 'vpn_key', link: '/signin', class: ''
-        }
-    ];
 
     constructor(protected readonly store$: Store<AuthRootState>)
     {
@@ -51,9 +51,9 @@ export class UserNavComponent
                 }
                 else
                 {
-                    return this.noUserMenu;
+                    return noUserMenu;
                 }
             }),
-            startWith(this.noUserMenu));
+            startWith(noUserMenu));
     }
 }

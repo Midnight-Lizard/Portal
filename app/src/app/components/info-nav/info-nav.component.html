@@ -1,0 +1,43 @@
+<button mat-icon-button
+        matTooltip="Notifications"
+        [matMenuTriggerFor]="infoMenu"
+        #infoMenuTrigger
+        class="mat-button mat-icon-button"
+        (menuClosed)="infoMenuTrigger.focus()">
+  <mat-icon matBadgeColor="warn"
+            matBadgeSize="medium"
+            matBadgeOverlap="true"
+            matBadgePosition="above after"
+            [matBadgeHidden]="!(msgCount$|async)"
+            [matBadge]="msgCount$|async">
+    notifications
+  </mat-icon>
+</button>
+<mat-menu #infoMenu="matMenu"
+          yPosition="below"
+          xPosition="before"
+          [overlapTrigger]="false">
+  <span *ngIf="(msgCount$|async) === 0"
+        class="empty-list"
+        mat-menu-item
+        disabled>
+    You don't have new notifications
+  </span>
+  <button *ngIf="msgCount$|async"
+          (click)="dismissAll()"
+          mat-menu-item
+          matTooltip="Dismiss all notofications">
+    <mat-icon>clear_all</mat-icon>
+    Dismiss all notofications
+  </button>
+  <hr *ngIf="msgCount$|async"
+      class="menu-separator" />
+  <button *ngFor="let msg of notofications$|async"
+          (click)="openDetailsBar(msg)"
+          mat-menu-item
+          matTooltip="Click to open details"
+          matTooltipPosition="left">
+    <mat-icon [ngClass]="msg.level">{{msg.level}}</mat-icon>
+    {{msg.message}}
+  </button>
+</mat-menu>

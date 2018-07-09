@@ -23,6 +23,11 @@ const materialModules = [
     MatCardModule, MatBadgeModule, MatSnackBarModule, MatBottomSheetModule
 ];
 
+const svgIcons = [
+    { key: 'outline-thumb-up', path: 'assets/outline-thumb_up.svg' },
+    { key: 'mark-as-read', path: 'assets/mark-as-read.svg' }
+];
+
 @NgModule({
     imports: [
         materialModules,
@@ -38,8 +43,11 @@ export class SharedModule
 {
     constructor(sanitizer: DomSanitizer, iconRegistry: MatIconRegistry)
     {
-        iconRegistry.addSvgIcon(
-            'outline-thumb-up',
-            sanitizer.bypassSecurityTrustResourceUrl('assets/outline-thumb_up.svg'));
+        for (const icon of svgIcons)
+        {
+            iconRegistry.addSvgIcon(
+                icon.key,
+                sanitizer.bypassSecurityTrustResourceUrl(icon.path));
+        }
     }
 }
