@@ -10,7 +10,7 @@
     "generate:prerender": "cd dist && node portal-prerender",
     "copy:assets:shared": "cp -r ./projects/shared/src/styles ./dist/shared && cp -r ./projects/shared/src/assets ./dist/shared",
     "───DEV───": "#─────────────────DEV─────────────────────────#",
-    "build:dev": "npm run build:dev:libs && ng run portal:build:debug && npm run sm:browser && npm run build:dev:server",
+    "build:dev": "ng run portal:build:debug && npm run sm:browser && npm run build:dev:server",
     "build:dev:libs": "npm run build:dev:core && npm run build:dev:shared && npm run build:dev:schemes",
     "build:dev:core": "ng build core",
     "build:dev:shared": "ng build shared && npm run copy:assets:shared",

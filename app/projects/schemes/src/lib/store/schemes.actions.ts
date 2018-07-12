@@ -1,8 +1,8 @@
-﻿import { createCommandActions } from 'core';
+﻿import { createCommandActions, ActionType, StandardAction } from 'core';
 import { SchemesFilters } from '../model/schemes-filters';
 import { SchemesList } from '../model/schemes-lists';
 import { PublicScheme, PublicSchemeDetails } from '../model/public-scheme';
-import { PublicSchemeId } from '../model/public-scheme';
+import { PublicSchemeIdPayload, PublicSchemeLikesPayload } from './schemes.payloads';
 
 export class LoadNextSchemesChunk
 {
@@ -45,16 +45,6 @@ export class CurrentSchemeChanged
     constructor(readonly payload: Readonly<{
         currentScheme: PublicSchemeDetails
     }>) { }
-}
-
-class PublicSchemeIdPayload
-{
-    readonly id: PublicSchemeId;
-}
-class PublicSchemeLikesPayload
-{
-    readonly id: PublicSchemeId;
-    readonly likes: number;
 }
 
 export const [LikeScheme, SchemeLiked, LikeSchemeFailed] = createCommandActions({

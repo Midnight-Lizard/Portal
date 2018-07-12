@@ -1,13 +1,12 @@
 ﻿import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
-import { ActivatedRouteSnapshot, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { of, Observable } from 'rxjs';
 import { switchMap, filter, map, withLatestFrom, catchError } from 'rxjs/operators';
-
 import
 {
-    createNavigationHandler, NotifyUser, NotificationLevel, AuthRootState
+    createNavigationHandler, NotifyUser, NotificationLevel, AuthRootState,
+    NavigationFailed
 } from 'core';
 import { SchemesState, SchemesRootState } from './schemes.state';
 import { SchemesAction, SchemesActionTypes as SchActTypes } from './schemes.action-sets';

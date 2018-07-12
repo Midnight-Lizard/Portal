@@ -26,7 +26,8 @@ module.exports = (env) => {
     },
     module: {
       rules: [
-        { test: /\.ts$/, loader: 'ts-loader?configFile=tsconfig.webpack.json' },
+        { test: /\.ts$/, loader: `ts-loader?configFile=${isDevBuild
+          ?'tsconfig.webpack.debug.json' : 'tsconfig.webpack.json'}` },
         {
           // Mark files inside `@angular/core` as using SystemJS style dynamic imports.
           // Removing this will cause deprecation warnings to appear.
