@@ -1,8 +1,8 @@
-﻿import { Component, OnDestroy, TrackByFunction, HostBinding, Inject, Optional, OnInit } from '@angular/core';
+﻿import { Component, OnDestroy, TrackByFunction, HostBinding, Inject, Optional, OnInit, AfterViewInit } from '@angular/core';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { takeUntil, filter, map, switchMap, first } from 'rxjs/operators';
+import { takeUntil, filter, map, switchMap, first, delay } from 'rxjs/operators';
 import { Subscription, Observable, Subject } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
@@ -18,7 +18,7 @@ import { SchemesList } from '../../model/schemes-lists';
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.scss']
 })
-export class SchemesListComponent implements OnDestroy, OnInit
+export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
 {
     cols = 2;
     aspect = '4:5';
@@ -54,25 +54,6 @@ export class SchemesListComponent implements OnDestroy, OnInit
         ).subscribe(done =>
         {
             self.isLoading = !done;
-        });
-
-        this.route.paramMap.pipe(
-            map(x => x.get('id')!),
-            filter(id => !!id),
-            takeUntil(self.disposed)
-        ).subscribe(id =>
-        {
-            self.dialog.open(SchemeDetailsComponent, {
-                maxWidth: '85vw',
-                maxHeight: '90vh',
-                autoFocus: false
-            }).beforeClose().pipe(
-                first(),
-                switchMap(_ => self.list$)
-            ).subscribe(list =>
-                self.router.navigate(['schemes', 'index', list, ''], {
-                    queryParamsHandling: 'preserve'
-                }));
         });
 
         this._mediaSub = this.media$.subscribe((change: MediaChange) =>
@@ -114,6 +95,31 @@ export class SchemesListComponent implements OnDestroy, OnInit
                     this.aspect = '100:92';
                     break;
             }
+        });
+    }
+
+    ngAfterViewInit(): void
+    {
+        const self = this;
+
+        this.route.paramMap.pipe(
+            map(x => x.get('id')!),
+            filter(id => !!id),
+            takeUntil(self.disposed),
+            delay(0)
+        ).subscribe(id =>
+        {
+            self.dialog.open(SchemeDetailsComponent, {
+                maxWidth: '85vw',
+                maxHeight: '90vh',
+                autoFocus: false
+            }).beforeClose().pipe(
+                first(),
+                switchMap(_ => self.list$)
+            ).subscribe(list =>
+                self.router.navigate(['schemes', 'index', list, ''], {
+                    queryParamsHandling: 'preserve'
+                }));
         });
     }
 
