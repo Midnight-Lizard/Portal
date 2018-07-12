@@ -32,6 +32,7 @@
                   matBadgeSize="medium"
                   matBadgeOverlap="true"
                   matBadgePosition="below before"
+                  [matBadgeHidden]="!scheme.likes"
                   [matBadge]="scheme.likes">thumb_up</mat-icon>
         <mat-icon *ngIf="!scheme.liked"
                   matBadgeColor="warn"
@@ -39,6 +40,7 @@
                   matBadgeOverlap="true"
                   matBadgePosition="below before"
                   svgIcon="outline-thumb-up"
+                  [matBadgeHidden]="!scheme.likes"
                   [matBadge]="scheme.likes"></mat-icon>
       </button>
       <button mat-icon-button
