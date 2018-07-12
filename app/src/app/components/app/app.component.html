@@ -3,6 +3,7 @@
   <ml-toolbar (sidenavToggleClick)="toggleSidenav()">
   </ml-toolbar>
   <mat-sidenav-container fxFlex="100"
+                         [autosize]="true"
                          (backdropClick)="toggleSidenav()">
     <mat-sidenav class="left-side"
                  [ngClass]="{server:env.isServerSide}"
@@ -37,7 +38,4 @@
       </div>
     </div>
   </mat-sidenav-container>
-  <div class="hidden-side">
-    <router-outlet name="hidden"></router-outlet>
-  </div>
 </div>

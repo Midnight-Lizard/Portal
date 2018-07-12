@@ -102,8 +102,3 @@ router-outlet+.loading,
     background-color: mat-color($ml-accent, A100) !important;
     color: $ml-text-color !important;
 }
-
-.hidden-side {
-    display: none;
-    position: absolute;
-}
