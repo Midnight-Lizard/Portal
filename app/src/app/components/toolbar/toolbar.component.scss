@@ -16,6 +16,9 @@ nav {
         border-radius: 0px;
         vertical-align: middle;
         line-height: 64px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 50vw;
     }
     a[style*="block"],
     a[class*="flex-layout"] {
@@ -38,15 +41,6 @@ nav a.home-link {
     font-size: 20px !important;
 }
 
-// nav a.home-link:before {
-//     content: "";
-//     background-image: url(/assets/ml-toolbar-icon-128.png);
-//     background-size: 32px 32px;
-//     width: 32px;
-//     height: 32px;
-//     display: inline-block;
-//     margin: -10px 5px -10px 0px;
-// }
 nav .active-link:after {
     content: "";
     position: absolute;
