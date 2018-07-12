@@ -1,6 +1,6 @@
 ﻿<mat-nav-list>
   <a mat-list-item
-     routerLink="/schemes/index/full"
+     [routerLink]="['/schemes','index','full','']"
      routerLinkActive="active-section"
      matTooltip="All Midnight Lizard color schemes"
      matTooltipPosition="right">
@@ -16,7 +16,7 @@
       Personal lists
     </h3>
     <a mat-list-item
-       routerLink="/schemes/index/my"
+       [routerLink]="['/schemes','index','my','']"
        routerLinkActive="active-section"
        matTooltip="Schemes created by me"
        matTooltipPosition="right">
@@ -24,7 +24,7 @@
       <p matLine>My schemes</p>
     </a>
     <a mat-list-item
-       routerLink="/schemes/index/fav"
+       [routerLink]="['/schemes','index','fav','']"
        routerLinkActive="active-section"
        matTooltip="My favorite schemes"
        matTooltipPosition="right">
@@ -32,7 +32,7 @@
       <p matLine>Favorites</p>
     </a>
     <a mat-list-item
-       routerLink="/schemes/index/liked"
+       [routerLink]="['/schemes','index','liked','']"
        routerLinkActive="active-section"
        matTooltip="Schemes I like"
        matTooltipPosition="right">
@@ -49,7 +49,7 @@
     Public lists
   </h3>
   <a mat-list-item
-     routerLink="/schemes/index/ml"
+     [routerLink]="['/schemes','index','ml','']"
      routerLinkActive="active-section"
      matTooltip="Schemes created by Midnight Lizard team"
      matTooltipPosition="right">
@@ -57,7 +57,7 @@
     <p matLine>Original</p>
   </a>
   <a mat-list-item
-     routerLink="/schemes/index/com"
+     [routerLink]="['/schemes','index','com','']"
      routerLinkActive="active-section"
      matTooltip="Schemes created by community members"
      matTooltipPosition="right">

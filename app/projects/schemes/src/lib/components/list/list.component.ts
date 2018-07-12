@@ -11,6 +11,7 @@ import { SchemesRootState } from '../../store/schemes.state';
 import { PublicScheme } from '../../model/public-scheme';
 import * as Act from '../../store/schemes.actions';
 import { SchemeDetailsComponent } from '../details/details.component';
+import { SchemesList } from '../../model/schemes-lists';
 
 @Component({
     selector: 'schemes-list',
@@ -23,6 +24,7 @@ export class SchemesListComponent implements OnDestroy, OnInit
     aspect = '4:5';
     private readonly disposed = new Subject<boolean>();
     readonly schemes$: Observable<PublicScheme[]>;
+    private readonly list$: Observable<SchemesList>;
     private _mediaSub: Subscription;
     @HostBinding('class.show-loading') isLoading = false;
 
@@ -36,6 +38,10 @@ export class SchemesListComponent implements OnDestroy, OnInit
         private readonly dialog: MatDialog)
     {
         this.schemes$ = store$.pipe(select(s => s.SCHEMES.schemes.data));
+        this.list$ = store$.pipe(
+            select(x => x.SCHEMES.schemes.list),
+            first()
+        );
     }
 
     ngOnInit(): void
@@ -58,16 +64,15 @@ export class SchemesListComponent implements OnDestroy, OnInit
         {
             self.dialog.open(SchemeDetailsComponent, {
                 maxWidth: '85vw',
-                maxHeight: '90vh'
-            }).afterClosed().pipe(
+                maxHeight: '90vh',
+                autoFocus: false
+            }).beforeClose().pipe(
                 first(),
-                switchMap(_ => self.store$.pipe(
-                    select(x => x.SCHEMES.schemes.list),
-                    first()
-                ))).subscribe(list =>
-                    self.router.navigate(['schemes', 'index', list, ''], {
-                        queryParamsHandling: 'preserve'
-                    }));
+                switchMap(_ => self.list$)
+            ).subscribe(list =>
+                self.router.navigate(['schemes', 'index', list, ''], {
+                    queryParamsHandling: 'preserve'
+                }));
         });
 
         this._mediaSub = this.media$.subscribe((change: MediaChange) =>
@@ -144,10 +149,7 @@ export class SchemesListComponent implements OnDestroy, OnInit
     expand(scheme: PublicScheme)
     {
         const self = this;
-        this.store$.pipe(
-            select(x => x.SCHEMES.schemes.list),
-            first()
-        ).subscribe(list =>
+        this.list$.subscribe(list =>
             self.router.navigate(['schemes', 'index', list, scheme.id], {
                 queryParamsHandling: 'preserve'
             }));
