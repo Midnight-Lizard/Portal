@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, TrackByFunction } from '@angular/core';
 import { } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import { filter, map } from 'rxjs/operators';
@@ -26,6 +26,8 @@ export class SchemeDetailsComponent
             map(x => [x])
         );
     }
+
+    trackById: TrackByFunction<PublicScheme> = (index, item) => item ? item.id : null;
 
     toggleSchemeLiked(scheme: PublicScheme)
     {

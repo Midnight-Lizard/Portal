@@ -1,5 +1,6 @@
 <ng-template ngFor
              let-scheme
+             [ngForTrackBy]="trackById"
              [ngForOf]="scheme$|async">
   <div mat-dialog-title
        fxLayout="row"
