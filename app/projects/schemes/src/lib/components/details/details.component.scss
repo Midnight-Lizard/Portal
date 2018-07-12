@@ -1,0 +1,113 @@
+@import 'theme.scss';
+@media (min-aspect-ratio: 8/5) {
+    .screenshot {
+        height: 65vh;
+    }
+}
+
+@media (max-aspect-ratio: 8/5) {
+    .screenshot {
+        width: 70vw;
+        height: 100%;
+    }
+    .description.bottom {
+        width: 70vw;
+    }
+}
+
+.command {
+    &.mat-icon-button {
+        margin-left: 10px;
+    }
+    &.mat-raised-button {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+}
+
+.small .command {
+    &.mat-icon-button:first-child {
+        margin-left: 0px;
+    }
+    &.mat-icon-button {
+        margin-left: 5px;
+        --btn-size: 25px;
+        --icon-size: 16px;
+        line-height: var(--btn-size);
+        width: var(--btn-size);
+        height: var(--btn-size);
+        .mat-icon {
+            width: var(--icon-size);
+            height: var(--icon-size);
+            line-height: var(--icon-size);
+            font-size: var(--icon-size);
+        }
+    }
+    &.mat-raised-button {
+        margin-left: 20px;
+        margin-right: 20px;
+        font-size: 12px;
+        line-height: 30px;
+    }
+}
+
+.mat-dialog-title {
+    position: relative;
+    margin-bottom: 0px;
+    margin-top: -10px;
+}
+
+.title-separator {
+    margin: 10px -24px 20px -24px;
+    border-style: solid;
+    border-top-width: 1px;
+    border-bottom-width: 0;
+    color: $ml-gray-text-color;
+    opacity: 0.8;
+    border-image: linear-gradient(90deg, transparent 0%, $ml-gray-text-color 40%, $ml-gray-text-color 60%, transparent 100%) 1;
+}
+
+:host-context(html[ml-stage]) .title-separator {
+    border-image: linear-gradient(90deg, transparent 0%, var(--ml-main-border-color) 40%, var(--ml-main-border-color) 60%, transparent 100%) 1;
+}
+
+.publisher {
+    font-size: 14px;
+    color: $ml-gray-text-color;
+    .mat-icon:not(important) {
+        padding-left: 3px;
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        font-size: 14px;
+    }
+}
+
+[mat-dialog-close] {
+    position: absolute;
+    right: -24px;
+    top: -14px;
+}
+
+.description {
+    margin-left: 20px;
+    text-align: justify;
+    white-space: pre-wrap;
+    &.bottom {
+        margin-left: 0px;
+        margin-top: 20px;
+        width: 70vw;
+    }
+}
+
+.scrollable-content {
+    margin: 0 -24px;
+    padding: 0 24px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    --padding: 133px;
+    max-height: calc(90vh - var(--padding));
+    &.big-padding {
+        --padding: 203px;
+    }
+}

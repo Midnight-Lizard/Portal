@@ -1,7 +1,7 @@
 ﻿import { ActionReducerMap } from '@ngrx/store';
 
 import { schemesReducer } from './schemes.reducer';
-import { PublicScheme } from '../model/public-scheme';
+import { PublicScheme, PublicSchemeDetails } from '../model/public-scheme';
 import { SchemesFilters } from '../model/schemes-filters';
 import { SchemeSide } from '../model/scheme-side';
 import { SchemesList } from '../model/schemes-lists';
@@ -23,6 +23,7 @@ export interface SchemesState
     readonly list: SchemesList;
     readonly data: PublicScheme[];
     readonly filters: SchemesFilters;
+    readonly currentScheme?: PublicSchemeDetails;
     readonly cursor?: string;
     readonly done: boolean;
 }

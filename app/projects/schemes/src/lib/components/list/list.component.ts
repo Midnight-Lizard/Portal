@@ -1,47 +1,79 @@
-﻿import { Component, OnDestroy, TrackByFunction, HostBinding, Inject, Optional } from '@angular/core';
+﻿import { Component, OnDestroy, TrackByFunction, HostBinding, Inject, Optional, OnInit } from '@angular/core';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
+import { MatDialog } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
+import { takeUntil, filter, map, switchMap, first } from 'rxjs/operators';
 import { Subscription, Observable, Subject } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { takeUntil } from 'rxjs/operators';
 
-import { SchemesFeatureState, SchemesRootState } from '../../store/schemes.state';
+import { SideService } from 'core';
+import { SchemesRootState } from '../../store/schemes.state';
 import { PublicScheme } from '../../model/public-scheme';
 import * as Act from '../../store/schemes.actions';
-import { SideService } from 'core';
+import { SchemeDetailsComponent } from '../details/details.component';
 
 @Component({
     selector: 'schemes-list',
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.scss']
 })
-export class SchemesListComponent implements OnDestroy
+export class SchemesListComponent implements OnDestroy, OnInit
 {
     cols = 2;
     aspect = '4:5';
     private readonly disposed = new Subject<boolean>();
     readonly schemes$: Observable<PublicScheme[]>;
-    protected readonly _mediaSub: Subscription;
+    private _mediaSub: Subscription;
     @HostBinding('class.show-loading') isLoading = false;
 
     constructor(
-        media: ObservableMedia,
-        env: SideService,
-        @Inject('MEDIA') @Optional() lastMedia: string | null,
-        protected readonly store$: Store<SchemesRootState>)
+        private readonly env: SideService,
+        private readonly media$: ObservableMedia,
+        @Inject('MEDIA') @Optional() private readonly lastMedia: string | null,
+        private readonly store$: Store<SchemesRootState>,
+        private readonly route: ActivatedRoute,
+        private readonly router: Router,
+        private readonly dialog: MatDialog)
     {
         this.schemes$ = store$.pipe(select(s => s.SCHEMES.schemes.data));
+    }
+
+    ngOnInit(): void
+    {
         const self = this;
-        store$.pipe(
+
+        this.store$.pipe(
             select(x => x.SCHEMES.schemes.done),
-            takeUntil(this.disposed)
+            takeUntil(self.disposed)
         ).subscribe(done =>
         {
             self.isLoading = !done;
         });
-        this._mediaSub = media.subscribe((change: MediaChange) =>
+
+        this.route.paramMap.pipe(
+            map(x => x.get('id')!),
+            filter(id => !!id),
+            takeUntil(self.disposed)
+        ).subscribe(id =>
         {
-            let mq = lastMedia || 'default';
-            if (env.isBrowserSide && change.matches)
+            self.dialog.open(SchemeDetailsComponent, {
+                maxWidth: '85vw',
+                maxHeight: '90vh'
+            }).afterClosed().pipe(
+                first(),
+                switchMap(_ => self.store$.pipe(
+                    select(x => x.SCHEMES.schemes.list),
+                    first()
+                ))).subscribe(list =>
+                    self.router.navigate(['schemes', 'index', list, ''], {
+                        queryParamsHandling: 'preserve'
+                    }));
+        });
+
+        this._mediaSub = this.media$.subscribe((change: MediaChange) =>
+        {
+            let mq = this.lastMedia || 'default';
+            if (this.env.isBrowserSide && change.matches)
             {
                 mq = change.mqAlias;
             }
@@ -49,32 +81,32 @@ export class SchemesListComponent implements OnDestroy
             {
                 case 'xs':
                     this.cols = 1;
-                    this.aspect = '4:5';
+                    this.aspect = '100:92';
                     break;
 
                 case 'sm':
                     this.cols = 1;
-                    this.aspect = '100:95';
+                    this.aspect = '100:85';
                     break;
 
                 case 'md':
                     this.cols = 2;
-                    this.aspect = '6:7';
+                    this.aspect = '100:93';
                     break;
 
                 case 'lg':
                     this.cols = 2;
-                    this.aspect = '6:7';
+                    this.aspect = '100:90';
                     break;
 
                 case 'xl':
                     this.cols = 3;
-                    this.aspect = '95:100';
+                    this.aspect = '100:90';
                     break;
 
                 default:
                     this.cols = 2;
-                    this.aspect = '95:100';
+                    this.aspect = '100:92';
                     break;
             }
         });
@@ -98,6 +130,7 @@ export class SchemesListComponent implements OnDestroy
         this.store$.dispatch(scheme.liked
             ? new Act.DislikeScheme(scheme)
             : new Act.LikeScheme(scheme));
+        return true;
     }
 
     toggleSchemeFavorited(scheme: PublicScheme)
@@ -105,10 +138,18 @@ export class SchemesListComponent implements OnDestroy
         this.store$.dispatch(scheme.favorited
             ? new Act.RemoveSchemeFromFavorites(scheme)
             : new Act.AddSchemeToFavorites(scheme));
+        return true;
     }
 
-    expandImage()
+    expand(scheme: PublicScheme)
     {
-        alert('fuck');
+        const self = this;
+        this.store$.pipe(
+            select(x => x.SCHEMES.schemes.list),
+            first()
+        ).subscribe(list =>
+            self.router.navigate(['schemes', 'index', list, scheme.id], {
+                queryParamsHandling: 'preserve'
+            }));
     }
 }

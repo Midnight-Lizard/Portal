@@ -77,7 +77,8 @@ ml-footer {
     display: none;
 }
 
-router-outlet+.loading, .show-loading+.loading {
+router-outlet+.loading,
+.show-loading+.loading {
     display: block;
 }
 
@@ -100,4 +101,9 @@ router-outlet+.loading, .show-loading+.loading {
 .mat-option.mat-selected:not(imp) {
     background-color: mat-color($ml-accent, A100) !important;
     color: $ml-text-color !important;
+}
+
+.hidden-side {
+    display: none;
+    position: absolute;
 }

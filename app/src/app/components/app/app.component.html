@@ -1,24 +1,43 @@
-<div fxLayout="column" [ngClass]="{'root': true, 'server': env.isServerSide, 'client': env.isBrowserSide}">
-    <ml-toolbar (sidenavToggleClick)="toggleSidenav()">
-    </ml-toolbar>
-    <mat-sidenav-container fxFlex="100" (backdropClick)="toggleSidenav()">
-        <mat-sidenav class="left-side" [ngClass]="{server:env.isServerSide}" ngClass.sm="over-50" ngClass.lt-sm="over-80" [mode]="sidenavMode"
-            [(opened)]="sidenavIsOpened">
-            <router-outlet name="left-side"></router-outlet>
-        </mat-sidenav>
-        <div ngClass="sidenav-content" fxLayout="row" fxLayout.lt-sm="column">
-            <div fxFlex ngClass="center" fxLayout="column">
-                <div ngClass="main-content" fxFlex>
-                    <router-outlet></router-outlet>
-                    <common-loading class="loading"></common-loading>
-                </div>
-                <ml-footer fxFlex="nogrow"></ml-footer>
-            </div>
-            <div ngClass="right-side" fxFlex="25%" fxFlex.sm="30%" fxFlex.lt-sm="nogrow" fxFlexOrder.lt-sm="-1" ngClass.lt-sm="right-side full-width">
-                <div class="right-side-content">
-                    <router-outlet name="right-side"></router-outlet>
-                </div>
-            </div>
+<div fxLayout="column"
+     [ngClass]="{'root': true, 'server': env.isServerSide, 'client': env.isBrowserSide}">
+  <ml-toolbar (sidenavToggleClick)="toggleSidenav()">
+  </ml-toolbar>
+  <mat-sidenav-container fxFlex="100"
+                         (backdropClick)="toggleSidenav()">
+    <mat-sidenav class="left-side"
+                 [ngClass]="{server:env.isServerSide}"
+                 ngClass.sm="over-50"
+                 ngClass.lt-sm="over-80"
+                 [mode]="sidenavMode"
+                 [(opened)]="sidenavIsOpened">
+      <router-outlet name="left-side"></router-outlet>
+    </mat-sidenav>
+    <div ngClass="sidenav-content"
+         fxLayout="row"
+         fxLayout.lt-sm="column">
+      <div fxFlex
+           ngClass="center"
+           fxLayout="column">
+        <div ngClass="main-content"
+             fxFlex>
+          <router-outlet></router-outlet>
+          <common-loading class="loading"></common-loading>
         </div>
-    </mat-sidenav-container>
+        <ml-footer fxFlex="nogrow"></ml-footer>
+      </div>
+      <div ngClass="right-side"
+           fxFlex="25%"
+           fxFlex.sm="30%"
+           fxFlex.lt-sm="nogrow"
+           fxFlexOrder.lt-sm="-1"
+           ngClass.lt-sm="right-side full-width">
+        <div class="right-side-content">
+          <router-outlet name="right-side"></router-outlet>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-container>
+  <div class="hidden-side">
+    <router-outlet name="hidden"></router-outlet>
+  </div>
 </div>

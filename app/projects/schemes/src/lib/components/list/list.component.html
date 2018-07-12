@@ -11,17 +11,16 @@
                (scrolled)="onScroll()">
   <mat-grid-tile *ngFor="let scheme of schemes$|async; index as ix; trackBy: trackById">
     <mat-card [tabindex]="100+ix"
-              [attr.sid]="scheme.id">
+              [attr.sid]="scheme.id"
+              (click)="expand(scheme)"
+              matTooltip="Open details">
       <mat-card-header>
-        <mat-icon mat-card-avatar
+        <!-- <mat-icon mat-card-avatar
+                  fxFlexAlign="center"
                   [matTooltip]="scheme.side === 'dark' ? 'Dark color scheme' : 'Light color scheme'">
           {{scheme.side === 'dark' ? 'brightness_3' : 'wb_sunny'}}
-        </mat-icon>
-        <a mat-card-title
-           [href]="scheme.screenshots[0].urls['1280x800']"
-           target="_blank">
-          {{scheme.name}}
-        </a>
+        </mat-icon> -->
+        <span mat-card-title>{{scheme.name}}</span>
         <span mat-card-subtitle
               [matTooltip]="scheme.publisher.community ? 'Community member' : 'Midnight Lizard team'">
           by {{scheme.publisher.name}}
@@ -29,36 +28,11 @@
         </span>
         <span fxFlex></span>
         <button mat-icon-button
-                #schemeMenuTrigger
-                matTooltip="More"
-                (menuClosed)="schemeMenuTrigger.focus()"
-                [matMenuTriggerFor]="schemeMenu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #schemeMenu="matMenu"
-                  xPosition="before">
-          <button mat-menu-item
-                  matTooltip="Download color scheme file"
-                  matTooltipPosition="left">
-            <mat-icon>file_download</mat-icon>
-            <span>Download</span>
-          </button>
-          <button mat-menu-item
-                  matTooltip="Share"
-                  matTooltipPosition="left">
-            <mat-icon>share</mat-icon>
-            <span>Share</span>
-          </button>
-        </mat-menu>
-      </mat-card-header>
-      <schemes-thumbnails mat-card-image
-                          [screenshots]="scheme.screenshots">
-      </schemes-thumbnails>
-      <mat-card-actions fxLayout="row">
-        <button mat-icon-button
+                fxFlexAlign.md="center"
+                ngClass.md="small"
                 [color]="scheme.liked ? 'accent' : ''"
                 [matTooltip]="scheme.liked ? 'Remove like' : 'Add like'"
-                (click)="toggleSchemeLiked(scheme)">
+                (click)="toggleSchemeLiked(scheme); $event.stopPropagation()">
           <mat-icon *ngIf="scheme.liked"
                     matBadgeColor="warn"
                     matBadgeSize="small"
@@ -74,20 +48,15 @@
                     [matBadge]="scheme.likes"></mat-icon>
         </button>
         <button mat-icon-button
+                fxFlexAlign.md="center"
+                ngClass.md="small"
                 [color]="scheme.favorited ? 'warn' : ''"
                 [matTooltip]="scheme.favorited ? 'Remove from favorites' : 'Add to favorites'"
-                (click)="toggleSchemeFavorited(scheme)">
+                (click)="toggleSchemeFavorited(scheme); $event.stopPropagation()">
           <mat-icon>{{scheme.favorited ? "favorite" : "favorite_border"}}</mat-icon>
         </button>
-        <span fxFlex></span>
-        <button mat-raised-button
-                fxFlexAlign="center"
-                color="accent"
-                class="mat-accent"
-                matTooltip="Add into Midnight Lizard extension in your browser">
-          Add to browser
-        </button>
-      </mat-card-actions>
+      </mat-card-header>
+      <schemes-thumbnails [scheme]="scheme"></schemes-thumbnails>
     </mat-card>
   </mat-grid-tile>
 </mat-grid-list>

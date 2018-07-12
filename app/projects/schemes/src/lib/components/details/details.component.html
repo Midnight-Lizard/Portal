@@ -1,0 +1,105 @@
+<ng-template ngFor
+             let-scheme
+             [ngForOf]="scheme$|async">
+  <div mat-dialog-title
+       fxLayout="row"
+       fxLayout.lt-sm="column"
+       fxLayoutGap.lt-sm="10px">
+    <div fxFlexAlign="center"
+         fxFlexAlign.lt-sm="start">
+      {{scheme.name}}
+      <div class="publisher"
+           [matTooltip]="scheme.publisher.community ? 'Community member' : 'Midnight Lizard team'">
+        by {{scheme.publisher.name}}
+        <mat-icon color="accent">{{scheme.publisher.community ? 'people' : 'verified_user'}}</mat-icon>
+      </div>
+    </div>
+    <s fxFlex></s>
+    <div fxLayout="row"
+         fxFlexAlign="center"
+         fxFlexAlign.lt-sm="end"
+         ngClass.lt-md="small">
+      <button mat-icon-button
+              class="command"
+              #button
+              fxFlexAlign="center"
+              [color]="scheme.liked ? 'accent' : ''"
+              [matTooltip]="scheme.liked ? 'Remove like' : 'Add like'"
+              (click)="toggleSchemeLiked(scheme)">
+        <mat-icon *ngIf="scheme.liked"
+                  matBadgeColor="warn"
+                  matBadgeSize="medium"
+                  matBadgeOverlap="true"
+                  matBadgePosition="below before"
+                  [matBadge]="scheme.likes">thumb_up</mat-icon>
+        <mat-icon *ngIf="!scheme.liked"
+                  matBadgeColor="warn"
+                  matBadgeSize="medium"
+                  matBadgeOverlap="true"
+                  matBadgePosition="below before"
+                  svgIcon="outline-thumb-up"
+                  [matBadge]="scheme.likes"></mat-icon>
+      </button>
+      <button mat-icon-button
+              class="command"
+              fxFlexAlign="center"
+              [color]="scheme.favorited ? 'warn' : ''"
+              [matTooltip]="scheme.favorited ? 'Remove from favorites' : 'Add to favorites'"
+              (click)="toggleSchemeFavorited(scheme)">
+        <mat-icon>{{scheme.favorited ? "favorite" : "favorite_border"}}</mat-icon>
+      </button>
+      <button mat-icon-button
+              fxFlexAlign="center"
+              #schemeMenuTrigger
+              class="command"
+              matTooltip="More"
+              (menuClosed)="schemeMenuTrigger.focus()"
+              [matMenuTriggerFor]="schemeMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #schemeMenu="matMenu"
+                xPosition="before"
+                overlapTrigger="false">
+        <button mat-menu-item
+                matTooltip="Download color scheme file"
+                matTooltipPosition="left">
+          <mat-icon>file_download</mat-icon>
+          <span>Download</span>
+        </button>
+        <button mat-menu-item
+                matTooltip="Share"
+                matTooltipPosition="left">
+          <mat-icon>share</mat-icon>
+          <span>Share</span>
+        </button>
+      </mat-menu>
+      <button mat-raised-button
+              class="command mat-accent"
+              fxFlexAlign="center"
+              color="accent"
+              [matTooltip]="'Add color scheme \'' + scheme.name + '\' into Midnight Lizard extension in your browser'">
+        <span fxShow
+              fxHide.lt-md>ADD TO BROWSER</span>
+        <span fxHide
+              fxShow.lt-md>ADD</span>
+      </button>
+    </div>
+    <button mat-icon-button
+            mat-dialog-close
+            matTooltip="Close color scheme details">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <hr class="title-separator">
+  <div fxLayout="row"
+       ngClass.lt-lg="scrollable-content"
+       ngClass.lt-sm="scrollable-content big-padding"
+       fxLayout.lt-lg="column">
+    <img class="screenshot"
+         fxFlexAlign.lt-lg="center"
+         [src]="scheme.screenshots[0].urls['1280x800']">
+    <div ngClass.lt-lg="bottom"
+         fxFlexAlign.lt-lg="center"
+         class="description">{{scheme.description}}</div>
+  </div>
+</ng-template>

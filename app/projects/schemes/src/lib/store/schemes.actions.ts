@@ -1,7 +1,7 @@
 ﻿import { createCommandActions } from 'core';
 import { SchemesFilters } from '../model/schemes-filters';
 import { SchemesList } from '../model/schemes-lists';
-import { PublicScheme } from '../model/public-scheme';
+import { PublicScheme, PublicSchemeDetails } from '../model/public-scheme';
 import { PublicSchemeId } from '../model/public-scheme';
 
 export class LoadNextSchemesChunk
@@ -36,6 +36,14 @@ export class SchemesSearchChanged
     constructor(readonly payload: Readonly<{
         filters: SchemesFilters,
         list: SchemesList
+    }>) { }
+}
+
+export class CurrentSchemeChanged
+{
+    readonly type = 'CurrentSchemeChanged';
+    constructor(readonly payload: Readonly<{
+        currentScheme: PublicSchemeDetails
     }>) { }
 }
 

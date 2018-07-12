@@ -13,10 +13,12 @@ import { SchemesService } from './backend/schemes.service';
 import { SchemesEffects } from './store/schemes.effects';
 import { ThumbnailsComponent } from './components/thumbnails/thumbnails.component';
 import { ScreenshotsComponent } from './components/screenshots/screenshots.component';
+import { SchemeDetailsComponent } from './components/details/details.component';
 
 @NgModule({
     declarations: [
-        schemesRoutingComponents, ThumbnailsComponent, ScreenshotsComponent
+        schemesRoutingComponents, ThumbnailsComponent, ScreenshotsComponent,
+        SchemeDetailsComponent
     ],
     imports: [
         CommonModule, FormsModule, FlexLayoutModule, ReactiveFormsModule,
@@ -25,6 +27,6 @@ import { ScreenshotsComponent } from './components/screenshots/screenshots.compo
         EffectsModule.forFeature([SchemesEffects])
     ],
     providers: [SchemesService, Actions, SchemesEffects],
-    entryComponents: [ScreenshotsComponent]
+    entryComponents: [ScreenshotsComponent, SchemeDetailsComponent]
 })
 export class SchemesModule { }

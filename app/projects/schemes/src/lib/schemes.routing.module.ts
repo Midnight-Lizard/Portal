@@ -9,14 +9,14 @@ import { SchemesListComponent } from './components/list/list.component';
 const index = 'index';
 
 const routes: Routes = [
-    { path: '', redirectTo: `${index}/full`, pathMatch: 'full' },
     {
-        path: `${index}/:list`, children: [
+        path: `${index}/:list/:id`, children: [
             { path: '', component: SchemesListComponent },
             { path: '', component: SchemesFilterComponent, outlet: 'right-side' },
             { path: '', component: SchemesNavigationComponent, outlet: 'left-side' }
         ]
-    }
+    },
+    { path: '**', redirectTo: `${index}/full/` }
 ];
 
 @NgModule({
@@ -29,5 +29,5 @@ export const schemesRoutingComponents = [
     SchemesComponent,
     SchemesFilterComponent,
     SchemesNavigationComponent,
-    SchemesListComponent
+    SchemesListComponent,
 ];

@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { delay, first } from 'rxjs/operators';
 
 import { SchemesFilters } from '../model/schemes-filters';
-import { PublicScheme } from '../model/public-scheme';
+import { PublicScheme, PublicSchemeId, PublicSchemeDetails } from '../model/public-scheme';
 import { ScreenshotSize } from '../model/screenshot';
 import { SchemeSide } from '../model/scheme-side';
 import { SchemesList } from '../model/schemes-lists';
@@ -72,6 +72,31 @@ export class SchemesService
         })).pipe(delay(cursor ? 600 : 300), first());
     }
 
+    public getPublicSchemeDetails(publicSchemeId: PublicSchemeId)
+    {
+        return new BehaviorSubject<PublicSchemeDetails>({
+            id: publicSchemeId,
+            name: `Fake ${this.randomString(4)} scheme`,
+            publisher: {
+                id: this.randomString(8),
+                name: `${this.randomString(6)} ${this.randomString(4)}`,
+                community: Math.random() > 0.5
+            },
+            favorited: Math.random() > 0.5,
+            liked: Math.random() > 0.5,
+            likes: Math.floor(Math.random() * 100),
+            side: SchemeSide.Dark,
+            screenshots: [{
+                title: '',
+                urls: {
+                    [ScreenshotSize._1280x800]: darkSchemes[Math.floor(Math.random() * darkSchemes.length)]
+                }
+            }],
+            colorScheme: null,
+            description: lorem
+        });
+    }
+
     private randomString(length: number)
     {
         const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -84,3 +109,8 @@ export class SchemesService
         return text;
     }
 }
+
+const lorem = ` Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;

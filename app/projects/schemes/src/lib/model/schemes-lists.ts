@@ -15,7 +15,7 @@ export enum SchemesList
 export function getSchemesListFromRoute(route: ActivatedRouteSnapshot): SchemesList
 {
     let index = route;
-    while (index.firstChild && (index.url.length === 0 || index.url[0].path !== 'index'))
+    while (index.firstChild)
     {
         index = index.firstChild;
     }

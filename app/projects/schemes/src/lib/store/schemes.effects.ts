@@ -15,6 +15,7 @@ import * as SchActs from './schemes.actions';
 import { SchemesService } from '../backend/schemes.service';
 import { getFiltersFromRoute, filtersAreEqual } from '../model/schemes-filters';
 import { getSchemesListFromRoute } from '../model/schemes-lists';
+import { getSchemesIdFromRoute } from '../model/public-scheme';
 
 const signinAction = [{
     route: '/signin',
@@ -33,6 +34,25 @@ export class SchemesEffects
         private readonly store$: Store<SchemesRootState & AuthRootState>,
         private readonly schSvc: SchemesService
     ) { }
+
+    @Effect()
+    onDetailsNavigated$ = this.handleNavigation(/schemes\/index\/\w+\/[^?]/, (route, state) =>
+    {
+        const schemeId = getSchemesIdFromRoute(route);
+        if (schemeId && (!state.currentScheme || state.currentScheme.id !== schemeId))
+        {
+            return this.schSvc.getPublicSchemeDetails(schemeId).pipe(
+                map(scheme => new SchActs.CurrentSchemeChanged({ currentScheme: scheme })),
+                catchError(error => of(new NotifyUser({
+                    message: 'Failed to retrieve color scheme details',
+                    level: NotificationLevel.Error,
+                    isLocal: true,
+                    data: error
+                })))
+            );
+        }
+        return of();
+    });
 
     @Effect()
     onSearchNavigated$ = this.handleNavigation(/schemes\/index/, (route, state) =>

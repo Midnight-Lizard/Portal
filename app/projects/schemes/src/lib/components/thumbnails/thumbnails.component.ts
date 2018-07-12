@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { Router, } from '@angular/router';
+import { Store, select } from '@ngrx/store';
 
-import { Screenshot } from '../../model/screenshot';
-import { ScreenshotsComponent, ScreenshotDialogData } from '../screenshots/screenshots.component';
+import { PublicScheme } from '../../model/public-scheme';
 
 @Component({
     selector: 'schemes-thumbnails',
@@ -12,19 +12,7 @@ import { ScreenshotsComponent, ScreenshotDialogData } from '../screenshots/scree
 export class ThumbnailsComponent
 {
     @Input()
-    screenshots: Screenshot[];
+    scheme: PublicScheme;
 
-    constructor(private readonly dialog: MatDialog) { }
-
-    expand(index: number = 0)
-    {
-        this.dialog.open(ScreenshotsComponent, {
-            // maxHeight: '80%',
-            maxWidth: '70%',
-            data: {
-                screenshots: this.screenshots,
-                selectedIndex: index
-            } as ScreenshotDialogData
-        });
-    }
+    constructor() { }
 }
