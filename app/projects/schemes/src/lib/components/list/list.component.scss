@@ -16,7 +16,9 @@ mat-card {
         --btn-size: 25px;
         --icon-size: 16px;
     }
-    text-align: right;
+    &:last-child {
+        margin-right: calc((var(--icon-size) - var(--btn-size)) / 2)
+    }
     line-height: var(--btn-size);
     width: var(--btn-size);
     height: var(--btn-size);
