@@ -1,6 +1,6 @@
 ﻿import { SchemesState } from './schemes.state';
 import { SchemesAction, SchemesActionTypes } from './schemes.action-sets';
-import { PublicScheme, PublicSchemeId } from '../model/public-scheme';
+import { PublicScheme, PublicSchemeId, PublicSchemeDetails } from '../model/public-scheme';
 
 export function schemesReducer(state: SchemesState, action: SchemesAction): SchemesState
 {
@@ -113,16 +113,28 @@ export function schemesReducer(state: SchemesState, action: SchemesAction): Sche
 function updateScheme(state: SchemesState, id: PublicSchemeId,
     update: Partial<PublicScheme> | ((scheme: PublicScheme) => Partial<PublicScheme>))
 {
-    const index = state.data.findIndex(s => s.id === id);
+    let result = state;
+    const index = result.data.findIndex(s => s.id === id);
     if (index !== -1)
     {
-        const dataClone = [...state.data];
-        if (typeof (update) === 'function')
+        const dataClone = [...result.data];
+        let updateResult = update;
+        if (typeof (updateResult) === 'function')
         {
-            update = update(dataClone[index]);
+            updateResult = updateResult(dataClone[index]);
         }
-        dataClone[index] = { ...dataClone[index], ...update };
-        return { ...state, data: dataClone };
+        dataClone[index] = { ...dataClone[index], ...updateResult };
+        result = { ...result, data: dataClone };
     }
-    return state;
+    if (result.currentScheme && result.currentScheme.id === id)
+    {
+        let updateResult = update;
+        if (typeof (updateResult) === 'function')
+        {
+            updateResult = updateResult(result.currentScheme);
+        }
+        const currentScheme = { ...result.currentScheme, ...updateResult };
+        result = { ...result, currentScheme };
+    }
+    return result;
 }
