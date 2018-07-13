@@ -1,5 +1,5 @@
 ﻿import { TestBed, fakeAsync, ComponentFixture, ComponentFixtureAutoDetect } from '@angular/core/testing';
-import { By } from "@angular/platform-browser";
+import { By } from '@angular/platform-browser';
 import { UserNavComponent } from './user-nav.component';
 import { AppTestingModule } from '../../app.module.testing';
 
