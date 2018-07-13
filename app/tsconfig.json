@@ -31,6 +31,9 @@
       ],
       "core": [
         "dist/core"
+      ],
+      "testing": [
+        "dist/testing"
       ]
     }
   }
