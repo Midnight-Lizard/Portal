@@ -13,8 +13,6 @@ import
     MatBottomSheetModule, MatDialogModule
 } from '@angular/material';
 
-import { SharedComponent } from './shared.component';
-
 const materialModules = [
     MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
     MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule,
@@ -38,8 +36,8 @@ const svgIcons = [
         FlexLayoutModule,
         ReactiveFormsModule,
     ],
-    declarations: [SharedComponent],
-    exports: [materialModules, SharedComponent]
+    declarations: [],
+    exports: [materialModules]
 })
 export class SharedModule
 {
