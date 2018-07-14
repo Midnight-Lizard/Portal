@@ -1,7 +1,7 @@
 ﻿import { Actions } from '@ngrx/effects';
 import { ActivatedRouteSnapshot, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { of, Observable } from 'rxjs';
+import { of, Observable, ObservableInput } from 'rxjs';
 import { switchMap, filter, map, withLatestFrom, catchError } from 'rxjs/operators';
 
 import { NavAction, NavActionTypes } from './nav.action-sets';
@@ -17,7 +17,7 @@ export interface IStateSelector<TRootState, TState>
 export interface INavigationCallback<TState, TResult>
 {
     // tslint:disable-next-line:callable-types
-    (route: ActivatedRouteSnapshot, state: TState): Observable<TResult>;
+    (route: ActivatedRouteSnapshot, state: TState): ObservableInput<TResult>;
 }
 
 export function createNavigationHandler<

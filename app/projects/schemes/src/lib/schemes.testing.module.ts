@@ -11,6 +11,7 @@ import { SharedModule, materialModules } from 'shared';
 import { TestingModule } from 'testing';
 import { SchemesFeature, schemesReducers, schemesInitialState } from './store/schemes.state';
 import { SchemesService } from './backend/schemes.service';
+import { SchemesServiceStub } from './backend/schemes.service.stub';
 
 @NgModule({
     imports: [
@@ -21,7 +22,6 @@ import { SchemesService } from './backend/schemes.service';
         StoreModule.forFeature(SchemesFeature, schemesReducers, { initialState: schemesInitialState }),
         EffectsModule.forRoot([])
     ],
-    providers: [SchemesService, Actions],
     exports: [
         materialModules, FormsModule, ReactiveFormsModule,
     ]
@@ -33,8 +33,9 @@ export class SchemesTestingModule
         return {
             ngModule: SchemesTestingModule,
             providers: [
-                SchemesService, Actions,
-                TestingModule.forRoot().providers!
+                Actions,
+                TestingModule.forRoot().providers!,
+                { provide: SchemesService, useClass: SchemesServiceStub }
             ]
         };
     }

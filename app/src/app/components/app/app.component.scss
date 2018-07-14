@@ -4,9 +4,12 @@ mat-sidenav-container {
     flex: 1 1 100%;
 }
 
+.mat-drawer-content:not(.imp) {
+    overflow-y: scroll;
+}
+
 .root.server .mat-drawer-content {
     margin-left: 20% !important;
-    overflow-y: scroll !important;
 }
 
 .left-side {

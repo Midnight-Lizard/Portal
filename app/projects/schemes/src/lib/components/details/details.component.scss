@@ -111,3 +111,11 @@
         --padding: 203px;
     }
 }
+
+common-loading {
+    display: none;
+}
+
+common-loading:first-child {
+    display: block;
+}

@@ -1,4 +1,8 @@
 ﻿@import 'theme.scss';
+:host(.show-loading) .mat-grid-list.empty {
+    padding-bottom: 0 !important;
+}
+
 mat-card {
     margin: 3px;
     cursor: pointer;

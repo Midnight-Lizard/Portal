@@ -1,7 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { of, Observable } from 'rxjs';
+import { of, Observable, merge } from 'rxjs';
 import { switchMap, filter, map, withLatestFrom, catchError } from 'rxjs/operators';
 import
 {
@@ -40,15 +40,16 @@ export class SchemesEffects
         const schemeId = getSchemesIdFromRoute(route);
         if (schemeId && (!state.currentScheme || state.currentScheme.id !== schemeId))
         {
-            return this.schSvc.getPublicSchemeDetails(schemeId).pipe(
-                map(scheme => new SchActs.CurrentSchemeChanged({ currentScheme: scheme })),
-                catchError(error => of(new NotifyUser({
-                    message: 'Failed to retrieve color scheme details',
-                    level: NotificationLevel.Error,
-                    isLocal: true,
-                    data: error
-                })))
-            );
+            return merge(
+                of(new SchActs.CurrentSchemeChanged({ currentScheme: undefined })),
+                this.schSvc.getPublicSchemeDetails(schemeId).pipe(
+                    map(scheme => new SchActs.CurrentSchemeChanged({ currentScheme: scheme })),
+                    catchError(error => of(new NotifyUser({
+                        message: 'Failed to retrieve color scheme details',
+                        level: NotificationLevel.Error,
+                        isLocal: true,
+                        data: error
+                    })))));
         }
         return of();
     });

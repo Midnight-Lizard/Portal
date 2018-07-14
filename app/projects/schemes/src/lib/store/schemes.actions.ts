@@ -43,7 +43,7 @@ export class CurrentSchemeChanged
 {
     readonly type = 'CurrentSchemeChanged';
     constructor(readonly payload: Readonly<{
-        currentScheme: PublicSchemeDetails
+        currentScheme?: PublicSchemeDetails
     }>) { }
 }
 

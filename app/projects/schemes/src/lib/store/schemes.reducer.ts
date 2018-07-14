@@ -33,7 +33,8 @@ export function schemesReducer(state: SchemesState, action: SchemesAction): Sche
             return {
                 ...state,
                 ...action.payload,
-                done: false
+                done: false,
+                data: []
             };
         }
 

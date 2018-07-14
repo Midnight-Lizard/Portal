@@ -6,7 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
-import { SharedModule } from 'shared';
+import { SharedModule, LoadingModule } from 'shared';
 import { schemesRoutingComponents, SchemesRoutingModule } from './schemes.routing.module';
 import { SchemesFeature, schemesReducers, schemesInitialState } from './store/schemes.state';
 import { SchemesService } from './backend/schemes.service';
@@ -22,7 +22,8 @@ import { SchemeDetailsComponent } from './components/details/details.component';
     ],
     imports: [
         CommonModule, FormsModule, FlexLayoutModule, ReactiveFormsModule,
-        SchemesRoutingModule, SharedModule, InfiniteScrollModule,
+        SchemesRoutingModule, SharedModule, LoadingModule,
+        InfiniteScrollModule,
         StoreModule.forFeature(SchemesFeature, schemesReducers, { initialState: schemesInitialState }),
         EffectsModule.forFeature([SchemesEffects])
     ],

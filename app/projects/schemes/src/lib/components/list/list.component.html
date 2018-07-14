@@ -1,6 +1,7 @@
 ﻿<mat-grid-list [cols]="cols"
                gutterSize="20"
                [rowHeight]="aspect"
+               [ngClass]="{'empty': !(schemes$|async).length}"
                infiniteScroll
                [infiniteScrollDistance]="2"
                [infiniteScrollThrottle]="150"

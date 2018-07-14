@@ -119,13 +119,13 @@ export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
                 maxWidth: '85vw',
                 maxHeight: '90vh',
                 autoFocus: false
-            }).beforeClose().pipe(
-                first(),
-                switchMap(_ => self.list$)
-            ).subscribe(list =>
-                self.router.navigate(['schemes', 'index', list, ''], {
-                    queryParamsHandling: 'preserve'
-                }));
+            })
+                .beforeClose()
+                .pipe(switchMap(_ => self.list$))
+                .subscribe(list =>
+                    self.router.navigate(['schemes', 'index', list, ''], {
+                        queryParamsHandling: 'preserve'
+                    }));
         });
     }
 
