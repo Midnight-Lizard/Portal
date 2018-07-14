@@ -4,10 +4,10 @@
                infiniteScroll
                [infiniteScrollDistance]="2"
                [infiniteScrollThrottle]="150"
-               [infiniteScrollContainer]="'.mat-sidenav-content'"
+               [infiniteScrollContainer]="scrollContainerSelector"
                [infiniteScrollDisabled]="!isLoading"
                [immediateCheck]="true"
-               [fromRoot]="true"
+               [fromRoot]="searchScrollContainerSelectorFromRoot"
                (scrolled)="onScroll()">
   <mat-grid-tile *ngFor="let scheme of schemes$|async; index as ix; trackBy: trackById">
     <mat-card [tabindex]="100+ix"
@@ -58,7 +58,7 @@
           <mat-icon>{{scheme.favorited ? "favorite" : "favorite_border"}}</mat-icon>
         </button>
       </mat-card-header>
-      <schemes-thumbnails [scheme]="scheme"></schemes-thumbnails>
+      <schemes-thumbnails [screenshots]="scheme.screenshots"></schemes-thumbnails>
     </mat-card>
   </mat-grid-tile>
 </mat-grid-list>

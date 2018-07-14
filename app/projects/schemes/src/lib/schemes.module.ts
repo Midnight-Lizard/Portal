@@ -12,12 +12,12 @@ import { SchemesFeature, schemesReducers, schemesInitialState } from './store/sc
 import { SchemesService } from './backend/schemes.service';
 import { SchemesEffects } from './store/schemes.effects';
 import { ThumbnailsComponent } from './components/thumbnails/thumbnails.component';
-import { ScreenshotsComponent } from './components/screenshots/screenshots.component';
 import { SchemeDetailsComponent } from './components/details/details.component';
 
 @NgModule({
     declarations: [
-        schemesRoutingComponents, ThumbnailsComponent, ScreenshotsComponent,
+        schemesRoutingComponents,
+        ThumbnailsComponent,
         SchemeDetailsComponent
     ],
     imports: [
@@ -27,6 +27,6 @@ import { SchemeDetailsComponent } from './components/details/details.component';
         EffectsModule.forFeature([SchemesEffects])
     ],
     providers: [SchemesService, Actions, SchemesEffects],
-    entryComponents: [ScreenshotsComponent, SchemeDetailsComponent]
+    entryComponents: [SchemeDetailsComponent]
 })
 export class SchemesModule { }

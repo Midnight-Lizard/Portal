@@ -1,28 +1,29 @@
-﻿import { TestBed, fakeAsync, ComponentFixture, ComponentFixtureAutoDetect } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+﻿import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { UserNavComponent } from './user-nav.component';
-import { AppTestingModule } from '../../app.module.testing';
 
-let component: UserNavComponent;
-let fixture: ComponentFixture<UserNavComponent>;
-
-describe('user-nav component', () =>
+describe('UserNavComponent', () =>
 {
-    beforeEach(fakeAsync(() =>
+    let component: UserNavComponent;
+    let fixture: ComponentFixture<UserNavComponent>;
+
+    beforeEach(async(() =>
     {
         TestBed.configureTestingModule({
-            declarations: [UserNavComponent],
-            imports: [AppTestingModule],
-            providers: [
-                { provide: ComponentFixtureAutoDetect, useValue: true }
-            ]
-        });
-        fixture = TestBed.createComponent(UserNavComponent);
-        component = fixture.componentInstance;
+            declarations: [UserNavComponent]
+        })
+            .compileComponents();
     }));
 
-    it('should do something', fakeAsync(() =>
+    beforeEach(() =>
     {
-        expect(true).toEqual(true);
-    }));
+        fixture = TestBed.createComponent(UserNavComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () =>
+    {
+        expect(component).toBeTruthy();
+    });
 });

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SchemesComponent } from './components/schemes.component';
 import { SchemesFilterComponent } from './components/filter/filter.component';
 import { SchemesNavigationComponent } from './components/navigation/navigation.component';
 import { SchemesListComponent } from './components/list/list.component';
@@ -26,7 +25,6 @@ const routes: Routes = [
 export class SchemesRoutingModule { }
 
 export const schemesRoutingComponents = [
-    SchemesComponent,
     SchemesFilterComponent,
     SchemesNavigationComponent,
     SchemesListComponent,

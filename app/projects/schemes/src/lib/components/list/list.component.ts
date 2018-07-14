@@ -16,7 +16,11 @@ import { SchemesList } from '../../model/schemes-lists';
 @Component({
     selector: 'schemes-list',
     templateUrl: './list.component.html',
-    styleUrls: ['./list.component.scss']
+    styleUrls: ['./list.component.scss'],
+    providers: [
+        { provide: 'scrollContainerSelector', useValue: '.mat-sidenav-content' },
+        { provide: 'searchScrollContainerSelectorFromRoot', useValue: true }
+    ]
 })
 export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
 {
@@ -35,7 +39,9 @@ export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
         private readonly store$: Store<SchemesRootState>,
         private readonly route: ActivatedRoute,
         private readonly router: Router,
-        private readonly dialog: MatDialog)
+        private readonly dialog: MatDialog,
+        @Inject('scrollContainerSelector') readonly scrollContainerSelector: string,
+        @Inject('searchScrollContainerSelectorFromRoot') readonly searchScrollContainerSelectorFromRoot: boolean)
     {
         this.schemes$ = store$.pipe(select(s => s.SCHEMES.schemes.data));
         this.list$ = store$.pipe(

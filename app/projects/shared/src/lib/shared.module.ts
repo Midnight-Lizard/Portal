@@ -13,7 +13,7 @@ import
     MatBottomSheetModule, MatDialogModule
 } from '@angular/material';
 
-const materialModules = [
+export const materialModules = [
     MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
     MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule,
     MatTooltipModule, MatProgressSpinnerModule, MatPaginatorModule,

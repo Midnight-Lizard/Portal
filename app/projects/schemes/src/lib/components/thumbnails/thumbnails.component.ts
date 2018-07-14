@@ -3,6 +3,7 @@ import { Router, } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 
 import { PublicScheme } from '../../model/public-scheme';
+import { Screenshot } from '../../model/screenshot';
 
 @Component({
     selector: 'schemes-thumbnails',
@@ -12,7 +13,7 @@ import { PublicScheme } from '../../model/public-scheme';
 export class ThumbnailsComponent
 {
     @Input()
-    scheme: PublicScheme;
+    screenshots: Screenshot[];
 
     constructor() { }
 }
