@@ -23,17 +23,17 @@ export function createCommandActions<
     })
 {
     return [
-        class
+        class CommandAction
         {
             type = options.commandName;
             constructor(readonly payload: TCommandPayload) { }
         },
-        class
+        class SuccessAction
         {
             type = options.successName;
             constructor(readonly payload: TSuccessPayload) { }
         },
-        class
+        class FailureAction
         {
             type = options.failureName;
             constructor(readonly payload: TFailurePayload) { }

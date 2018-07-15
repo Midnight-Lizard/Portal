@@ -1,4 +1,5 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule, Actions } from '@ngrx/effects';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -15,7 +16,7 @@ import { SchemesServiceStub } from './backend/schemes.service.stub';
 
 @NgModule({
     imports: [
-        TestingModule.forRoot(),
+        TestingModule.forRoot(), HttpClientModule,
         CommonModule, FormsModule, FlexLayoutModule, ReactiveFormsModule,
         SharedModule, LoadingModule, NoopAnimationsModule,
         StoreModule.forRoot({}),

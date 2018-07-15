@@ -19,7 +19,8 @@ import { SchemesList } from '../../model/schemes-lists';
     styleUrls: ['./list.component.scss'],
     providers: [
         { provide: 'scrollContainerSelector', useValue: '.mat-sidenav-content' },
-        { provide: 'searchScrollContainerSelectorFromRoot', useValue: true }
+        { provide: 'searchScrollContainerSelectorFromRoot', useValue: true },
+        { provide: 'scrollThrottleTime', useValue: 150 }
     ]
 })
 export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
@@ -40,8 +41,15 @@ export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
         private readonly route: ActivatedRoute,
         private readonly router: Router,
         private readonly dialog: MatDialog,
-        @Inject('scrollContainerSelector') readonly scrollContainerSelector: string,
-        @Inject('searchScrollContainerSelectorFromRoot') readonly searchScrollContainerSelectorFromRoot: boolean)
+
+        @Inject('scrollContainerSelector')
+        readonly scrollContainerSelector: string,
+
+        @Inject('searchScrollContainerSelectorFromRoot')
+        readonly searchScrollContainerSelectorFromRoot: boolean,
+
+        @Inject('scrollThrottleTime')
+        readonly scrollThrottleTime: number)
     {
         this.schemes$ = store$.pipe(select(s => s.SCHEMES.schemes.data));
         this.list$ = store$.pipe(
