@@ -10,7 +10,7 @@ import { Screenshot } from '../../model/screenshot';
     templateUrl: './thumbnails.component.html',
     styleUrls: ['./thumbnails.component.scss']
 })
-export class ThumbnailsComponent
+export class SchemesThumbnailsComponent
 {
     @Input()
     screenshots: Screenshot[];

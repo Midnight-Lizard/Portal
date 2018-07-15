@@ -11,13 +11,13 @@ import { schemesRoutingComponents, SchemesRoutingModule } from './schemes.routin
 import { SchemesFeature, schemesReducers, schemesInitialState } from './store/schemes.state';
 import { SchemesService } from './backend/schemes.service';
 import { SchemesEffects } from './store/schemes.effects';
-import { ThumbnailsComponent } from './components/thumbnails/thumbnails.component';
+import { SchemesThumbnailsComponent } from './components/thumbnails/thumbnails.component';
 import { SchemeDetailsComponent } from './components/details/details.component';
 
 @NgModule({
     declarations: [
         schemesRoutingComponents,
-        ThumbnailsComponent,
+        SchemesThumbnailsComponent,
         SchemeDetailsComponent
     ],
     imports: [

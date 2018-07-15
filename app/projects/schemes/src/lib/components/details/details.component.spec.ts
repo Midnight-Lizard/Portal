@@ -1,9 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { nameOfClass } from 'testing';
 import { SchemeDetailsComponent } from './details.component';
 import { SchemesTestingModule } from '../../schemes.testing.module';
 
-describe('DetailsComponent', () =>
+describe(nameOfClass(SchemeDetailsComponent), () =>
 {
     let component: SchemeDetailsComponent;
     let fixture: ComponentFixture<SchemeDetailsComponent>;

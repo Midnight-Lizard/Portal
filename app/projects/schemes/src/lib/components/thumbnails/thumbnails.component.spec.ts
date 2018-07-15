@@ -1,25 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ThumbnailsComponent } from './thumbnails.component';
+import { nameOfClass } from 'testing';
+import { SchemesThumbnailsComponent } from './thumbnails.component';
 import { SchemesTestingModule } from '../../schemes.testing.module';
 import { ScreenshotSize } from '../../model/screenshot';
 
-describe('ThumbnailsComponent', () =>
+describe(nameOfClass(SchemesThumbnailsComponent), () =>
 {
-    let component: ThumbnailsComponent;
-    let fixture: ComponentFixture<ThumbnailsComponent>;
+    let component: SchemesThumbnailsComponent;
+    let fixture: ComponentFixture<SchemesThumbnailsComponent>;
 
     beforeEach(async(() =>
     {
         TestBed.configureTestingModule({
-            declarations: [ThumbnailsComponent],
+            declarations: [SchemesThumbnailsComponent],
             imports: [SchemesTestingModule.forRoot()]
         }).compileComponents();
     }));
 
     beforeEach(() =>
     {
-        fixture = TestBed.createComponent(ThumbnailsComponent);
+        fixture = TestBed.createComponent(SchemesThumbnailsComponent);
         component = fixture.componentInstance;
         component.screenshots = [{
             title: '', urls: {

@@ -2,6 +2,7 @@ import { fakeAsync, ComponentFixture, TestBed, tick, inject } from '@angular/cor
 import { Router, NavigationExtras } from '@angular/router';
 import { Store } from '@ngrx/store';
 
+import { nameOfClass } from 'testing';
 import { SchemesFilterComponent } from './filter.component';
 import { SchemesTestingModule } from '../../schemes.testing.module';
 import { SchemeSide } from '../../model/scheme-side';
@@ -9,7 +10,7 @@ import { SchemesRootState } from '../../store/schemes.state';
 import { SchemesSearchChanged } from '../../store/schemes.actions';
 import { SchemesList } from '../../model/schemes-lists';
 
-describe('SchemesFilterComponent', function (this: { router: Router })
+describe(nameOfClass(SchemesFilterComponent), function (this: { router: Router })
 {
     let component: SchemesFilterComponent;
     let fixture: ComponentFixture<SchemesFilterComponent>;

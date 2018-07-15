@@ -1,8 +1,9 @@
 ﻿import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { nameOfClass } from 'testing';
 import { UserNavComponent } from './user-nav.component';
 
-describe('UserNavComponent', () =>
+describe(nameOfClass(UserNavComponent), () =>
 {
     let component: UserNavComponent;
     let fixture: ComponentFixture<UserNavComponent>;

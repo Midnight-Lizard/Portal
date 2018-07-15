@@ -2,12 +2,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { InfiniteScrollModule, InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import { By } from '@angular/platform-browser';
 
+import { nameOfClass } from 'testing';
 import { SchemesListComponent } from './list.component';
 import { SchemesTestingModule } from '../../schemes.testing.module';
 import { SchemeDetailsComponent } from '../details/details.component';
-import { ThumbnailsComponent } from '../thumbnails/thumbnails.component';
+import { SchemesThumbnailsComponent } from '../thumbnails/thumbnails.component';
 
-describe('SchemesListComponent', () =>
+describe(nameOfClass(SchemesListComponent), () =>
 {
     let component: SchemesListComponent;
     let fixture: ComponentFixture<SchemesListComponent>;
@@ -26,7 +27,7 @@ describe('SchemesListComponent', () =>
         );
         TestBed.configureTestingModule({
             declarations: [
-                SchemesListComponent, SchemeDetailsComponent, ThumbnailsComponent
+                SchemesListComponent, SchemeDetailsComponent, SchemesThumbnailsComponent
             ],
             imports: [SchemesTestingModule.forRoot(), InfiniteScrollModule],
         })

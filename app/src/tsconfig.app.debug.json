@@ -1,5 +1,12 @@
 {
   "extends": "./tsconfig.app.json",
+  "exclude": [
+    "src/test.ts",
+    "**/*.spec.ts",
+    "**/*.server.module.ts",
+    "**/*.server.ts",
+    "dist"
+  ],
   "angularCompilerOptions": {
     "paths": {
       "schemes": [

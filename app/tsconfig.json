@@ -15,6 +15,7 @@
     "noImplicitReturns": false,
     "strictNullChecks": true,
     "target": "es5",
+    "rootDir": "./",
     "typeRoots": [
       "node_modules/@types"
     ],

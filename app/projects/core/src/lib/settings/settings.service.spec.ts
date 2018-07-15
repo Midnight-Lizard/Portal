@@ -1,10 +1,11 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { TransferState } from '@angular/platform-browser';
 
+import { nameOfClass } from 'testing';
 import { SettingsService } from './settings.service';
 import { defaultSettings } from './settings';
 
-describe('SettingsService', () =>
+describe(nameOfClass(SettingsService), () =>
 {
     beforeEach(() =>
     {
