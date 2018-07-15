@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { SharedModule, materialModules } from 'shared';
+import { SharedModule, materialModules, LoadingModule } from 'shared';
 import { TestingModule } from 'testing';
 import { SchemesFeature, schemesReducers, schemesInitialState } from './store/schemes.state';
 import { SchemesService } from './backend/schemes.service';
@@ -17,13 +17,13 @@ import { SchemesServiceStub } from './backend/schemes.service.stub';
     imports: [
         TestingModule.forRoot(),
         CommonModule, FormsModule, FlexLayoutModule, ReactiveFormsModule,
-        SharedModule, NoopAnimationsModule,
+        SharedModule, LoadingModule, NoopAnimationsModule,
         StoreModule.forRoot({}),
         StoreModule.forFeature(SchemesFeature, schemesReducers, { initialState: schemesInitialState }),
         EffectsModule.forRoot([])
     ],
     exports: [
-        materialModules, FormsModule, ReactiveFormsModule,
+        materialModules, FormsModule, ReactiveFormsModule, LoadingModule
     ]
 })
 export class SchemesTestingModule
