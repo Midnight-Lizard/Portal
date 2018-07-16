@@ -33,18 +33,19 @@ describe(nameOfClass(SchemesEffects), function ()
 
     describe(ActionType.LikeScheme, () =>
     {
-        it(`should dispatch ${ActionType.LikeSchemeFailed} and ${InfoActionTypes.NotifyUser} actions when user is not signed in`, () =>
-        {
-            const testId = 'test', testLikes = 123;
+        it(`should dispatch ${ActionType.LikeSchemeFailed} and ${
+            InfoActionTypes.NotifyUser} actions when user is not signed in`, () =>
+            {
+                const testId = 'test', testLikes = 123;
 
-            actions$ = hot('-a', { a: new Act.LikeScheme({ id: testId }) });
-            // schemesService.likeScheme.and.returnValue(cold('-r|', { r: { likes: testLikes } }));
+                actions$ = hot('-a', { a: new Act.LikeScheme({ id: testId }) });
+                // schemesService.likeScheme.and.returnValue(cold('-r|', { r: { likes: testLikes } }));
 
-            const nextAction = cold('-(en)', {
-                e: new Act.LikeSchemeFailed({ id: testId }),
-                n: jasmine.any(NotifyUser)
+                const nextAction = cold('-(en)', {
+                    e: new Act.LikeSchemeFailed({ id: testId }),
+                    n: jasmine.any(NotifyUser)
+                });
+                expect(effects.likeScheme$).toBeObservable(nextAction);
             });
-            expect(effects.likeScheme$).toBeObservable(nextAction);
-        });
     });
 });
