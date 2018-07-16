@@ -105,7 +105,7 @@ export class SchemesEffects
         withLatestFrom(this.store$),
         switchMap(([act, state]) =>
         {
-            if (state.AUTH.user)
+            if (state.AUTH && state.AUTH.user)
             {
                 // TODO: implement real like
                 return of(new SchActs.SchemeLiked({
