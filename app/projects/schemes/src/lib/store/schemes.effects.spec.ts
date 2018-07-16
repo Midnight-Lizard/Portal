@@ -1,15 +1,16 @@
 ﻿import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { hot, cold } from 'jasmine-marbles';
+import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 
-import { nameOfClass, TestSchedulerStub } from 'testing';
 import { InfoActionTypes, NotifyUser } from 'core';
-import { SchemesTestingModule } from '../schemes.testing.module';
-import * as Act from './schemes.actions';
-import { SchemesAction as Action, SchemesActionTypes as ActionType } from './schemes.action-sets';
-import { SchemesEffects } from './schemes.effects';
+import { nameOfClass, TestSchedulerStub } from 'testing';
 import { SchemesService } from '../backend/schemes.service';
+import { SchemesTestingModule } from '../schemes.testing.module';
+import { SchemesAction as Action, SchemesActionTypes as ActionType } from './schemes.action-sets';
+import * as Act from './schemes.actions';
+import { SchemesEffects } from './schemes.effects';
+
 
 describe(nameOfClass(SchemesEffects), function ()
 {
