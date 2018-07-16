@@ -33,11 +33,6 @@ describe(nameOfClass(SchemesFilterComponent), function (this: { router: Router }
         spyOn(this.router, 'navigate');
     });
 
-    it('should create', () =>
-    {
-        expect(component).toBeTruthy();
-    });
-
     describe('Side toggle', function (this: { router: Router })
     {
         beforeEach(fakeAsync(() =>

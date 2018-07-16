@@ -87,16 +87,11 @@ class Lifter extends Observable<any>
     }
     lift(operator: Type<Operator<any, any>>): Observable<any>
     {
-        Object.defineProperty((operator as any).__proto__.constructor.prototype, 'scheduler', {
-            get: () =>
-            {
-                return this.scheduler;
-            },
-            set: (x) =>
-            {
-                console.log(x);
-            }
-        });
+        Object.defineProperty((operator as any).__proto__,
+            'scheduler', {
+                get: () => this.scheduler,
+                set: (x) => { }
+            });
         return of();
     }
 }
