@@ -2,7 +2,8 @@
 import { MediaChange } from '@angular/flex-layout';
 import
 {
-    Subject, NextObserver, ErrorObserver, CompletionObserver, Subscribable, Subscription, BehaviorSubject
+    Subject, NextObserver, ErrorObserver, CompletionObserver,
+    Subscribable, Subscription, BehaviorSubject, Observable
 } from 'rxjs';
 
 export type MqAlias = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xx' | 'default';

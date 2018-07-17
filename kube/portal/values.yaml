@@ -14,7 +14,5 @@ service:
   internalPort: 80
 env:
   ASPNETCORE_ENVIRONMENT: Production
-  ENV: prod
   NODE_ENV: production
-  SCHEMES_URL: http://schemes.midnight-lizard.online
   IDENTITY_URL: http://identity.midnight-lizard.online

@@ -1,11 +1,25 @@
 import { browser, by, element } from 'protractor';
 
-export class AppPage {
-  navigateTo() {
-    return browser.get('/');
-  }
+export enum Route
+{
+    Home = '/home',
+    Schemes = '/schemes'
+}
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
-  }
+export class AppPage
+{
+    navigateTo(route: Route)
+    {
+        return browser.get(route);
+    }
+
+    getMainContentAsText()
+    {
+        return element(by.css('.main-content')).getText();
+    }
+
+    getLeftSideContentAsText()
+    {
+        return element(by.css('.left-side')).getText();
+    }
 }

@@ -13,9 +13,13 @@ import
     SharedModule as PortalSharedModule,
     LoadingModule as PortalLoadingModule
 } from 'dist/shared';
-import { CoreModule as PortalCoreModule, defaultSettings, InfoFeature, infoReducers, infoInitialState } from 'core';
+import
+{
+    CoreModule as PortalCoreModule, defaultSettings, InfoFeature,
+    infoReducers, infoInitialState
+} from 'core';
+import { TestingModule } from 'testing';
 import { rootReducers } from './store/app.state';
-import { TestingModule } from 'dist/testing';
 
 @NgModule({
     imports: [

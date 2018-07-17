@@ -105,7 +105,7 @@ describe(nameOfClass(SchemesListComponent), function ()
                 expect(store$.dispatch).toHaveBeenCalledWith(expectedAction);
             }));
 
-        it(`should dispatch LoadNextSchemesChunk on scroll`, inject(
+        it(`should dispatch LoadNextSchemesChunk on scroll`, (done: DoneFn) => inject(
             [Store], (store$: Store<SchemesRootState>) =>
             {
                 fixture.debugElement
@@ -115,10 +115,14 @@ describe(nameOfClass(SchemesListComponent), function ()
                 (fixture.debugElement.nativeElement as HTMLElement)
                     .ownerDocument.defaultView
                     .dispatchEvent(new Event('scroll'));
-                TestSchedulerStub.flush();
-                fixture.detectChanges();
-                expect(store$.dispatch).toHaveBeenCalledWith(new Act.LoadNextSchemesChunk());
-            }));
+                setTimeout(() =>
+                { // using setTimeout since it still might be called async...
+                    TestSchedulerStub.flush();
+                    fixture.detectChanges();
+                    expect(store$.dispatch).toHaveBeenCalledWith(new Act.LoadNextSchemesChunk());
+                    done();
+                }, 150);
+            })());
 
         it(`should navigate to scheme details when clicked on the card`, inject(
             [Store, Router], (store$: Store<SchemesRootState>, router: Router) =>

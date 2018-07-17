@@ -5,7 +5,6 @@ import { EffectsModule, Actions } from '@ngrx/effects';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModule, materialModules, LoadingModule } from 'shared';

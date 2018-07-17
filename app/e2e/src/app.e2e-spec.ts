@@ -1,14 +1,37 @@
-import { AppPage } from './app.po';
+import { AppPage, Route } from './app.po';
 
-describe('workspace-project App', () => {
-  let page: AppPage;
+describe('portal', () =>
+{
+    let page: AppPage;
 
-  beforeEach(() => {
-    page = new AppPage();
-  });
+    beforeEach(() =>
+    {
+        page = new AppPage();
+    });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to the portal!');
-  });
+    describe(Route.Home, () =>
+    {
+        beforeEach(() =>
+        {
+            page.navigateTo(Route.Home);
+        });
+
+        it('should display lorem ipsum', () =>
+        {
+            expect(page.getMainContentAsText()).toMatch(/Lorem ipsum/);
+        });
+    });
+
+    describe(Route.Schemes, () =>
+    {
+        beforeEach(() =>
+        {
+            page.navigateTo(Route.Schemes);
+        });
+
+        it('should display links in side-nav', () =>
+        {
+            expect(page.getLeftSideContentAsText()).toMatch(/All schemes/);
+        });
+    });
 });

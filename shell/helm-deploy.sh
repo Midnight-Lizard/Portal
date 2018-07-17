@@ -12,7 +12,7 @@ while [ "$1" != "" ]; do
             CHART=$2
             ;;
         -s | --set)
-            SET=" --set $2"
+            SET="$SET --set $2"
             ;;
         *)
             echo "ERROR: unknown parameter \"$1\""
