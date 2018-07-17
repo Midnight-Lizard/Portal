@@ -19,8 +19,6 @@ describe(nameOfClass(SchemesEffects), function ()
 
     beforeEach(() =>
     {
-        const serviceStub = jasmine.createSpyObj<SchemesService>('schemesServiceStub',
-            Object.keys(SchemesService.prototype));
         TestBed.configureTestingModule({
             imports: [SchemesTestingModule.forRoot()],
             providers: [
@@ -47,6 +45,24 @@ describe(nameOfClass(SchemesEffects), function ()
                     n: jasmine.any(NotifyUser)
                 });
                 expect(effects.likeScheme$).toBeObservable(nextAction);
+            });
+    });
+
+    describe(ActionType.AddSchemeToFavorites, () =>
+    {
+        it(`should dispatch ${ActionType.AddSchemeToFavoritesFailed} and ${
+            InfoActionTypes.NotifyUser} actions when user is not signed in`, () =>
+            {
+                const testId = 'test';
+
+                actions$ = hot('-a', { a: new Act.AddSchemeToFavorites({ id: testId }) });
+                // schemesService.likeScheme.and.returnValue(cold('-r|', { r: { likes: testLikes } }));
+
+                const nextAction = cold('-(en)', {
+                    e: new Act.AddSchemeToFavoritesFailed({ id: testId }),
+                    n: jasmine.any(NotifyUser)
+                });
+                expect(effects.addSchemeToFavorites$).toBeObservable(nextAction);
             });
     });
 });

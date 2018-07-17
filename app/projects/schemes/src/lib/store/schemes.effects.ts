@@ -129,7 +129,7 @@ export class SchemesEffects
         withLatestFrom(this.store$),
         switchMap(([act, state]) =>
         {
-            if (state.AUTH.user)
+            if (state.AUTH && state.AUTH.user)
             {
                 // TODO: implement real dislike
                 return of(new SchActs.SchemeDisliked({
@@ -153,7 +153,7 @@ export class SchemesEffects
         withLatestFrom(this.store$),
         switchMap(([act, state]) =>
         {
-            if (state.AUTH.user)
+            if (state.AUTH && state.AUTH.user)
             {
                 // TODO: implement real add
                 return of(new SchActs.SchemeAddedToFavorites(act.payload)) as any;
@@ -174,7 +174,7 @@ export class SchemesEffects
         withLatestFrom(this.store$),
         switchMap(([act, state]) =>
         {
-            if (state.AUTH.user)
+            if (state.AUTH && state.AUTH.user)
             {
                 // TODO: implement real remove
                 return of(new SchActs.SchemeRemovedFromFavorites(act.payload)) as any;

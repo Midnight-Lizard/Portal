@@ -4,6 +4,7 @@ export class PublicSchemeIdPayload
 {
     readonly id: PublicSchemeId;
 }
+
 export class PublicSchemeLikesPayload
 {
     readonly id: PublicSchemeId;

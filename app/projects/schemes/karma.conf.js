@@ -26,7 +26,7 @@ module.exports = function (config) {
     ],
     proxies: {
         "/assets/": `/absolute${path.join(config.buildWebpack.root,
-            'projects/shared/src/assets/')}`,
+            'projects/shared/src/assets')}`,
     },
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser

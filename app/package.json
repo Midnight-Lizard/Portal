@@ -36,8 +36,9 @@
     "test": "ng test",
     "test:schemes": "ng test schemes",
     "test:core": "ng test core",
+    "test:shared": "ng test shared",
     "test:ci": "npm run test:ci:libs && ng test --watch=false --no-progress --code-coverage=true --browsers ChromeCI",
-    "test:ci:libs": "npm run test:schemes -- --watch=false --no-progress --code-coverage=true --browsers ChromeCI",
+    "test:ci:libs": "npm run test:schemes -- --watch=false --no-progress --code-coverage=true --browsers ChromeCI && npm run test:core -- --watch=false --no-progress --code-coverage=true --browsers ChromeCI && npm run test:shared -- --watch=false --no-progress --code-coverage=true --browsers ChromeCI",
     "───E2E───": "#─────────────────E2E─────────────────────────#",
     "e2e": "ng e2e",
     "e2e:ci": "ng e2e"
