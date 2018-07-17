@@ -19,7 +19,7 @@ export class InfoBarComponent implements OnDestroy
     constructor(
         @Inject(MAT_SNACK_BAR_DATA)
         readonly msg: NotificationMessage,
-        private readonly snackBarRef: MatSnackBarRef<InfoBarComponent>,
+        snackBarRef: MatSnackBarRef<InfoBarComponent>,
         private readonly bottomSheet: MatBottomSheet,
         private readonly store$: Store<InfoRootState>)
     {

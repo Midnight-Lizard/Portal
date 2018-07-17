@@ -43,7 +43,7 @@ import { InfoNavComponent } from './components/info-nav/info-nav.component';
         FormsModule, ReactiveFormsModule, FlexLayoutModule,
         NgStringPipesModule,
         HttpClientModule,
-        StoreRouterConnectingModule,
+        StoreRouterConnectingModule.forRoot(),
         StoreModule.forRoot(rootReducers),
         EffectsModule.forRoot([AppEffects]),
     ],

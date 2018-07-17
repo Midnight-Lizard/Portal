@@ -1,15 +1,17 @@
 import { TestBed, async } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { nameOfClass } from 'testing';
 import { AppComponent } from './app.component';
+import { AppTestingModule } from '../../app.testing.module';
 
 describe(nameOfClass(AppComponent), () =>
 {
     beforeEach(async(() =>
     {
         TestBed.configureTestingModule({
-            declarations: [
-                AppComponent
-            ],
+            declarations: [AppComponent],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
+            imports: [AppTestingModule.forRoot()]
         }).compileComponents();
     }));
     it('should create the app', async(() =>

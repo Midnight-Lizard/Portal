@@ -2,6 +2,7 @@
 
 import { nameOfClass } from 'testing';
 import { UserNavComponent } from './user-nav.component';
+import { AppTestingModule } from '../../app.testing.module';
 
 describe(nameOfClass(UserNavComponent), () =>
 {
@@ -11,7 +12,8 @@ describe(nameOfClass(UserNavComponent), () =>
     beforeEach(async(() =>
     {
         TestBed.configureTestingModule({
-            declarations: [UserNavComponent]
+            declarations: [UserNavComponent],
+            imports: [AppTestingModule.forRoot()]
         })
             .compileComponents();
     }));

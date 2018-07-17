@@ -117,6 +117,11 @@
             "styles": [
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/shared/src/styles"
+              ]
+            },
             "scripts": [],
             "assets": [
               "src/favicon.ico",
