@@ -14,7 +14,7 @@
             "name": "Chrome launch",
             "type": "chrome",
             "request": "launch",
-            "url": "http://localhost:7000/signin",
+            "url": "http://localhost:7000/schemes",
             "webRoot": "${workspaceFolder}/app",
             "userDataDir": false,
             "runtimeArgs": [

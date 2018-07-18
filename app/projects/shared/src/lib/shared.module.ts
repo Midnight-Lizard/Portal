@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -12,6 +12,7 @@ import
     MatCardModule, MatBadgeModule, MatIconRegistry, MatSnackBarModule,
     MatBottomSheetModule, MatDialogModule
 } from '@angular/material';
+import { SideService } from 'core';
 
 export const materialModules = [
     MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
@@ -41,13 +42,24 @@ const svgIcons = [
 })
 export class SharedModule
 {
-    constructor(sanitizer: DomSanitizer, iconRegistry: MatIconRegistry)
+    constructor(
+        env: SideService,
+        @Inject('ORIGIN_URL')
+        baseUrl: string,
+        sanitizer: DomSanitizer,
+        iconRegistry: MatIconRegistry)
     {
+        const pathPrefix = env.isServerSide ? baseUrl : '';
         for (const icon of svgIcons)
         {
             iconRegistry.addSvgIcon(
                 icon.key,
-                sanitizer.bypassSecurityTrustResourceUrl(icon.path));
+                sanitizer.bypassSecurityTrustResourceUrl(this.urlJoin(pathPrefix, icon.path)));
         }
+    }
+
+    private urlJoin(...urlParts: string[])
+    {
+        return urlParts.map(p => p.replace(/^\/|\/$/g, '').trim()).join('/');
     }
 }
