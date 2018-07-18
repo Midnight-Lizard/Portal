@@ -3,15 +3,22 @@ import { Settings, User } from '../dist/core';
 
 const { Issuer } = require('openid-client');
 
+export class Secrets
+{
+    PORTAL_AUTH_SECRET = '';
+    PORTAL_SESSION_SECRET = '';
+}
+
 let _issuer: any;
 let _client: any;
 const _tokens = new Map<string, any>();
 const scopes = [
     'openid', 'profile', 'schemes-commander', 'schemes-querier', 'offline_access'
 ].join(' ');
-const callbackUrl = (settings: Settings) => url.resolve(settings.PORTAL_URL, 'signedin');
+const signInCallbackUrl = (settings: Settings) => url.resolve(settings.PORTAL_URL, 'signedin');
+const signOutCallbackUrl = (settings: Settings) => url.resolve(settings.PORTAL_URL, 'signedout');
 
-export function initAuth(settings: Settings): Promise<void>
+export function initAuth(settings: Settings, secrets: Secrets): Promise<void>
 {
     return Issuer.discover(settings.IDENTITY_URL)
         .then((mlid: typeof Issuer) =>
@@ -19,12 +26,11 @@ export function initAuth(settings: Settings): Promise<void>
             _issuer = mlid;
             _client = new _issuer.Client({
                 client_id: 'portal-server',
-                client_secret: settings.PORTAL_AUTH_SECRET
+                client_secret: secrets.PORTAL_AUTH_SECRET
             });
             _client.CLOCK_TOLERANCE = 5;
         })
-        .catch((error: any) => console.error(error))
-        .then(() => delete settings.PORTAL_AUTH_SECRET);
+        .catch((error: any) => console.error(error));
 }
 
 export interface AuthParams
@@ -44,7 +50,7 @@ export function getSignInUrl({
     if (_client)
     {
         return _client.authorizationUrl({
-            redirect_uri: callbackUrl(settings),
+            redirect_uri: signInCallbackUrl(settings),
             response_type: 'code id_token',
             grant_types: 'authorization_code implicit',
             response_mode: 'form_post',
@@ -56,7 +62,7 @@ export function getSignInUrl({
     return null;
 }
 
-export async function signOut(sessionId: string): Promise<string | null>
+export async function signOut(sessionId: string, settings: Settings): Promise<string | null>
 {
     const tokens = _tokens.get(sessionId);
     if (tokens && _client)
@@ -69,14 +75,21 @@ export async function signOut(sessionId: string): Promise<string | null>
                 tokens.refresh_token ? _client.revoke(tokens.refresh_token, 'refresh_token') : undefined,
             ]);
         } catch (err) { }
-        return getSignOutUrl();
+        return getSignOutUrl(tokens, settings);
     }
     return null;
 }
 
-function getSignOutUrl(): string
+function getSignOutUrl(tokens: any, settings: Settings): string
 {
-    return '';
+    return url.format({
+        ...url.parse(_issuer.end_session_endpoint),
+        search: undefined,
+        query: {
+            id_token_hint: tokens.id_token,
+            post_logout_redirect_uri: signOutCallbackUrl(settings),
+        }
+    });
 }
 
 export async function handleSignInCallback({
@@ -92,7 +105,7 @@ export async function handleSignInCallback({
         try
         {
             _tokens.set(sessionId, await _client.authorizationCallback(
-                callbackUrl(settings), _client.callbackParams(params), { nonce, state }));
+                signInCallbackUrl(settings), _client.callbackParams(params), { nonce, state }));
             return getUser(sessionId);
         }
         catch (error)

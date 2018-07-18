@@ -26,9 +26,13 @@ const MemoryStore = require('memorystore')(session);
 enableProdMode();
 
 const settings: Settings = { ...defaultSettings };
+const secrets = new auth.Secrets();
 Object.keys(settings)
     .filter(set => set in process.env)
     .forEach((set: keyof Settings) => settings[set] = process.env[set]!);
+Object.keys(secrets)
+    .filter(sec => sec in process.env)
+    .forEach((sec: keyof auth.Secrets) => secrets[sec] = process.env[sec]!);
 const PORT = process.env.PORT || 80;
 const DIST_FOLDER = join(process.cwd(), 'dist');
 // NOTE: leave this as require() since this file is built Dynamically from webpack
@@ -52,7 +56,7 @@ const H24 = 86400000;
 //     })
 // });
 
-auth.initAuth(settings).then(() =>
+auth.initAuth(settings, secrets).then(() =>
 {
     // Express server
     const app = express();
@@ -66,7 +70,7 @@ auth.initAuth(settings).then(() =>
         store: new MemoryStore({
             checkPeriod: H24 // prune expired entries every 24h
         }),
-        secret: process.env.PORTAL_SESSION_SECRET || 'secret'
+        secret: secrets.PORTAL_SESSION_SECRET || 'secret'
     }));
 
     // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
@@ -146,18 +150,24 @@ auth.initAuth(settings).then(() =>
         app.get('/signout', async (req, res, next) =>
         {
             req.session!.returnUrl = req.param('returnUrl', '/');
-
-            const signOutUrl = await auth.signOut(req.session!.id);
-
+            const signOutUrl = await auth.signOut(req.session!.id, settings);
             if (signOutUrl)
             {
                 res.redirect(signOutUrl);
             }
             else
             {
-                res.redirect('/');
+                res.redirect(req.session!.returnUrl);
                 return next();
             }
+        });
+
+        app.get('/signedout', async (req, res, next) =>
+        {
+            const { returnUrl } = req.session as any;
+            delete req.session!.returnUrl;
+            setAuthCookie(res, null);
+            res.redirect(returnUrl || '/');
         });
     } // auth end
 
