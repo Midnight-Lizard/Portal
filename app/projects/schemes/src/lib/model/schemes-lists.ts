@@ -4,10 +4,10 @@ export enum SchemesList
 {
     Empty = 'empty',
     Full = 'full',
-    My = 'my',
+    UserSchemes = 'my',
     Favorites = 'fav',
-    Liked = 'liked',
-    MidnightLizard = 'ml',
+    LikedSchemes = 'liked',
+    Original = 'ml',
     Community = 'com'
 }
 

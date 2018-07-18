@@ -58,7 +58,7 @@ export class SchemesServiceStub implements SchemesService
                         id: this.randomString(8),
                         name: `${this.randomString(6)} ${this.randomString(4)}`,
                         community: list === SchemesList.Community ? true :
-                            list === SchemesList.MidnightLizard ? false :
+                            list === SchemesList.Original ? false :
                                 Math.random() > 0.5
                     },
                     favorited: Math.random() > 0.5,
