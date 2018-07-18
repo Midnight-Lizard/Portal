@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 
 import { SideService } from 'core';
+import { SvgIconService } from 'shared';
 import { AppConstants } from '../../app.constants';
 
 @Component({
@@ -22,8 +23,10 @@ export class AppComponent implements OnDestroy
     constructor(
         media: ObservableMedia,
         cookieService: CookieService,
+        iconService: SvgIconService,
         readonly env: SideService)
     {
+        iconService.registerSvgIcons();
         this.mediaSubscription = media.subscribe((change: MediaChange) =>
         {
             if (env.isBrowserSide)
@@ -45,7 +48,8 @@ export class AppComponent implements OnDestroy
 
     public toggleSidenav()
     {
-        this._sidenavIsOpened_UserDefined = this.sidenavIsOpened = !this.sidenavIsOpened;
+        this._sidenavIsOpened_UserDefined =
+            this.sidenavIsOpened = !this.sidenavIsOpened;
     }
 
     ngOnDestroy(): void

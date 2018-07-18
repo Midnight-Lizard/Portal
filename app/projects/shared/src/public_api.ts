@@ -3,6 +3,7 @@
  */
 
 export * from './lib/shared.module';
+export * from './lib/svg-icon.service';
 
 export * from './loading/loading.module';
 export * from './loading/normal/loading.component';

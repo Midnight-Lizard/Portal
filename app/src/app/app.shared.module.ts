@@ -39,7 +39,8 @@ import { InfoNavComponent } from './components/info-nav/info-nav.component';
     entryComponents: [InfoBarComponent, DetailsBarComponent],
     imports: [
         BrowserModule.withServerTransition({ appId: 'portal' }),
-        AppRoutingModule, PortalSharedModule, PortalCoreModule, PortalLoadingModule,
+        PortalSharedModule.forRoot(),
+        AppRoutingModule, PortalCoreModule, PortalLoadingModule,
         FormsModule, ReactiveFormsModule, FlexLayoutModule,
         NgStringPipesModule,
         HttpClientModule,

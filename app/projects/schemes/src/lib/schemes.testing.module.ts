@@ -7,7 +7,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { SharedModule, materialModules, LoadingModule } from 'shared';
+import { SharedModule, materialModules, LoadingModule, SvgIconService } from 'shared';
 import { TestingModule } from 'testing';
 import { SchemesFeature, schemesReducers, schemesInitialState } from './store/schemes.state';
 import { SchemesService } from './backend/schemes.service';
@@ -24,16 +24,23 @@ import { SchemesServiceStub } from './backend/schemes.service.stub';
     ],
     exports: [
         materialModules, FormsModule, ReactiveFormsModule, LoadingModule
+    ],
+    providers: [
+        SvgIconService
     ]
 })
 export class SchemesTestingModule
 {
+    constructor(iconService: SvgIconService)
+    {
+        iconService.registerSvgIcons();
+    }
     static forRoot(): ModuleWithProviders
     {
         return {
             ngModule: SchemesTestingModule,
             providers: [
-                Actions,
+                Actions, SvgIconService,
                 TestingModule.forRoot().providers!,
                 { provide: SchemesService, useClass: SchemesServiceStub }
             ]

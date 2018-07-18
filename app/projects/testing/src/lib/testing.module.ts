@@ -29,6 +29,7 @@ export class TestingModule
         return {
             ngModule: TestingModule,
             providers: [
+                { provide: 'ORIGIN_URL', useValue: '/' },
                 { provide: ObservableMedia, useClass: ObservableMediaStub },
                 { provide: ComponentFixtureAutoDetect, useValue: true },
                 { provide: Router, useClass: RouterStub },

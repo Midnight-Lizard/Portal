@@ -1,7 +1,6 @@
-import { NgModule, Inject } from '@angular/core';
+import { NgModule, Inject, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import
 {
@@ -9,10 +8,10 @@ import
     MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule,
     MatTooltipModule, MatProgressSpinnerModule, MatPaginatorModule,
     MatSortModule, MatButtonToggleModule, MatGridListModule,
-    MatCardModule, MatBadgeModule, MatIconRegistry, MatSnackBarModule,
+    MatCardModule, MatBadgeModule, MatSnackBarModule,
     MatBottomSheetModule, MatDialogModule
 } from '@angular/material';
-import { SideService } from 'core';
+import { SvgIconService } from './svg-icon.service';
 
 export const materialModules = [
     MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
@@ -21,12 +20,6 @@ export const materialModules = [
     MatSortModule, MatButtonToggleModule, MatGridListModule,
     MatCardModule, MatBadgeModule, MatSnackBarModule, MatBottomSheetModule,
     MatDialogModule
-];
-
-const svgIcons = [
-    { key: 'midnight-lizard', path: 'assets/ml-logo.svg' },
-    { key: 'outline-thumb-up', path: 'assets/outline-thumb_up.svg' },
-    { key: 'mark-as-read', path: 'assets/mark-as-read.svg' }
 ];
 
 @NgModule({
@@ -42,24 +35,13 @@ const svgIcons = [
 })
 export class SharedModule
 {
-    constructor(
-        env: SideService,
-        @Inject('ORIGIN_URL')
-        baseUrl: string,
-        sanitizer: DomSanitizer,
-        iconRegistry: MatIconRegistry)
+    static forRoot(): ModuleWithProviders
     {
-        const pathPrefix = env.isServerSide ? baseUrl : '';
-        for (const icon of svgIcons)
-        {
-            iconRegistry.addSvgIcon(
-                icon.key,
-                sanitizer.bypassSecurityTrustResourceUrl(this.urlJoin(pathPrefix, icon.path)));
-        }
-    }
-
-    private urlJoin(...urlParts: string[])
-    {
-        return urlParts.map(p => p.replace(/^\/|\/$/g, '').trim()).join('/');
+        return {
+            ngModule: SharedModule,
+            providers: [
+                SvgIconService
+            ]
+        };
     }
 }
