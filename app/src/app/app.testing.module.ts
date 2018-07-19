@@ -24,8 +24,8 @@ import { rootReducers } from './store/app.state';
 @NgModule({
     imports: [
         BrowserModule,
-        TestingModule.forRoot(),
-        PortalSharedModule, PortalCoreModule, PortalLoadingModule,
+        TestingModule.forRoot(), PortalSharedModule.forRoot(),
+        PortalCoreModule, PortalLoadingModule,
         FormsModule, ReactiveFormsModule, FlexLayoutModule, NoopAnimationsModule,
         NgStringPipesModule,
         HttpClientModule,

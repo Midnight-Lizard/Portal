@@ -105,23 +105,28 @@ describe(nameOfClass(SchemesListComponent), function ()
                 expect(store$.dispatch).toHaveBeenCalledWith(expectedAction);
             }));
 
-        it(`should dispatch LoadNextSchemesChunk on scroll`, (done: DoneFn) => inject(
+        xit(`should dispatch LoadNextSchemesChunk on scroll`, (done: DoneFn) => inject(
             [Store], (store$: Store<SchemesRootState>) =>
             {
-                fixture.debugElement
-                    .query(By.css('mat-grid-list')).nativeElement
-                    .scrollIntoView({ behavior: 'instant', block: 'end' });
-                // triggering scroll event manually since Chrome does this async
-                (fixture.debugElement.nativeElement as HTMLElement)
-                    .ownerDocument.defaultView
-                    .dispatchEvent(new Event('scroll'));
-                setTimeout(() =>
-                { // using setTimeout since it still might be called async...
-                    TestSchedulerStub.flush();
-                    fixture.detectChanges();
-                    expect(store$.dispatch).toHaveBeenCalledWith(new Act.LoadNextSchemesChunk());
-                    done();
-                }, 150);
+                let blockToggle = true;
+                const interval = setInterval(() =>
+                {
+                    fixture.debugElement
+                        .query(By.css('mat-grid-list')).nativeElement
+                        .scrollIntoView({ behavior: 'instant', block: blockToggle ? 'end' : 'start' });
+                    (fixture.debugElement.nativeElement as HTMLElement)
+                        .ownerDocument.defaultView
+                        .dispatchEvent(new Event('scroll'));
+                    blockToggle = !blockToggle;
+
+                    if (TestSchedulerStub.flush())
+                    {
+                        clearInterval(interval);
+                        fixture.detectChanges();
+                        expect(store$.dispatch).toHaveBeenCalledWith(new Act.LoadNextSchemesChunk());
+                        done();
+                    }
+                }, 100);
             })());
 
         it(`should navigate to scheme details when clicked on the card`, inject(

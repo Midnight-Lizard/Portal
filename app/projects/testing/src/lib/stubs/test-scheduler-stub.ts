@@ -17,7 +17,9 @@ export abstract class TestSchedulerStub
 
     static flush()
     {
+        const hadActions = !!$this.scheduler!.actions.length;
         $this.scheduler!.flush();
+        return hadActions;
     }
 
     static inject(scheduler: TestScheduler, ...methods: (keyof typeof operators | 'all')[])
