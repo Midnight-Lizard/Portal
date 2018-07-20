@@ -40,7 +40,21 @@
           },
           "configurations": {
             "debug": {
-              "tsConfig": "src/tsconfig.app.debug.json"
+              "tsConfig": "src/tsconfig.app.debug.json",
+              "assets": [
+                "src/favicon.ico",
+                "src/assets",
+                {
+                  "glob": "**/*",
+                  "input": "projects/shared/src/assets/",
+                  "output": "/assets/"
+                }
+              ],
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "projects/shared/src/styles"
+                ]
+              }
             },
             "hmr": {
               "tsConfig": "src/tsconfig.app.debug.json",
@@ -181,8 +195,9 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
+            "port": 7000,
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "portal:serve"
+            "devServerTarget": "portal:serve:hmr"
           },
           "configurations": {
             "production": {

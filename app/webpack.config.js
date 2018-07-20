@@ -9,11 +9,16 @@ module.exports = (env) => {
     entry: {
       // This is our Express server for Dynamic universal
       server: './server.ts',
-      // This is an example of Static prerendering (generative)
+      // This is Static prerendering (generative)
       prerender: './prerender.ts'
     },
     target: 'node',
-    resolve: { extensions: ['.ts', '.js'] },
+    resolve: {
+      extensions: ['.ts', '.js'],
+      alias: {
+        core$: isDevBuild ? './projects/core/src/public_api' : './dist/core'
+      }
+    },
     // Make sure we include all node_modules etc
     externals: [
       /node_modules/, {

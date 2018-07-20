@@ -22,7 +22,7 @@ import { SchemeDetailsComponent } from './components/details/details.component';
     ],
     imports: [
         CommonModule, FormsModule, FlexLayoutModule, ReactiveFormsModule,
-        SchemesRoutingModule, SharedModule, LoadingModule,
+        SchemesRoutingModule, SharedModule.forRoot(), LoadingModule,
         InfiniteScrollModule,
         StoreModule.forFeature(SchemesFeature, schemesReducers, { initialState: schemesInitialState }),
         EffectsModule.forFeature([SchemesEffects])

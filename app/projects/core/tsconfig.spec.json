@@ -7,6 +7,25 @@
       "node"
     ]
   },
+  "angularCompilerOptions": {
+    "paths": {
+      "schemes": [
+        "projects/schemes/src/public_api"
+      ],
+      "dist/shared": [
+        "projects/shared/src/public_api"
+      ],
+      "shared": [
+        "projects/shared/src/public_api"
+      ],
+      "core": [
+        "projects/core/src/public_api"
+      ],
+      "testing": [
+        "projects/testing/src/public_api"
+      ]
+    }
+  },
   "files": [
     "src/test.ts"
   ],

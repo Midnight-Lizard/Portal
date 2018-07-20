@@ -9,7 +9,7 @@ import
     MatTooltipModule, MatProgressSpinnerModule, MatPaginatorModule,
     MatSortModule, MatButtonToggleModule, MatGridListModule,
     MatCardModule, MatBadgeModule, MatSnackBarModule,
-    MatBottomSheetModule, MatDialogModule
+    MatBottomSheetModule, MatDialogModule, MatSnackBar
 } from '@angular/material';
 import { SvgIconService } from './svg-icon.service';
 
@@ -40,7 +40,7 @@ export class SharedModule
         return {
             ngModule: SharedModule,
             providers: [
-                SvgIconService
+                SvgIconService, MatSnackBar
             ]
         };
     }

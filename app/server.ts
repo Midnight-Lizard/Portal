@@ -16,7 +16,7 @@ import { STATIC_ROUTES } from './static.paths';
 import * as auth from './src/auth';
 
 import * as session from 'express-session';
-import { Settings, defaultSettings, AuthConstants, User } from './dist/core';
+import { Settings, defaultSettings, AuthConstants, User } from 'core';
 import { AppConstants } from './src/app/app.constants';
 // import { readFileSync } from 'fs';
 const MemoryStore = require('memorystore')(session);
@@ -70,8 +70,18 @@ auth.initAuth(settings, secrets).then(() =>
         store: new MemoryStore({
             checkPeriod: H24 // prune expired entries every 24h
         }),
+        cookie: {
+            maxAge: H24,
+            secure: settings.PORTAL_URL.startsWith('https')
+        },
         secret: secrets.PORTAL_SESSION_SECRET || 'secret'
     }));
+
+    app.use(((err, req, res, next) =>
+    {
+        console.error(err);
+        next(err);
+    }) as express.ErrorRequestHandler);
 
     // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
     app.engine('html', ngExpressEngine({
@@ -181,6 +191,7 @@ auth.initAuth(settings, secrets).then(() =>
                 { provide: 'SETTINGS', useValue: settings },
                 { provide: 'USER', useValue: auth.getUser(req.session!.id) },
                 { provide: 'MEDIA', useValue: req.cookies[AppConstants.Cookies.Media] },
+                { provide: 'DIST_PATH', useValue: DIST_FOLDER }
             ]
         });
     });

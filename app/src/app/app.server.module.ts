@@ -4,11 +4,13 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutServerModule } from '@angular/flex-layout/server';
 import { INITIAL_STATE, Store, select } from '@ngrx/store';
 import { TransferState } from '@angular/platform-browser';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { RootState, STORE_STATE_KEY, loadServerInitialState } from './store/app.state';
 import { AppComponent } from './components/app/app.component';
 import { AppSharedModule } from './app.shared.module';
+import { AssetsInterceptor } from './assets-interceptor';
 
 @NgModule({
     imports: [
@@ -23,6 +25,10 @@ import { AppSharedModule } from './app.shared.module';
         provide: INITIAL_STATE,
         useFactory: loadServerInitialState,
         deps: ['USER']
+    }, {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AssetsInterceptor,
+        multi: true
     }]
 })
 export class AppServerModule

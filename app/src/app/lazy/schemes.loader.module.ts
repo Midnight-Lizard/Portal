@@ -4,6 +4,6 @@ import { SchemesModule } from 'schemes';
 @NgModule({
     imports: [
         SchemesModule
-    ]
+    ],
 })
 export class SchemesLoaderModule { }

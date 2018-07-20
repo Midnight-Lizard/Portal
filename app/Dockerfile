@@ -6,7 +6,8 @@ WORKDIR /build
 COPY ./package.json .
 RUN npm install
 COPY . .
-RUN npm run build:prod
+ARG BUILD_CMD="build:prod"
+RUN npm run ${BUILD_CMD}
 
 #===========================================#
 #							ANGULAR	TEST									#
@@ -34,6 +35,9 @@ RUN npm run e2e:ci
 FROM node:8-alpine as ssr-image
 WORKDIR /app
 EXPOSE 80
+EXPOSE 9229
 COPY ./package.json .
 COPY --from=ng-build /build/dist ./dist
-ENTRYPOINT ["npm", "run", "start:ssr"]
+ARG RUN_CMD="start:ssr"
+ENV RUN_CMD ${RUN_CMD}
+ENTRYPOINT npm run ${RUN_CMD}

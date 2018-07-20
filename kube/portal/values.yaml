@@ -12,7 +12,7 @@ service:
   type: NodePort
   externalPort: 80
   internalPort: 80
+  debugPort: 9229
 env:
-  ASPNETCORE_ENVIRONMENT: Production
-  NODE_ENV: production
   IDENTITY_URL: http://identity.midnight-lizard.online
+  PORTAL_URL: http://midnight-lizard.online

@@ -20,7 +20,6 @@ import { AppEffects } from './store/app.effects';
 import { rootReducers } from './store/app.state';
 import { UserNavComponent } from './components/user-nav/user-nav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { InfoBarComponent } from './components/info-bar/info-bar.component';
 import { DetailsBarComponent } from './components/details-bar/details-bar.component';
@@ -48,6 +47,8 @@ import { InfoNavComponent } from './components/info-nav/info-nav.component';
         StoreModule.forRoot(rootReducers),
         EffectsModule.forRoot([AppEffects]),
     ],
-    providers: [CookieService]
+    providers: [CookieService],
 })
-export class AppSharedModule { }
+export class AppSharedModule
+{
+}

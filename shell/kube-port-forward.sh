@@ -1,0 +1,1 @@
+kubectl port-forward $(kubectl get pods --selector=app=portal -o jsonpath='{.items[0].metadata.name}') 9229:9229;

@@ -7,9 +7,38 @@
                 "ng ssr:node",
                 "Chrome launch"
             ]
+        },
+        {
+            "name": "kube:node/chrome",
+            "configurations": [
+                "kube:node",
+                "Chrome to Minikube"
+            ]
         }
     ],
     "configurations": [
+        {
+            "name": "Chrome to Minikube",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://192.168.1.35:31067/schemes",
+            "webRoot": "${workspaceFolder}/app",
+            "userDataDir": false,
+            "runtimeArgs": [
+                "--user-data-dir=${workspaceFolder}/../karma"
+            ]
+        },
+        {
+            "name": "kube:node",
+            "type": "node",
+            "request": "attach", // we are going to attach to the existing pod
+            "port": 9229,
+            "protocol": "inspector",
+            "internalConsoleOptions": "neverOpen",
+            "preLaunchTask": "kube:port-forward",
+            "remoteRoot": "/app",
+            "localRoot": "${workspaceFolder}/app"
+        },
         {
             "name": "Chrome launch",
             "type": "chrome",
@@ -121,6 +150,8 @@
             "preLaunchTask": "ng serve:hmr",
             "program": "${workspaceFolder}/app/node_modules/protractor/bin/protractor",
             "protocol": "inspector",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
             "args": [
                 "${workspaceFolder}/app/e2e/protractor.conf.js"
             ]

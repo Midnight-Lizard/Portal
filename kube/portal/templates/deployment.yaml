@@ -40,6 +40,8 @@ spec:
           ports:
             - containerPort: {{ .Values.service.internalPort }}
               protocol: TCP
+            - containerPort: {{ .Values.service.debugPort }}
+              protocol: TCP
           livenessProbe:
             httpGet:
               path: /status/isready

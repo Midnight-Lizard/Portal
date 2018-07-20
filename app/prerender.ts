@@ -12,13 +12,14 @@ enableProdMode();
 // Import module map for lazy loading
 import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 import { renderModuleFactory } from '@angular/platform-server';
+import { Settings, defaultSettings } from 'core';
 import { STATIC_ROUTES } from './static.paths';
-import { Settings, defaultSettings } from './dist/core';
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/portal-server/main');
 
-const STATIC_FOLDER = join(process.cwd(), 'portal-static');
+const DIST_FOLDER = process.cwd();
+const STATIC_FOLDER = join(DIST_FOLDER, 'portal-static');
 
 // Load the index.html file containing referances to your application bundle.
 const index = readFileSync(join('portal-browser', 'index.html'), 'utf8');
@@ -44,9 +45,10 @@ STATIC_ROUTES.forEach(route =>
             url: route,
             extraProviders: [
                 provideModuleMap(LAZY_MODULE_MAP),
-                { provide: 'ORIGIN_URL', useValue: settings.PORTAL_URL },
+                { provide: 'ORIGIN_URL', useValue: '' },
                 { provide: 'SETTINGS', useValue: settings },
-                { provide: 'USER', useValue: null }
+                { provide: 'USER', useValue: null },
+                { provide: 'DIST_PATH', useValue: DIST_FOLDER }
             ]
         }))
         .then(html => writeFileSync(join(fullPath, 'index.html'), html))

@@ -3,6 +3,45 @@
   "exclude": [
     "src/test.ts",
     "**/*.spec.ts",
-    "projects/**/*.ts"
-  ]
+    "projects/**/*.ts",
+    "projects"
+  ],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": false,
+    "strictNullChecks": true,
+    "target": "es5",
+    "rootDir": "./",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "paths": {
+      "schemes": [
+        "dist/schemes"
+      ],
+      "shared": [
+        "dist/shared"
+      ],
+      "core": [
+        "dist/core"
+      ],
+      "testing": [
+        "dist/testing"
+      ]
+    }
+  }
 }

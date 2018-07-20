@@ -5,21 +5,45 @@
         "**/*.spec.ts",
         "dist"
     ],
-    "paths": {
-        "schemes": [
-            "./projects/schemes/src/public_api"
+    "compilerOptions": {
+        "baseUrl": "./",
+        "outDir": "./dist/out-tsc",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "noImplicitReturns": false,
+        "strictNullChecks": true,
+        "target": "es5",
+        "rootDir": "./",
+        "typeRoots": [
+          "node_modules/@types"
         ],
-        "dist/shared": [
-            "./projects/shared/src/public_api"
+        "lib": [
+          "es2017",
+          "dom"
         ],
-        "shared": [
-            "./projects/shared/src/public_api"
-        ],
-        "core": [
-            "./projects/core/src/public_api"
-        ],
-        "testing": [
-            "./projects/testing/src/public_api"
-        ]
+        "paths": {
+            "schemes": [
+                "./projects/schemes/src/public_api"
+            ],
+            "dist/shared": [
+                "./projects/shared/src/public_api"
+            ],
+            "shared": [
+                "./projects/shared/src/public_api"
+            ],
+            "core": [
+                "./projects/core/src/public_api"
+            ],
+            "testing": [
+                "./projects/testing/src/public_api"
+            ]
+        }
     }
 }
