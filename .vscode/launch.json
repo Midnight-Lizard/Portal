@@ -29,6 +29,17 @@
             ]
         },
         {
+            "name": "Chrome to GCE",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://midnight-lizard.online/schemes",
+            "webRoot": "${workspaceFolder}/app",
+            "userDataDir": false,
+            "runtimeArgs": [
+                "--user-data-dir=${workspaceFolder}/../karma"
+            ]
+        },
+        {
             "name": "kube:node",
             "type": "node",
             "request": "attach", // we are going to attach to the existing pod
