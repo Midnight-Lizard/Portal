@@ -117,7 +117,6 @@ auth.initAuth(settings, secrets).then(() =>
             req.session!.returnUrl = req.param('returnUrl', '/');
 
             const authUrl = auth.getSignInUrl({
-                sessionId: req.session!.id,
                 nonce: req.session!.nonce,
                 state: req.session!.state,
                 settings: settings
@@ -136,9 +135,9 @@ auth.initAuth(settings, secrets).then(() =>
 
         app.post('/refresh-user', async (req, res, next) =>
         {
-            const user = await auth.refreshUser(req.session!.id);
-            setAuthCookie(res, user);
-            res.json(user);
+            req.session!.tokens = await auth.refreshUser(req.session!.tokens);
+            setAuthCookie(res, req.session!.tokens);
+            res.json(auth.getUser(req.session!.tokens));
         });
 
         app.post('/signedin', async (req, res, next) =>
@@ -148,9 +147,9 @@ auth.initAuth(settings, secrets).then(() =>
             delete req.session!.nonce;
             delete req.session!.returnUrl;
 
-            const user = await auth.handleSignInCallback({ sessionId, state, nonce, settings, params: req });
+            req.session!.tokens = await auth.handleSignInCallback({ state, nonce, settings, params: req });
 
-            setAuthCookie(res, user);
+            setAuthCookie(res, req.session!.tokens);
 
             res.redirect(returnUrl || '/');
 
@@ -160,13 +159,16 @@ auth.initAuth(settings, secrets).then(() =>
         app.get('/signout', async (req, res, next) =>
         {
             req.session!.returnUrl = req.param('returnUrl', '/');
-            const signOutUrl = await auth.signOut(req.session!.id, settings);
+            const { tokens } = req.session!.tokens;
+            delete req.session!.tokens;
+            const signOutUrl = await auth.signOut(tokens, settings);
             if (signOutUrl)
             {
                 res.redirect(signOutUrl);
             }
             else
             {
+                setAuthCookie(res, null);
                 res.redirect(req.session!.returnUrl);
                 return next();
             }
@@ -189,7 +191,7 @@ auth.initAuth(settings, secrets).then(() =>
             providers: [
                 { provide: 'ORIGIN_URL', useValue: settings.PORTAL_URL },
                 { provide: 'SETTINGS', useValue: settings },
-                { provide: 'USER', useValue: auth.getUser(req.session!.id) },
+                { provide: 'USER', useValue: auth.getUser(req.session!.tokens) },
                 { provide: 'MEDIA', useValue: req.cookies[AppConstants.Cookies.Media] },
                 { provide: 'DIST_PATH', useValue: DIST_FOLDER }
             ]
@@ -203,10 +205,13 @@ auth.initAuth(settings, secrets).then(() =>
     });
 });
 
-function setAuthCookie(res: express.Response, user: User | null)
+function setAuthCookie(res: express.Response, tokens: any)
 {
-    res.cookie(AuthConstants.Cookies.SignedIn, user ? 'true' : 'false', {
-        maxAge: H24, httpOnly: false
-    });
+    if (!res.headersSent)
+    {
+        res.cookie(AuthConstants.Cookies.SignedIn, tokens ? 'true' : 'false', {
+            maxAge: H24, httpOnly: false
+        });
+    }
 }
 
