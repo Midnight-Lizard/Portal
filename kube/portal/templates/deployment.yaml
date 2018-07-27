@@ -62,7 +62,7 @@ spec:
                 secretKeyRef:
                   name: portal-secret
                   key: session-secret
-            - name: PORTAL_AUTH_SECRET
+            - name: IDENTITY_PORTAL_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: identity-portal-secret
