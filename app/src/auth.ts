@@ -5,12 +5,13 @@ const { Issuer } = require('openid-client');
 
 export class Secrets
 {
-    IDENTITY_PORTAL_CLIENT_SECRET = '';
+    PORTAL_AUTH_SECRET = '';
     PORTAL_SESSION_SECRET = '';
 }
 
 let _issuer: any;
 let _client: any;
+const _tokens = new Map<string, any>();
 const scopes = [
     'openid', 'profile', 'schemes-commander', 'schemes-querier', 'offline_access'
 ].join(' ');
@@ -25,7 +26,7 @@ export function initAuth(settings: Settings, secrets: Secrets): Promise<void>
             _issuer = mlid;
             _client = new _issuer.Client({
                 client_id: 'portal-server',
-                client_secret: secrets.IDENTITY_PORTAL_CLIENT_SECRET
+                client_secret: secrets.PORTAL_AUTH_SECRET
             });
             _client.CLOCK_TOLERANCE = 5;
         })
@@ -34,6 +35,7 @@ export function initAuth(settings: Settings, secrets: Secrets): Promise<void>
 
 export interface AuthParams
 {
+    sessionId: string;
     nonce: string;
     state: string;
     settings: Settings;
@@ -60,8 +62,9 @@ export function getSignInUrl({
     return null;
 }
 
-export async function signOut(tokens: any, settings: Settings): Promise<string | null>
+export async function signOut(sessionId: string, settings: Settings): Promise<string | null>
 {
+    const tokens = _tokens.get(sessionId);
     if (tokens && _client)
     {
         try
@@ -93,18 +96,20 @@ function getSignOutUrl(tokens: any, settings: Settings): string
 }
 
 export async function handleSignInCallback({
+    sessionId: sessionId,
     nonce: nonce,
     state: state,
     settings: settings,
     params: params
-}: AuthParams): Promise<any>
+}: AuthParams): Promise<User | null>
 {
     if (_client)
     {
         try
         {
-            return await _client.authorizationCallback(
-                signInCallbackUrl(settings), _client.callbackParams(params), { nonce, state });
+            _tokens.set(sessionId, await _client.authorizationCallback(
+                signInCallbackUrl(settings), _client.callbackParams(params), { nonce, state }));
+            return getUser(sessionId);
         }
         catch (error)
         {
@@ -114,8 +119,9 @@ export async function handleSignInCallback({
     return null;
 }
 
-export function getUser(tokens: any): User | null
+export function getUser(sessionId: string): User | null
 {
+    const tokens = _tokens.get(sessionId);
     if (tokens)
     {
         const user = {
@@ -129,13 +135,15 @@ export function getUser(tokens: any): User | null
     return null;
 }
 
-export async function refreshUser(tokens: number): Promise<any>
+export async function refreshUser(sessionId: string): Promise<any>
 {
+    const tokens = _tokens.get(sessionId);
     if (tokens && _client)
     {
         try
         {
-            return await _client.refresh(tokens);
+            _tokens.set(sessionId, await _client.refresh(tokens));
+            return getUser(sessionId);
         }
         catch (error)
         {
