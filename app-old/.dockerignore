@@ -1,8 +1,0 @@
-**/node_modules/
-**/dist/
-bin
-obj
-kubedbg.xml
-.gitignore
-Dockerfile
-Dockertest

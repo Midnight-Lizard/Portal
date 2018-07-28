@@ -1,8 +1,0 @@
-<PipeLaunchOptions xmlns="http://schemas.microsoft.com/vstudio/MDDDebuggerOptions/2014"
-    PipePath="powershell" TargetArchitecture="x64" MIMode="clrdbg"
-    PipeArguments="
-    -ExecutionPolicy Bypass
-    -File C:\Projects\MidnightLizard\Web\Portal\kube\kubedbg.ps1
-    -Selector app=portal">
-  <LaunchCompleteCommand>None</LaunchCompleteCommand>
-</PipeLaunchOptions>
