@@ -5,7 +5,7 @@ const { Issuer } = require('openid-client');
 
 export class Secrets
 {
-    PORTAL_AUTH_SECRET = '';
+    IDENTITY_PORTAL_CLIENT_SECRET = '';
     PORTAL_SESSION_SECRET = '';
 }
 
@@ -26,7 +26,7 @@ export function initAuth(settings: Settings, secrets: Secrets): Promise<void>
             _issuer = mlid;
             _client = new _issuer.Client({
                 client_id: 'portal-server',
-                client_secret: secrets.PORTAL_AUTH_SECRET
+                client_secret: secrets.IDENTITY_PORTAL_CLIENT_SECRET
             });
             _client.CLOCK_TOLERANCE = 5;
         })

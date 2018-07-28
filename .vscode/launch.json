@@ -54,7 +54,7 @@
             "name": "Chrome launch",
             "type": "chrome",
             "request": "launch",
-            "url": "http://localhost:7000/schemes",
+            "url": "http://localhost:7000/",
             "webRoot": "${workspaceFolder}/app",
             "userDataDir": false,
             "runtimeArgs": [
@@ -96,7 +96,9 @@
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "env": {
-                "PORT": "7000"
+                "PORT": "7000",
+                "IDENTITY_URL": "http://localhost:7002",
+                "PORTAL_URL": "http://localhost:7000"
             },
             "runtimeArgs": [
                 "./debug-ssr-with-secrets.sh"
