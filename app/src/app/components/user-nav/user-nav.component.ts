@@ -41,10 +41,10 @@ export class UserNavComponent
                     return <MenuItem[]>[
                         {
                             title: 'Profile', tooltip: `Go to my profile page`,
-                            icon: 'account_box', link: '/profile', class: ''
+                            icon: 'account_box', link: user.claims.profile, class: ''
                         },
                         {
-                            title: 'Sign out', tooltip: `Sign out from ${user.claims.preferred_username}`,
+                            title: 'Sign out', tooltip: `Sign out from ${user.claims.name}`,
                             icon: 'exit_to_app', link: '/signout', class: ''
                         }
                     ];
