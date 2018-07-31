@@ -41,7 +41,7 @@
     "test:ci:libs": "npm run test:schemes -- --watch=false --no-progress --code-coverage=true --browsers ChromeCI && npm run test:core -- --watch=false --no-progress --code-coverage=true --browsers ChromeCI && npm run test:shared -- --watch=false --no-progress --code-coverage=true --browsers ChromeCI",
     "───E2E───": "#─────────────────E2E─────────────────────────#",
     "e2e": "ng e2e",
-    "e2e:ci": "ng e2e",
+    "e2e:ci": "ng e2e --prod",
     "──CLEAN──": "#────────────────CLEAN────────────────────────#",
     "clean": "npm run clean:dist && npm run clean:coverage",
     "clean:dist": "rimraf dist",
