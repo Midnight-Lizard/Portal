@@ -25,4 +25,6 @@ gce-deploy:
   - chmod +x ./shell/helm-deploy.sh
   - ./shell/gcloud-config.sh -k "$GCE_KEY" -z $GCE_CLUSTER_ZONE -p $GCE_PROJECT -c $GCE_CLUSTER_NAME
   - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
-  - ./shell/helm-deploy.sh -i $CI_REGISTRY/$GROUP/$PROJ:$CI_PIPELINE_ID -r $PROJ -c ./kube/$PROJ
+  - >-
+    ./shell/helm-deploy.sh -i $CI_REGISTRY/$GROUP/$PROJ:$CI_PIPELINE_ID -r $PROJ -c ./kube/$PROJ
+    --set secrets.sessionSecret=$PORTAL_SESSION_SECRET
