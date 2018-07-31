@@ -94,7 +94,8 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true
+              "buildOptimizer": true,
+              "progress": false
             }
           }
         },
@@ -177,6 +178,7 @@
               }
             },
             "production": {
+              "progress": false,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -230,6 +232,7 @@
           },
           "configurations": {
             "production": {
+              "progress": false,
               "project": "projects/schemes/ng-package.prod.json"
             }
           }
@@ -275,6 +278,7 @@
           },
           "configurations": {
             "production": {
+              "progress": false,
               "project": "projects/shared/ng-package.prod.json"
             }
           }
@@ -316,6 +320,7 @@
           },
           "configurations": {
             "production": {
+              "progress": false,
               "project": "projects/core/ng-package.prod.json"
             }
           }
@@ -357,6 +362,7 @@
           },
           "configurations": {
             "production": {
+              "progress": false,
               "project": "projects/testing/ng-package.prod.json"
             }
           }
