@@ -74,7 +74,9 @@ auth.initAuth(settings, secrets).then(() =>
             maxAge: H24,
             secure: settings.PORTAL_URL.startsWith('https')
         },
-        secret: secrets.PORTAL_SESSION_SECRET || 'secret'
+        secret: secrets.PORTAL_SESSION_SECRET || 'secret',
+        resave: false,
+        saveUninitialized: false
     }));
 
     app.use(((err, req, res, next) =>

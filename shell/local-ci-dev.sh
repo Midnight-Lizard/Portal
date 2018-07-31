@@ -11,6 +11,8 @@ docker build -t $IMAGE \
     ../app
 kubectl config use-context minikube
 docker push $IMAGE
+secret=$(echo -n not-a-secret | base64 -w 0);
 ./helm-deploy.sh -i $IMAGE -r $PROJ -c ../kube/$PROJ \
-    -s env.IDENTITY_URL=http://192.168.1.35:32006/ \
-    -s env.PORTAL_URL=http://192.168.1.35:31067/ \
+    --set env.IDENTITY_URL=http://192.168.1.35:32006 \
+    --set env.PORTAL_URL=http://192.168.1.35:31565 \
+    --set secrets.sessionSecret=$secret \

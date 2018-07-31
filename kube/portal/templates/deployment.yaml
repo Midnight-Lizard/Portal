@@ -60,8 +60,8 @@ spec:
             - name: PORTAL_SESSION_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: portal-secret
-                  key: session-secret
+                  name: {{ template "name" . }}-secret
+                  key: sessionSecret
             - name: IDENTITY_PORTAL_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:

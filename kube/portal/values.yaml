@@ -5,7 +5,6 @@ pullPolicy: IfNotPresent
 antiAffinity:
   weight: 100
   apps:
-    - schemes
     - identity
 service:
   name: portal
@@ -13,6 +12,8 @@ service:
   externalPort: 80
   internalPort: 80
   debugPort: 9229
+secrets:
+  sessionSecret: "base64 encoded value"
 env:
   IDENTITY_URL: http://identity.midnight-lizard.online
   PORTAL_URL: http://midnight-lizard.online

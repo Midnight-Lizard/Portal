@@ -21,7 +21,7 @@
             "name": "Chrome to Minikube",
             "type": "chrome",
             "request": "launch",
-            "url": "http://192.168.1.35:31067/schemes",
+            "url": "http://192.168.1.35:31565/schemes",
             "webRoot": "${workspaceFolder}/app",
             "userDataDir": false,
             "runtimeArgs": [
