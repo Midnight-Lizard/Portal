@@ -20,6 +20,22 @@ nav {
         overflow: hidden;
         max-width: 50vw;
     }
+    a:before {
+        content: attr(badge);
+        position: absolute;
+        color: mat-color($ml-warn, A700);
+        right: 2px;
+        bottom: 10px;
+        line-height: 14px;
+        font-size: 12px;
+        transform: rotate(-25Deg);
+        --ml-link-color:Text;
+        --ml-link-active-color:Text;
+        --ml-link-hover-color:Text;
+        --ml-visitedlink-color:Text;
+        --ml-visitedlink-active-color:Text;
+        --ml-visitedlink-hover-color:Text;
+    }
     a[style*="block"],
     a[class*="flex-layout"] {
         display: inline-block !important;
@@ -29,6 +45,21 @@ nav {
         width: 32px;
         height: 32px;
     }
+}
+
+.mat-menu-item:after {
+    content: attr(badge);
+    color: mat-color($ml-warn, A700);
+    margin-left: 24px;
+    display: block;
+    float: right;
+    font-size: 14px;
+    --ml-link-color:Text;
+    --ml-link-active-color:Text;
+    --ml-link-hover-color:Text;
+    --ml-visitedlink-color:Text;
+    --ml-visitedlink-active-color:Text;
+    --ml-visitedlink-hover-color:Text;
 }
 
 nav.small {
