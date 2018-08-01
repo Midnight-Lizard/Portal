@@ -28,7 +28,7 @@
     "build:prod:shared": "ng build shared --prod && npm run copy:assets:shared",
     "build:prod:schemes": "ng build schemes --prod",
     "build:prod:server": "ng run portal:server:production && npm run webpack:prod:server && npm run generate:prerender",
-    "webpack:prod:server": "webpack --progress --colors --env.prod",
+    "webpack:prod:server": "webpack --env.prod",
     "──DEBUG──": "#────────────────DEBUG────────────────────────#",
     "debug:ssr": "node --inspect-brk=9229 dist/portal-server",
     "debug:prerender": "cd dist && node --inspect-brk=9229 portal-prerender",
