@@ -232,7 +232,6 @@
           },
           "configurations": {
             "production": {
-              "progress": false,
               "project": "projects/schemes/ng-package.prod.json"
             }
           }
@@ -278,7 +277,6 @@
           },
           "configurations": {
             "production": {
-              "progress": false,
               "project": "projects/shared/ng-package.prod.json"
             }
           }
@@ -320,7 +318,6 @@
           },
           "configurations": {
             "production": {
-              "progress": false,
               "project": "projects/core/ng-package.prod.json"
             }
           }
@@ -362,7 +359,6 @@
           },
           "configurations": {
             "production": {
-              "progress": false,
               "project": "projects/testing/ng-package.prod.json"
             }
           }
