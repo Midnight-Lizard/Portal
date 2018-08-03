@@ -3,6 +3,7 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
 import { LoadingComponent, ReloadFromServerComponent } from 'shared';
+import { CommanderComponent } from './components/commander/commander.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -11,6 +12,7 @@ const routes: Routes = [
     { path: 'signin', component: ReloadFromServerComponent, data: { server: true } },
     { path: 'signout', component: ReloadFromServerComponent, data: { server: true } },
     { path: 'profile', component: LoadingComponent },
+    { path: 'api', component: CommanderComponent },
     { path: '**', redirectTo: 'home' }
 ];
 
@@ -24,5 +26,5 @@ const routes: Routes = [
 export class AppRoutingModule { }
 
 export const routingComponents = [
-    HomeComponent
+    HomeComponent, CommanderComponent
 ];

@@ -1,0 +1,17 @@
+﻿<form [formGroup]="apiForm" (ngSubmit)="onPublish()">
+    <mat-form-field class="text-container" color="accent">
+        <textarea matInput formControlName="json" placeholder="JSON"
+                  matTextareaAutosize matAutosizeMinRows="10" matAutosizeMaxRows="10">
+        </textarea>
+    </mat-form-field>
+    <br />
+    <br />
+    <button mat-raised-button color="warn" type="submit">Publish</button>
+    <br />
+    <br />
+    <mat-form-field class="text-container" color="warn">
+        <textarea matInput formControlName="results" placeholder="Results"
+                  matTextareaAutosize matAutosizeMinRows="10" matAutosizeMaxRows="10">
+        </textarea>
+    </mat-form-field>
+</form>
