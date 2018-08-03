@@ -6,6 +6,7 @@ REGISTRY=localhost:5000
 IMAGE=$REGISTRY/$PROJ:$TAG
 eval $(docker-machine env default --shell bash)
 docker build -t $IMAGE \
+    --build-arg BUILD_LIBS_CMD="build:prod:libs" \
     --build-arg BUILD_CMD="build:prod" \
     --build-arg RUN_CMD="start:ssr" \
     ../app

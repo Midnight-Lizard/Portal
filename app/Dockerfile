@@ -5,6 +5,10 @@ FROM node:8-alpine as ng-build
 WORKDIR /build
 COPY ./package.json .
 RUN npm install
+COPY ./*.json ./
+COPY ./projects ./projects
+ARG BUILD_LIBS_CMD="build:prod:libs"
+RUN npm run ${BUILD_LIBS_CMD}
 COPY . .
 ARG BUILD_CMD="build:prod"
 RUN npm run ${BUILD_CMD}
@@ -24,9 +28,16 @@ RUN apt-get update && apt-get install -y wget --no-install-recommends \
     && apt-get purge --auto-remove -y curl \
     && rm -rf /src/*.deb
 WORKDIR /test
-COPY --from=ng-build /build .
+COPY ./package.json .
+COPY --from=ng-build /build/node_modules ./node_modules
 RUN npm i node-sass
+COPY ./*.json ./
+COPY ./src/*.json ./src/
+COPY ./projects ./projects
+RUN npm run test:ci:libs
+COPY . .
 RUN npm run test:ci
+COPY --from=ng-build /build/dist ./dist
 RUN npm run e2e:ci
 
 #===========================================#
@@ -37,7 +48,10 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 9229
 COPY ./package.json .
-COPY --from=ng-build /build/dist ./dist
+COPY --from=ng-build /build/dist/*.* ./dist/
+COPY --from=ng-build /build/dist/portal-browser ./dist/portal-browser
+COPY --from=ng-build /build/dist/portal-server ./dist/portal-server
+COPY --from=ng-build /build/dist/portal-static ./dist/portal-static
 ARG RUN_CMD="start:ssr"
 ENV RUN_CMD ${RUN_CMD}
 ENTRYPOINT npm run ${RUN_CMD}
