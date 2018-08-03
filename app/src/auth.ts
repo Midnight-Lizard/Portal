@@ -67,6 +67,7 @@ export async function signOut(sessionId: string, settings: Settings): Promise<st
     const tokens = _tokens.get(sessionId);
     if (tokens && _client)
     {
+        _tokens.delete(sessionId);
         try
         {
             await Promise.all([
