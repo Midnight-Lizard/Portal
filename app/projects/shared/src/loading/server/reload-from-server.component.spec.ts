@@ -27,19 +27,18 @@ describe(nameOfClass(ReloadFromServerComponent), () =>
         }).compileComponents();
     }));
 
-    beforeEach(() =>
+    beforeEach(inject([Store], (store$: Store<NavRootState>) =>
     {
+        store$.dispatch(new ReturnUrlChanged({ returnUrl: 'test' }));
         const spy = spyOn(ReloadFromServerComponent.prototype, 'navigate');
         fixture = TestBed.createComponent(ReloadFromServerComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-        spy.calls.reset();
-    });
+    }));
 
     it('should reload from server with returnUrl', inject([Store],
         (store$: Store<NavRootState>) =>
         {
-            store$.dispatch(new ReturnUrlChanged({ returnUrl: 'test' }));
             expect(component.navigate).toHaveBeenCalledWith(
                 jasmine.stringMatching(/returnUrl=test/));
         }));
