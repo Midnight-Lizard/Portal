@@ -1,6 +1,7 @@
 import { Store, select } from '@ngrx/store';
 import { Component, AfterViewInit } from '@angular/core';
 import { SideService, NavRootState } from 'core';
+import { first } from 'rxjs/operators';
 
 @Component({
     selector: 'common-reload-from-server',
@@ -19,13 +20,15 @@ export class ReloadFromServerComponent implements AfterViewInit
         if (this.env.isBrowserSide)
         {
             const self = this;
-            this.store$.pipe(select(x => x.NAV.NAV.returnUrl))
-                .subscribe(returnUrl =>
-                {
-                    const url = new URL(window.location.href);
-                    url.searchParams.set('returnUrl', returnUrl);
-                    self.navigate(url);
-                });
+            this.store$.pipe(
+                select(x => x.NAV.NAV.returnUrl),
+                first()
+            ).subscribe(returnUrl =>
+            {
+                const url = new URL(window.location.href);
+                url.searchParams.set('returnUrl', returnUrl);
+                self.navigate(url);
+            });
         }
     }
 
