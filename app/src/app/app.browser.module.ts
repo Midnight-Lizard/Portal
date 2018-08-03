@@ -22,7 +22,7 @@ import { environment } from '../environments/environment';
     PortalSharedModule.forRoot(),
     MatSnackBarModule,
     StoreDevtoolsModule.instrument({
-      maxAge: environment.production ? 5 : 100,
+      maxAge: environment.production ? 25 : 100,
       logOnly: environment.production
     })
   ],
