@@ -7,16 +7,16 @@ import { AuthRootState, User } from 'core';
 
 declare interface MenuItem
 {
-    link: string;
+    link?: string;
+    externalLink?: string;
     icon: string;
     title: string;
     tooltip: string;
-    class: string;
 }
 const noUserMenu: MenuItem[] = [
     {
         title: 'Sign in', tooltip: 'Login or create a new user',
-        icon: 'vpn_key', link: '/signin', class: ''
+        icon: 'vpn_key', link: '/signin'
     }
 ];
 
@@ -41,11 +41,11 @@ export class UserNavComponent
                     return <MenuItem[]>[
                         {
                             title: 'Profile', tooltip: `Go to my profile page`,
-                            icon: 'account_box', link: user.claims.profile, class: ''
+                            icon: 'account_box', externalLink: user.claims.profile
                         },
                         {
                             title: 'Sign out', tooltip: `Sign out from ${user.claims.name}`,
-                            icon: 'exit_to_app', link: '/signout', class: ''
+                            icon: 'exit_to_app', link: '/signout'
                         }
                     ];
                 }

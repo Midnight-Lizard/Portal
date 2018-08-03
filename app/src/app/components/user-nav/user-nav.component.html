@@ -1,20 +1,42 @@
-﻿<button mat-icon-button matTooltip="Account menu"
-        [matMenuTriggerFor]="menu" #menuTrigger
+﻿<button mat-icon-button
+        matTooltip="Account menu"
+        [matMenuTriggerFor]="menu"
+        #menuTrigger
         class="mat-button mat-icon-button"
         (menuClosed)="menuTrigger.focus()">
-    <mat-icon>person</mat-icon>
+  <mat-icon>person</mat-icon>
 </button>
-<mat-menu #menu="matMenu" yPosition="below" xPosition="before"
+<mat-menu #menu="matMenu"
+          yPosition="below"
+          xPosition="before"
           [overlapTrigger]="false">
-    <span *ngIf="user$|async" mat-menu-item disabled class="user-menu-header">
-        Signed in as <strong>{{(user$|async)!.claims.name}}</strong>
-    </span>
-    <hr *ngIf="user$|async" class="user-menu-separator"/>
-    <a *ngFor="let item of items$|async" mat-menu-item
-       [href]="item.link"
+  <span *ngIf="user$|async"
+        mat-menu-item
+        disabled
+        class="user-menu-header">
+    Signed in as
+    <strong>{{(user$|async)!.claims.name}}</strong>
+  </span>
+  <hr *ngIf="user$|async"
+      class="user-menu-separator" />
+  <ng-template ngFor
+               let-item
+               [ngForOf]="items$|async">
+    <a *ngIf="item.externalLink"
+       [href]="item.externalLink"
        [matTooltip]="item.tooltip"
+       mat-menu-item
        matTooltipPosition="left">
-        <mat-icon>{{item.icon}}</mat-icon>
-        <span>{{item.title}}</span>
+      <mat-icon>{{item.icon}}</mat-icon>
+      <span>{{item.title}}</span>
     </a>
+    <a *ngIf="item.link"
+       [routerLink]="item.link"
+       [matTooltip]="item.tooltip"
+       mat-menu-item
+       matTooltipPosition="left">
+      <mat-icon>{{item.icon}}</mat-icon>
+      <span>{{item.title}}</span>
+    </a>
+  </ng-template>
 </mat-menu>
