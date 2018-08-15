@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
@@ -37,7 +37,7 @@ export class CommanderComponent
             {
                 this.http.post(
                     // "http://localhost:7008/scheme",
-                    'http://192.168.1.35:30574/scheme',
+                    'http://192.168.1.44:30574/scheme',
                     this.apiForm.get('json')!.value,
                     {
                         headers: new HttpHeaders()
