@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
@@ -39,6 +39,32 @@ export class CommanderComponent
                     // "http://localhost:7008/scheme",
                     'http://192.168.1.44:30574/scheme',
                     this.apiForm.get('json')!.value,
+                    {
+                        headers: new HttpHeaders()
+                            .set('Authorization', `Bearer ${user.access_token}`)
+                            .set('api-version', '1.0')
+                            .set('schema-version', '9.3.0'),
+                        observe: 'response'
+                    }).pipe(catchError(x => of(x)))
+                    .subscribe(resp => this.apiForm
+                        .patchValue({ results: JSON.stringify(resp) }));
+            }
+        });
+    }
+
+    public onUnpublish()
+    {
+        this.apiForm.patchValue({ results: 'waiting results...' });
+        this.store$.pipe(
+            select(x => x.AUTH.user),
+            take(1)
+        ).subscribe(user =>
+        {
+            if (user)
+            {
+                this.http.delete(
+                    // `http://localhost:7008/scheme/${this.apiForm.get('json')!.value}`,
+                    `http://192.168.1.44:30574/scheme/${this.apiForm.get('json')!.value}`,
                     {
                         headers: new HttpHeaders()
                             .set('Authorization', `Bearer ${user.access_token}`)
