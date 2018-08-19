@@ -16,9 +16,9 @@ export class SchemesService
 
     constructor() { }
 
-    public getPublicSchemes(filters: SchemesFilters, list: SchemesList, size: number, cursor?: string | null)
+    public getPublicSchemes(filters: SchemesFilters, list: SchemesList, pageSize: number, cursor?: string | null)
     {
-        return SchemesService.stub.getPublicSchemes(filters, list, size, cursor);
+        return SchemesService.stub.getPublicSchemes(filters, list, pageSize, cursor);
     }
 
     public getPublicSchemeDetails(publicSchemeId: PublicSchemeId)

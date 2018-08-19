@@ -36,7 +36,7 @@ export const schemesInitialState: SchemesFeatureState = {
     schemes: {
         list: SchemesList.Empty,
         filters: {
-            name: '',
+            query: '',
             side: SchemeSide.None
         },
         data: [],

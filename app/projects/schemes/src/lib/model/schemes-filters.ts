@@ -3,14 +3,14 @@ import { SchemeSide } from './scheme-side';
 
 export interface SchemesFilters
 {
-    readonly name: string;
+    readonly query: string;
     readonly side: SchemeSide;
 }
 
 export function getFiltersFromRoute(route: ActivatedRouteSnapshot): SchemesFilters
 {
     return {
-        name: route.queryParams.q || '',
+        query: route.queryParams.q || '',
         side: route.queryParams.side ? route.queryParams.side : SchemeSide.None,
     };
 }
@@ -19,7 +19,7 @@ export function createRouteParamsFromFilters(filters: SchemesFilters): Params
 {
     const params: Params = {};
 
-    params.q = filters.name || '';
+    params.q = filters.query || '';
     params.side = filters.side;
 
     return params;
@@ -27,5 +27,5 @@ export function createRouteParamsFromFilters(filters: SchemesFilters): Params
 
 export function filtersAreEqual(first: SchemesFilters, second: SchemesFilters)
 {
-    return first.name === second.name && first.side === second.side;
+    return first.query === second.query && first.side === second.side;
 }

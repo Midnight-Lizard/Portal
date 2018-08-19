@@ -35,7 +35,7 @@ export class SchemesServiceStub implements SchemesService
 
     constructor() { }
 
-    public getPublicSchemes(filters: SchemesFilters, list: SchemesList, size: number, cursor?: string | null)
+    public getPublicSchemes(filters: SchemesFilters, list: SchemesList, pageSize: number, cursor?: string | null)
     {
         // if (Math.random() > 0.5)
         // {
@@ -44,7 +44,7 @@ export class SchemesServiceStub implements SchemesService
         return new BehaviorSubject(({
             cursor: this.randomString(4),
             done: Math.random() > 0.7,
-            data: (Array.apply(null, Array(size)) as null[]).map(() =>
+            data: (Array.apply(null, Array(pageSize)) as null[]).map(() =>
             {
                 const side = filters.side === SchemeSide.None
                     ? Math.random() > 0.25 ? SchemeSide.Dark : SchemeSide.Light
@@ -53,7 +53,7 @@ export class SchemesServiceStub implements SchemesService
 
                 return ({
                     id: this.randomString(8),
-                    name: `Fake ${this.randomString(4)} scheme ${filters.name}`,
+                    name: `Fake ${this.randomString(4)} scheme ${filters.query}`,
                     publisher: {
                         id: this.randomString(8),
                         name: `${this.randomString(6)} ${this.randomString(4)}`,

@@ -62,7 +62,7 @@ describe(nameOfClass(SchemesFilterComponent), function (this: { router: Router }
     it('should navigate correctly when a text entered into the search box', () =>
     {
         const testString = 'test';
-        component.filtersForm.get('name')!.setValue(testString);
+        component.filtersForm.get('query')!.setValue(testString);
         fixture.detectChanges();
         TestSchedulerStub.flush();
         const expectedParams: NavigationExtras = {
@@ -75,7 +75,7 @@ describe(nameOfClass(SchemesFilterComponent), function (this: { router: Router }
     it('should change form values when filters value changes in the store', inject(
         [Store], (store$: Store<SchemesRootState>) =>
         {
-            const testFiltersValue = { name: 'test', side: SchemeSide.Dark };
+            const testFiltersValue = { query: 'test', side: SchemeSide.Dark };
             store$.dispatch(new SchemesSearchChanged({
                 list: SchemesList.Full,
                 filters: testFiltersValue

@@ -59,7 +59,7 @@ describe(nameOfClass(SchemesListComponent), function ()
             (store$: Store<SchemesRootState>, schemesService: SchemesService, router: Router) =>
             {
                 schemesService
-                    .getPublicSchemes({ name: '', side: SchemeSide.None }, SchemesList.Full, 4)
+                    .getPublicSchemes({ query: '', side: SchemeSide.None }, SchemesList.Full, 4)
                     .subscribe(result =>
                     {
                         this.schemes = result.data;

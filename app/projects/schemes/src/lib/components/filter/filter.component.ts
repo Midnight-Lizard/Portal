@@ -21,7 +21,9 @@ export class SchemesFilterComponent implements OnDestroy
 
     constructor(router: Router, store: Store<SchemesRootState>, fb: FormBuilder)
     {
-        this.filtersForm = fb.group({ name: '', side: SchemeSide.None });
+        this.filtersForm = fb.group({
+            query: '', side: SchemeSide.None
+        } as SchemesFilters);
 
         this._storeSub = store.pipe(select(s => s.SCHEMES.schemes.filters))
             .subscribe(filters =>
