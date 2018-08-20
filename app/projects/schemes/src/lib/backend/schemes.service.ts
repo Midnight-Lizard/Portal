@@ -17,6 +17,7 @@ import { SchemesSearchResults } from '../model/schemes-search-results';
 import { searchQuery, detailsQuery } from './schemes.queries';
 import { Store, select } from '@ngrx/store';
 import { NetworkStatus } from 'apollo-client';
+import { SchemesDetailsResult } from '../model/schemes-details-result';
 
 @Injectable()
 export class SchemesService
@@ -51,9 +52,10 @@ export class SchemesService
 
     public getPublicSchemeDetails(publicSchemeId: PublicSchemeId)
     {
-        return this.apollo.query<PublicSchemeDetails>({
+        return this.apollo.query<SchemesDetailsResult>({
             query: detailsQuery,
             variables: { id: publicSchemeId }
-        }).pipe(map(x => x.data));
+        }).pipe(map(x =>
+            x.data.details));
     }
 }

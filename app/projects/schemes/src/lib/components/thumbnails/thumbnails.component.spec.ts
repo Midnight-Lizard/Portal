@@ -24,7 +24,7 @@ describe(nameOfClass(SchemesThumbnailsComponent), () =>
         component = fixture.componentInstance;
         component.screenshots = [{
             title: '', urls: {
-                [ScreenshotSize._1280x800]: ''
+                [ScreenshotSize.Small]: ''
             }
         }];
         fixture.detectChanges();

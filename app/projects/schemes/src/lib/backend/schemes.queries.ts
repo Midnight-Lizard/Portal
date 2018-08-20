@@ -6,10 +6,17 @@ export const detailsQuery = gql`
       id
       name
       side
+      description
       publisher {
         id
         name
         community
+      }
+      screenshots {
+        title
+        urls {
+          lg
+        }
       }
       colorScheme {
         colorSchemeId
@@ -90,6 +97,12 @@ export const searchQuery = gql`
           id
           name
           community
+        }
+        screenshots {
+          title
+          urls {
+            sm
+          }
         }
         colorScheme {
           colorSchemeId

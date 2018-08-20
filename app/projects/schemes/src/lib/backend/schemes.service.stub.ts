@@ -69,7 +69,7 @@ export class SchemesServiceStub
                     screenshots: [{
                         title: '',
                         urls: {
-                            [ScreenshotSize._1280x800]: screenshots[Math.floor(Math.random() * screenshots.length)]
+                            [ScreenshotSize.Small]: screenshots[Math.floor(Math.random() * screenshots.length)]
                         }
                     }]
                 });
@@ -94,7 +94,7 @@ export class SchemesServiceStub
             screenshots: [{
                 title: '',
                 urls: {
-                    [ScreenshotSize._1280x800]: darkSchemes[Math.floor(Math.random() * darkSchemes.length)]
+                    [ScreenshotSize.Large]: darkSchemes[Math.floor(Math.random() * darkSchemes.length)]
                 }
             }],
             colorScheme: null,
