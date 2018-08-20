@@ -71,9 +71,14 @@ export class SchemesEffects
 
     @Effect()
     onSearchChanged$ = this.actions$.ofType(SchActTypes.SchemesSearchChanged).pipe(
-        switchMap(act => this.schSvc.getPublicSchemes(
-            act.payload.filters, act.payload.list, 10, null).pipe(
-                map(result => new SchActs.FirstSchemesChunkLoaded(result)),
+        withLatestFrom(this.store$),
+        switchMap(([act, state]) => this.schSvc.getPublicSchemes(
+            act.payload.filters, act.payload.list, 10, state.AUTH.user, null).pipe(
+                map(result => new SchActs.FirstSchemesChunkLoaded({
+                    cursor: result.cursor,
+                    data: result.results,
+                    done: result.done
+                })),
                 catchError(error => of(new NotifyUser({
                     message: 'Failed to retrieve color schemes',
                     level: NotificationLevel.Error,
@@ -89,8 +94,12 @@ export class SchemesEffects
         withLatestFrom(this.store$),
         switchMap(([act, state]) => this.schSvc.getPublicSchemes(
             state.SCHEMES.schemes.filters, state.SCHEMES.schemes.list, 10,
-            state.SCHEMES.schemes.cursor).pipe(
-                map(result => new SchActs.NextSchemesChunkLoaded(result)),
+            state.AUTH.user, state.SCHEMES.schemes.cursor).pipe(
+                map(result => new SchActs.NextSchemesChunkLoaded({
+                    cursor: result.cursor,
+                    data: result.results,
+                    done: result.done
+                })),
                 catchError(error => of(new NotifyUser({
                     message: 'Failed to retrieve more color schemes',
                     level: NotificationLevel.Error,

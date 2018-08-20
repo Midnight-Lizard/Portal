@@ -5,6 +5,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ApolloModule } from 'apollo-angular';
+import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 
 import { SharedModule, LoadingModule } from 'shared';
 import { schemesRoutingComponents, SchemesRoutingModule } from './schemes.routing.module';
@@ -24,6 +26,7 @@ import { SchemeDetailsComponent } from './components/details/details.component';
         CommonModule, FormsModule, FlexLayoutModule, ReactiveFormsModule,
         SchemesRoutingModule, SharedModule.forRoot(), LoadingModule,
         InfiniteScrollModule,
+        ApolloModule, HttpLinkModule,
         StoreModule.forFeature(SchemesFeature, schemesReducers, { initialState: schemesInitialState }),
         EffectsModule.forFeature([SchemesEffects])
     ],

@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { delay, first } from 'rxjs/operators';
 
+import { SettingsService, User } from 'core';
+
 import { SchemesFilters } from '../model/schemes-filters';
 import { PublicScheme, PublicSchemeId, PublicSchemeDetails } from '../model/public-scheme';
 import { ScreenshotSize } from '../model/screenshot';
 import { SchemeSide } from '../model/scheme-side';
 import { SchemesList } from '../model/schemes-lists';
-import { SchemesService } from './schemes.service';
 
 const darkSchemes = [
     // tslint:disable-next-line:max-line-length
@@ -28,14 +29,14 @@ const lightSchemes = [
 ];
 
 @Injectable()
-export class SchemesServiceStub implements SchemesService
+export class SchemesServiceStub
 {
     firstDelay = 300;
     nextDelay = 600;
 
     constructor() { }
 
-    public getPublicSchemes(filters: SchemesFilters, list: SchemesList, pageSize: number, cursor?: string | null)
+    public getPublicSchemes(filters: SchemesFilters, list: SchemesList, pageSize: number, user?: User | null, cursor?: string | null)
     {
         // if (Math.random() > 0.5)
         // {
@@ -44,7 +45,7 @@ export class SchemesServiceStub implements SchemesService
         return new BehaviorSubject(({
             cursor: this.randomString(4),
             done: Math.random() > 0.7,
-            data: (Array.apply(null, Array(pageSize)) as null[]).map(() =>
+            results: (Array.apply(null, Array(pageSize)) as null[]).map(() =>
             {
                 const side = filters.side === SchemeSide.None
                     ? Math.random() > 0.25 ? SchemeSide.Dark : SchemeSide.Light

@@ -62,8 +62,12 @@ describe(nameOfClass(SchemesListComponent), function ()
                     .getPublicSchemes({ query: '', side: SchemeSide.None }, SchemesList.Full, 4)
                     .subscribe(result =>
                     {
-                        this.schemes = result.data;
-                        store$.dispatch(new Act.FirstSchemesChunkLoaded(result));
+                        this.schemes = result.results;
+                        store$.dispatch(new Act.FirstSchemesChunkLoaded({
+                            cursor: result.cursor,
+                            data: result.results,
+                            done: result.done
+                        }));
                     });
                 TestSchedulerStub.flush();
                 fixture.detectChanges();
