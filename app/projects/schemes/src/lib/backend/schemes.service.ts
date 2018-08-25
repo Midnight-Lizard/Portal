@@ -32,7 +32,7 @@ export class SchemesService
             first());
         const uri = settingsService.getSettings().SCHEMES_QUERIER_URL.replace(/\/$/, '') + '/query';
         const http = httpLink.create({ uri });
-        const auth = setContext(async (_, __) => ({
+        const auth = setContext(async () => ({
             headers: {
                 Authorization: `Bearer ${await token.toPromise()}`
             }
