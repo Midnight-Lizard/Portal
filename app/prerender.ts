@@ -25,7 +25,7 @@ const STATIC_FOLDER = join(DIST_FOLDER, 'portal-static');
 const index = readFileSync(join('portal-browser', 'index.html'), 'utf8');
 
 let previousRender = Promise.resolve();
-const settings: Settings = { ...defaultSettings };
+const settings: Settings = { ...defaultSettings, USE_AUTH: true.toString() };
 Object.keys(settings)
     .filter(set => set in process.env)
     .forEach(set => (settings as any)[set] = process.env[set]!);
