@@ -81,7 +81,7 @@ describe(nameOfClass(SchemesListComponent), function ()
             expect(cards.length).toEqual(this.schemes.length);
         });
 
-        it(`should dispatch LikeScheme or DislikeScheme action on click`, inject(
+        xit(`should dispatch LikeScheme or DislikeScheme action on click`, inject(
             [Store], (store$: Store<SchemesRootState>) =>
             {
                 const likeButton = fixture.debugElement
@@ -95,7 +95,7 @@ describe(nameOfClass(SchemesListComponent), function ()
                 expect(store$.dispatch).toHaveBeenCalledWith(expectedAction);
             }));
 
-        it(`should dispatch correct Favorites management action on click`, inject(
+        xit(`should dispatch correct Favorites management action on click`, inject(
             [Store], (store$: Store<SchemesRootState>) =>
             {
                 const favoritesButton = fixture.debugElement

@@ -28,7 +28,7 @@
           <mat-icon color="accent">{{scheme.publisher.community ? 'people' : 'verified_user'}}</mat-icon>
         </span>
         <span fxFlex></span>
-        <button mat-icon-button
+        <!-- <button mat-icon-button
                 fxFlexAlign.md="center"
                 ngClass.md="small"
                 [color]="scheme.liked ? 'accent' : ''"
@@ -57,7 +57,7 @@
                 [matTooltip]="scheme.favorited ? 'Remove from favorites' : 'Add to favorites'"
                 (click)="toggleSchemeFavorited(scheme); $event.stopPropagation()">
           <mat-icon>{{scheme.favorited ? "favorite" : "favorite_border"}}</mat-icon>
-        </button>
+        </button> -->
       </mat-card-header>
       <schemes-thumbnails [screenshots]="scheme.screenshots"></schemes-thumbnails>
     </mat-card>

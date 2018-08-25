@@ -27,7 +27,7 @@ export class AuthService
         env: SideService,
         store$: Store<AuthRootState>)
     {
-        if (env.isBrowserSide && settingsService.getSettings().USE_AUTH)
+        if (env.isBrowserSide && settingsService.getSettings().USE_AUTH === true.toString())
         {
             store$.pipe(
                 select(x => x.AUTH.user),
