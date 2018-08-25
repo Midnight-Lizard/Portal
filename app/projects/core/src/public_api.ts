@@ -9,6 +9,7 @@ export * from './lib/settings/settings';
 export * from './lib/settings/settings.service';
 
 export * from './lib/auth/user';
+export * from './lib/auth/system';
 export * from './lib/auth/auth.service';
 export * from './lib/auth/auth.constants';
 

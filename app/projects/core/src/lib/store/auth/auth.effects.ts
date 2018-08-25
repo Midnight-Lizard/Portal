@@ -29,18 +29,39 @@ export class AuthEffects
 
     @Effect() refreshUser$ = this.actions$.ofType(AuthActionTypes.RefreshUser).pipe(
         switchMap(act => timer(act.payload.immediately ? 0 : this.refreshInterval, this.refreshInterval)),
-        switchMap(i => this.auth.refreshUser()),
-        map(user => new AuthActions.UserChanged(user)),
-        catchError(error =>
-        {
-            return [
-                new AuthActions.UserChanged(null),
-                new NotifyUser({
-                    message: 'Failed to refresh user tokens',
-                    level: NotificationLevel.Error,
-                    isLocal: true,
-                    data: error
-                })];
-        })
+        switchMap(i => this.auth.refreshUser().pipe(
+            map(user => new AuthActions.UserChanged(user)),
+            catchError(error =>
+            {
+                return [
+                    new AuthActions.UserChanged(null),
+                    new NotifyUser({
+                        message: 'Failed to refresh user tokens',
+                        level: NotificationLevel.Error,
+                        isLocal: true,
+                        data: error
+                    })
+                ];
+            })
+        ))
+    );
+
+    @Effect() refreshSystem$ = this.actions$.ofType(AuthActionTypes.RefreshSystem).pipe(
+        switchMap(act => timer(act.payload.immediately ? 0 : this.refreshInterval, this.refreshInterval)),
+        switchMap(i => this.auth.refreshSystem().pipe(
+            map(system => new AuthActions.SystemChanged(system)),
+            catchError(error =>
+            {
+                return [
+                    new AuthActions.SystemChanged(null),
+                    new NotifyUser({
+                        message: 'Failed to refresh system tokens',
+                        level: NotificationLevel.Error,
+                        isLocal: true,
+                        data: error
+                    })
+                ];
+            })
+        ))
     );
 }

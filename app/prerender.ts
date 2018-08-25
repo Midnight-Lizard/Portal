@@ -28,7 +28,7 @@ let previousRender = Promise.resolve();
 const settings: Settings = { ...defaultSettings };
 Object.keys(settings)
     .filter(set => set in process.env)
-    .forEach((set: keyof Settings) => settings[set] = process.env[set]!);
+    .forEach(set => (settings as any)[set] = process.env[set]!);
 
 // Iterate each route path
 STATIC_ROUTES.forEach(route =>
@@ -47,6 +47,7 @@ STATIC_ROUTES.forEach(route =>
                 provideModuleMap(LAZY_MODULE_MAP),
                 { provide: 'ORIGIN_URL', useValue: '' },
                 { provide: 'SETTINGS', useValue: settings },
+                { provide: 'SYSTEM', useValue: null },
                 { provide: 'USER', useValue: null },
                 { provide: 'DIST_PATH', useValue: DIST_FOLDER }
             ]

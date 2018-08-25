@@ -1,7 +1,9 @@
 import * as url from 'url';
-import { Settings, User } from 'core';
+import { Settings, User, System } from 'core';
 
 const { Issuer } = require('openid-client');
+const fetch = require('node-fetch');
+const querystring = require('querystring');
 
 export class Secrets
 {
@@ -10,7 +12,11 @@ export class Secrets
 }
 
 let _issuer: any;
-let _client: any;
+let _userClient: any;
+let _systemClient: any;
+let _system: any;
+let systemClientCredentials: string;
+let systemClientOptions: string;
 const _tokens = new Map<string, any>();
 const scopes = [
     'openid', 'profile', 'schemes-commander', 'schemes-querier', 'offline_access'
@@ -18,19 +24,61 @@ const scopes = [
 const signInCallbackUrl = (settings: Settings) => url.resolve(settings.PORTAL_URL, 'signedin');
 const signOutCallbackUrl = (settings: Settings) => url.resolve(settings.PORTAL_URL, 'signedout');
 
-export function initAuth(settings: Settings, secrets: Secrets): Promise<void>
+export async function initAuth(settings: Settings, secrets: Secrets, maxRetries = 10): Promise<void>
 {
-    return Issuer.discover(settings.IDENTITY_URL)
-        .then((mlid: typeof Issuer) =>
+    if (settings.USE_AUTH === true.toString())
+    {
+        let success = false, retries = 0;
+        while (!success && retries < maxRetries)
         {
-            _issuer = mlid;
-            _client = new _issuer.Client({
-                client_id: 'portal-server',
-                client_secret: secrets.IDENTITY_PORTAL_CLIENT_SECRET
-            });
-            _client.CLOCK_TOLERANCE = 5;
-        })
-        .catch((error: any) => console.error(`ERROR: ${error}\n at auth.initAuth`));
+            try
+            {
+                _issuer = await Issuer.discover(settings.IDENTITY_URL);
+
+                _userClient = new _issuer.Client({
+                    client_id: 'portal-server',
+                    client_secret: secrets.IDENTITY_PORTAL_CLIENT_SECRET
+                });
+                _userClient.CLOCK_TOLERANCE = 5;
+
+                _systemClient = new _issuer.Client({
+                    client_id: 'portal-system',
+                    client_secret: secrets.IDENTITY_PORTAL_CLIENT_SECRET
+                });
+                _userClient.CLOCK_TOLERANCE = 5;
+
+                systemClientCredentials = Buffer
+                    .from(`portal-system:${secrets.IDENTITY_PORTAL_CLIENT_SECRET}`)
+                    .toString('base64');
+                systemClientOptions = querystring.stringify({
+                    grant_type: 'client_credentials',
+                    scope: 'schemes-querier'
+                });
+                await refreshSystem();
+                success = !!_system;
+            }
+            catch (error)
+            {
+                console.error(`ERROR: ${error}\n at auth.initAuth`);
+                await timeout(1000 + 1000 * retries);
+            }
+            finally
+            {
+                retries++;
+            }
+        }
+        if (!success)
+        {
+            throw new Error('Faild to initialize auth');
+        }
+    }
+}
+
+export function getSystem(): System
+{
+    return {
+        access_token: _system.access_token
+    };
 }
 
 export interface AuthParams
@@ -47,9 +95,9 @@ export function getSignInUrl({
     settings: settings
 }: AuthParams): string | null
 {
-    if (_client)
+    if (_userClient)
     {
-        return _client.authorizationUrl({
+        return _userClient.authorizationUrl({
             redirect_uri: signInCallbackUrl(settings),
             response_type: 'code id_token',
             grant_types: 'authorization_code implicit',
@@ -65,14 +113,14 @@ export function getSignInUrl({
 export async function signOut(sessionId: string, settings: Settings): Promise<string | null>
 {
     const tokens = _tokens.get(sessionId);
-    if (tokens && _client)
+    if (tokens && _userClient)
     {
         _tokens.delete(sessionId);
         try
         {
             await Promise.all([
-                tokens.access_token ? _client.revoke(tokens.access_token, 'access_token') : undefined,
-                tokens.refresh_token ? _client.revoke(tokens.refresh_token, 'refresh_token') : undefined,
+                tokens.access_token ? _userClient.revoke(tokens.access_token, 'access_token') : undefined,
+                tokens.refresh_token ? _userClient.revoke(tokens.refresh_token, 'refresh_token') : undefined,
             ]);
         }
         catch (err)
@@ -104,12 +152,12 @@ export async function handleSignInCallback({
     params: params
 }: AuthParams): Promise<User | null>
 {
-    if (_client)
+    if (_userClient)
     {
         try
         {
-            _tokens.set(sessionId, await _client.authorizationCallback(
-                signInCallbackUrl(settings), _client.callbackParams(params), { nonce, state }));
+            _tokens.set(sessionId, await _userClient.authorizationCallback(
+                signInCallbackUrl(settings), _userClient.callbackParams(params), { nonce, state }));
             return getUser(sessionId);
         }
         catch (error)
@@ -136,22 +184,75 @@ export function getUser(sessionId: string): User | null
     return null;
 }
 
-export async function refreshUser(sessionId: string): Promise<any>
+export async function refreshUser(sessionId: string, maxRetries = 3): Promise<User | null>
 {
     const tokens = _tokens.get(sessionId);
-    if (tokens && _client)
+    if (tokens && _userClient)
     {
-        try
+        let result: any = null, retries = 0;
+        while (!result && retries < maxRetries)
         {
-            _tokens.set(sessionId, await _client.refresh(tokens));
-            return getUser(sessionId);
+            try
+            {
+                result = await _userClient.refresh(tokens);
+            }
+            catch (error)
+            {
+                console.error(`ERROR: ${error}\n at auth.refreshUser`);
+                await timeout(1000 + 500 * retries);
+            }
+            finally
+            {
+                retries++;
+            }
         }
-        catch (error)
-        {
-            console.error(`ERROR: ${error}\n at auth.refreshUser`);
-        }
+        _tokens.set(sessionId, result || tokens);
+        return getUser(sessionId);
     }
     return null;
 }
+
+export async function refreshSystem(maxRetries = 3): Promise<System>
+{
+    let result: any = null, retries = 0;
+    while (!result && retries < maxRetries)
+    {
+        try
+        {
+            result = await fetch(_issuer.token_endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': `Basic ${systemClientCredentials}`
+                },
+                body: systemClientOptions
+            }).then((resp: Response) => resp.json());
+        }
+        catch (error)
+        {
+            console.error(`ERROR: ${error}\n at auth.refreshSystem`);
+            await timeout(1000 + 500 * retries);
+        }
+        finally
+        {
+            retries++;
+        }
+    }
+    if (result && _system)
+    {
+        try
+        {
+            await _systemClient.revoke(_system.access_token, 'access_token');
+        }
+        catch (error)
+        {
+            console.error(`ERROR: Faild to revoke system token.\n${error}`);
+        }
+    }
+    _system = result || _system;
+    return getSystem();
+}
+
+const timeout = (ms: number) => new Promise(res => setTimeout(res, ms));
 
 

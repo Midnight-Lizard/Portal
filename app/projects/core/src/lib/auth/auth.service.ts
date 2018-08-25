@@ -6,10 +6,12 @@ import { first, delay } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 
 import { User } from './user';
+import { System } from './system';
 import { AuthRootState } from '../store/auth/auth.state';
 import * as AuthActions from '../store/auth/auth.actions';
 import { SideService } from '../side.service';
 import { AuthConstants } from './auth.constants';
+import { SettingsService } from '../settings/settings.service';
 
 @Injectable({
     providedIn: 'root'
@@ -21,10 +23,11 @@ export class AuthService
         private readonly baseUrl: string,
         private readonly http: HttpClient,
         cookieService: CookieService,
+        settingsService: SettingsService,
         env: SideService,
         store$: Store<AuthRootState>)
     {
-        if (env.isBrowserSide)
+        if (env.isBrowserSide && settingsService.getSettings().USE_AUTH)
         {
             store$.pipe(
                 select(x => x.AUTH.user),
@@ -37,12 +40,26 @@ export class AuthService
                         store$.dispatch(new AuthActions.RefreshUser({ immediately: !user }));
                     }
                 });
+
+            store$.pipe(
+                select(x => x.AUTH.system),
+                delay(1000),
+                first())
+                .subscribe(system =>
+                {
+                    store$.dispatch(new AuthActions.RefreshSystem({ immediately: !system }));
+                });
         }
     }
 
     public refreshUser(): Observable<User>
     {
         return this.http.post<User>(this.urlJoin(this.baseUrl, 'refresh-user'), null);
+    }
+
+    public refreshSystem(): Observable<System>
+    {
+        return this.http.post<System>(this.urlJoin(this.baseUrl, 'refresh-system'), null);
     }
 
     private urlJoin(...urlParts: string[])

@@ -2,9 +2,16 @@
     "version": "0.2.0",
     "compounds": [
         {
-            "name": "ng ssr:node/chrome",
+            "name": "ng ssr:node:local/chrome",
             "configurations": [
-                "ng ssr:node",
+                "ng ssr:node:local",
+                "Chrome launch"
+            ]
+        },
+        {
+            "name": "ng ssr:node:kube/chrome",
+            "configurations": [
+                "ng ssr:node:kube",
                 "Chrome launch"
             ]
         },
@@ -21,7 +28,7 @@
             "name": "Chrome to Minikube",
             "type": "chrome",
             "request": "launch",
-            "url": "http://192.168.1.35:31565/schemes",
+            "url": "http://192.168.1.44:31565/schemes",
             "webRoot": "${workspaceFolder}/app",
             "userDataDir": false,
             "runtimeArgs": [
@@ -86,7 +93,7 @@
             ]
         },
         {
-            "name": "ng ssr:node",
+            "name": "ng ssr:node:local",
             "type": "node",
             "request": "launch",
             "cwd": "${workspaceFolder}/shell",
@@ -97,8 +104,31 @@
             "internalConsoleOptions": "neverOpen",
             "env": {
                 "PORT": "7000",
+                "USE_AUTH": "true",
                 "IDENTITY_URL": "http://localhost:7002",
-                "PORTAL_URL": "http://localhost:7000"
+                "PORTAL_URL": "http://localhost:7000",
+                "SCHEMES_QUERIER_URL": "http://localhost:7010"
+            },
+            "runtimeArgs": [
+                "./debug-ssr-with-secrets.sh"
+            ]
+        },
+        {
+            "name": "ng ssr:node:kube",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/shell",
+            "runtimeExecutable": "bash",
+            "port": 9229,
+            "protocol": "inspector",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "env": {
+                "PORT": "7000",
+                "USE_AUTH": "true",
+                "IDENTITY_URL": "http://192.168.1.44:32006",
+                "PORTAL_URL": "http://localhost:7000",
+                "SCHEMES_QUERIER_URL": "http://192.168.1.44:31005"
             },
             "runtimeArgs": [
                 "./debug-ssr-with-secrets.sh"

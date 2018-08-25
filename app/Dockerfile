@@ -9,7 +9,8 @@ COPY ./*.json ./
 COPY ./projects ./projects
 ARG BUILD_LIBS_CMD="build:prod:libs"
 RUN npm run ${BUILD_LIBS_CMD}
-COPY . .
+COPY ./*.* ./
+COPY ./src ./src
 ARG BUILD_CMD="build:prod"
 RUN npm run ${BUILD_CMD}
 
@@ -38,6 +39,7 @@ RUN npm run test:ci:libs
 COPY . .
 RUN npm run test:ci
 COPY --from=ng-build /build/dist ./dist
+COPY ./e2e ./e2e
 RUN npm run e2e:ci
 
 #===========================================#

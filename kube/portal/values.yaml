@@ -15,6 +15,8 @@ service:
 secrets:
   sessionSecret: "base64 encoded value"
 env:
+  USE_AUTH: true
   IDENTITY_URL: http://identity.midnight-lizard.org
   PORTAL_URL: http://midnight-lizard.org
   SCHEMES_QUERIER_URL: http://shemes-querier.midnight-lizard.org
+  PORTAL_AUTH_REFRESH_INTERVAL: 240000

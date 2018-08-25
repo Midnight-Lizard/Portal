@@ -24,7 +24,7 @@ import { AssetsInterceptor } from './assets-interceptor';
     providers: [{
         provide: INITIAL_STATE,
         useFactory: loadServerInitialState,
-        deps: ['USER']
+        deps: ['USER', 'SYSTEM']
     }, {
         provide: HTTP_INTERCEPTORS,
         useClass: AssetsInterceptor,

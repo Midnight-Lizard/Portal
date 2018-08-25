@@ -1,16 +1,18 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { TransferState } from '@angular/platform-browser';
 import { Apollo } from 'apollo-angular';
-import { HttpLink } from 'apollo-angular-link-http';
+import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
 
-import { nameOfClass } from 'testing';
-import { SettingsService } from 'core';
+import { nameOfClass, TestSchedulerStub } from 'testing';
+import { SettingsService, AuthRootState } from 'core';
 
 import { SchemesService } from './schemes.service';
 import { SchemeSide } from '../model/scheme-side';
 import { SchemesList } from '../model/schemes-lists';
 import { searchQuery, detailsQuery } from './schemes.queries';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { HttpClient } from '@angular/common/http';
 
 describe(nameOfClass(SchemesService), function (this: {
     apolloStub: jasmine.SpyObj<Apollo>,
@@ -22,30 +24,29 @@ describe(nameOfClass(SchemesService), function (this: {
     {
         this.apolloStub = jasmine.createSpyObj<Apollo>('ApolloStub',
             ['query', 'create']);
-        this.httpLinkStub = jasmine.createSpyObj<HttpLink>('HttpLinkStub',
-            Object.keys(HttpLink.prototype));
         this.apolloStub.query.and.returnValue(new Subject());
 
         TestBed.configureTestingModule({
+            imports: [HttpLinkModule],
             providers: [
                 SchemesService, SettingsService, TransferState,
                 { provide: Apollo, useValue: this.apolloStub },
-                { provide: HttpLink, useValue: this.httpLinkStub }
+                { provide: HttpClient, useValue: {} },
+                {
+                    provide: Store, useValue: new BehaviorSubject<AuthRootState>({
+                        AUTH:
+                        {
+                            user: null,
+                            system: { access_token: '' }
+                        }
+                    })
+                }
             ]
         });
 
         this.schemesService = TestBed.get(SchemesService) as SchemesService;
 
-    });
-
-    it('should create apollo client', () =>
-    {
-        expect(this.apolloStub.create).toHaveBeenCalledTimes(1);
-    });
-
-    it('should create HttpLink for GraphQL Api endpoint', () =>
-    {
-        expect(this.httpLinkStub.create).toHaveBeenCalledWith({ uri: jasmine.stringMatching(/query/) });
+        TestSchedulerStub.init();
     });
 
     it('should use apollo to search schemes', () =>
@@ -62,7 +63,8 @@ describe(nameOfClass(SchemesService), function (this: {
             { query: variables.query, side: variables.side },
             variables.list, variables.pageSize,
             { claims: { sub: variables.publisherId } } as any,
-            variables.cursor);
+            variables.cursor)
+            .subscribe().unsubscribe();
         expect(this.apolloStub.query).toHaveBeenCalledWith({
             query: searchQuery, variables
         });
@@ -71,7 +73,8 @@ describe(nameOfClass(SchemesService), function (this: {
     it('should use apollo to get schemes details', () =>
     {
         const variables = { id: 'test-id' };
-        this.schemesService.getPublicSchemeDetails(variables.id);
+        this.schemesService.getPublicSchemeDetails(variables.id)
+            .subscribe().unsubscribe();
         expect(this.apolloStub.query).toHaveBeenCalledWith({
             query: detailsQuery, variables
         });

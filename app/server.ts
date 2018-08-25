@@ -29,7 +29,7 @@ const settings: Settings = { ...defaultSettings };
 const secrets = new auth.Secrets();
 Object.keys(settings)
     .filter(set => set in process.env)
-    .forEach((set: keyof Settings) => settings[set] = process.env[set]!);
+    .forEach((set: keyof Settings) => (settings as any)[set] = process.env[set]!);
 Object.keys(secrets)
     .filter(sec => sec in process.env)
     .forEach((sec: keyof auth.Secrets) => secrets[sec] = process.env[sec]!);
@@ -143,6 +143,12 @@ auth.initAuth(settings, secrets).then(() =>
             res.json(user);
         });
 
+        app.post('/refresh-system', async (req, res, next) =>
+        {
+            const system = await auth.refreshSystem();
+            res.json(system);
+        });
+
         app.post('/signedin', async (req, res, next) =>
         {
             const { id: sessionId, state, nonce, returnUrl } = req.session as any;
@@ -193,6 +199,7 @@ auth.initAuth(settings, secrets).then(() =>
                 { provide: 'ORIGIN_URL', useValue: settings.PORTAL_URL },
                 { provide: 'SETTINGS', useValue: settings },
                 { provide: 'USER', useValue: auth.getUser(req.session!.id) },
+                { provide: 'SYSTEM', useValue: auth.getSystem() },
                 { provide: 'MEDIA', useValue: req.cookies[AppConstants.Cookies.Media] },
                 { provide: 'DIST_PATH', useValue: DIST_FOLDER }
             ]

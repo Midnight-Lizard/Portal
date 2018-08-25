@@ -2,7 +2,7 @@
 import { ActionReducerMap } from '@ngrx/store';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
 
-import { User, AuthRootState, authInitialState } from 'core';
+import { User, AuthRootState, authInitialState, System } from 'core';
 import { appReducer } from './app.reducer';
 
 export interface RootState
@@ -28,8 +28,8 @@ export function loadBrowserInitialState(serverState: TransferState): RootState
 {
     return serverState.get(STORE_STATE_KEY, initialState);
 }
-export function loadServerInitialState(user: User): RootState
+export function loadServerInitialState(user: User, system: System): RootState
 {
-    initialState.AUTH = { user };
+    initialState.AUTH = { user, system };
     return initialState;
 }

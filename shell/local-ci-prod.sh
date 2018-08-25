@@ -17,4 +17,5 @@ secret=$(echo -n not-a-secret | base64 -w 0);
     --set env.IDENTITY_URL=http://192.168.1.44:32006/ \
     --set env.PORTAL_URL=http://192.168.1.44:31565/ \
     --set env.SCHEMES_QUERIER_URL=http://192.168.1.44:31005/ \
+    --set env.PORTAL_AUTH_REFRESH_INTERVAL=240000 \
     --set secrets.sessionSecret=$secret \

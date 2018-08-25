@@ -3,9 +3,11 @@
         <button mat-icon-button matPrefix matTooltip="Search">
             <mat-icon>search</mat-icon>
         </button>
-        <input matInput formControlName="query" placeholder="Search query">
+        <input matInput formControlName="query"
+               placeholder="Search query"
+               matTooltip="'*' = ANY; '+' = AND; '-' = NOT; '|' = OR">
         <button mat-icon-button matSuffix matTooltip="Clear filter" 
-            (click)="filtersForm.get('name')!.setValue('')">
+            (click)="filtersForm.get('query')!.setValue('')">
             <mat-icon>clear</mat-icon>
         </button>
     </mat-form-field>
