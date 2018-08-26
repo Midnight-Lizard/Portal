@@ -107,9 +107,9 @@ auth.initAuth(settings, secrets).then(() =>
         maxAge: '1y'
     }));
     // prerendered routes
-    app.get(STATIC_ROUTES, express.static(join(DIST_FOLDER, 'portal-static'), {
-        maxAge: '1y'
-    }));
+    // app.get(STATIC_ROUTES, express.static(join(DIST_FOLDER, 'portal-static'), {
+    //     maxAge: '1y'
+    // }));
 
     { // auth
         app.get('/signin', async (req, res, next) =>
