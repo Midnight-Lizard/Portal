@@ -3,7 +3,7 @@
  */
 
 export * from './lib/core.module';
-export * from './lib/side.service';
+export * from './lib/side/side.service';
 
 export * from './lib/settings/settings';
 export * from './lib/settings/settings.service';
@@ -26,3 +26,9 @@ export * from './lib/store/auth/auth.actions';
 export * from './lib/store/info/info.actions';
 export * from './lib/store/info/info.action-sets';
 export * from './lib/store/info/info.state';
+
+export * from './lib/consent/accept-consent.guard';
+export * from './lib/consent/validate-consent.guard';
+export * from './lib/consent/consent-cookie.service';
+export * from './lib/consent/consent.service';
+export * from './lib/consent/no-consent.action';

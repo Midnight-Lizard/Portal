@@ -12,13 +12,42 @@
           (click)="showMessageDetails()">
     DETAILS
   </button>
-  <a *ngFor="let act of msg.actions"
-     mat-button
-     fxFlexAlign="center"
-     [matTooltip]="act.description"
-     [routerLink]="act.route">
-    {{act.title}}
-  </a>
+  <ng-template ngFor
+               let-act
+               [ngForOf]="msg.actions">
+    <a *ngIf="act.infoButtonType === 'raised'"
+       mat-raised-button
+       fxFlexAlign="center"
+       [color]="act.color || 'primary'"
+       [matTooltip]="act.description"
+       [routerLink]="act.route">
+      {{act.title}}
+    </a>
+    <a *ngIf="act.infoButtonType === 'stroked'"
+       mat-stroked-button
+       fxFlexAlign="center"
+       [color]="act.color || 'primary'"
+       [matTooltip]="act.description"
+       [routerLink]="act.route">
+      {{act.title}}
+    </a>
+    <a *ngIf="act.infoButtonType === 'flat'"
+       mat-flat-button
+       fxFlexAlign="center"
+       [color]="act.color || 'primary'"
+       [matTooltip]="act.description"
+       [routerLink]="act.route">
+      {{act.title}}
+    </a>
+    <a *ngIf="!act.infoButtonType || act.infoButtonType === 'basic'"
+       mat-button
+       fxFlexAlign="center"
+       [color]="act.color || 'primary'"
+       [matTooltip]="act.description"
+       [routerLink]="act.route">
+      {{act.title}}
+    </a>
+  </ng-template>
   <button mat-icon-button
           fxFlexAlign="center"
           matTooltip="Dismiss"

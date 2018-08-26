@@ -6,10 +6,12 @@ import { NotificationMessage } from 'core';
 @Component({
     selector: 'ml-details-bar',
     templateUrl: './details-bar.component.html',
-    styleUrls: ['./details-bar.component.scss']
+    styleUrls: ['./details-bar.component.scss'],
 })
 export class DetailsBarComponent
 {
+    public readonly lineBreaksRegExp = /\\n|\\r|<br\/>/g;
+
     constructor(
         @Inject(MAT_BOTTOM_SHEET_DATA)
         readonly msg: NotificationMessage,

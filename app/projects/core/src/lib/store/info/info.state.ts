@@ -37,6 +37,24 @@ export interface NotificationAction
     readonly description: string;
     readonly route: string;
     readonly routeParams?: Params;
+    readonly color?: ActionColor;
+    readonly infoButtonType?: ActionButtonType;
+    readonly detailsButtonType?: ActionButtonType;
+}
+
+export enum ActionColor
+{
+    Normal = 'primary',
+    Accent = 'accent',
+    Warn = 'warn',
+}
+
+export enum ActionButtonType
+{
+    Basic = 'basic',
+    Raised = 'raised',
+    Stroked = 'stroked',
+    Flat = 'flat',
 }
 
 export enum NotificationLevel

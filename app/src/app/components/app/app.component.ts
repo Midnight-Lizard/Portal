@@ -1,9 +1,8 @@
 import { Component, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
-import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 
-import { SideService } from 'core';
+import { SideService, ConsentCookieService, NoConsentAction } from 'core';
 import { SvgIconService } from 'shared';
 import { AppConstants } from '../../app.constants';
 
@@ -22,7 +21,7 @@ export class AppComponent implements OnDestroy
 
     constructor(
         media: ObservableMedia,
-        cookieService: CookieService,
+        cookieService: ConsentCookieService,
         iconService: SvgIconService,
         readonly env: SideService)
     {
@@ -31,7 +30,8 @@ export class AppComponent implements OnDestroy
         {
             if (env.isBrowserSide)
             {
-                cookieService.set(AppConstants.Cookies.Media, change.mqAlias, 30, '/');
+                cookieService.set(AppConstants.Cookies.Media, change.mqAlias,
+                    NoConsentAction.SilentlySkipOperation, 30, '/');
             }
             if (/xs|sm/.test(change.mqAlias))
             {

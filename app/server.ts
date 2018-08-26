@@ -139,7 +139,7 @@ auth.initAuth(settings, secrets).then(() =>
         app.post('/refresh-user', async (req, res, next) =>
         {
             const user = await auth.refreshUser(req.session!.id);
-            setAuthCookie(res, user);
+            setAuthCookie(req, res, user);
             res.json(user);
         });
 
@@ -158,7 +158,7 @@ auth.initAuth(settings, secrets).then(() =>
 
             const user = await auth.handleSignInCallback({ sessionId, state, nonce, settings, params: req });
 
-            setAuthCookie(res, user);
+            setAuthCookie(req, res, user);
 
             res.redirect(returnUrl || '/');
 
@@ -175,7 +175,7 @@ auth.initAuth(settings, secrets).then(() =>
             }
             else
             {
-                setAuthCookie(res, null);
+                setAuthCookie(req, res, null);
                 res.redirect(req.session!.returnUrl);
                 return next();
             }
@@ -185,7 +185,7 @@ auth.initAuth(settings, secrets).then(() =>
         {
             const { returnUrl } = req.session as any;
             delete req.session!.returnUrl;
-            setAuthCookie(res, null);
+            setAuthCookie(req, res, null);
             res.redirect(returnUrl || '/');
         });
     } // auth end
@@ -213,9 +213,9 @@ auth.initAuth(settings, secrets).then(() =>
     });
 });
 
-function setAuthCookie(res: express.Response, user: User | null)
+function setAuthCookie(req: express.Request, res: express.Response, user: User | null)
 {
-    if (!res.headersSent)
+    if (!res.headersSent && req.cookies['consent'])
     {
         res.cookie(AuthConstants.Cookies.SignedIn, user ? 'true' : 'false', {
             maxAge: H24, httpOnly: false

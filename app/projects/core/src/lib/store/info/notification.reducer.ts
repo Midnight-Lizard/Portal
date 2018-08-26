@@ -7,7 +7,7 @@ export function notificationReducer(state: NotificationState, action: InfoAction
     {
         case InfoActionTypes.NotifyUser: {
             const newMessage = {
-                id: action.payload.id || (state.messages && state.messages.length ? state.messages[0].id! + 1 : 0),
+                id: action.payload.id || Math.random(),
                 ...action.payload
             };
             return {

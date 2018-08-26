@@ -6,7 +6,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { CookieService } from 'ngx-cookie-service';
 import { NgStringPipesModule } from 'ngx-pipes';
 import
 {
@@ -16,10 +15,11 @@ import
 import
 {
     CoreModule as PortalCoreModule, defaultSettings, InfoFeature,
-    infoReducers, infoInitialState
+    infoReducers, infoInitialState, ConsentService
 } from 'core';
 import { TestingModule } from 'testing';
 import { rootReducers } from './store/app.state';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
     imports: [
@@ -36,7 +36,7 @@ import { rootReducers } from './store/app.state';
     ],
     exports: [
         PortalSharedModule, PortalLoadingModule, FormsModule,
-        NgStringPipesModule, TestingModule
+        NgStringPipesModule, TestingModule, PortalCoreModule
     ]
 })
 export class AppTestingModule
@@ -45,9 +45,8 @@ export class AppTestingModule
     {
         return {
             ngModule: AppTestingModule,
-            providers: [
+            providers: [CookieService, ConsentService,
                 TestingModule.forRoot().providers!,
-                CookieService,
                 { provide: 'ORIGIN_URL', useValue: '/' },
                 {
                     provide: TransferState, useValue: new Map<string, any>([

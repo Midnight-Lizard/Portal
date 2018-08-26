@@ -6,7 +6,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { CookieService } from 'ngx-cookie-service';
 import { NgStringPipesModule } from 'ngx-pipes';
 import
 {
@@ -47,7 +46,7 @@ import { InfoNavComponent } from './components/info-nav/info-nav.component';
         StoreModule.forRoot(rootReducers),
         EffectsModule.forRoot([AppEffects]),
     ],
-    providers: [CookieService],
+    providers: [],
 })
 export class AppSharedModule
 {

@@ -12,6 +12,7 @@ import
     MatBottomSheetModule, MatDialogModule, MatSnackBar
 } from '@angular/material';
 import { SvgIconService } from './svg-icon.service';
+import { ReplacePipe } from './pipes/string/replace.pipe';
 
 export const materialModules = [
     MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
@@ -22,6 +23,8 @@ export const materialModules = [
     MatDialogModule
 ];
 
+export const pipes = [ReplacePipe];
+
 @NgModule({
     imports: [
         materialModules,
@@ -30,8 +33,8 @@ export const materialModules = [
         FlexLayoutModule,
         ReactiveFormsModule,
     ],
-    declarations: [],
-    exports: [materialModules]
+    declarations: [pipes],
+    exports: [materialModules, pipes]
 })
 export class SharedModule
 {

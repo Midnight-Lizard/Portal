@@ -1,6 +1,5 @@
 ﻿import { Injectable, Inject, Optional } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { first, delay } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -9,9 +8,10 @@ import { User } from './user';
 import { System } from './system';
 import { AuthRootState } from '../store/auth/auth.state';
 import * as AuthActions from '../store/auth/auth.actions';
-import { SideService } from '../side.service';
+import { SideService } from '../side/side.service';
 import { AuthConstants } from './auth.constants';
 import { SettingsService } from '../settings/settings.service';
+import { ConsentCookieService } from '../consent/consent-cookie.service';
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +22,7 @@ export class AuthService
         @Inject('ORIGIN_URL')
         private readonly baseUrl: string,
         private readonly http: HttpClient,
-        cookieService: CookieService,
+        cookieService: ConsentCookieService,
         settingsService: SettingsService,
         env: SideService,
         store$: Store<AuthRootState>)

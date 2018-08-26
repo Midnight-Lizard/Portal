@@ -2,9 +2,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material';
 
 import { nameOfClass } from 'testing';
-import { NotificationMessage, NotificationLevel } from 'core';
+import { NotificationMessage, NotificationLevel, ConsentService } from 'core';
 import { DetailsBarComponent } from './details-bar.component';
 import { AppTestingModule } from '../../app.testing.module';
+import { CookieService } from 'ngx-cookie-service';
 
 describe(nameOfClass(DetailsBarComponent), () =>
 {
