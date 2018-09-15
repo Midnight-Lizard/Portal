@@ -65,7 +65,6 @@ export class SchemesServiceStub
                     favorited: Math.random() > 0.5,
                     liked: Math.random() > 0.5,
                     likes: Math.floor(Math.random() * 100),
-                    side: side,
                     screenshots: [{
                         title: '',
                         urls: {
@@ -90,7 +89,6 @@ export class SchemesServiceStub
             favorited: Math.random() > 0.5,
             liked: Math.random() > 0.5,
             likes: Math.floor(Math.random() * 100),
-            side: SchemeSide.Dark,
             screenshots: [{
                 title: '',
                 urls: {

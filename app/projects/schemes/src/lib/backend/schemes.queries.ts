@@ -5,7 +5,6 @@ export const detailsQuery = gql`
     details(id: $id) {
       id
       name
-      side
       description
       publisher {
         id
@@ -92,7 +91,6 @@ export const searchQuery = gql`
       results {
         id
         name
-        side
         publisher {
           id
           name

@@ -16,11 +16,6 @@
               (click)="expand(scheme)"
               matTooltip="Open details">
       <mat-card-header>
-        <!-- <mat-icon mat-card-avatar
-                  fxFlexAlign="center"
-                  [matTooltip]="scheme.side === 'dark' ? 'Dark color scheme' : 'Light color scheme'">
-          {{scheme.side === 'dark' ? 'brightness_3' : 'wb_sunny'}}
-        </mat-icon> -->
         <span mat-card-title>{{scheme.name}}</span>
         <span mat-card-subtitle
               [matTooltip]="scheme.publisher.community ? 'Community member' : 'Midnight Lizard team'">

@@ -1,5 +1,4 @@
 import { Publisher } from './publisher';
-import { SchemeSide } from './scheme-side';
 import { Screenshot } from './screenshot';
 import { ActivatedRouteSnapshot } from '@angular/router';
 
@@ -9,7 +8,6 @@ export interface PublicScheme
 {
     readonly id: PublicSchemeId;
     readonly publisher: Publisher;
-    readonly side: SchemeSide;
     readonly name: string;
     readonly screenshots: Screenshot[];
     readonly liked: boolean;

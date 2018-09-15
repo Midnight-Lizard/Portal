@@ -3,13 +3,14 @@ import { MediaChange } from '@angular/flex-layout';
 import
 {
     Subject, NextObserver, ErrorObserver, CompletionObserver,
-    Subscribable, Subscription, BehaviorSubject, Observable
+    Subscribable, Subscription, BehaviorSubject, Observable,
+    PartialObserver
 } from 'rxjs';
 
 export type MqAlias = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xx' | 'default';
 
 @Injectable()
-export class ObservableMediaStub implements Subscribable<MediaChange>
+export class ObservableMediaStub // implements Subscribable<MediaChange>
 {
     protected readonly _mediaChangeSubject = new BehaviorSubject<MediaChange>(new MediaChange(true, 'lg', 'lg', 'lg'));
 
