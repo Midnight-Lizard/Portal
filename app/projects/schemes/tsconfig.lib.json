@@ -6,7 +6,6 @@
     "module": "es2015",
     "moduleResolution": "node",
     "declaration": true,
-    "declarationMap": true,
     "sourceMap": true,
     "inlineSources": true,
     "emitDecoratorMetadata": true,
