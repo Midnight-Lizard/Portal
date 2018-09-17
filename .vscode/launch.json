@@ -128,7 +128,8 @@
                 "USE_AUTH": "true",
                 "IDENTITY_URL": "http://192.168.1.44:32006",
                 "PORTAL_URL": "http://localhost:7000",
-                "SCHEMES_QUERIER_URL": "http://192.168.1.44:31005"
+                "SCHEMES_QUERIER_URL": "http://192.168.1.44:31005",
+                "PORTAL_AUTH_REFRESH_INTERVAL": "86400000"
             },
             "runtimeArgs": [
                 "./debug-ssr-with-secrets.sh"
