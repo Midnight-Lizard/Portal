@@ -40,6 +40,7 @@
     "test:ci": "ng test portal --watch=false --no-progress --code-coverage=true --browsers ChromeCI",
     "test:ci:libs": "npm run test:schemes -- --watch=false --no-progress --code-coverage=true --browsers ChromeCI && npm run test:core -- --watch=false --no-progress --code-coverage=true --browsers ChromeCI && npm run test:shared -- --watch=false --no-progress --code-coverage=true --browsers ChromeCI",
     "───E2E───": "#─────────────────E2E─────────────────────────#",
+    "webdriver:update": "node node_modules/protractor/bin/webdriver-manager update",
     "e2e": "ng e2e",
     "e2e:ci": "ng e2e --prod",
     "──CLEAN──": "#────────────────CLEAN────────────────────────#",
