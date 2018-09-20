@@ -15,12 +15,14 @@ import { SchemesService } from './backend/schemes.service';
 import { SchemesEffects } from './store/schemes.effects';
 import { SchemesThumbnailsComponent } from './components/thumbnails/thumbnails.component';
 import { SchemeDetailsComponent } from './components/details/details.component';
+import { SchemeSliderComponent } from './components/slider/slider.component';
 
 @NgModule({
     declarations: [
         schemesRoutingComponents,
         SchemesThumbnailsComponent,
-        SchemeDetailsComponent
+        SchemeDetailsComponent,
+        SchemeSliderComponent
     ],
     imports: [
         CommonModule, FormsModule, FlexLayoutModule, ReactiveFormsModule,

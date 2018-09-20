@@ -1,0 +1,93 @@
+@import 'theme.scss';
+
+:host {
+    position: relative;
+}
+
+.screenshot {
+    --ml-ignore:true;
+    --bg-color: var(--ml-main-scrollbar-thumb-normal-color,rgba(128,128,128));
+    --img-color: rgba(0,0,0,0.3);
+    --deg-one: 45deg;
+    --deg-two: -45deg;
+    background-image:
+        linear-gradient(to top, var(--bg-color) 15%, transparent 0),
+        radial-gradient(circle at 40% 35%, var(--img-color) 7%, transparent 0),
+        linear-gradient(var(--deg-one), transparent 60%, var(--bg-color) 60%),
+        linear-gradient(var(--deg-two), transparent 60%, var(--bg-color) 60%),
+        linear-gradient(var(--deg-one), var(--img-color) 31%, transparent 31%),
+        linear-gradient(var(--deg-two), var(--img-color) 42%, transparent 42%),
+        linear-gradient(var(--bg-color) 100%, transparent 0);
+}
+
+@media (min-aspect-ratio: 8/5) {
+    .screenshot {
+        height: 65vh;
+    }
+}
+
+@media (max-aspect-ratio: 8/5) {
+    .screenshot {
+        width: 70vw;
+        height: 100%;
+    }
+}
+
+.nav {
+    position: absolute;
+
+    &.prev {
+        left: 3%;
+        top: calc(100% / 2 - 10px);
+    }
+
+    &.next {
+        right: 3%;
+        top: calc(100% / 2 - 10px);
+    }
+
+    &.toggles {
+        bottom: 0;
+        // left: calc(100% / 2 - 10px);
+    }
+}
+
+.mat-button-toggle-group {
+    width: 70%;
+    text-align: center;
+    margin: 2% 15%;
+}
+
+.mat-button-toggle {
+    width: 100%;
+    text-align: center;
+}
+
+.mat-button-toggle:not(.mat-button-toggle-checked) {
+    color: $ml-text-color;
+    background-color: mat-color($ml-primary, 100);
+}
+
+.mat-button-toggle-checked:not(imp) {
+    background-color: mat-color($ml-accent, A400);
+    color: white;
+}
+
+.mat-button-toggle:first-child {
+    border-radius: 2px 0px 0px 2px;
+}
+
+.mat-button-toggle:last-child {
+    border-radius: 0px 2px 2px 0px;
+}
+
+form {
+    opacity: 0.5;
+    transition-property: opacity;
+    transition-duration: 200ms;
+    transition-timing-function: ease-out;
+}
+
+:host(:hover) form {
+    opacity: 1;
+}

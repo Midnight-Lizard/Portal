@@ -1,20 +1,6 @@
 @import 'theme.scss';
 
-.screenshot {
-    --ml-ignore:true;
-}
-
-@media (min-aspect-ratio: 8/5) {
-    .screenshot {
-        height: 65vh;
-    }
-}
-
 @media (max-aspect-ratio: 8/5) {
-    .screenshot {
-        width: 70vw;
-        height: 100%;
-    }
     .description.bottom {
         width: 70vw;
     }

@@ -1,25 +1,19 @@
-<ng-template ngFor
-             let-scheme
-             [ngForTrackBy]="trackById"
+<ng-template ngFor let-scheme [ngForTrackBy]="trackById"
              [ngForOf]="scheme$|async">
-  <div mat-dialog-title
-       fxLayout="row"
-       fxLayout.lt-sm="column"
+  <div mat-dialog-title fxLayout="row" fxLayout.lt-sm="column"
        fxLayoutGap.lt-sm="10px">
-    <div fxFlexAlign="center"
-         fxFlexAlign.lt-sm="start">
+    <div fxFlexAlign="center" fxFlexAlign.lt-sm="start">
       {{scheme.name}}
-      <div class="publisher"
-           [matTooltip]="scheme.publisher.community ? 'Community member' : 'Midnight Lizard team'">
+      <div class="publisher" [matTooltip]="scheme.publisher.community ? 'Community member' : 'Midnight Lizard team'">
         by {{scheme.publisher.name}}
-        <mat-icon color="accent">{{scheme.publisher.community ? 'people' : 'verified_user'}}</mat-icon>
+        <mat-icon color="accent">{{scheme.publisher.community
+          ? 'people' : 'verified_user'}}
+        </mat-icon>
       </div>
     </div>
     <s fxFlex></s>
-    <div fxLayout="row"
-         fxFlexAlign="center"
-         fxFlexAlign.lt-sm="end"
-         ngClass.lt-md="small">
+    <div fxLayout="row" fxFlexAlign="center"
+         fxFlexAlign.lt-sm="end" ngClass.lt-md="small">
       <!-- <button mat-icon-button
               class="command"
               #button
@@ -51,64 +45,43 @@
               (click)="toggleSchemeFavorited(scheme)">
         <mat-icon>{{scheme.favorited ? "favorite" : "favorite_border"}}</mat-icon>
       </button> -->
-      <button mat-icon-button
-              fxFlexAlign="center"
-              #schemeMenuTrigger
-              class="command"
-              matTooltip="More"
+      <button mat-icon-button fxFlexAlign="center"
+              #schemeMenuTrigger class="command" matTooltip="More"
               (menuClosed)="schemeMenuTrigger.focus()"
               [matMenuTriggerFor]="schemeMenu">
         <mat-icon>more_vert</mat-icon>
       </button>
-      <mat-menu #schemeMenu="matMenu"
-                xPosition="before"
+      <mat-menu #schemeMenu="matMenu" xPosition="before"
                 overlapTrigger="false">
-        <button mat-menu-item
-                matTooltip="Download color scheme file"
+        <button mat-menu-item matTooltip="Download color scheme file"
                 matTooltipPosition="left">
           <mat-icon>file_download</mat-icon>
           <span>Download</span>
         </button>
-        <button mat-menu-item
-                matTooltip="Share"
+        <button mat-menu-item matTooltip="Share"
                 matTooltipPosition="left">
           <mat-icon>share</mat-icon>
           <span>Share</span>
         </button>
       </mat-menu>
-      <button mat-raised-button
-              class="command mat-accent"
-              fxFlexAlign="center"
-              color="accent"
+      <button mat-raised-button class="command mat-accent"
+              fxFlexAlign="center" color="accent"
               [matTooltip]="'Add color scheme ‘' + scheme.name + '’ into Midnight Lizard extension in your browser'">
-        <span fxShow
-              fxHide.lt-md>ADD TO BROWSER</span>
-        <span fxHide
-              fxShow.lt-md>ADD</span>
+        <span fxShow fxHide.lt-md>ADD TO BROWSER</span>
+        <span fxHide fxShow.lt-md>ADD</span>
       </button>
     </div>
-    <button mat-icon-button
-            mat-dialog-close
-            matTooltip="Close color scheme details">
+    <button mat-icon-button mat-dialog-close matTooltip="Close color scheme details">
       <mat-icon>close</mat-icon>
     </button>
   </div>
   <hr class="title-separator">
-  <div fxLayout="row"
-       ngClass.lt-lg="scrollable-content"
+  <div fxLayout="row" ngClass.lt-lg="scrollable-content"
        ngClass.lt-sm="scrollable-content big-padding"
        fxLayout.lt-lg="column">
-    <img class="screenshot"
-         fxFlexAlign.lt-lg="center"
-         [src]="scheme.screenshots[0].urls.sm"
-         sizes="(max-width: 1280px) 70vw, 50vw"
-         [srcset]="scheme.screenshots[0].urls['xs'] + ' 640w,' +
-                   scheme.screenshots[0].urls['sm'] + ' 800w,' +
-                   scheme.screenshots[0].urls['md'] + ' 960w,' +
-                   scheme.screenshots[0].urls['lg'] + ' 1120w,' +
-                   scheme.screenshots[0].urls['xl'] + ' 1280w'">
-    <div ngClass.lt-lg="bottom"
-         fxFlexAlign.lt-lg="center"
+    <schemes-slider fxFlexAlign.lt-lg="center"
+                    [screenshots]="scheme.screenshots"></schemes-slider>
+    <div ngClass.lt-lg="bottom" fxFlexAlign.lt-lg="center"
          class="description">{{scheme.description}}</div>
   </div>
 </ng-template>

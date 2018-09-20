@@ -1,0 +1,25 @@
+<img *ngIf="screenshots" class="screenshot"
+     [src]="screenshots[current].urls['lg']"
+     sizes="(max-width: 1280px) 70vw, 50vw"
+     [srcset]="screenshots[current].urls['xs'] + ' 640w,' +
+               screenshots[current].urls['sm'] + ' 800w,' +
+               screenshots[current].urls['md'] + ' 960w,' +
+               screenshots[current].urls['lg'] + ' 1120w,' +
+               screenshots[current].urls['xl'] + ' 1280w'">
+<form [formGroup]="navForm" novalidate>
+  <button mat-mini-fab class="nav prev"
+          (click)="goToPrev()">
+    <mat-icon matTooltip="Previous screenshot">navigate_before</mat-icon>
+  </button>
+  <button mat-mini-fab class="nav next"
+          (click)="goToNext()">
+    <mat-icon matTooltip="Next screenshot">navigate_next</mat-icon>
+  </button>
+
+  <mat-button-toggle-group formControlName="current" color="accent" class="nav toggles">
+      <mat-button-toggle *ngFor="let x of screenshots; let i = index"
+                         [value]="i" matTooltipPosition="above"
+                         [matTooltip]="x.title">{{x.title}}
+      </mat-button-toggle>
+  </mat-button-toggle-group>
+</form>
