@@ -5,7 +5,12 @@
         </button>
         <input matInput formControlName="query"
                placeholder="Search query"
-               matTooltip="'*' = ANY; '+' = AND; '-' = NOT; '|' = OR">
+               matTooltip="*&emsp;any symbols
+               ~&emsp;word ending
+               +&emsp;AND
+               &ndash;&emsp;NOT
+               &thinsp;|&emsp;OR
+               ()&emsp;precedence">
         <button mat-icon-button matSuffix matTooltip="Clear filter" 
             (click)="filtersForm.get('query')!.setValue('')">
             <mat-icon>clear</mat-icon>

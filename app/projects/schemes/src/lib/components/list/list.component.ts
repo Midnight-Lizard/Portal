@@ -114,27 +114,30 @@ export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
 
     ngAfterViewInit(): void
     {
-        const self = this;
-
-        this.route.paramMap.pipe(
-            map(x => x.get('id')!),
-            filter(id => !!id),
-            takeUntil(self.disposed),
-            delay(0)
-        ).subscribe(id =>
+        if (this.env.isBrowserSide)
         {
-            self.dialog.open(SchemeDetailsComponent, {
-                maxWidth: '85vw',
-                maxHeight: '90vh',
-                autoFocus: false
-            })
-                .beforeClose()
-                .pipe(switchMap(_ => self.list$))
-                .subscribe(list =>
-                    self.router.navigate(['schemes', 'index', list, ''], {
-                        queryParamsHandling: 'preserve'
-                    }));
-        });
+            const self = this;
+
+            this.route.paramMap.pipe(
+                map(x => x.get('id')!),
+                filter(id => !!id),
+                takeUntil(self.disposed),
+                delay(0)
+            ).subscribe(id =>
+            {
+                self.dialog.open(SchemeDetailsComponent, {
+                    maxWidth: '85vw',
+                    maxHeight: '90vh',
+                    autoFocus: false
+                })
+                    .beforeClose()
+                    .pipe(switchMap(_ => self.list$))
+                    .subscribe(list =>
+                        self.router.navigate(['schemes', 'index', list, ''], {
+                            queryParamsHandling: 'preserve'
+                        }));
+            });
+        }
     }
 
     ngOnDestroy(): void

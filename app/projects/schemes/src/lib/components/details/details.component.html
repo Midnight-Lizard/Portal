@@ -100,7 +100,13 @@
        fxLayout.lt-lg="column">
     <img class="screenshot"
          fxFlexAlign.lt-lg="center"
-         [src]="scheme.screenshots[0].urls.lg">
+         [src]="scheme.screenshots[0].urls.sm"
+         sizes="(max-width: 1280px) 70vw, 50vw"
+         [srcset]="scheme.screenshots[0].urls['xs'] + ' 640w,' +
+                   scheme.screenshots[0].urls['sm'] + ' 800w,' +
+                   scheme.screenshots[0].urls['md'] + ' 960w,' +
+                   scheme.screenshots[0].urls['lg'] + ' 1120w,' +
+                   scheme.screenshots[0].urls['xl'] + ' 1280w'">
     <div ngClass.lt-lg="bottom"
          fxFlexAlign.lt-lg="center"
          class="description">{{scheme.description}}</div>

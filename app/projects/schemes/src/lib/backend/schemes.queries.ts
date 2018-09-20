@@ -13,9 +13,7 @@ export const detailsQuery = gql`
       }
       screenshots {
         title
-        urls {
-          lg
-        }
+        urls { xs sm md lg xl }
       }
       colorScheme {
         colorSchemeId
@@ -98,9 +96,7 @@ export const searchQuery = gql`
         }
         screenshots {
           title
-          urls {
-            sm
-          }
+          urls { xs sm md lg xl }
         }
         colorScheme {
           colorSchemeId
