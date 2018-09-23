@@ -1,45 +1,30 @@
 ﻿<mat-toolbar color="primary">
-  <button mat-icon-button
-          (click)="sidenavToggleClick.emit()"
-          matTooltip="Toggle navigation"
-          matTooltipPosition="right"
+  <button mat-icon-button (click)="sidenavToggleClick.emit()"
+          matTooltip="Toggle navigation" matTooltipPosition="right"
           class="mat-button mat-icon-button">
     <mat-icon>menu</mat-icon>
   </button>
-  <nav ngClass.lt-sm="small">
-    <a *ngFor="let item of items"
-       mat-button
-       routerLinkActive="active-link"
-       [ngClass]="item.class"
-       [matTooltip]="item.tooltip"
-       [routerLink]="[item.link]"
-       #state="routerLinkActive"
-       [fxHide.lt-sm]="!state.isActive"
-       [attr.badge]="item.badge">
-      <mat-icon *ngIf="item.link==='/home'"
-                class="logo"
+  <nav mat-tab-nav-bar color="accent" ngClass.lt-sm="small">
+    <a *ngFor="let item of items" mat-tab-link
+       routerLinkActive="active-link" [ngClass]="item.class"
+       [matTooltip]="item.tooltip" [routerLink]="[item.link]"
+       #state="routerLinkActive" [active]="state.isActive"
+       [fxHide.lt-sm]="!state.isActive" [attr.badge]="item.badge">
+      <mat-icon *ngIf="item.link==='/home'" class="logo"
                 svgIcon="midnight-lizard"></mat-icon>
       {{item.title}}
     </a>
   </nav>
   <span fxFlex></span>
-  <button mat-icon-button
-          [matMenuTriggerFor]="menu"
-          matTooltip="Menu"
-          fxHide
-          ngClass.lt-sm="show"
+  <button mat-icon-button [matMenuTriggerFor]="menu"
+          matTooltip="Menu" fxHide ngClass.lt-sm="show"
           class="mat-button mat-icon-button">
     <mat-icon>more_vert</mat-icon>
   </button>
-  <mat-menu #menu="matMenu"
-            fxHide
-            fxShow.lt-sm>
-    <a *ngFor="let item of items"
-       mat-menu-item
-       [routerLink]="[item.link]"
-       [matTooltip]="item.tooltip"
-       matTooltipPosition="left"
-       [attr.badge]="item.badge">
+  <mat-menu #menu="matMenu" fxHide fxShow.lt-sm>
+    <a *ngFor="let item of items" mat-menu-item
+       [routerLink]="[item.link]" [matTooltip]="item.tooltip"
+       matTooltipPosition="left" [attr.badge]="item.badge">
       <mat-icon>{{item.icon}}</mat-icon>
       {{item.title}}
     </a>
