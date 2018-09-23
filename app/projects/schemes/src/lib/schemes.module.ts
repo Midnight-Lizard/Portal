@@ -16,6 +16,7 @@ import { SchemesEffects } from './store/schemes.effects';
 import { SchemesThumbnailsComponent } from './components/thumbnails/thumbnails.component';
 import { SchemeDetailsComponent } from './components/details/details.component';
 import { SchemeSliderComponent } from './components/slider/slider.component';
+import { ExtensionService } from './extension/extension.service';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,7 @@ import { SchemeSliderComponent } from './components/slider/slider.component';
         StoreModule.forFeature(SchemesFeature, schemesReducers, { initialState: schemesInitialState }),
         EffectsModule.forFeature([SchemesEffects])
     ],
-    providers: [SchemesService, Actions, SchemesEffects],
+    providers: [SchemesService, Actions, SchemesEffects, ExtensionService],
     entryComponents: [SchemeDetailsComponent]
 })
 export class SchemesModule { }

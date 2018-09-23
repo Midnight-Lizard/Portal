@@ -65,10 +65,17 @@
         </button>
       </mat-menu>
       <button mat-raised-button class="command mat-accent"
-              fxFlexAlign="center" color="accent"
-              [matTooltip]="'Add color scheme ‘' + scheme.name + '’ into Midnight Lizard extension in your browser'">
-        <span fxShow fxHide.lt-md>ADD TO BROWSER</span>
-        <span fxHide fxShow.lt-md>ADD</span>
+              [disabled]="!extensionIsAvailable"
+              (click)="installOrUninstallPublicScheme(scheme)"
+              fxFlexAlign="center"
+              [color]="(schemeIsInstalled$|async) ? 'warn' : 'accent'"
+              [matTooltip]="(schemeIsInstalled$|async)
+                ? 'Remove color scheme ‘'+ scheme.name + '’ from Midnight Lizard extension in your browser'
+                : 'Add color scheme ‘' + scheme.name + '’ into Midnight Lizard extension in your browser'">
+        <span fxShow fxHide.lt-md>
+          {{ (schemeIsInstalled$|async) ? 'REMOVE FROM BROWSER' : 'ADD TO BROWSER' }}
+        </span>
+        <span fxHide fxShow.lt-md>{{ (schemeIsInstalled$|async) ? 'REMOVE' : 'ADD'}}</span>
       </button>
     </div>
     <button mat-icon-button mat-dialog-close matTooltip="Close color scheme details">
