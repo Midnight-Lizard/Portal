@@ -106,3 +106,7 @@ router-outlet+.loading,
     background-color: mat-color($ml-accent, A100) !important;
     color: $ml-text-color !important;
 }
+
+.mat-ink-bar:not(imp) {
+    transition-property: left;
+}

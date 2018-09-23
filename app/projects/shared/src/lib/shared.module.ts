@@ -8,8 +8,8 @@ import
     MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule,
     MatTooltipModule, MatProgressSpinnerModule, MatPaginatorModule,
     MatSortModule, MatButtonToggleModule, MatGridListModule,
-    MatCardModule, MatBadgeModule, MatSnackBarModule,
-    MatBottomSheetModule, MatDialogModule, MatSnackBar
+    MatCardModule, MatBadgeModule, MatSnackBarModule, MatTabsModule,
+    MatBottomSheetModule, MatDialogModule
 } from '@angular/material';
 import { SvgIconService } from './svg-icon.service';
 import { ReplacePipe } from './pipes/string/replace.pipe';
@@ -19,8 +19,8 @@ export const materialModules = [
     MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule,
     MatTooltipModule, MatProgressSpinnerModule, MatPaginatorModule,
     MatSortModule, MatButtonToggleModule, MatGridListModule,
-    MatCardModule, MatBadgeModule, MatSnackBarModule, MatBottomSheetModule,
-    MatDialogModule
+    MatCardModule, MatBadgeModule, MatSnackBarModule, MatTabsModule,
+    MatBottomSheetModule, MatDialogModule
 ];
 
 export const pipes = [ReplacePipe];
@@ -43,7 +43,7 @@ export class SharedModule
         return {
             ngModule: SharedModule,
             providers: [
-                SvgIconService, MatSnackBar
+                SvgIconService
             ]
         };
     }

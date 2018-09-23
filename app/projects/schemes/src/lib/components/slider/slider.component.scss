@@ -22,63 +22,31 @@
 
 @media (min-aspect-ratio: 8/5) {
     .screenshot {
-        height: 65vh;
+        width: calc(62vh * 8 / 5);
+        height: 62vh;
     }
 }
 
 @media (max-aspect-ratio: 8/5) {
     .screenshot {
         width: 70vw;
-        height: 100%;
+        height: calc(70vw * 5 / 8);
     }
 }
 
 .nav {
     position: absolute;
+    z-index: 9999;
 
     &.prev {
         left: 3%;
-        top: calc(100% / 2 - 10px);
+        top: calc(100% / 2 - 25px);
     }
 
     &.next {
         right: 3%;
-        top: calc(100% / 2 - 10px);
+        top: calc(100% / 2 - 25px);
     }
-
-    &.toggles {
-        bottom: 0;
-        // left: calc(100% / 2 - 10px);
-    }
-}
-
-.mat-button-toggle-group {
-    width: 70%;
-    text-align: center;
-    margin: 2% 15%;
-}
-
-.mat-button-toggle {
-    width: 100%;
-    text-align: center;
-}
-
-.mat-button-toggle:not(.mat-button-toggle-checked) {
-    color: $ml-text-color;
-    background-color: mat-color($ml-primary, 100);
-}
-
-.mat-button-toggle-checked:not(imp) {
-    background-color: mat-color($ml-accent, A400);
-    color: white;
-}
-
-.mat-button-toggle:first-child {
-    border-radius: 2px 0px 0px 2px;
-}
-
-.mat-button-toggle:last-child {
-    border-radius: 0px 2px 2px 0px;
 }
 
 form {
@@ -86,8 +54,26 @@ form {
     transition-property: opacity;
     transition-duration: 200ms;
     transition-timing-function: ease-out;
+    position: absolute;
+    bottom: 32px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+:host-context(html[ml-stage-mode]:not([ml-stage-mode="complete-complex"])) form:not(.imp):not(.imp):not(imp) {
+    background-color: transparent!important;
 }
 
 :host(:hover) form {
     opacity: 1;
+}
+
+.mat-tab-group /deep/ .mat-tab-label {
+    height: 32px;
+}
+
+.mat-tab-group /deep/ .mat-tab-body-content {
+    overflow: hidden;
 }

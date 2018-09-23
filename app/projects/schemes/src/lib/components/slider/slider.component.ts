@@ -1,9 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { MatTabGroup } from '@angular/material';
 
 import { Screenshot } from '../../model/screenshot';
-
-declare type SliderState = { current: number };
 
 @Component({
     selector: 'schemes-slider',
@@ -12,34 +10,25 @@ declare type SliderState = { current: number };
 })
 export class SchemeSliderComponent
 {
-    current = 0;
+    @ViewChild('tabs')
+    tabs: MatTabGroup;
 
     @Input()
     screenshots: Screenshot[];
-    readonly navForm: FormGroup;
 
-    constructor(fb: FormBuilder)
+    constructor()
     {
-        this.navForm = fb.group({ current: 0 } as SliderState);
-
-        this.navForm.valueChanges
-            .subscribe((state: SliderState) =>
-            {
-                this.current = state.current;
-            });
     }
 
     goToNext()
     {
-        this.navForm.reset({
-            current: (this.current + 1) % (this.screenshots.length)
-        } as SliderState);
+        this.tabs.selectedIndex = ((this.tabs.selectedIndex || 0) + 1) % (this.screenshots.length);
     }
 
     goToPrev()
     {
-        this.navForm.reset({
-            current: this.current ? this.current - 1 : this.screenshots.length - 1
-        } as SliderState);
+        this.tabs.selectedIndex = this.tabs.selectedIndex
+            ? this.tabs.selectedIndex - 1
+            : this.screenshots.length - 1;
     }
 }

@@ -1,12 +1,19 @@
-<img *ngIf="screenshots" class="screenshot"
-     [src]="screenshots[current].urls['lg']"
-     sizes="(max-width: 1280px) 70vw, 50vw"
-     [srcset]="screenshots[current].urls['xs'] + ' 640w,' +
-               screenshots[current].urls['sm'] + ' 800w,' +
-               screenshots[current].urls['md'] + ' 960w,' +
-               screenshots[current].urls['lg'] + ' 1120w,' +
-               screenshots[current].urls['xl'] + ' 1280w'">
-<form [formGroup]="navForm" novalidate>
+<mat-tab-group color="accent" headerPosition="below"
+               mat-stretch-tabs #tabs>
+  <mat-tab *ngFor="let ss of screenshots" [label]="ss.title">
+    <ng-template matTabContent>
+      <img class="screenshot ml-ignore" [src]="ss.urls['lg']"
+           sizes="(max-width: 1280px) 70vw, 50vw"
+           [srcset]="ss.urls['xs'] + ' 640w,' +
+                     ss.urls['sm'] + ' 800w,' +
+                     ss.urls['md'] + ' 960w,' +
+                     ss.urls['lg'] + ' 1120w,' +
+                     ss.urls['xl'] + ' 1280w'">
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
+
+<form>
   <button mat-mini-fab class="nav prev"
           (click)="goToPrev()">
     <mat-icon matTooltip="Previous screenshot">navigate_before</mat-icon>
@@ -15,11 +22,4 @@
           (click)="goToNext()">
     <mat-icon matTooltip="Next screenshot">navigate_next</mat-icon>
   </button>
-
-  <mat-button-toggle-group formControlName="current" color="accent" class="nav toggles">
-      <mat-button-toggle *ngFor="let x of screenshots; let i = index"
-                         [value]="i" matTooltipPosition="above"
-                         [matTooltip]="x.title">{{x.title}}
-      </mat-button-toggle>
-  </mat-button-toggle-group>
 </form>
