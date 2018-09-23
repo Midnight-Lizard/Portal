@@ -18,7 +18,7 @@ export class ExtensionService
 
     public get isAvailable()
     {
-        return this.env.isBrowserSide &&
+        return this.env.isBrowserSide && typeof chrome === 'object' &&
             document.documentElement.hasAttribute('ml-is-active');
     }
 
@@ -66,7 +66,7 @@ export class ExtensionService
 
     private tryOpenConnection(port?: chrome.runtime.Port): port is chrome.runtime.Port
     {
-        if (this.env.isBrowserSide)
+        if (this.env.isBrowserSide && typeof chrome === 'object')
         {
             if (!this.extensionConnection)
             {
