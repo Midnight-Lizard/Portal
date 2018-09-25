@@ -21,7 +21,7 @@ export const hmrBootstrap = (module: any, bootstrap: () => Promise<NgModuleRef<a
 export function setHmrDefaults()
 {
     authInitialState.user = {
-        access_token: '28df85a6b299fcadb31462d00a0fe31859bdb7dc82c9d85f2010ec4fd737b584',
+        access_token: '53690129ca22e5671dac0c79b4f8dc50527bbc893f8f7dc3424f5b2bc49e47a1',
         expired: false,
         claims: {
             name: 'hmr',
@@ -32,7 +32,7 @@ export function setHmrDefaults()
     };
 
     authInitialState.system = {
-        access_token: '85beee84dfd82f20885023b6872d8a07db314b6e3f9be775f366c08b608f18ab'
+        access_token: 'fbb8163ec7f2ae6700e91fca03e811834fb14e07f3f0ebd074f87290cce1f838'
     };
 
     (defaultSettings as any).SCHEMES_QUERIER_URL = 'http://192.168.1.44:31005';
