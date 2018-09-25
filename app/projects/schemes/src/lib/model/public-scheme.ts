@@ -18,6 +18,7 @@ export interface PublicScheme
 export interface PublicSchemeDetails extends PublicScheme
 {
     readonly description: string;
+    readonly generation: number;
     readonly colorScheme: any;
 }
 
