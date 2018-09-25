@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { SideService } from 'core';
 import { PublicSchemeDetails, PublicSchemeId } from '../model/public-scheme';
 import { ExtensionMessage, ExtensionMessageType } from './extension-messages';
+import { ChromeRuntimePort } from './chrome-runtime-port';
 
 @Injectable()
 export class ExtensionService
@@ -11,14 +12,16 @@ export class ExtensionService
     private readonly _installedPublicSchemes = new BehaviorSubject<PublicSchemeId[]>([]);
     public get installedPublicSchemes$() { return this._installedPublicSchemes.asObservable(); }
 
-    constructor(private readonly env: SideService)
+    constructor(
+        private readonly env: SideService,
+        private readonly ngZone: NgZone)
     {
         this.tryOpenConnection();
     }
 
     public get isAvailable()
     {
-        return this.env.isBrowserSide && typeof chrome === 'object' &&
+        return this.env.isBrowserSide &&
             document.documentElement.hasAttribute('ml-is-active');
     }
 
@@ -27,7 +30,7 @@ export class ExtensionService
         switch (message.type)
         {
             case ExtensionMessageType.PublicSchemesChanged:
-                this._installedPublicSchemes.next(message.publicSchemeIds);
+                this.ngZone.run(() => this._installedPublicSchemes.next(message.publicSchemeIds));
                 break;
 
             default:
@@ -39,11 +42,14 @@ export class ExtensionService
     {
         if (this.tryOpenConnection(this.extensionConnection))
         {
+            const colorScheme = { ...publicScheme.colorScheme };
+            delete colorScheme.__typename;
             this.extensionConnection.postMessage({
                 type: 'InstallPublicScheme',
                 publicScheme: {
                     id: publicScheme.id,
-                    colorScheme: publicScheme.colorScheme,
+                    generation: publicScheme.generation,
+                    colorScheme: colorScheme,
                     publisher: {
                         id: publicScheme.publisher.id,
                         name: publicScheme.publisher.name
@@ -66,7 +72,7 @@ export class ExtensionService
 
     private tryOpenConnection(port?: chrome.runtime.Port): port is chrome.runtime.Port
     {
-        if (this.env.isBrowserSide && typeof chrome === 'object')
+        if (this.env.isBrowserSide)
         {
             if (!this.extensionConnection)
             {
@@ -75,8 +81,9 @@ export class ExtensionService
                     .getPropertyValue('--ml-app-id');
                 if (extensionId)
                 {
-                    this.extensionConnection = chrome.runtime.connect(extensionId, { name: 'portal' });
+                    this.extensionConnection = this.createConnection(extensionId, 'portal');
                     this.extensionConnection.onMessage.addListener(this.onExtensionMessage.bind(this));
+                    this.extensionConnection.onDisconnect.addListener(x => this.extensionConnection = undefined);
                     return true;
                 }
                 return false;
@@ -84,5 +91,14 @@ export class ExtensionService
             return true;
         }
         return false;
+    }
+
+    private createConnection(extensionId: string, name: string)
+    {
+        if (typeof chrome !== 'object')
+        {
+            return new ChromeRuntimePort(name);
+        }
+        return chrome.runtime.connect(extensionId, { name });
     }
 }
