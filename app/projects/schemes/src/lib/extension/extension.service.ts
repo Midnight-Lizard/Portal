@@ -1,6 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { SideService } from 'core';
+import { Store } from '@ngrx/store';
+
+import { SideService, NotifyUser, NotificationLevel } from 'core';
+
 import { PublicSchemeDetails, PublicSchemeId } from '../model/public-scheme';
 import { ExtensionMessage, ExtensionMessageType } from './extension-messages';
 import { ChromeRuntimePort } from './chrome-runtime-port';
@@ -14,7 +17,8 @@ export class ExtensionService
 
     constructor(
         private readonly env: SideService,
-        private readonly ngZone: NgZone)
+        private readonly ngZone: NgZone,
+        private readonly store$: Store<{}>)
     {
         this.tryOpenConnection();
     }
@@ -27,15 +31,27 @@ export class ExtensionService
 
     private onExtensionMessage(message: ExtensionMessage, port: chrome.runtime.Port)
     {
-        switch (message.type)
+        this.ngZone.run(() =>
         {
-            case ExtensionMessageType.PublicSchemesChanged:
-                this.ngZone.run(() => this._installedPublicSchemes.next(message.publicSchemeIds));
-                break;
+            switch (message.type)
+            {
+                case ExtensionMessageType.PublicSchemesChanged:
+                    this._installedPublicSchemes.next(message.publicSchemeIds);
+                    break;
 
-            default:
-                break;
-        }
+                case ExtensionMessageType.ErrorMessage:
+                    this.store$.dispatch(new NotifyUser({
+                        level: NotificationLevel.Error,
+                        message: message.errorMessage,
+                        data: message.details,
+                        isLocal: true
+                    }));
+                    break;
+
+                default:
+                    break;
+            }
+        });
     }
 
     public installPublicScheme(publicScheme: PublicSchemeDetails)
@@ -48,12 +64,9 @@ export class ExtensionService
                 type: 'InstallPublicScheme',
                 publicScheme: {
                     id: publicScheme.id,
-                    generation: publicScheme.generation,
-                    colorScheme: colorScheme,
-                    publisher: {
-                        id: publicScheme.publisher.id,
-                        name: publicScheme.publisher.name
-                    }
+                    pid: publicScheme.publisher.id,
+                    gen: publicScheme.generation,
+                    cs: colorScheme,
                 }
             });
         }
