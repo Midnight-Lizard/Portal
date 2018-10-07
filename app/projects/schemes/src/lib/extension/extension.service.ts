@@ -108,10 +108,10 @@ export class ExtensionService
 
     private createConnection(extensionId: string, name: string)
     {
-        if (typeof chrome !== 'object')
-        {
-            return new ChromeRuntimePort(name);
-        }
-        return chrome.runtime.connect(extensionId, { name });
+        // if (typeof chrome !== 'object')
+        // {
+        return new ChromeRuntimePort(name);
+        // }
+        // return chrome.runtime.connect(extensionId, { name });
     }
 }
