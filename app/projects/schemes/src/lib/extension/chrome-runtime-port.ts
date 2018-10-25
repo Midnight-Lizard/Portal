@@ -26,21 +26,23 @@ export class ChromeRuntimePort implements Port
             removeListener: (onDisconnectHandler: (port: Port) => void) => { }
         } as any;
 
-        window.addEventListener('message', (msg) =>
+        document.documentElement.addEventListener('message-from-extension', e =>
         {
-            if (msg.data.fromPolyfillOnExtensionSide)
+            if (e instanceof CustomEvent && e.detail)
             {
-                this.onMessageHandlers.forEach(handler => handler(msg.data, this));
+                this.onMessageHandlers.forEach(handler => handler(JSON.parse(e.detail), this));
             }
         });
 
         this.postMessage({ type: 'connect' });
     }
 
-    public postMessage(message: any)
+    public postMessage<TMessage>(message: TMessage)
     {
-        message.fromPolyfillOnPortalSide = true;
-        window.postMessage(message, '*');
+        document.documentElement.dispatchEvent(
+            new CustomEvent('message-from-portal', {
+                detail: JSON.stringify(message)
+            }));
     }
 
     public disconnect() { }
