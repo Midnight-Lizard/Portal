@@ -5,30 +5,23 @@
     width: 100%;
 }
 
-mat-button-toggle-group
+.mat-button-toggle-group
 {
     width: 100%;
     text-align: center;
 }
 
-mat-button-toggle
+.mat-button-toggle
 {
     width: 34%;
     text-align: center;
+    background-color: mat-color($ml-content);
+    --ml-background-background-color:ButtonBackground;
+    --ml-highlightedbackground-background-color:ButtonBackground;
 }
 
 .mat-button-toggle-checked:not(imp)
 {
     background-color: mat-color($ml-accent, A100);
     color: $ml-text-color;
-}
-
-.mat-button-toggle-checked:first-child
-{
-    border-radius: 2px 0px 0px 2px;
-}
-
-.mat-button-toggle-checked:last-child
-{
-    border-radius: 0px 2px 2px 0px;
 }

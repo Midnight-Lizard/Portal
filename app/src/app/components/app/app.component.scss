@@ -110,3 +110,15 @@ router-outlet+.loading,
 .mat-ink-bar:not(imp) {
     transition-property: left;
 }
+
+.mat-list-option:hover,
+.mat-list-option.mat-list-item-focus,
+.mat-nav-list .mat-list-item:hover,
+.mat-nav-list .mat-list-item.mat-list-item-focus,
+.mat-menu-item:hover:not([disabled]),
+.mat-menu-item.cdk-program-focused:not([disabled]),
+.mat-menu-item.cdk-keyboard-focused:not([disabled]),
+.mat-menu-item-highlighted:not([disabled]) {
+    background-color: mat-color($ml-accent, A100, 0.1) !important;
+    --ml-buttonbackground-background-color:Background;
+}
