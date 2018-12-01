@@ -6,7 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { take, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import { AuthRootState } from 'core';
+import { AuthRootState, SettingsService } from 'core';
 
 @Component({
     selector: 'ml-commander',
@@ -17,12 +17,15 @@ import { AuthRootState } from 'core';
 export class CommanderComponent
 {
     readonly apiForm: FormGroup;
+    private readonly commanderUrl: string;
 
     constructor(fb: FormBuilder,
+        settingsService: SettingsService,
         readonly store$: Store<AuthRootState>,
         readonly http: HttpClient)
     {
         this.apiForm = fb.group({ json: '', results: '' });
+        this.commanderUrl = settingsService.getSettings().SCHEMES_COMMANDER_URL;
     }
 
     public onPublish()
@@ -36,14 +39,13 @@ export class CommanderComponent
             if (user)
             {
                 this.http.post(
-                    // "http://localhost:7008/scheme",
-                    'http://192.168.1.44:30574/scheme',
+                    this.urlJoin(this.commanderUrl, 'scheme'),
                     this.apiForm.get('json')!.value,
                     {
                         headers: new HttpHeaders()
                             .set('Authorization', `Bearer ${user.access_token}`)
                             .set('api-version', '1.0')
-                            .set('schema-version', '9.3.0'),
+                            .set('schema-version', '10.1.6'),
                         observe: 'response'
                     }).pipe(catchError(x => of(x)))
                     .subscribe(resp => this.apiForm
@@ -63,18 +65,22 @@ export class CommanderComponent
             if (user)
             {
                 this.http.delete(
-                    // `http://localhost:7008/scheme/${this.apiForm.get('json')!.value}`,
-                    `http://192.168.1.44:30574/scheme/${this.apiForm.get('json')!.value}`,
+                    this.urlJoin(this.commanderUrl, 'scheme', this.apiForm.get('json')!.value),
                     {
                         headers: new HttpHeaders()
                             .set('Authorization', `Bearer ${user.access_token}`)
                             .set('api-version', '1.0')
-                            .set('schema-version', '9.3.0'),
+                            .set('schema-version', '10.1.6'),
                         observe: 'response'
                     }).pipe(catchError(x => of(x)))
                     .subscribe(resp => this.apiForm
                         .patchValue({ results: JSON.stringify(resp) }));
             }
         });
+    }
+
+    private urlJoin(...urlParts: string[])
+    {
+        return urlParts.map(p => p.replace(/^\/|\/$/g, '').trim()).join('/');
     }
 }
