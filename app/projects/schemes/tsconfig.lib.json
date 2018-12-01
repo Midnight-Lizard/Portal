@@ -11,10 +11,15 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "types": [],
+    "typeRoots": [
+      "../../node_modules/@types"
+    ],
+    "types": [
+      "chrome"
+    ],
     "lib": [
       "dom",
-      "es2015"
+      "es2017"
     ]
   },
   "angularCompilerOptions": {

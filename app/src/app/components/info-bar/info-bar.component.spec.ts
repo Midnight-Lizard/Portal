@@ -15,7 +15,7 @@ describe(nameOfClass(InfoBarComponent), () =>
     {
         const snackBarRefStub = jasmine.createSpyObj<MatSnackBarRef<InfoBarComponent>>(
             'SnackBarRefStub',
-            Object.keys(MatSnackBarRef.prototype));
+            Object.keys(MatSnackBarRef.prototype) as Array<keyof MatSnackBarRef<InfoBarComponent>>);
         TestBed.configureTestingModule({
             declarations: [InfoBarComponent],
             imports: [AppTestingModule.forRoot()],

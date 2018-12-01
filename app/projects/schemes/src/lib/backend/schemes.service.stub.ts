@@ -80,6 +80,7 @@ export class SchemesServiceStub
     {
         return new BehaviorSubject<PublicSchemeDetails>({
             id: publicSchemeId,
+            generation: 1,
             name: `Fake ${this.randomString(4)} scheme`,
             publisher: {
                 id: this.randomString(8),

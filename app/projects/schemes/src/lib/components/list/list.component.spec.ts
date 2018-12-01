@@ -18,6 +18,7 @@ import * as Act from '../../store/schemes.actions';
 import { SchemeSide } from '../../model/scheme-side';
 import { SchemesList } from '../../model/schemes-lists';
 import { PublicScheme } from '../../model/public-scheme';
+import { SchemeSliderComponent } from '../slider/slider.component';
 
 describe(nameOfClass(SchemesListComponent), function ()
 {
@@ -40,7 +41,8 @@ describe(nameOfClass(SchemesListComponent), function ()
         );
         TestBed.configureTestingModule({
             declarations: [
-                SchemesListComponent, SchemeDetailsComponent, SchemesThumbnailsComponent
+                SchemesListComponent, SchemeDetailsComponent,
+                SchemesThumbnailsComponent, SchemeSliderComponent
             ],
             imports: [SchemesTestingModule.forRoot(), InfiniteScrollModule]
         }).compileComponents();
@@ -119,7 +121,7 @@ describe(nameOfClass(SchemesListComponent), function ()
                         .query(By.css('mat-grid-list')).nativeElement
                         .scrollIntoView({ behavior: 'instant', block: blockToggle ? 'end' : 'start' });
                     (fixture.debugElement.nativeElement as HTMLElement)
-                        .ownerDocument.defaultView
+                        .ownerDocument!.defaultView!
                         .dispatchEvent(new Event('scroll'));
                     blockToggle = !blockToggle;
 

@@ -10,6 +10,7 @@ import { SchemesService } from '../../backend/schemes.service';
 import * as Act from '../../store/schemes.actions';
 import { SchemesRootState } from '../../store/schemes.state';
 import { PublicSchemeDetails } from '../../model/public-scheme';
+import { SchemeSliderComponent } from '../slider/slider.component';
 
 describe(nameOfClass(SchemeDetailsComponent), function ()
 {
@@ -20,7 +21,7 @@ describe(nameOfClass(SchemeDetailsComponent), function ()
     {
         TestSchedulerStub.init();
         TestBed.configureTestingModule({
-            declarations: [SchemeDetailsComponent],
+            declarations: [SchemeDetailsComponent, SchemeSliderComponent],
             imports: [SchemesTestingModule.forRoot()]
         }).compileComponents();
     }));
@@ -93,6 +94,6 @@ describe(nameOfClass(SchemeDetailsComponent), function ()
 function expectLoadingElementDisplayToBe(fixture: ComponentFixture<SchemeDetailsComponent>, display: string)
 {
     const loadingElement = fixture.debugElement.query(By.css('common-loading')).nativeElement as HTMLElement;
-    const computedStyle = loadingElement.ownerDocument.defaultView.getComputedStyle(loadingElement);
+    const computedStyle = loadingElement.ownerDocument!.defaultView!.getComputedStyle(loadingElement);
     expect(computedStyle.display).toBe(display);
 }
