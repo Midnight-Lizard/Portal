@@ -33,8 +33,6 @@ export class ChromeRuntimePort implements Port
                 this.onMessageHandlers.forEach(handler => handler(JSON.parse(e.detail), this));
             }
         });
-
-        this.postMessage({ type: 'connect' });
     }
 
     public postMessage<TMessage>(message: TMessage)

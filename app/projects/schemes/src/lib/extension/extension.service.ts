@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { SideService, NotifyUser, NotificationLevel } from 'core';
 
 import { PublicSchemeDetails, PublicSchemeId } from '../model/public-scheme';
-import { ExtensionMessage, ExtensionMessageType } from './extension-messages';
+import { ExtensionMessage, ExtensionMessageType, GetInstalledPublicSchemes } from './extension-messages';
 import { ChromeRuntimePort } from './chrome-runtime-port';
 
 @Injectable()
@@ -20,13 +20,16 @@ export class ExtensionService
         private readonly ngZone: NgZone,
         private readonly store$: Store<{}>)
     {
-        this.tryOpenConnection();
+        if (this.tryOpenConnection(this.extensionConnection))
+        {
+            this.extensionConnection.postMessage(new GetInstalledPublicSchemes());
+        }
     }
 
     public get isAvailable()
     {
         return this.env.isBrowserSide &&
-            document.documentElement.hasAttribute('ml-is-active');
+            document.documentElement!.hasAttribute('ml-is-active');
     }
 
     private onExtensionMessage(message: ExtensionMessage, port: chrome.runtime.Port)
@@ -90,7 +93,7 @@ export class ExtensionService
             if (!this.extensionConnection)
             {
                 const extensionId = window
-                    .getComputedStyle(document.documentElement)
+                    .getComputedStyle(document.documentElement!)
                     .getPropertyValue('--ml-app-id');
                 if (extensionId)
                 {

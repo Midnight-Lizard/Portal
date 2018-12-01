@@ -1,11 +1,18 @@
 import { PublicSchemeId } from '../model/public-scheme';
 
-export type ExtensionMessage = PublicSchemesChanged | ErrorMessage;
+export type ExtensionMessage = PublicSchemesChanged | ErrorMessage | GetInstalledPublicSchemes;
 
 export enum ExtensionMessageType
 {
     PublicSchemesChanged = 'PublicSchemesChanged',
-    ErrorMessage = 'ErrorMessage'
+    ErrorMessage = 'ErrorMessage',
+    GetInstalledPublicSchemes = 'GetInstalledPublicSchemes'
+}
+
+export class GetInstalledPublicSchemes
+{
+    type: ExtensionMessageType.GetInstalledPublicSchemes = ExtensionMessageType.GetInstalledPublicSchemes;
+    constructor() { }
 }
 
 export class PublicSchemesChanged
