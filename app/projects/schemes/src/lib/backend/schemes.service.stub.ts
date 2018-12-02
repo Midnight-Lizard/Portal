@@ -6,7 +6,7 @@ import { SettingsService, User } from 'core';
 
 import { SchemesFilters } from '../model/schemes-filters';
 import { PublicScheme, PublicSchemeId, PublicSchemeDetails } from '../model/public-scheme';
-import { ScreenshotSize } from '../model/screenshot';
+import { ScreenshotSize, Screenshot } from '../model/screenshot';
 import { SchemeSide } from '../model/scheme-side';
 import { SchemesList } from '../model/schemes-lists';
 
@@ -51,6 +51,7 @@ export class SchemesServiceStub
                     ? Math.random() > 0.25 ? SchemeSide.Dark : SchemeSide.Light
                     : filters.side;
                 const screenshots = side === SchemeSide.Dark ? darkSchemes : lightSchemes;
+                const screenshotUrl = screenshots[Math.floor(Math.random() * screenshots.length)];
 
                 return ({
                     id: this.randomString(8),
@@ -68,7 +69,11 @@ export class SchemesServiceStub
                     screenshots: [{
                         title: '',
                         urls: {
-                            [ScreenshotSize.Small]: screenshots[Math.floor(Math.random() * screenshots.length)]
+                            [ScreenshotSize.ExtraSmall]: screenshotUrl,
+                            [ScreenshotSize.Small]: screenshotUrl,
+                            [ScreenshotSize.Medium]: screenshotUrl,
+                            [ScreenshotSize.Large]: screenshotUrl,
+                            [ScreenshotSize.ExtraLarge]: screenshotUrl,
                         }
                     }]
                 });
@@ -90,15 +95,31 @@ export class SchemesServiceStub
             favorited: Math.random() > 0.5,
             liked: Math.random() > 0.5,
             likes: Math.floor(Math.random() * 100),
-            screenshots: [{
-                title: '',
-                urls: {
-                    [ScreenshotSize.Large]: darkSchemes[Math.floor(Math.random() * darkSchemes.length)]
-                }
-            }],
+            screenshots: [
+                this.CreateFakeScreenshot(),
+                this.CreateFakeScreenshot(),
+                this.CreateFakeScreenshot(),
+                this.CreateFakeScreenshot(),
+                this.CreateFakeScreenshot()
+            ],
             colorScheme: null,
             description: lorem
         }).pipe(delay(this.firstDelay));
+    }
+
+    private CreateFakeScreenshot(): Screenshot
+    {
+        const screenshotUrl = darkSchemes[Math.floor(Math.random() * darkSchemes.length)];
+        return {
+            title: this.randomString(16),
+            urls: {
+                [ScreenshotSize.ExtraSmall]: screenshotUrl,
+                [ScreenshotSize.Small]: screenshotUrl,
+                [ScreenshotSize.Medium]: screenshotUrl,
+                [ScreenshotSize.Large]: screenshotUrl,
+                [ScreenshotSize.ExtraLarge]: screenshotUrl,
+            }
+        };
     }
 
     private randomString(length: number)

@@ -1,6 +1,9 @@
 <mat-tab-group color="accent" headerPosition="below"
                mat-stretch-tabs #tabs>
-  <mat-tab *ngFor="let ss of screenshots" [label]="ss.title">
+  <mat-tab *ngFor="let ss of screenshots">
+    <ng-template mat-tab-label>
+      <mat-icon [matTooltip]="ss.title">image</mat-icon>
+    </ng-template>
     <ng-template matTabContent>
       <img class="screenshot ml-ignore" [src]="ss.urls['lg']"
            sizes="(max-width: 1280px) 70vw, 50vw"
@@ -14,12 +17,10 @@
 </mat-tab-group>
 
 <form>
-  <button mat-mini-fab class="nav prev"
-          (click)="goToPrev()">
+  <button mat-mini-fab class="nav prev" (click)="goToPrev()">
     <mat-icon matTooltip="Previous screenshot">navigate_before</mat-icon>
   </button>
-  <button mat-mini-fab class="nav next"
-          (click)="goToNext()">
+  <button mat-mini-fab class="nav next" (click)="goToNext()">
     <mat-icon matTooltip="Next screenshot">navigate_next</mat-icon>
   </button>
 </form>

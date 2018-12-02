@@ -72,6 +72,8 @@ form {
 
 .mat-tab-group /deep/ .mat-tab-label {
     height: 32px;
+    min-width: 32px!important;
+    padding: 0!important;
 }
 
 .mat-tab-group /deep/ .mat-tab-body-content {
