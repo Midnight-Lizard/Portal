@@ -14,7 +14,6 @@ export class Secrets
 let _issuer: any;
 let _userClient: any;
 let _systemClient: any;
-let _system: any;
 let systemClientCredentials: string;
 let systemClientOptions: string;
 const _tokens = new Map<string, any>();
@@ -45,7 +44,7 @@ export async function initAuth(settings: Settings, secrets: Secrets, maxRetries 
                     client_id: 'portal-system',
                     client_secret: secrets.IDENTITY_PORTAL_CLIENT_SECRET
                 });
-                _userClient.CLOCK_TOLERANCE = 5;
+                _systemClient.CLOCK_TOLERANCE = 5;
 
                 systemClientCredentials = Buffer
                     .from(`portal-system:${secrets.IDENTITY_PORTAL_CLIENT_SECRET}`)
@@ -54,8 +53,7 @@ export async function initAuth(settings: Settings, secrets: Secrets, maxRetries 
                     grant_type: 'client_credentials',
                     scope: 'schemes-querier'
                 });
-                await refreshSystem();
-                success = !!_system;
+                success = true;
             }
             catch (error)
             {
@@ -71,20 +69,6 @@ export async function initAuth(settings: Settings, secrets: Secrets, maxRetries 
         {
             throw new Error('Faild to initialize auth');
         }
-    }
-}
-
-export async function getValidSystemToken()
-{
-    if (_system.expired())
-    {
-        return refreshSystem(1);
-    }
-    else
-    {
-        return {
-            access_token: _system.access_token
-        };
     }
 }
 
@@ -219,7 +203,7 @@ export async function refreshUser(sessionId: string, maxRetries = 3): Promise<Us
     return null;
 }
 
-export async function refreshSystem(maxRetries = 3): Promise<System>
+export async function getNewSystemToken(maxRetries = 3): Promise<System>
 {
     let result: any = null, retries = 0;
     while (!result && retries < maxRetries)
@@ -245,9 +229,8 @@ export async function refreshSystem(maxRetries = 3): Promise<System>
             retries++;
         }
     }
-    _system = result || _system;
     return {
-        access_token: _system.access_token
+        access_token: result.access_token
     };
 }
 

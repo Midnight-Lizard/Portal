@@ -145,7 +145,7 @@ auth.initAuth(settings, secrets).then(() =>
 
         app.post('/refresh-system', async (req, res, next) =>
         {
-            const system = await auth.refreshSystem();
+            const system = await auth.getNewSystemToken(3);
             res.json(system);
         });
 
@@ -199,7 +199,7 @@ auth.initAuth(settings, secrets).then(() =>
                 { provide: 'ORIGIN_URL', useValue: settings.PORTAL_URL },
                 { provide: 'SETTINGS', useValue: settings },
                 { provide: 'USER', useValue: auth.getUser(req.session!.id) },
-                { provide: 'SYSTEM', useValue: await auth.getValidSystemToken() },
+                { provide: 'SYSTEM', useValue: await auth.getNewSystemToken(1) },
                 { provide: 'MEDIA', useValue: req.cookies[AppConstants.Cookies.Media] },
                 { provide: 'DIST_PATH', useValue: DIST_FOLDER }
             ]
