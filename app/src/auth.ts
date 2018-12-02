@@ -74,11 +74,18 @@ export async function initAuth(settings: Settings, secrets: Secrets, maxRetries 
     }
 }
 
-export function getSystem(): System
+export async function getValidSystemToken()
 {
-    return {
-        access_token: _system.access_token
-    };
+    if (_system.expired())
+    {
+        return refreshSystem(1);
+    }
+    else
+    {
+        return {
+            access_token: _system.access_token
+        };
+    }
 }
 
 export interface AuthParams
@@ -238,19 +245,10 @@ export async function refreshSystem(maxRetries = 3): Promise<System>
             retries++;
         }
     }
-    if (result && _system)
-    {
-        try
-        {
-            await _systemClient.revoke(_system.access_token, 'access_token');
-        }
-        catch (error)
-        {
-            console.error(`ERROR: Faild to revoke system token.\n${error}`);
-        }
-    }
     _system = result || _system;
-    return getSystem();
+    return {
+        access_token: _system.access_token
+    };
 }
 
 const timeout = (ms: number) => new Promise(res => setTimeout(res, ms));

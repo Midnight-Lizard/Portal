@@ -199,7 +199,7 @@ auth.initAuth(settings, secrets).then(() =>
                 { provide: 'ORIGIN_URL', useValue: settings.PORTAL_URL },
                 { provide: 'SETTINGS', useValue: settings },
                 { provide: 'USER', useValue: auth.getUser(req.session!.id) },
-                { provide: 'SYSTEM', useValue: auth.getSystem() },
+                { provide: 'SYSTEM', useValue: await auth.getValidSystemToken() },
                 { provide: 'MEDIA', useValue: req.cookies[AppConstants.Cookies.Media] },
                 { provide: 'DIST_PATH', useValue: DIST_FOLDER }
             ]
