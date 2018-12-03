@@ -16,7 +16,7 @@ const routes: Routes = [
     },
     {
         path: 'signout', component: ReloadFromServerComponent,
-        data: { ephemeral: true }
+        data: { ephemeral: true }, canActivate: [ValidateConsentGuard]
     },
     {
         path: 'accept-consent', component: LoadingComponent,
