@@ -12,12 +12,15 @@ const routes: Routes = [
     { path: 'schemes', loadChildren: './lazy/schemes.loader.module#SchemesLoaderModule' },
     {
         path: 'signin', component: ReloadFromServerComponent,
-        data: { server: true }, canActivate: [ValidateConsentGuard]
+        data: { ephemeral: true }, canActivate: [ValidateConsentGuard]
     },
-    { path: 'signout', component: ReloadFromServerComponent, data: { server: true } },
+    {
+        path: 'signout', component: ReloadFromServerComponent,
+        data: { ephemeral: true }
+    },
     {
         path: 'accept-consent', component: LoadingComponent,
-        canActivate: [AcceptConsentGuard]
+        data: { ephemeral: true }, canActivate: [AcceptConsentGuard]
     },
     { path: 'api', component: CommanderComponent },
     { path: '**', redirectTo: 'home' }

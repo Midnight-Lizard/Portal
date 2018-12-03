@@ -26,7 +26,7 @@ export class NavEffects
     );
 
     @Effect() handleNavigation$ = this.actions$.ofType(NavActionTypes.RouterNavigation).pipe(
-        filter(act => !this.getLastChild(act.payload.routerState.root).data.server),
+        filter(act => !this.getLastChild(act.payload.routerState.root).data.ephemeral),
         map(act => new NavActions.ReturnUrlChanged({
             returnUrl: act.payload.routerState.url
         }))
