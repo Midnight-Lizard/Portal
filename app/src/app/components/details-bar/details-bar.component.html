@@ -23,7 +23,8 @@
          fxFlexAlign="center"
          [color]="act.color || 'primary'"
          [matTooltip]="act.description"
-         [routerLink]="act.route">
+         [routerLink]="act.route"
+         (click)="close()">
         {{act.title}}
       </a>
       <a *ngIf="act.detailsButtonType === 'stroked'"
@@ -31,7 +32,8 @@
          fxFlexAlign="center"
          [color]="act.color || 'primary'"
          [matTooltip]="act.description"
-         [routerLink]="act.route">
+         [routerLink]="act.route"
+         (click)="close()">
         {{act.title}}
       </a>
       <a *ngIf="act.detailsButtonType === 'flat'"
@@ -39,7 +41,8 @@
          fxFlexAlign="center"
          [color]="act.color || 'primary'"
          [matTooltip]="act.description"
-         [routerLink]="act.route">
+         [routerLink]="act.route"
+         (click)="close()">
         {{act.title}}
       </a>
       <a *ngIf="act.detailsButtonType === 'basic'"
@@ -47,7 +50,8 @@
          fxFlexAlign="center"
          [color]="act.color || 'primary'"
          [matTooltip]="act.description"
-         [routerLink]="act.route">
+         [routerLink]="act.route"
+         (click)="close()">
         {{act.title}}
       </a>
     </ng-template>
