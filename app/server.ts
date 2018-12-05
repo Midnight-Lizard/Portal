@@ -72,7 +72,7 @@ auth.initAuth(settings, secrets).then(() =>
         }),
         cookie: {
             maxAge: H24,
-            secure: settings.PORTAL_URL.startsWith('https')
+            secure: false // settings.PORTAL_URL.startsWith('https')
         },
         secret: secrets.PORTAL_SESSION_SECRET || 'secret',
         resave: false,
