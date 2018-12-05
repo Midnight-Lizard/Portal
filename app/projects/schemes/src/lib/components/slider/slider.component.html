@@ -1,8 +1,9 @@
 <mat-tab-group color="accent" headerPosition="below"
                mat-stretch-tabs #tabs>
-  <mat-tab *ngFor="let ss of screenshots">
+  <mat-tab *ngFor="let ss of screenshots; index as ix">
     <ng-template mat-tab-label>
       <mat-icon [matTooltip]="ss.title">image</mat-icon>
+      <span class="image-index">{{ix+1}}</span>
     </ng-template>
     <ng-template matTabContent>
       <img class="screenshot ml-ignore" [src]="ss.urls['lg']"

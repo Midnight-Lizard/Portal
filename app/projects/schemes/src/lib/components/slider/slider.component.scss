@@ -79,3 +79,10 @@ form {
 .mat-tab-group /deep/ .mat-tab-body-content {
     overflow: hidden;
 }
+
+.image-index {
+    --ml-text-color:Background;
+    color: $ml-background;
+    font-size: 8px;
+    margin: -5px 15px 0px -15px;
+}
