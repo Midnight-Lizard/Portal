@@ -5,10 +5,14 @@ import { HomeComponent } from './components/home/home.component';
 import { LoadingComponent, ReloadFromServerComponent } from 'shared';
 import { CommanderComponent } from './components/commander/commander.component';
 import { ValidateConsentGuard, AcceptConsentGuard } from 'core';
+import { PrivacyComponent } from './polices/privacy/privacy.component';
+import { TermsComponent } from './polices/terms/terms.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
+    { path: 'privacy', component: PrivacyComponent },
+    { path: 'terms', component: TermsComponent },
     { path: 'schemes', loadChildren: './lazy/schemes.loader.module#SchemesLoaderModule' },
     {
         path: 'signin', component: ReloadFromServerComponent,
@@ -37,5 +41,5 @@ const routes: Routes = [
 export class AppRoutingModule { }
 
 export const routingComponents = [
-    HomeComponent, CommanderComponent
+    HomeComponent, CommanderComponent, PrivacyComponent, TermsComponent
 ];

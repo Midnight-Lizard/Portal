@@ -26,7 +26,7 @@
         text-align: center;
     }
 
-    .copyright
+    .legal
     {
         margin-top: 20px;
     }
@@ -69,12 +69,12 @@
     //     margin: -10px 5px -10px 0px;
     // }
 
-    .copyright
+    .legal
     {
         text-align: center;
         line-height: 14px;
 
-        a
+        a:not(.mat-button)
         {
             color: mat-color($ml-accent,A100);
         }
@@ -105,13 +105,32 @@
 
     .google-plus-icon:not(important)
     {
-        width: 32px;
-        height: 32px;
+        width: 31px;
+        height: 31px;
         padding: 0px;
+        margin-right: -6px;
+        margin-left: 3px;
     }
 
     .facebook-icon:not(important)
     {
+    }
+
+    .telegram-icon:not(important) {
+        .first {
+            fill: mat-color($ml-primary, 900);
+            --ml-text-fill:Background;
+        }
+
+        .second {
+            fill: mat-color($ml-primary, 900);
+            --ml-text-fill:Background;
+        }
+
+        .last {
+            fill: mat-color($ml-primary, 800);
+            --ml-text-fill:Background;
+        }
     }
 }
 
@@ -140,5 +159,29 @@
     .facebook-icon
     {
         fill: #6496ff;
+    }
+
+    .github-icon {
+        fill: #0361cc;
+    }
+
+    .telegram-icon {
+        circle {
+            fill: url(#b);
+        }
+
+        .first {
+            fill: #c8daea;
+            --ml-text-fill:Text;
+        }
+
+        .second {
+            fill: #a9c9dd;
+            --ml-text-fill:Text;
+        }
+
+        .last {
+            fill: url(#w);
+        }
     }
 }
