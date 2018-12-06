@@ -126,3 +126,15 @@ router-outlet+.loading,
 :not(.mat-snack-bar-handset)>.mat-snack-bar-container {
     max-width: 50vw;
 }
+
+nav .logo.mat-icon {
+    path:nth-child(1) {
+        fill: hsla(93, 100%, 20%, 1);
+        stroke: hsla(112, 47%, 5%, 1);
+    }
+    path:nth-child(2),
+    path:nth-child(3) {
+        fill: hsla(50, 100%, 20%, 1);
+        stroke: hsla(50, 95%, 4%, 1);
+    }
+}
