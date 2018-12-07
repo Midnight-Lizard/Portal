@@ -1,56 +1,36 @@
 <div fxLayout="row">
-  <mat-icon class="level"
-            fxFlexAlign="center"
-            [ngClass]="msg.level">{{msg.level}}</mat-icon>
-  <span class="message"
-        fxFlex
-        fxFlexAlign="center">{{msg.message}}</span>
-  <button *ngIf="msg.data"
-          fxFlexAlign="center"
-          mat-button
-          matTooltip="Show message details"
-          (click)="showMessageDetails()">
-    DETAILS
-  </button>
-  <ng-template ngFor
-               let-act
-               [ngForOf]="msg.actions">
-    <a *ngIf="act.infoButtonType === 'raised'"
-       mat-raised-button
-       fxFlexAlign="center"
-       [color]="act.color || 'primary'"
-       [matTooltip]="act.description"
-       [routerLink]="act.route">
-      {{act.title}}
-    </a>
-    <a *ngIf="act.infoButtonType === 'stroked'"
-       mat-stroked-button
-       fxFlexAlign="center"
-       [color]="act.color || 'primary'"
-       [matTooltip]="act.description"
-       [routerLink]="act.route">
-      {{act.title}}
-    </a>
-    <a *ngIf="act.infoButtonType === 'flat'"
-       mat-flat-button
-       fxFlexAlign="center"
-       [color]="act.color || 'primary'"
-       [matTooltip]="act.description"
-       [routerLink]="act.route">
-      {{act.title}}
-    </a>
-    <a *ngIf="!act.infoButtonType || act.infoButtonType === 'basic'"
-       mat-button
-       fxFlexAlign="center"
-       [color]="act.color || 'primary'"
-       [matTooltip]="act.description"
-       [routerLink]="act.route">
-      {{act.title}}
-    </a>
-  </ng-template>
-  <button mat-icon-button
-          fxFlexAlign="center"
-          matTooltip="Dismiss"
+  <mat-icon class="level" fxFlexAlign="center" [ngClass]="msg.level">{{msg.level}}</mat-icon>
+  <span class="message" fxFlex fxFlexAlign="center">{{msg.message}}</span>
+  <div fxLayout="row" fxLayout.lt-sm="column">
+    <button *ngIf="msg.data" fxFlexAlign="center"
+            mat-button matTooltip="Show message details"
+            (click)="showMessageDetails()">
+      DETAILS
+    </button>
+    <ng-template ngFor let-act [ngForOf]="msg.actions">
+      <a *ngIf="act.infoButtonType === 'raised'"
+         mat-raised-button fxFlexAlign="center" [color]="act.color || 'primary'"
+         [matTooltip]="act.description" [routerLink]="act.route">
+        {{act.title}}
+      </a>
+      <a *ngIf="act.infoButtonType === 'stroked'"
+         mat-stroked-button fxFlexAlign="center" [color]="act.color || 'primary'"
+         [matTooltip]="act.description" [routerLink]="act.route">
+        {{act.title}}
+      </a>
+      <a *ngIf="act.infoButtonType === 'flat'"
+         mat-flat-button fxFlexAlign="center" [color]="act.color || 'primary'"
+         [matTooltip]="act.description" [routerLink]="act.route">
+        {{act.title}}
+      </a>
+      <a *ngIf="!act.infoButtonType || act.infoButtonType === 'basic'"
+         mat-button fxFlexAlign="center" [color]="act.color || 'primary'"
+         [matTooltip]="act.description" [routerLink]="act.route">
+        {{act.title}}
+      </a>
+    </ng-template>
+  </div>
+  <button mat-icon-button fxFlexAlign="center" matTooltip="Dismiss"
           (click)="dismissMessage()">
     <mat-icon>close</mat-icon>
   </button>
