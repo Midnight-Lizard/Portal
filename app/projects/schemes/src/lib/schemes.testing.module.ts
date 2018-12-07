@@ -24,7 +24,7 @@ import { ExtensionService } from './extension/extension.service';
         EffectsModule.forRoot([])
     ],
     exports: [
-        materialModules, FormsModule, ReactiveFormsModule, LoadingModule
+        materialModules, FormsModule, ReactiveFormsModule, LoadingModule, FlexLayoutModule
     ],
     providers: [
         SvgIconService
