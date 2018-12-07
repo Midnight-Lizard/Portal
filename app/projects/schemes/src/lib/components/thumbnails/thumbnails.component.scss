@@ -1,10 +1,13 @@
 :host {
     display: block;
     cursor: pointer;
+    position: relative;
 }
 
-.tumbnail {
+.tumbnail-placeholder {
+    background-color: rgba(red,0.3);
     width: 100%;
+    padding-bottom: 62.5%;
     --ml-ignore:true;
     --bg-color: var(--ml-main-scrollbar-thumb-normal-color,rgba(128,128,128));
     --img-color: rgba(0,0,0,0.3);
@@ -18,4 +21,15 @@
         linear-gradient(var(--deg-one), var(--img-color) 31%, transparent 31%),
         linear-gradient(var(--deg-two), var(--img-color) 42%, transparent 42%),
         linear-gradient(var(--bg-color) 100%, transparent 0);
+}
+
+.tumbnail {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    --ml-ignore:true;
+}
+
+.hide {
+    visibility: hidden;
 }

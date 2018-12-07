@@ -86,17 +86,17 @@ export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
 
                 case 'sm':
                     this.cols = 1;
-                    this.aspect = '100:85';
+                    this.aspect = '100:80';
                     break;
 
                 case 'md':
                     this.cols = 2;
-                    this.aspect = '100:93';
+                    this.aspect = '100:90';
                     break;
 
                 case 'lg':
                     this.cols = 2;
-                    this.aspect = '100:90';
+                    this.aspect = '100:85';
                     break;
 
                 case 'xl':

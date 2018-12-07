@@ -11,21 +11,57 @@ import { SchemeSide } from '../model/scheme-side';
 import { SchemesList } from '../model/schemes-lists';
 
 const darkSchemes = [
-    // tslint:disable-next-line:max-line-length
-    'https://lh3.googleusercontent.com/xGFHyTjX8IWoU8W4GypW-rKZ-O83MDhP3dr5sBWvj0cpG7ITyD-GkhVk1jE-bLtyDO5FtDReCLdPUA-J51-vbD13ibL54_CIMagf=w1920-h1200',
-    // tslint:disable-next-line:max-line-length
-    'https://lh3.googleusercontent.com/QiZPT1yLxr0-Ob9QuDtrshGO6Fsw701tL1yKCWq5aqHLjBrsRbmSXKKTi3mK9b4pXhGyU8vi1X1McamyzYGkT-YyjGmXLmXkXNtC=w1920-h1200',
-    // tslint:disable-next-line:max-line-length
-    'https://lh3.googleusercontent.com/dzvDXQGLmzdBwaxU5qyCe08ewaFskfISVCDgtH14V57GdNRXe6WlbO8pGX20KDybqecFYWNjtLDQUuMwLuceUp0iNam9cRo_0hlE=w1920-h1200',
-    // tslint:disable-next-line:max-line-length
-    'https://lh3.googleusercontent.com/2elQVTWkqkLpWtqOtm6Qirt_Wl0thuhyEhQqCxzlR1MbmdSkhN4uaFKitqHtxCH2H_gpz0vuMkPOhmuOI05tOAgFdfM8cXbKLAxp=w1920-h1200',
-    // tslint:disable-next-line:max-line-length
-    'https://lh3.googleusercontent.com/szBFviBG1jz3r6jopNGLkHRL-raFjLuYeCmJ5as9G1vVme9AyEFSwa8qEowxhat46bpZwK-iAMuPY9vRhhrA_5ykuQRXklpfhHhs=w1920-h1200'
+    {
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.ExtraSmall]: 'https://res.cloudinary.com/midnight-lizard/cs/00226e8b-666a-4c7d-af62-5f6635e1e1fe/duckduckgo/640x400.jpg',
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.Small]: 'https://res.cloudinary.com/midnight-lizard/cs/00226e8b-666a-4c7d-af62-5f6635e1e1fe/duckduckgo/800x500.jpg',
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.Medium]: 'https://res.cloudinary.com/midnight-lizard/cs/00226e8b-666a-4c7d-af62-5f6635e1e1fe/duckduckgo/960x600.jpg',
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.Large]: 'https://res.cloudinary.com/midnight-lizard/cs/00226e8b-666a-4c7d-af62-5f6635e1e1fe/duckduckgo/1120x700.jpg',
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.ExtraLarge]: 'https://res.cloudinary.com/midnight-lizard/cs/00226e8b-666a-4c7d-af62-5f6635e1e1fe/duckduckgo/1280x800.jpg',
+    },
+    {
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.ExtraSmall]: 'https://res.cloudinary.com/midnight-lizard/cs/6e0a4559-4dff-419c-8f56-53390385eb79/duckduckgo/640x400.jpg',
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.Small]: 'https://res.cloudinary.com/midnight-lizard/cs/6e0a4559-4dff-419c-8f56-53390385eb79/duckduckgo/800x500.jpg',
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.Medium]: 'https://res.cloudinary.com/midnight-lizard/cs/6e0a4559-4dff-419c-8f56-53390385eb79/duckduckgo/960x600.jpg',
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.Large]: 'https://res.cloudinary.com/midnight-lizard/cs/6e0a4559-4dff-419c-8f56-53390385eb79/duckduckgo/1120x700.jpg',
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.ExtraLarge]: 'https://res.cloudinary.com/midnight-lizard/cs/6e0a4559-4dff-419c-8f56-53390385eb79/duckduckgo/1280x800.jpg',
+    },
+    {
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.ExtraSmall]: 'https://res.cloudinary.com/midnight-lizard/cs/18f567d5-2d25-40e9-95e7-3160577c781c/duckduckgo/640x400.jpg',
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.Small]: 'https://res.cloudinary.com/midnight-lizard/cs/18f567d5-2d25-40e9-95e7-3160577c781c/duckduckgo/800x500.jpg',
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.Medium]: 'https://res.cloudinary.com/midnight-lizard/cs/18f567d5-2d25-40e9-95e7-3160577c781c/duckduckgo/960x600.jpg',
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.Large]: 'https://res.cloudinary.com/midnight-lizard/cs/18f567d5-2d25-40e9-95e7-3160577c781c/duckduckgo/1120x700.jpg',
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.ExtraLarge]: 'https://res.cloudinary.com/midnight-lizard/cs/18f567d5-2d25-40e9-95e7-3160577c781c/duckduckgo/1280x800.jpg',
+    }
 ];
 
 const lightSchemes = [
-    // tslint:disable-next-line:max-line-length
-    'https://lh3.googleusercontent.com/iv67RC1_Dncgw4Ylhq-DjTZzYaivx21vaTM6_uQ-x5TLkwo4lTu2MOYsINVIyZ5CxvXgzR5gZ4UZDHa-6CeQyA_xgbPG5p-nZp8=w1920-h1200'
+    {
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.ExtraSmall]: 'https://res.cloudinary.com/midnight-lizard/cs/fabcf18b-7db0-4d99-a3f7-099352e1661d/duckduckgo/640x400.jpg',
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.Small]: 'https://res.cloudinary.com/midnight-lizard/cs/fabcf18b-7db0-4d99-a3f7-099352e1661d/duckduckgo/800x500.jpg',
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.Medium]: 'https://res.cloudinary.com/midnight-lizard/cs/fabcf18b-7db0-4d99-a3f7-099352e1661d/duckduckgo/960x600.jpg',
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.Large]: 'https://res.cloudinary.com/midnight-lizard/cs/fabcf18b-7db0-4d99-a3f7-099352e1661d/duckduckgo/1120x700.jpg',
+        // tslint:disable-next-line:max-line-length
+        [ScreenshotSize.ExtraLarge]: 'https://res.cloudinary.com/midnight-lizard/cs/fabcf18b-7db0-4d99-a3f7-099352e1661d/duckduckgo/1280x800.jpg',
+    }
 ];
 
 @Injectable()
@@ -51,7 +87,7 @@ export class SchemesServiceStub
                     ? Math.random() > 0.25 ? SchemeSide.Dark : SchemeSide.Light
                     : filters.side;
                 const screenshots = side === SchemeSide.Dark ? darkSchemes : lightSchemes;
-                const screenshotUrl = screenshots[Math.floor(Math.random() * screenshots.length)];
+                const screenshotUrls = screenshots[Math.floor(Math.random() * screenshots.length)];
 
                 return ({
                     id: this.randomString(8),
@@ -68,13 +104,7 @@ export class SchemesServiceStub
                     likes: Math.floor(Math.random() * 100),
                     screenshots: [{
                         title: '',
-                        urls: {
-                            [ScreenshotSize.ExtraSmall]: screenshotUrl,
-                            [ScreenshotSize.Small]: screenshotUrl,
-                            [ScreenshotSize.Medium]: screenshotUrl,
-                            [ScreenshotSize.Large]: screenshotUrl,
-                            [ScreenshotSize.ExtraLarge]: screenshotUrl,
-                        }
+                        urls: screenshotUrls
                     }]
                 });
             })
@@ -100,7 +130,6 @@ export class SchemesServiceStub
                 this.CreateFakeScreenshot(),
                 this.CreateFakeScreenshot(),
                 this.CreateFakeScreenshot(),
-                this.CreateFakeScreenshot()
             ],
             colorScheme: null,
             description: lorem
@@ -109,16 +138,10 @@ export class SchemesServiceStub
 
     private CreateFakeScreenshot(): Screenshot
     {
-        const screenshotUrl = darkSchemes[Math.floor(Math.random() * darkSchemes.length)];
+        const screenshotUrls = darkSchemes[Math.floor(Math.random() * darkSchemes.length)];
         return {
             title: this.randomString(16),
-            urls: {
-                [ScreenshotSize.ExtraSmall]: screenshotUrl,
-                [ScreenshotSize.Small]: screenshotUrl,
-                [ScreenshotSize.Medium]: screenshotUrl,
-                [ScreenshotSize.Large]: screenshotUrl,
-                [ScreenshotSize.ExtraLarge]: screenshotUrl,
-            }
+            urls: screenshotUrls
         };
     }
 

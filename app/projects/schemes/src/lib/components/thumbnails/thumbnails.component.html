@@ -1,4 +1,6 @@
-<img *ngIf="screenshots" class="tumbnail ml-ignore"
+<div class="tumbnail-placeholder"></div>
+<img *ngIf="screenshots && hasBeenVisible" class="tumbnail ml-ignore" 
+     (error)="onImageError()" [ngClass]="{hide:hideImage}"
      [src]="screenshots[0].urls['xs']"
      sizes="(max-width: 599px) 90vw,
             (min-width: 600px) and (max-width: 959px) 70vw,

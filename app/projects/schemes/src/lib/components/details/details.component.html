@@ -45,12 +45,12 @@
               (click)="toggleSchemeFavorited(scheme)">
         <mat-icon>{{scheme.favorited ? "favorite" : "favorite_border"}}</mat-icon>
       </button> -->
-      <button mat-icon-button fxFlexAlign="center"
+      <!-- <button mat-icon-button fxFlexAlign="center"
               #schemeMenuTrigger class="command" matTooltip="More"
               (menuClosed)="schemeMenuTrigger.focus()"
               [matMenuTriggerFor]="schemeMenu">
         <mat-icon>more_vert</mat-icon>
-      </button>
+      </button> -->
       <mat-menu #schemeMenu="matMenu" xPosition="before"
                 overlapTrigger="false">
         <button mat-menu-item matTooltip="Download color scheme file"
