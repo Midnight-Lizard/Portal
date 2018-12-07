@@ -1,32 +1,32 @@
 ﻿<form [formGroup]="filtersForm" novalidate class="mat-h3">
-    <mat-form-field class="filter-container" color="accent">
-        <button mat-icon-button matPrefix matTooltip="Search">
-            <mat-icon>search</mat-icon>
-        </button>
-        <input matInput formControlName="query"
-               placeholder="Search query"
-               matTooltip="+&emsp;AND
+  <mat-form-field class="filter-container" color="accent">
+    <button mat-icon-button matPrefix matTooltip="Search">
+      <mat-icon>search</mat-icon>
+    </button>
+    <input matInput formControlName="query" placeholder="Search query"
+           matTooltip="+&emsp;AND
                &thinsp;|&emsp;OR
                &ndash;&emsp;NOT
                *&emsp;any ending
                ~&emsp;fuzzy word
                &quot; &quot;&emsp;phrase
                ( )&emsp;precedence">
-        <button mat-icon-button matSuffix matTooltip="Clear filter" 
+    <button mat-icon-button matSuffix matTooltip="Clear filter"
             (click)="filtersForm.get('query')!.setValue('')">
-            <mat-icon>clear</mat-icon>
-        </button>
-    </mat-form-field>
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-form-field>
 
-    <mat-button-toggle-group formControlName="side" color="accent">
-        <mat-button-toggle value="light" matTooltip="Light side">
-            <mat-icon>wb_sunny</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle value="none" matTooltip="No side filter">
-            <mat-icon>swap_horiz</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle value="dark" matTooltip="Dark side">
-            <mat-icon>brightness_3</mat-icon>
-        </mat-button-toggle>
-    </mat-button-toggle-group>
+  <mat-button-toggle-group formControlName="side" color="accent"
+                           [ngClass.sm]="{'vertical': true}">
+    <mat-button-toggle value="light" matTooltip="Light side">
+      <mat-icon>wb_sunny</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle value="none" matTooltip="No side filter">
+      <mat-icon>swap_horiz</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle value="dark" matTooltip="Dark side">
+      <mat-icon>brightness_3</mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
 </form>

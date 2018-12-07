@@ -9,6 +9,13 @@
 {
     width: 100%;
     text-align: center;
+
+    &.vertical {
+        width: auto;
+        .mat-button-toggle{
+            width: 100%;
+        }
+    }
 }
 
 .mat-button-toggle

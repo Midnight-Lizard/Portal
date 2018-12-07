@@ -138,3 +138,8 @@ nav .logo.mat-icon {
         stroke: hsla(50, 95%, 4%, 1);
     }
 }
+
+.mat-form-field-infix {
+    min-width: 20px!important;
+    width: auto!important;
+}
