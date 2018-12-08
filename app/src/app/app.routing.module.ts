@@ -7,10 +7,16 @@ import { CommanderComponent } from './components/commander/commander.component';
 import { ValidateConsentGuard, AcceptConsentGuard } from 'core';
 import { PrivacyComponent } from './polices/privacy/privacy.component';
 import { TermsComponent } from './polices/terms/terms.component';
+import { WebStoreComponent } from './components/web-store/web-store.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
+    {
+        path: 'home', children: [
+            { path: '', component: HomeComponent },
+            { path: '', component: WebStoreComponent, outlet: 'right-side' }
+        ]
+    },
     { path: 'privacy', component: PrivacyComponent },
     { path: 'terms', component: TermsComponent },
     { path: 'schemes', loadChildren: './lazy/schemes.loader.module#SchemesLoaderModule' },
@@ -41,5 +47,6 @@ const routes: Routes = [
 export class AppRoutingModule { }
 
 export const routingComponents = [
-    HomeComponent, CommanderComponent, PrivacyComponent, TermsComponent
+    HomeComponent, CommanderComponent, PrivacyComponent,
+    TermsComponent, WebStoreComponent, HomeNavigationComponent
 ];
