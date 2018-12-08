@@ -19,8 +19,20 @@ const routes: Routes = [
             { path: '', component: WebStoreComponent, outlet: 'right-side' }
         ]
     },
-    { path: 'privacy', component: PrivacyComponent },
-    { path: 'terms', component: TermsComponent },
+    {
+        path: 'privacy', children: [
+            { path: '', component: PrivacyComponent },
+            { path: '', component: HomeNavigationComponent, outlet: 'left-side' },
+            { path: '', component: WebStoreComponent, outlet: 'right-side' }
+        ]
+    },
+    {
+        path: 'terms', children: [
+            { path: '', component: TermsComponent },
+            { path: '', component: HomeNavigationComponent, outlet: 'left-side' },
+            { path: '', component: WebStoreComponent, outlet: 'right-side' }
+        ]
+    },
     { path: 'schemes', loadChildren: './lazy/schemes.loader.module#SchemesLoaderModule' },
     {
         path: 'signin', component: ReloadFromServerComponent,
