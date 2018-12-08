@@ -8,12 +8,14 @@ import { ValidateConsentGuard, AcceptConsentGuard } from 'core';
 import { PrivacyComponent } from './polices/privacy/privacy.component';
 import { TermsComponent } from './polices/terms/terms.component';
 import { WebStoreComponent } from './components/web-store/web-store.component';
+import { HomeNavigationComponent } from './components/home-nav/home-nav.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     {
         path: 'home', children: [
             { path: '', component: HomeComponent },
+            { path: '', component: HomeNavigationComponent, outlet: 'left-side' },
             { path: '', component: WebStoreComponent, outlet: 'right-side' }
         ]
     },
