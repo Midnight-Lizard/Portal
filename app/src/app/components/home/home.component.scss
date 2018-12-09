@@ -1,5 +1,56 @@
 ﻿@import 'theme.scss';
+.section {
+    margin: 0 auto;
+    margin-block-end: 50px;
+    max-width: 720px;
+}
 
-p {
-    text-align: justify;
+.details {
+    font-size: 16px;
+}
+
+.image {
+    width: 200px;
+    height: 200px;
+    &.logo {
+        line-height: 120px;
+        width: 120px;
+        height: 120px;
+        background-color: $ml-background;
+        border-radius: 50%;
+        @include mat-elevation(3);
+    }
+}
+
+.image-container {
+    position: relative;
+    height: 200px;
+}
+
+.image-container:after {
+    content: "";
+    --ml-ignore:true;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(0.86) hue-rotate(180deg) invert(1);
+}
+
+.image-container.contrast:after {
+    background-image: url(/assets/intro/contrast.svg);
+    clip-path: polygon(0 100%, 100% 100%, 100% 0);
+}
+
+.image-container.devices:after {
+    background-image: url(/assets/intro/devices.svg);
+    clip-path: polygon(0 100%, 100% 100%, 100% 0);
+}
+
+.image-container.schedule:after {
+    background-image: url(/assets/intro/schedule.svg);
+    clip-path: polygon(49.5% 53%, 0 100%, 100% 100%, 100% 0, 50% 0);
 }
