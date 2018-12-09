@@ -12,6 +12,10 @@
 .image {
     width: 200px;
     height: 200px;
+    &.small {
+        width: 120px;
+        height: 120px;
+    }
     &.logo {
         line-height: 120px;
         width: 120px;
@@ -19,12 +23,19 @@
         background-color: $ml-background;
         border-radius: 50%;
         @include mat-elevation(3);
+        &.small {
+            width: 100px;
+            height: 100px;
+        }
     }
 }
 
 .image-container {
     position: relative;
     height: 200px;
+    &.small {
+        height: 120px;
+    }
 }
 
 .image-container:after {

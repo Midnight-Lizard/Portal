@@ -1,6 +1,7 @@
 <div class="section" fxLayout="row" fxLayoutAlign="center"
      fxLayoutGap="50px">
-  <mat-icon class="image logo" fxFlexAlign="center" svgIcon="midnight-lizard"></mat-icon>
+  <mat-icon class="image logo" ngClass.xs="small"
+            fxFlexAlign="center" svgIcon="midnight-lizard"></mat-icon>
   <div class="content" fxLayout="column" fxFlexAlign="center"
        fxFlex="45%">
     <h1>Midnight Lizard</h1>
@@ -19,13 +20,14 @@
       schemes or create your own with any colors you want
     </p>
   </div>
-  <img class="image" fxFlexAlign="center" src="assets/intro/schemes.svg">
+  <img class="image" ngClass.xs="small" fxFlexAlign="center"
+       src="assets/intro/schemes.svg">
 </div>
 
 <div class="section" fxLayout="row" fxLayoutAlign="center"
      fxLayoutGap="50px">
-  <div fxFlexAlign="center" class="image-container contrast">
-    <img class="image" src="assets/intro/contrast.svg">
+  <div fxFlexAlign="center" ngClass.xs="small" class="image-container contrast">
+    <img class="image" ngClass.xs="small" src="assets/intro/contrast.svg">
   </div>
   <div class="content" fxLayout="column" fxFlex="45%"
        fxFlexAlign="center">
@@ -48,15 +50,15 @@
       automatically activated and deactivated
     </p>
   </div>
-  <div fxFlexAlign="center" class="image-container schedule">
-    <img class="image" fxFlexAlign="center" src="assets/intro/schedule.svg">
+  <div fxFlexAlign="center" ngClass.xs="small" class="image-container schedule">
+    <img class="image" ngClass.xs="small" src="assets/intro/schedule.svg">
   </div>
 </div>
 
 <div class="section" fxLayout="row" fxLayoutAlign="center"
      fxLayoutGap="50px">
-  <div fxFlexAlign="center" class="image-container devices">
-    <img class="image" src="assets/intro/devices.svg">
+  <div fxFlexAlign="center" ngClass.xs="small" class="image-container devices">
+    <img class="image" ngClass.xs="small" src="assets/intro/devices.svg">
   </div>
   <div class="content" fxLayout="column" fxFlex="45%"
        fxFlexAlign="center">
@@ -78,13 +80,14 @@
       evening time to emulate natural sunlight patterns
     </p>
   </div>
-  <div fxFlexAlign="center" class="image-container blue-light-filter">
-    <img class="image" src="assets/intro/blue-light-filter.svg">
+  <div fxFlexAlign="center" ngClass.xs="small" class="image-container blue-light-filter">
+    <img class="image" ngClass.xs="small" src="assets/intro/blue-light-filter.svg">
   </div>
 </div>
 
 <svg style="height: 0px; position: absolute; --ml-ignore:true;">
-  <filter id="ml-intro-blue-filter" color-interpolation-filters="sRGB">
+  <filter id="ml-intro-blue-filter"
+          color-interpolation-filters="sRGB">
     <feColorMatrix type="matrix" values="1 0 0.4 0 0 0 1 0 0 0 0 0 0.6 0 0 0 0 0 1 0"></feColorMatrix>
   </filter>
 </svg>
