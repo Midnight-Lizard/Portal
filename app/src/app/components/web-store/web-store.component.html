@@ -1,22 +1,36 @@
-<mat-nav-list>
-  <h3 matSubheader>Get Midnight Lizard from</h3>
-  <a mat-list-item target="_blank" href="https://chrome.google.com/webstore/detail/midnight-lizard/pbnndmlekkboofhnbonilimejonapojg">
-    <img matListAvatar src="assets/logos/chrome.svg">
-    <p matLine>Chrome</p>
-    <p matLine>Web Store</p>
-  </a>
-  <a mat-list-item target="_blank" href="https://addons.mozilla.org/en-US/firefox/addon/midnight-lizard-quantum/">
-    <img matListAvatar src="assets/logos/firefox.svg">
-    <p matLine>Firefox</p>
-    <p matLine>Add-ons</p>
-  </a>
+<div fxLayout="column" fxLayout.xs="row">
+  <mat-nav-list fxFlex.xs="33%">
+    <h3 matSubheader fxHide.xs>Get Midnight Lizard from</h3>
+    <a mat-list-item target="_blank" matTooltip="Install Midnight Lizard
+        from Chrome Web Store"
+       href="https://chrome.google.com/webstore/detail/midnight-lizard/pbnndmlekkboofhnbonilimejonapojg">
+      <img matListAvatar fxHide.xs src="assets/logos/chrome.svg">
+      <img matListIcon fxHide fxShow.xs src="assets/logos/chrome.svg">
+      <p matLine>Chrome</p>
+      <p matLine>Web Store</p>
+    </a>
+  </mat-nav-list>
+  <mat-nav-list fxFlex.xs="33%">
+    <a mat-list-item target="_blank" matTooltip="Install Midnight Lizard
+        from Firefox Add-ons"
+       href="https://addons.mozilla.org/en-US/firefox/addon/midnight-lizard-quantum/">
+      <img matListAvatar fxHide.xs src="assets/logos/firefox.svg">
+      <img matListIcon fxHide fxShow.xs src="assets/logos/firefox.svg">
+      <p matLine>Firefox</p>
+      <p matLine>Add-ons</p>
+    </a>
+  </mat-nav-list>
+  <mat-nav-list fxFlex.xs="33%">
+    <mat-divider fxHide.xs></mat-divider>
 
-  <mat-divider></mat-divider>
-
-  <h3 matSubheader>Keep this website running</h3>
-  <a mat-list-item target="_blank" href="https://opencollective.com/midnight-lizard#contribute">
-    <img matListAvatar src="assets/logos/open-collective.svg">
-    <p matLine>Donate to our</p>
-    <p matLine>Open Collective</p>
-  </a>
-</mat-nav-list>
+    <h3 matSubheader fxHide.xs>Keep this website running</h3>
+    <a mat-list-item target="_blank" matTooltip="Donate to Midnight Lizard
+          open source collective"
+       href="https://opencollective.com/midnight-lizard#contribute">
+      <img matListAvatar fxHide.xs src="assets/logos/open-collective.svg">
+      <img matListIcon fxHide fxShow.xs src="assets/logos/open-collective.svg">
+      <p matLine>Donate to our</p>
+      <p matLine>Open Collective</p>
+    </a>
+  </mat-nav-list>
+</div>
