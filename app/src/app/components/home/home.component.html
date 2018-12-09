@@ -67,3 +67,24 @@
     </p>
   </div>
 </div>
+
+<div class="section" fxLayout="row" fxLayoutAlign="center"
+     fxLayoutGap="50px">
+  <div class="content" fxLayout="column" fxFlex="45%"
+       fxFlexAlign="center">
+    <h2>Protect your eyes</h2>
+    <p class="details">
+      Protect your eyes by applying blue light filter at
+      evening time to emulate natural sunlight patterns
+    </p>
+  </div>
+  <div fxFlexAlign="center" class="image-container blue-light-filter">
+    <img class="image" src="assets/intro/blue-light-filter.svg">
+  </div>
+</div>
+
+<svg style="height: 0px; position: absolute; --ml-ignore:true;">
+  <filter id="ml-intro-blue-filter" color-interpolation-filters="sRGB">
+    <feColorMatrix type="matrix" values="1 0 0.4 0 0 0 1 0 0 0 0 0 0.6 0 0 0 0 0 1 0"></feColorMatrix>
+  </filter>
+</svg>

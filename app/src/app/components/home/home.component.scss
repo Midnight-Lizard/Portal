@@ -54,3 +54,9 @@
     background-image: url(/assets/intro/schedule.svg);
     clip-path: polygon(49.5% 53%, 0 100%, 100% 100%, 100% 0, 50% 0);
 }
+
+.image-container.blue-light-filter:after {
+    background-image: url(/assets/intro/blue-light-filter.svg);
+    clip-path: polygon(20% 100%, 100% 100%, 100% 0, 80% 0);
+    filter: brightness(0.86) hue-rotate(180deg) invert(1) url(#ml-intro-blue-filter);
+}
