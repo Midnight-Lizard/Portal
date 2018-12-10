@@ -11,7 +11,7 @@ const index = 'index';
 const routes: Routes = [
     {
         path: `${index}/:list/:id`, children: [
-            { path: '', component: SchemesListComponent },
+            { path: '', component: SchemesListComponent, data: { title: 'Color schemes - Midnight Lizard' } },
             { path: '', component: SchemesFilterComponent, outlet: 'right-side' },
             { path: '', component: SchemesNavigationComponent, outlet: 'left-side' }
         ]

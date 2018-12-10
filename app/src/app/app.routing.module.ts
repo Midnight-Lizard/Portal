@@ -14,21 +14,21 @@ const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     {
         path: 'home', children: [
-            { path: '', component: HomeComponent },
+            { path: '', component: HomeComponent, data: { title: 'Midnight Lizard - custom color schemes for all websites' } },
             { path: '', component: HomeNavigationComponent, outlet: 'left-side' },
             { path: '', component: WebStoreComponent, outlet: 'right-side' }
         ]
     },
     {
         path: 'privacy', children: [
-            { path: '', component: PrivacyComponent },
+            { path: '', component: PrivacyComponent, data: { title: 'Privacy Policy - Midnight Lizard' } },
             { path: '', component: HomeNavigationComponent, outlet: 'left-side' },
             { path: '', component: WebStoreComponent, outlet: 'right-side' }
         ]
     },
     {
         path: 'terms', children: [
-            { path: '', component: TermsComponent },
+            { path: '', component: TermsComponent, data: { title: 'Terms of Service - Midnight Lizard' } },
             { path: '', component: HomeNavigationComponent, outlet: 'left-side' },
             { path: '', component: WebStoreComponent, outlet: 'right-side' }
         ]
@@ -36,11 +36,11 @@ const routes: Routes = [
     { path: 'schemes', loadChildren: './lazy/schemes.loader.module#SchemesLoaderModule' },
     {
         path: 'signin', component: ReloadFromServerComponent,
-        data: { ephemeral: true }, canActivate: [ValidateConsentGuard]
+        data: { ephemeral: true, title: 'Redirecting' }, canActivate: [ValidateConsentGuard]
     },
     {
         path: 'signout', component: ReloadFromServerComponent,
-        data: { ephemeral: true }, canActivate: [ValidateConsentGuard]
+        data: { ephemeral: true, title: 'Redirecting' }, canActivate: [ValidateConsentGuard]
     },
     {
         path: 'accept-consent', component: LoadingComponent,

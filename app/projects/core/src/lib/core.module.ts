@@ -15,6 +15,7 @@ import { ConsentCookieService } from './consent/consent-cookie.service';
 import { ConsentService } from './consent/consent.service';
 import { ValidateConsentGuard } from './consent/validate-consent.guard';
 import { AcceptConsentGuard } from './consent/accept-consent.guard';
+import { Title } from '@angular/platform-browser';
 
 const effects = [AuthEffects, NavEffects, InfoEffects];
 
@@ -27,7 +28,7 @@ const effects = [AuthEffects, NavEffects, InfoEffects];
     ],
     providers: [
         ...effects,
-        AuthService, SideService, Actions,
+        AuthService, SideService, Actions, Title,
         CookieService, ConsentCookieService, ConsentService,
         ValidateConsentGuard, AcceptConsentGuard,
     ]
