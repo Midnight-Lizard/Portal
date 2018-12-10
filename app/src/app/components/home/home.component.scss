@@ -50,6 +50,10 @@
     background-repeat: no-repeat;
     filter: brightness(0.86) hue-rotate(180deg) invert(1);
 }
+.image-container.sides:after {
+    background-image: url(/assets/intro/sides.svg);
+    clip-path: polygon(0 100%, 100% 100%, 100% 0);
+}
 
 .image-container.contrast:after {
     background-image: url(/assets/intro/contrast.svg);
