@@ -9,6 +9,7 @@ import { PrivacyComponent } from './polices/privacy/privacy.component';
 import { TermsComponent } from './polices/terms/terms.component';
 import { WebStoreComponent } from './components/web-store/web-store.component';
 import { HomeNavigationComponent } from './components/home-nav/home-nav.component';
+import { ExtensionPrivacyComponent } from './polices/extension-privacy/extension-privacy.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -21,14 +22,21 @@ const routes: Routes = [
     },
     {
         path: 'privacy', children: [
-            { path: '', component: PrivacyComponent, data: { title: 'Privacy Policy - Midnight Lizard' } },
+            { path: '', component: PrivacyComponent, data: { title: 'Midnight Lizard Website Privacy Policy' } },
+            { path: '', component: HomeNavigationComponent, outlet: 'left-side' },
+            { path: '', component: WebStoreComponent, outlet: 'right-side' }
+        ]
+    },
+    {
+        path: 'extension-privacy', children: [
+            { path: '', component: ExtensionPrivacyComponent, data: { title: 'Midnight Lizard Web-Extension Privacy Policy' } },
             { path: '', component: HomeNavigationComponent, outlet: 'left-side' },
             { path: '', component: WebStoreComponent, outlet: 'right-side' }
         ]
     },
     {
         path: 'terms', children: [
-            { path: '', component: TermsComponent, data: { title: 'Terms of Service - Midnight Lizard' } },
+            { path: '', component: TermsComponent, data: { title: 'Midnight Lizard Website Terms of Service' } },
             { path: '', component: HomeNavigationComponent, outlet: 'left-side' },
             { path: '', component: WebStoreComponent, outlet: 'right-side' }
         ]
@@ -61,6 +69,6 @@ const routes: Routes = [
 export class AppRoutingModule { }
 
 export const routingComponents = [
-    HomeComponent, CommanderComponent, PrivacyComponent,
+    HomeComponent, CommanderComponent, PrivacyComponent, ExtensionPrivacyComponent,
     TermsComponent, WebStoreComponent, HomeNavigationComponent
 ];

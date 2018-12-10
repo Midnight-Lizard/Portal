@@ -6,6 +6,8 @@ import { SideService } from 'core';
 
 const svgIcons = [
     { key: 'midnight-lizard', path: 'assets/ml-logo.svg' },
+    { key: 'extension-privacy', path: 'assets/extension-privacy.svg' },
+    { key: 'web-privacy', path: 'assets/web-privacy.svg' },
     { key: 'outline-thumb-up', path: 'assets/outline-thumb_up.svg' },
     { key: 'mark-as-read', path: 'assets/mark-as-read.svg' }
 ];
