@@ -137,6 +137,17 @@ nav .logo.mat-icon {
         stroke: hsla(50, 95%, 4%, 1);
     }
 }
+.image.logo.mat-icon {
+    path:nth-child(1) {
+        fill: hsla(93, 100%, 45%, 1);
+        stroke: hsla(115, 46%, 15%, 1);
+    }
+    path:nth-child(2),
+    path:nth-child(3) {
+        fill: hsla(50, 100%, 45%, 1);
+        stroke: hsla(51, 90%, 14%, 1);
+    }
+}
 
 .mat-form-field-infix {
     min-width: 20px!important;
