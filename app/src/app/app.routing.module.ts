@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
-import { HomeComponent } from './components/home/home.component';
-import { LoadingComponent, ReloadFromServerComponent } from 'shared';
-import { CommanderComponent } from './components/commander/commander.component';
+import { LoadingComponent, ReloadFromServerComponent, AdComponent } from 'shared';
 import { ValidateConsentGuard, AcceptConsentGuard } from 'core';
+
+import { HomeComponent } from './components/home/home.component';
+import { CommanderComponent } from './components/commander/commander.component';
 import { PrivacyComponent } from './polices/privacy/privacy.component';
 import { TermsComponent } from './polices/terms/terms.component';
 import { WebStoreComponent } from './components/web-store/web-store.component';
@@ -17,28 +18,28 @@ const routes: Routes = [
         path: 'home', children: [
             { path: '', component: HomeComponent, data: { title: 'Midnight Lizard - custom color schemes for all websites' } },
             { path: '', component: HomeNavigationComponent, outlet: 'left-side' },
-            { path: '', component: WebStoreComponent, outlet: 'right-side' }
+            { path: '', component: WebStoreComponent, outlet: 'right-side' },
         ]
     },
     {
         path: 'privacy', children: [
             { path: '', component: PrivacyComponent, data: { title: 'Midnight Lizard Website Privacy Policy' } },
             { path: '', component: HomeNavigationComponent, outlet: 'left-side' },
-            { path: '', component: WebStoreComponent, outlet: 'right-side' }
+            { path: '', component: WebStoreComponent, outlet: 'right-side' },
         ]
     },
     {
         path: 'extension-privacy', children: [
             { path: '', component: ExtensionPrivacyComponent, data: { title: 'Midnight Lizard Web-Extension Privacy Policy' } },
             { path: '', component: HomeNavigationComponent, outlet: 'left-side' },
-            { path: '', component: WebStoreComponent, outlet: 'right-side' }
+            { path: '', component: WebStoreComponent, outlet: 'right-side' },
         ]
     },
     {
         path: 'terms', children: [
             { path: '', component: TermsComponent, data: { title: 'Midnight Lizard Website Terms of Service' } },
             { path: '', component: HomeNavigationComponent, outlet: 'left-side' },
-            { path: '', component: WebStoreComponent, outlet: 'right-side' }
+            { path: '', component: WebStoreComponent, outlet: 'right-side' },
         ]
     },
     { path: 'schemes', loadChildren: './lazy/schemes.loader.module#SchemesLoaderModule' },

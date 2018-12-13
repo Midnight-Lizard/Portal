@@ -18,13 +18,12 @@ mat-sidenav-container {
     }
     &:not(important) {
         width: 20%;
-        padding-bottom: 20px;
     }
     &.over-80 {
         width: 80%;
     }
-    &.over-50 {
-        width: 50%;
+    &.over-60 {
+        width: 60%;
     }
 }
 

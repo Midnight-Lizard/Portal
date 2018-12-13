@@ -2,6 +2,7 @@ import { NgModule, Inject, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ScriptLoaderModule } from 'ngx-script-loader';
 import
 {
     MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
@@ -13,6 +14,7 @@ import
 } from '@angular/material';
 import { SvgIconService } from './svg-icon.service';
 import { ReplacePipe } from './pipes/string/replace.pipe';
+import { AdComponent } from './components/ad/ad.component';
 
 export const materialModules = [
     MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
@@ -24,6 +26,7 @@ export const materialModules = [
 ];
 
 export const pipes = [ReplacePipe];
+export const components = [AdComponent];
 
 @NgModule({
     imports: [
@@ -32,9 +35,10 @@ export const pipes = [ReplacePipe];
         FormsModule,
         FlexLayoutModule,
         ReactiveFormsModule,
+        ScriptLoaderModule,
     ],
-    declarations: [pipes],
-    exports: [materialModules, pipes]
+    declarations: [pipes, components],
+    exports: [materialModules, pipes, components]
 })
 export class SharedModule
 {
