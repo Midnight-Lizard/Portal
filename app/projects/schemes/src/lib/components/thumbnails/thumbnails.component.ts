@@ -28,11 +28,18 @@ export class SchemesThumbnailsComponent implements OnInit, OnDestroy
     {
         if (this.env.isBrowserSide)
         {
-            this.observer = new IntersectionObserver(
-                this.intersectionHandler.bind(this), {
-                    threshold: 0.01
-                });
-            this.observer.observe(this.element.nativeElement);
+            if (typeof IntersectionObserver === 'function')
+            {
+                this.observer = new IntersectionObserver(
+                    this.intersectionHandler.bind(this), {
+                        threshold: 0.01
+                    });
+                this.observer.observe(this.element.nativeElement);
+            }
+            else
+            {
+                this.hasBeenVisible = true;
+            }
         }
     }
 
