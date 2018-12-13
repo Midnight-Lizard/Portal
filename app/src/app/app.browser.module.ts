@@ -2,7 +2,7 @@ import { BrowserTransferStateModule, TransferState } from '@angular/platform-bro
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { INITIAL_STATE } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { NgModule, InjectionToken } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material';
 
 import

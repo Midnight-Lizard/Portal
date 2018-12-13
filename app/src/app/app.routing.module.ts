@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
-import { LoadingComponent, ReloadFromServerComponent, AdComponent } from 'shared';
+import { LoadingComponent, ReloadFromServerComponent } from 'shared';
 import { ValidateConsentGuard, AcceptConsentGuard } from 'core';
 
 import { HomeComponent } from './components/home/home.component';

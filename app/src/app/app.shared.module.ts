@@ -7,6 +7,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { NgStringPipesModule } from 'ngx-pipes';
+import { ScriptLoaderModule } from 'ngx-script-loader';
 import
 {
     SharedModule as PortalSharedModule,
@@ -23,6 +24,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { InfoBarComponent } from './components/info-bar/info-bar.component';
 import { DetailsBarComponent } from './components/details-bar/details-bar.component';
 import { InfoNavComponent } from './components/info-nav/info-nav.component';
+import { AdComponent } from './components/ad/ad.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +34,8 @@ import { InfoNavComponent } from './components/info-nav/info-nav.component';
         FooterComponent,
         InfoBarComponent,
         DetailsBarComponent,
-        InfoNavComponent
+        InfoNavComponent,
+        AdComponent,
     ],
     entryComponents: [InfoBarComponent, DetailsBarComponent],
     imports: [
@@ -41,6 +44,7 @@ import { InfoNavComponent } from './components/info-nav/info-nav.component';
         AppRoutingModule, PortalCoreModule, PortalLoadingModule,
         FormsModule, ReactiveFormsModule, FlexLayoutModule,
         NgStringPipesModule,
+        ScriptLoaderModule,
         HttpClientModule,
         StoreRouterConnectingModule.forRoot(),
         StoreModule.forRoot(rootReducers),
