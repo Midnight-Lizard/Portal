@@ -49,7 +49,7 @@ export class CommanderComponent
                         observe: 'response'
                     }).pipe(catchError(x => of(x)))
                     .subscribe(resp => this.apiForm
-                        .patchValue({ results: JSON.stringify(resp) }));
+                        .patchValue({ results: JSON.stringify(resp, null, 2) }));
             }
         });
     }
@@ -74,7 +74,7 @@ export class CommanderComponent
                         observe: 'response'
                     }).pipe(catchError(x => of(x)))
                     .subscribe(resp => this.apiForm
-                        .patchValue({ results: JSON.stringify(resp) }));
+                        .patchValue({ results: JSON.stringify(resp, null, 2) }));
             }
         });
     }
