@@ -39,6 +39,7 @@
     margin-bottom: 8px;
     max-width: var(--width);
     line-height: 1;
+    filter: grayscale(0.3);
 }
 
 .carbon-img img {
@@ -47,6 +48,7 @@
     max-width: var(--width) !important;
     width: var(--width);
     height: auto;
+    --ml-image:Border;
 }
 
 .carbon-text {
