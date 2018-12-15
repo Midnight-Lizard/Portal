@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject, ReplaySubject } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { SideService, NotifyUser, NotificationLevel } from 'core';
@@ -12,7 +12,7 @@ import { ChromeRuntimePort } from './chrome-runtime-port';
 export class ExtensionService
 {
     private extensionConnection?: chrome.runtime.Port;
-    private readonly _installedPublicSchemes = new BehaviorSubject<PublicSchemeId[]>([]);
+    private readonly _installedPublicSchemes = new ReplaySubject<PublicSchemeId[]>(1);
     public get installedPublicSchemes$() { return this._installedPublicSchemes.asObservable(); }
 
     constructor(

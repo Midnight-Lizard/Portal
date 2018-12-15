@@ -1,7 +1,13 @@
-import { Component, TrackByFunction } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { filter, map, first } from 'rxjs/operators';
-import { Observable, combineLatest } from 'rxjs';
+import { filter, map, first, withLatestFrom, switchMap, take, skip } from 'rxjs/operators';
+import { Observable, combineLatest, fromEvent, Subscription } from 'rxjs';
+import
+{
+    Component, TrackByFunction, ElementRef,
+    AfterViewInit, ViewChildren, QueryList, OnDestroy
+} from '@angular/core';
+
+import { NotifyUser, NotificationLevel } from 'core';
 
 import { PublicScheme, PublicSchemeDetails } from '../../model/public-scheme';
 import { SchemesRootState } from '../../store/schemes.state';
@@ -13,11 +19,14 @@ import { ExtensionService } from '../../extension/extension.service';
     templateUrl: './details.component.html',
     styleUrls: ['./details.component.scss']
 })
-export class SchemeDetailsComponent
+export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
 {
+    private subs = new Array<Subscription>();
     public readonly scheme$: Observable<PublicSchemeDetails[]>;
     public readonly schemeIsInstalled$: Observable<boolean>;
     public get extensionIsAvailable() { return this.extension.isAvailable; }
+
+    @ViewChildren('addRemoveButton', { read: ElementRef }) addRemoveButton: QueryList<ElementRef>;
 
     constructor(
         private readonly store$: Store<SchemesRootState>,
@@ -51,10 +60,41 @@ export class SchemeDetailsComponent
 
     installOrUninstallPublicScheme(scheme: PublicSchemeDetails)
     {
-        this.extension.installedPublicSchemes$.pipe(first())
+        this.subs.push(this.extension.installedPublicSchemes$.pipe(first())
             .subscribe(installedPublicSchemes =>
                 installedPublicSchemes.includes(scheme.id)
                     ? this.extension.uninstallPublicScheme(scheme.id)
-                    : this.extension.installPublicScheme(scheme));
+                    : this.extension.installPublicScheme(scheme)));
+    }
+
+    ngAfterViewInit(): void
+    {
+        const getClicks = () => fromEvent(this.addRemoveButton.first.nativeElement, 'click');
+        const clicks$ = this.addRemoveButton.first
+            ? getClicks() : this.addRemoveButton.changes.pipe(first(), switchMap(() => getClicks()));
+
+        this.subs.push(clicks$.pipe(
+            switchMap(() => this.extension.installedPublicSchemes$.pipe(skip(1), take(1))),
+            withLatestFrom(this.scheme$),
+            map(([installedIds, scheme]) => ({
+                schemeName: scheme[0].name,
+                installed: installedIds.includes(scheme[0].id)
+            }))
+        ).subscribe(x =>
+        {
+            const message = x.installed
+                ? `Color scheme [${x.schemeName}] has been successfully installed.`
+                : `Color scheme [${x.schemeName}] has been successfully uninstalled.`;
+            this.store$.dispatch(new NotifyUser({
+                message: message,
+                level: NotificationLevel.Info,
+                isLocal: true,
+            }));
+        }));
+    }
+
+    ngOnDestroy(): void
+    {
+        this.subs.forEach(x => x.unsubscribe());
     }
 }
