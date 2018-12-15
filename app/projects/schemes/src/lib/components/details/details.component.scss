@@ -84,10 +84,12 @@
     margin-left: 20px;
     text-align: justify;
     white-space: pre-wrap;
+    max-width: 25vw;
     &.bottom {
         margin-left: 0px;
         margin-top: 20px;
         width: 70vw;
+        max-width: none;
     }
 }
 
