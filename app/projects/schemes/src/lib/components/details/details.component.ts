@@ -83,8 +83,8 @@ export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
         ).subscribe(x =>
         {
             const message = x.installed
-                ? `Color scheme [${x.schemeName}] has been successfully installed.`
-                : `Color scheme [${x.schemeName}] has been successfully uninstalled.`;
+                ? `Color scheme ‘${x.schemeName}’ has been successfully installed.`
+                : `Color scheme ‘${x.schemeName}’ has been successfully uninstalled.`;
             this.store$.dispatch(new NotifyUser({
                 message: message,
                 level: NotificationLevel.Info,
