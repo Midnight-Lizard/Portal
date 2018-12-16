@@ -1,5 +1,20 @@
 ﻿@import 'theme.scss';
 
+a {
+    --ml-link-color:Text;
+    --ml-link-fill:Text;
+    --ml-link-active-color:Text;
+    --ml-link-active-fill:Text;
+    --ml-link-hover-color:Text;
+    --ml-link-hover-fill:Text;
+    --ml-visitedlink-color:Text;
+    --ml-visitedlink-fill:Text;
+    --ml-visitedlink-hover-color:Text;
+    --ml-visitedlink-hover-fill:Text;
+    --ml-visitedlink-active-color:Text;
+    --ml-visitedlink-active-fill:Text;
+}
+
 a.active-section .mat-line,
 a.active-section .mat-list-icon
 {
