@@ -13,6 +13,7 @@ import { SchemesFeature, schemesReducers, schemesInitialState } from './store/sc
 import { SchemesService } from './backend/schemes.service';
 import { SchemesServiceStub } from './backend/schemes.service.stub';
 import { ExtensionService } from './extension/extension.service';
+import { ExtensionServiceStub } from './extension/extension.service.stub';
 
 @NgModule({
     imports: [
@@ -41,9 +42,10 @@ export class SchemesTestingModule
         return {
             ngModule: SchemesTestingModule,
             providers: [
-                Actions, SvgIconService, ExtensionService,
+                Actions, SvgIconService,
                 TestingModule.forRoot().providers!,
-                { provide: SchemesService, useClass: SchemesServiceStub }
+                { provide: SchemesService, useClass: SchemesServiceStub },
+                { provide: ExtensionService, useClass: ExtensionServiceStub }
             ]
         };
     }

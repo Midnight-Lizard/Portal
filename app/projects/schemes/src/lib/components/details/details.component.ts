@@ -69,28 +69,31 @@ export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
 
     ngAfterViewInit(): void
     {
-        const getClicks = () => fromEvent(this.addRemoveButton.first.nativeElement, 'click');
-        const clicks$ = this.addRemoveButton.first
-            ? getClicks() : this.addRemoveButton.changes.pipe(first(), switchMap(() => getClicks()));
-
-        this.subs.push(clicks$.pipe(
-            switchMap(() => this.extension.installedPublicSchemes$.pipe(skip(1), take(1))),
-            withLatestFrom(this.scheme$),
-            map(([installedIds, scheme]) => ({
-                schemeName: scheme[0].name,
-                installed: installedIds.includes(scheme[0].id)
-            }))
-        ).subscribe(x =>
+        if (this.extensionIsAvailable)
         {
-            const message = x.installed
-                ? `Color scheme ‘${x.schemeName}’ has been successfully installed.`
-                : `Color scheme ‘${x.schemeName}’ has been successfully uninstalled.`;
-            this.store$.dispatch(new NotifyUser({
-                message: message,
-                level: NotificationLevel.Info,
-                isLocal: true,
+            const getClicks = () => fromEvent(this.addRemoveButton.first.nativeElement, 'click');
+            const clicks$ = this.addRemoveButton.first
+                ? getClicks() : this.addRemoveButton.changes.pipe(first(), switchMap(() => getClicks()));
+
+            this.subs.push(clicks$.pipe(
+                switchMap(() => this.extension.installedPublicSchemes$.pipe(skip(1), take(1))),
+                withLatestFrom(this.scheme$),
+                map(([installedIds, scheme]) => ({
+                    schemeName: scheme[0].name,
+                    installed: installedIds.includes(scheme[0].id)
+                }))
+            ).subscribe(x =>
+            {
+                const message = x.installed
+                    ? `Color scheme ‘${x.schemeName}’ has been successfully installed.`
+                    : `Color scheme ‘${x.schemeName}’ has been successfully uninstalled.`;
+                this.store$.dispatch(new NotifyUser({
+                    message: message,
+                    level: NotificationLevel.Info,
+                    isLocal: true,
+                }));
             }));
-        }));
+        }
     }
 
     ngOnDestroy(): void
