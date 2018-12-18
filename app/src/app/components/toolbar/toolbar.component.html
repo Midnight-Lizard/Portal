@@ -4,7 +4,7 @@
           class="mat-button mat-icon-button">
     <mat-icon>menu</mat-icon>
   </button>
-  <nav mat-tab-nav-bar color="accent" ngClass.lt-sm="small">
+  <nav mat-tab-nav-bar color="accent" fxLayoutAlign="stretch">
     <a *ngFor="let item of items" mat-tab-link
        routerLinkActive="active-link" [ngClass]="item.class"
        [matTooltip]="item.tooltip" [routerLink]="[item.link]"
