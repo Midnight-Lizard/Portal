@@ -1,1 +1,1 @@
-magick -background none ml-logo-circle.svg -define icon:auto-resize="48,32,16" favicon.ico
+magick -background none .\app\projects\shared\src\assets\ml-logo-circle.svg -define icon:auto-resize="48,32,16" .\app\src\favicon.ico
