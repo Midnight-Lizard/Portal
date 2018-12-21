@@ -33,7 +33,8 @@ export interface NotificationMessage
 
 export interface NotificationAction
 {
-    readonly title: string;
+    readonly infoTitle: string;
+    readonly detailsTitle: string;
     readonly description: string;
     readonly route: string;
     readonly routeParams?: Params;

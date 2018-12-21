@@ -25,7 +25,7 @@
          [matTooltip]="act.description"
          [routerLink]="act.route"
          (click)="close()">
-        {{act.title}}
+        {{act.detailsTitle}}
       </a>
       <a *ngIf="act.detailsButtonType === 'stroked'"
          mat-stroked-button
@@ -34,7 +34,7 @@
          [matTooltip]="act.description"
          [routerLink]="act.route"
          (click)="close()">
-        {{act.title}}
+        {{act.detailsTitle}}
       </a>
       <a *ngIf="act.detailsButtonType === 'flat'"
          mat-flat-button
@@ -43,7 +43,7 @@
          [matTooltip]="act.description"
          [routerLink]="act.route"
          (click)="close()">
-        {{act.title}}
+        {{act.detailsTitle}}
       </a>
       <a *ngIf="act.detailsButtonType === 'basic'"
          mat-button
@@ -52,7 +52,7 @@
          [matTooltip]="act.description"
          [routerLink]="act.route"
          (click)="close()">
-        {{act.title}}
+        {{act.detailsTitle}}
       </a>
     </ng-template>
   </div>

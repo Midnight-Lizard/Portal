@@ -46,7 +46,16 @@ export class ConsentService
                 data: 'A cookie is a small file that can be placed on your device that allows us to recognise and remember you. It is sent to your browser and stored on your computer’s hard drive or tablet or mobile device. When you visit our sites, we may collect information from you automatically through cookies or similar technology.',
                 isLocal: true,
                 actions: [{
-                    title: 'ALLOW COOKIES',
+                    infoTitle: 'PRIVACY',
+                    detailsTitle: 'PRIVACY POLICY',
+                    description: 'Open Website Privacy Policy',
+                    route: '/privacy',
+                    color: ActionColor.Normal,
+                    infoButtonType: ActionButtonType.Basic,
+                    detailsButtonType: ActionButtonType.Basic
+                }, {
+                    infoTitle: 'ALLOW COOKIES',
+                    detailsTitle: 'ALLOW COOKIES',
                     description: 'Allow to use cookies',
                     route: '/accept-consent',
                     color: ActionColor.Accent,

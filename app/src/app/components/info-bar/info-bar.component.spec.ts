@@ -28,7 +28,8 @@ describe(nameOfClass(InfoBarComponent), () =>
                         message: 'test message',
                         data: { some: 'data' },
                         actions: [{
-                            title: 'ACTION',
+                            infoTitle: 'ACTION',
+                            detailsTitle: 'ACTION',
                             description: 'Test action',
                             route: '/test',
                             routeParams: { test: 123 }

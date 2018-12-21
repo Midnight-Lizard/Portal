@@ -12,7 +12,7 @@ import { DetailsBarComponent } from '../details-bar/details-bar.component';
 import { InfoBarComponent } from '../info-bar/info-bar.component';
 
 const notificationDuration = new Map<NotificationLevel, number>([
-    [NotificationLevel.Info, 10000],
+    [NotificationLevel.Info, 10000999],
     [NotificationLevel.Warning, 20000],
     [NotificationLevel.Error, 90000]
 ]);

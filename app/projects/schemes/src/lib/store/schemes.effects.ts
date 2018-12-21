@@ -6,7 +6,7 @@ import { switchMap, filter, map, withLatestFrom, catchError } from 'rxjs/operato
 import
 {
     createNavigationHandler, NotifyUser, NotificationLevel, AuthRootState,
-    NavigationFailed
+    NavigationFailed, NotificationAction
 } from 'core';
 import { SchemesState, SchemesRootState } from './schemes.state';
 import { SchemesAction, SchemesActionTypes as SchActTypes } from './schemes.action-sets';
@@ -16,9 +16,10 @@ import { getFiltersFromRoute, filtersAreEqual } from '../model/schemes-filters';
 import { getSchemesListFromRoute } from '../model/schemes-lists';
 import { getSchemesIdFromRoute } from '../model/public-scheme';
 
-const signinAction = [{
+const signinAction: NotificationAction[] = [{
     route: '/signin',
-    title: 'SIGN IN',
+    infoTitle: 'SIGN IN',
+    detailsTitle: 'SIGN IN',
     description: 'Sign in or create a new user'
 }];
 
