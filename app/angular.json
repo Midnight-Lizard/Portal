@@ -179,6 +179,7 @@
             },
             "production": {
               "progress": false,
+              "sourceMap": false,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
