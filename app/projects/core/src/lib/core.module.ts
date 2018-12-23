@@ -15,9 +15,18 @@ import { ConsentCookieService } from './consent/consent-cookie.service';
 import { ConsentService } from './consent/consent.service';
 import { ValidateConsentGuard } from './consent/validate-consent.guard';
 import { AcceptConsentGuard } from './consent/accept-consent.guard';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
+import { MetaService } from './meta/meta.service';
+import { ModuleWithProviders } from '@angular/compiler/src/core';
+import { SettingsService } from './settings/settings.service';
 
 const effects = [AuthEffects, NavEffects, InfoEffects];
+const providers = [
+    ...effects,
+    AuthService, SettingsService, SideService, Actions, Title, Meta, MetaService,
+    CookieService, ConsentCookieService, ConsentService,
+    ValidateConsentGuard, AcceptConsentGuard,
+];
 
 @NgModule({
     imports: [
@@ -26,11 +35,15 @@ const effects = [AuthEffects, NavEffects, InfoEffects];
         StoreModule.forFeature(NavFeature, navReducers, { initialState: navInitialState }),
         EffectsModule.forFeature(effects)
     ],
-    providers: [
-        ...effects,
-        AuthService, SideService, Actions, Title,
-        CookieService, ConsentCookieService, ConsentService,
-        ValidateConsentGuard, AcceptConsentGuard,
-    ]
+    providers: providers
 })
-export class CoreModule { }
+export class CoreModule
+{
+    static forRoot(): ModuleWithProviders
+    {
+        return {
+            ngModule: CoreModule,
+            providers: providers
+        };
+    }
+}

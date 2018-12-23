@@ -32,3 +32,6 @@ export * from './lib/consent/validate-consent.guard';
 export * from './lib/consent/consent-cookie.service';
 export * from './lib/consent/consent.service';
 export * from './lib/consent/no-consent.action';
+
+export * from './lib/meta/meta-data';
+export * from './lib/meta/meta.service';

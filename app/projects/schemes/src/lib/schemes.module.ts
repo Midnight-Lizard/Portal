@@ -9,6 +9,7 @@ import { ApolloModule } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 
 import { SharedModule, LoadingModule } from 'shared';
+
 import { schemesRoutingComponents, SchemesRoutingModule } from './schemes.routing.module';
 import { SchemesFeature, schemesReducers, schemesInitialState } from './store/schemes.state';
 import { SchemesService } from './backend/schemes.service';

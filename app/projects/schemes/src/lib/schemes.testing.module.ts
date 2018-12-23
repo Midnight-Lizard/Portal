@@ -9,6 +9,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModule, materialModules, LoadingModule, SvgIconService } from 'shared';
 import { TestingModule } from 'testing';
+import { MetaService } from 'core';
+
 import { SchemesFeature, schemesReducers, schemesInitialState } from './store/schemes.state';
 import { SchemesService } from './backend/schemes.service';
 import { SchemesServiceStub } from './backend/schemes.service.stub';
@@ -45,7 +47,12 @@ export class SchemesTestingModule
                 Actions, SvgIconService,
                 TestingModule.forRoot().providers!,
                 { provide: SchemesService, useClass: SchemesServiceStub },
-                { provide: ExtensionService, useClass: ExtensionServiceStub }
+                { provide: ExtensionService, useClass: ExtensionServiceStub },
+                {
+                    provide: MetaService, useValue: {
+                        updatePageMetaData: () => { }
+                    }
+                }
             ]
         };
     }

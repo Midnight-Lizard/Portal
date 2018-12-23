@@ -5,13 +5,25 @@ import { SchemesFilterComponent } from './components/filter/filter.component';
 import { SchemesNavigationComponent } from './components/navigation/navigation.component';
 import { SchemesListComponent } from './components/list/list.component';
 import { SchemesList } from './model/schemes-lists';
+import { MetaData } from 'core';
 
 const index = 'index';
+
+const meta: MetaData = {
+    title: 'Color schemes - Midnight Lizard',
+    description: 'Online color schemes regestry for Midnight Lizard web-extension.' +
+        'Choose from a wide range of color schemes that work on all websites and will never become outdated.' +
+        'Choose between dark, light, grayscale or colorful color schemes.' +
+        'Adjust brightness, saturation, contrast and hues.' +
+        'Improve accessibility and readability.' +
+        'Apply blue light filter to protect your eyes at evening time.' +
+        'Shade bright colors and images. Use dark night mode on all websites.'
+};
 
 const routes: Routes = [
     {
         path: `${index}/:list/:id`, children: [
-            { path: '', component: SchemesListComponent, data: { title: 'Color schemes - Midnight Lizard' } },
+            { path: '', component: SchemesListComponent, data: meta },
             { path: '', component: SchemesFilterComponent, outlet: 'right-side' },
             { path: '', component: SchemesNavigationComponent, outlet: 'left-side' }
         ]

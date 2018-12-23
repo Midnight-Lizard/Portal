@@ -40,8 +40,8 @@ import { AdComponent } from './components/ad/ad.component';
     entryComponents: [InfoBarComponent, DetailsBarComponent],
     imports: [
         BrowserModule.withServerTransition({ appId: 'portal' }),
-        PortalSharedModule.forRoot(),
-        AppRoutingModule, PortalCoreModule, PortalLoadingModule,
+        PortalSharedModule.forRoot(), PortalCoreModule.forRoot(),
+        AppRoutingModule, PortalLoadingModule,
         FormsModule, ReactiveFormsModule, FlexLayoutModule,
         NgStringPipesModule,
         ScriptLoaderModule,

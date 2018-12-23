@@ -15,7 +15,7 @@ import
 import
 {
     CoreModule as PortalCoreModule, defaultSettings, InfoFeature,
-    infoReducers, infoInitialState, ConsentService
+    infoReducers, infoInitialState, ConsentService, MetaService, ConsentCookieService
 } from 'core';
 import { TestingModule } from 'testing';
 import { rootReducers } from './store/app.state';
@@ -24,8 +24,7 @@ import { CookieService } from 'ngx-cookie-service';
 @NgModule({
     imports: [
         BrowserModule,
-        TestingModule.forRoot(), PortalSharedModule.forRoot(),
-        PortalCoreModule, PortalLoadingModule,
+        TestingModule.forRoot(), PortalSharedModule.forRoot(), PortalLoadingModule,
         FormsModule, ReactiveFormsModule, FlexLayoutModule, NoopAnimationsModule,
         NgStringPipesModule,
         HttpClientModule,
@@ -36,7 +35,7 @@ import { CookieService } from 'ngx-cookie-service';
     ],
     exports: [
         PortalSharedModule, PortalLoadingModule, FormsModule,
-        NgStringPipesModule, TestingModule, PortalCoreModule
+        NgStringPipesModule, TestingModule
     ]
 })
 export class AppTestingModule
@@ -45,12 +44,17 @@ export class AppTestingModule
     {
         return {
             ngModule: AppTestingModule,
-            providers: [CookieService, ConsentService,
+            providers: [CookieService, ConsentService, ConsentCookieService,
                 TestingModule.forRoot().providers!,
                 { provide: 'ORIGIN_URL', useValue: '/' },
                 {
                     provide: TransferState, useValue: new Map<string, any>([
                         ['settings', defaultSettings]])
+                },
+                {
+                    provide: MetaService, useValue: {
+                        updatePageMetaData: () => { }
+                    }
                 }
             ]
         };
