@@ -45,8 +45,8 @@ export class SchemesEffects
             const scheme = event.payload.currentScheme!;
             this.meta.updatePageMetaData({
                 title: `${scheme.name} - Midnight Lizard color scheme`,
-                description: scheme.description,
-                image: scheme.screenshots[0].urls[ScreenshotSize.Small]
+                description: (scheme.description || '').trim(),
+                image: scheme.screenshots[0].urls[ScreenshotSize.ExtraSmall]
             });
         })
     );

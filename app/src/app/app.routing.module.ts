@@ -14,14 +14,13 @@ import { ExtensionPrivacyComponent } from './polices/extension-privacy/extension
 
 const meta: { [route: string]: MetaData & { ephemeral?: boolean } } = {
     'home': {
-        title: 'Midnight Lizard - custom color schemes for all websites',
-        description: 'Midnight Lizard is a web-extension for Chrome and Firefox.' +
-            'It provides custom dynamic color schemes for all websites.' +
-            'Each color scheme works on all websites and will never become outdated.' +
-            'Choose between dark, light, grayscale or colorful color schemes.' +
-            'Adjust brightness, saturation, contrast and hues.' +
-            'Improve accessibility and readability.' +
-            'Apply blue light filter to protect your eyes at evening time.' +
+        title: 'Midnight Lizard - color schemes for all websites',
+        description: 'Extension for Chrome and Firefox with custom color schemes for all websites. ' +
+            'Each color scheme works on all websites and will never become outdated. ' +
+            'Choose between dark, light, grayscale or colorful color schemes. ' +
+            'Adjust brightness, saturation, contrast and hues. ' +
+            'Improve accessibility and readability. ' +
+            'Apply blue light filter to protect your eyes at evening time. ' +
             'Shade bright colors and images. Use dark night mode on all websites.'
     },
     'privacy': { title: 'Midnight Lizard Website Privacy Policy' },

@@ -11,12 +11,11 @@ const index = 'index';
 
 const meta: MetaData = {
     title: 'Color schemes - Midnight Lizard',
-    description: 'Online color schemes regestry for Midnight Lizard web-extension.' +
-        'Choose from a wide range of color schemes that work on all websites and will never become outdated.' +
-        'Choose between dark, light, grayscale or colorful color schemes.' +
-        'Adjust brightness, saturation, contrast and hues.' +
-        'Improve accessibility and readability.' +
-        'Apply blue light filter to protect your eyes at evening time.' +
+    description: 'Online color schemes regestry for Midnight Lizard extension. ' +
+        'Choose from a wide range of color schemes that work on all websites and will never become outdated. ' +
+        'Choose between dark, light, grayscale or colorful color schemes. ' +
+        'Improve accessibility and readability. ' +
+        'Use blue light filter to protect your eyes at evening time. ' +
         'Shade bright colors and images. Use dark night mode on all websites.'
 };
 
