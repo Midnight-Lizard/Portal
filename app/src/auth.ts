@@ -205,28 +205,31 @@ export async function refreshUser(sessionId: string, maxRetries = 3): Promise<Us
 
 export async function getNewSystemToken(maxRetries = 3): Promise<System>
 {
-    let result: any = null, retries = 0;
-    while (!result && retries < maxRetries)
+    let result = { access_token: '' }, retries = 0;
+    if (_issuer)
     {
-        try
+        while (!result && retries < maxRetries)
         {
-            result = await fetch(_issuer.token_endpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Authorization': `Basic ${systemClientCredentials}`
-                },
-                body: systemClientOptions
-            }).then((resp: Response) => resp.json());
-        }
-        catch (error)
-        {
-            console.error(`ERROR: ${error}\n at auth.refreshSystem`);
-            await timeout(1000 + 500 * retries);
-        }
-        finally
-        {
-            retries++;
+            try
+            {
+                result = await fetch(_issuer.token_endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': `Basic ${systemClientCredentials}`
+                    },
+                    body: systemClientOptions
+                }).then((resp: Response) => resp.json());
+            }
+            catch (error)
+            {
+                console.error(`ERROR: ${error}\n at auth.getNewSystemToken`);
+                await timeout(1000 + 500 * retries);
+            }
+            finally
+            {
+                retries++;
+            }
         }
     }
     return {

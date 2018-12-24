@@ -31,7 +31,7 @@ const meta: { [route: string]: MetaData & { ephemeral?: boolean } } = {
     'accept-consent': { title: 'Consent', ephemeral: true },
 };
 
-const routes: Routes = [
+export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     {
         path: 'home', children: [
@@ -62,6 +62,7 @@ const routes: Routes = [
         ]
     },
     { path: 'schemes', loadChildren: './lazy/schemes.loader.module#SchemesLoaderModule' },
+    { path: 'sitemap', loadChildren: './sitemap/sitemap.module#SiteMapModule' },
     {
         path: 'signin', component: ReloadFromServerComponent,
         data: meta['signin'], canActivate: [ValidateConsentGuard]

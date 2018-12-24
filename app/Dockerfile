@@ -53,7 +53,6 @@ COPY ./package.json .
 COPY --from=ng-build /build/dist/*.* ./dist/
 COPY --from=ng-build /build/dist/portal-browser ./dist/portal-browser
 COPY --from=ng-build /build/dist/portal-server ./dist/portal-server
-# COPY --from=ng-build /build/dist/portal-static ./dist/portal-static
 ARG RUN_CMD="start:ssr"
 ENV RUN_CMD ${RUN_CMD}
 ENTRYPOINT npm run ${RUN_CMD}

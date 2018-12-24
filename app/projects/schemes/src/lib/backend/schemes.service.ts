@@ -12,9 +12,10 @@ import { SchemesFilters } from '../model/schemes-filters';
 import { PublicScheme, PublicSchemeId, PublicSchemeDetails } from '../model/public-scheme';
 import { SchemesList } from '../model/schemes-lists';
 import { SchemesSearchResults } from '../model/schemes-search-results';
-import { searchQuery, detailsQuery } from './schemes.queries';
+import { searchQuery, detailsQuery, listQuery } from './schemes.queries';
 import { Store, select } from '@ngrx/store';
 import { SchemesDetailsResult } from '../model/schemes-details-result';
+import { SchemesListResults } from '../model/schemes-list-results';
 
 @Injectable()
 export class SchemesService
@@ -53,6 +54,13 @@ export class SchemesService
                 list, pageSize, cursor,
                 publisherId: user ? user.claims.sub : null
             }
+        }).pipe(map(x => x.data.search));
+    }
+
+    public getFullList()
+    {
+        return this.apollo.query<SchemesListResults>({
+            query: listQuery
         }).pipe(map(x => x.data.search));
     }
 

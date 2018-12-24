@@ -9,8 +9,6 @@ module.exports = (env) => {
     entry: {
       // This is our Express server for Dynamic universal
       server: './server.ts',
-      // This is Static prerendering (generative)
-      prerender: './prerender.ts'
     },
     target: 'node',
     resolve: {
@@ -39,16 +37,7 @@ module.exports = (env) => {
           test: /(\\|\/)@angular(\\|\/)core(\\|\/).+\.js$/,
           parser: { system: true },
         }
-      ].concat(isDevBuild ?
-        [ // dev
-          {
-            // loading source maps from main.js files only
-            test: /main\.js$/,
-            use: ["source-map-loader"],
-            enforce: "pre"
-          }
-        ] : [ // prod
-        ])
+      ]
     },
     plugins: [
       new webpack.ContextReplacementPlugin(

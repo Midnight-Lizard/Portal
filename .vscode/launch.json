@@ -2,6 +2,13 @@
     "version": "0.2.0",
     "compounds": [
         {
+            "name": "ng ssr:node:local:auth/chrome",
+            "configurations": [
+                "ng ssr:node:local:auth",
+                "Chrome launch"
+            ]
+        },
+        {
             "name": "ng ssr:node:local/chrome",
             "configurations": [
                 "ng ssr:node:local",
@@ -93,7 +100,7 @@
             ]
         },
         {
-            "name": "ng ssr:node:local",
+            "name": "ng ssr:node:local:auth",
             "type": "node",
             "request": "launch",
             "cwd": "${workspaceFolder}/shell",
@@ -112,6 +119,23 @@
             "runtimeArgs": [
                 "./debug-ssr-with-secrets.sh"
             ]
+        },
+        {
+            "name": "ng ssr:node:local",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/app",
+            "runtimeExecutable": "npm",
+            "port": 9229,
+            "protocol": "inspector",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "env": {
+                "PORT": "7000",
+                "USE_AUTH": "false",
+                "PORTAL_URL": "http://localhost:7000"
+            },
+            "runtimeArgs": ["run", "debug:ssr"]
         },
         {
             "name": "ng ssr:node:kube",

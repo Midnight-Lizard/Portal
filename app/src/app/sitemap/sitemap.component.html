@@ -1,0 +1,14 @@
+<h2>Midnight Lizard Website Map</h2>
+<mat-nav-list>
+  <ng-template ngFor let-section$ [ngForOf]="sitemap$">
+    <mat-divider></mat-divider>
+    <h3 matSubheader>
+      {{(section$|async).title}}
+    </h3>
+    <a mat-menu-item *ngFor="let link of (section$|async).links"
+       [routerLink]="link.url">
+      <mat-icon>link</mat-icon>
+      {{link.title}}
+    </a>
+  </ng-template>
+</mat-nav-list>

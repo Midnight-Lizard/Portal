@@ -35,3 +35,5 @@ export * from './lib/consent/no-consent.action';
 
 export * from './lib/meta/meta-data';
 export * from './lib/meta/meta.service';
+
+export * from './lib/sitemap/sitemap';

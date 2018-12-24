@@ -111,6 +111,16 @@ export class SchemesServiceStub
         })).pipe(delay(cursor ? this.nextDelay : this.firstDelay));
     }
 
+    public getFullList()
+    {
+        return new BehaviorSubject(({
+            results: (Array.apply(null, Array(20)) as null[]).map(() => ({
+                id: this.randomString(8),
+                name: `Fake ${this.randomString(4)} scheme`
+            }))
+        })).pipe(delay(this.firstDelay));
+    }
+
     public getPublicSchemeDetails(publicSchemeId: PublicSchemeId)
     {
         return new BehaviorSubject<PublicSchemeDetails>({

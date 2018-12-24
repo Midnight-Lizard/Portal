@@ -12,7 +12,6 @@ import * as crypto from 'crypto';
 import * as compression from 'compression';
 import * as cookieparser from 'cookie-parser';
 const bodyParser = require('body-parser');
-import { STATIC_ROUTES } from './static.paths';
 import * as auth from './src/auth';
 
 import * as session from 'express-session';
@@ -29,7 +28,7 @@ const settings: Settings = { ...defaultSettings };
 const secrets = new auth.Secrets();
 Object.keys(settings)
     .filter(set => set in process.env)
-    .forEach((set: keyof Settings) => (settings as any)[set] = process.env[set]!);
+    .forEach(set => (settings as any)[set] = process.env[set]!);
 Object.keys(secrets)
     .filter(sec => sec in process.env)
     .forEach((sec: keyof auth.Secrets) => secrets[sec] = process.env[sec]!);
@@ -106,10 +105,6 @@ auth.initAuth(settings, secrets).then(() =>
     app.get('*.*', express.static(join(DIST_FOLDER, 'portal-browser'), {
         maxAge: '1y'
     }));
-    // prerendered routes
-    // app.get(STATIC_ROUTES, express.static(join(DIST_FOLDER, 'portal-static'), {
-    //     maxAge: '1y'
-    // }));
 
     { // auth
         app.get('/signin', async (req, res, next) =>
