@@ -205,7 +205,7 @@ export async function refreshUser(sessionId: string, maxRetries = 3): Promise<Us
 
 export async function getNewSystemToken(maxRetries = 3): Promise<System>
 {
-    let result = { access_token: '' }, retries = 0;
+    let result: System = null as any, retries = 0;
     if (_issuer)
     {
         while (!result && retries < maxRetries)
@@ -231,10 +231,11 @@ export async function getNewSystemToken(maxRetries = 3): Promise<System>
                 retries++;
             }
         }
+        return {
+            access_token: result.access_token
+        };
     }
-    return {
-        access_token: result.access_token
-    };
+    return { access_token: '' };
 }
 
 const timeout = (ms: number) => new Promise(res => setTimeout(res, ms));
