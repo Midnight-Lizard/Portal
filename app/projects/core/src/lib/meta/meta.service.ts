@@ -1,12 +1,15 @@
 import { Meta, Title } from '@angular/platform-browser';
 import { MetaData } from './meta-data';
 import { SettingsService } from '../settings/settings.service';
+import { SideService } from '../side/side.service';
 
 export class MetaService
 {
     private readonly dafaultMetaData: Required<MetaData>;
 
-    constructor(settingsService: SettingsService,
+    constructor(
+        env: SideService,
+        settingsService: SettingsService,
         private readonly metaService: Meta,
         private readonly titleService: Title)
     {
@@ -20,7 +23,10 @@ export class MetaService
             description: 'Custom color schemes for all websites',
             image: `${baseUrl}/assets/ml-logo-square.png`
         };
-        this.createDefaultPageMetaData();
+        if (env.isServerSide)
+        {
+            this.createDefaultPageMetaData();
+        }
     }
 
     private createDefaultPageMetaData()
