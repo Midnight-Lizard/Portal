@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const listQuery = gql`
-  query () {
+  query {
     search(pageSize: 99) {
       results { id name }
     }
