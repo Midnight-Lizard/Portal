@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 import { Section, Link } from 'core';
 
@@ -16,6 +16,7 @@ export class SchemesSiteMapService
     getSiteMap(): Observable<Section>
     {
         return this.schemesService.getFullList().pipe(
+            catchError(x => of({ results: [{ name: (x.message || x), id: 'none' }] })),
             map(x => ({
                 title: 'Color Schemes',
                 links: x.results

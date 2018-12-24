@@ -3,9 +3,9 @@
   <ng-template ngFor let-section$ [ngForOf]="sitemap$">
     <mat-divider></mat-divider>
     <h3 matSubheader>
-      {{(section$|async).title}}
+      {{(section$|async)?.title || 'Loading...'}}
     </h3>
-    <a mat-menu-item *ngFor="let link of (section$|async).links"
+    <a mat-menu-item *ngFor="let link of (section$|async)?.links"
        [routerLink]="link.url">
       <mat-icon>link</mat-icon>
       {{link.title}}

@@ -1,16 +1,14 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { HttpLinkModule } from 'apollo-angular-link-http';
+import { ApolloModule } from 'apollo-angular';
 
 import { SchemesSiteMapService } from './sitemap.service';
 import { SchemesService } from '../backend/schemes.service';
 
-@NgModule()
-export class SchemesSiteMapModule
-{
-    static forRoot(): ModuleWithProviders
-    {
-        return {
-            ngModule: SchemesSiteMapModule,
-            providers: [SchemesService, SchemesSiteMapService]
-        };
-    }
-}
+@NgModule({
+    providers: [
+        ApolloModule, HttpLinkModule,
+        SchemesService, SchemesSiteMapService,
+    ]
+})
+export class SchemesSiteMapModule { }
