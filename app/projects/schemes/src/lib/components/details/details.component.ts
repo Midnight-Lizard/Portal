@@ -121,7 +121,7 @@ export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
         if (this.env.isBrowserSide)
         {
             const url = encodeURIComponent(document!.location!.href!);
-            return `https://www.facebook.com/dialog/share?app_id=271115283358654&href=${url}`;
+            return `https://www.facebook.com/dialog/share?app_id=271115283358654&href=${url}&redirect_uri=${url}`;
         }
     }
 
@@ -130,7 +130,7 @@ export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
         if (this.env.isBrowserSide)
         {
             const url = encodeURIComponent(document!.location!.href!);
-            return `https://twitter.com/share?url=${url}`;
+            return `https://twitter.com/intent/tweet?via=MidnightLizard&url=${url}`;
         }
     }
 }
