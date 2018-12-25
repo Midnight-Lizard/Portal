@@ -112,7 +112,7 @@ export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
     {
         if (this.env.isBrowserSide && (navigator as any).share)
         {
-            (navigator as any).share({ url: document.location.href });
+            (navigator as any).share({ url: document!.location!.href! });
         }
     }
 
@@ -120,7 +120,7 @@ export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
     {
         if (this.env.isBrowserSide)
         {
-            const url = encodeURIComponent(document.location.href);
+            const url = encodeURIComponent(document!.location!.href!);
             return `https://www.facebook.com/sharer/sharer.php?u=${url}`;
         }
     }
@@ -129,7 +129,7 @@ export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
     {
         if (this.env.isBrowserSide)
         {
-            const url = encodeURIComponent(document.location.href);
+            const url = encodeURIComponent(document!.location!.href!);
             return `https://twitter.com/share?url=${url}`;
         }
     }
