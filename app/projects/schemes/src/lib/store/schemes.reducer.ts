@@ -6,6 +6,13 @@ export function schemesReducer(state: SchemesState, action: SchemesAction): Sche
 {
     switch (action.type)
     {
+        case SchemesActionTypes.CurrentSchemeChangeRequested: {
+            return {
+                ...state,
+                currentScheme: undefined
+            };
+        }
+
         case SchemesActionTypes.CurrentSchemeChanged: {
             return {
                 ...state,

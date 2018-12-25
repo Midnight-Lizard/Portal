@@ -6,12 +6,13 @@ import { takeUntil, filter, map, switchMap, first, delay } from 'rxjs/operators'
 import { Subscription, Observable, Subject } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
-import { SideService } from 'core';
+import { SideService, MetaService } from 'core';
 import { SchemesRootState } from '../../store/schemes.state';
 import { PublicScheme } from '../../model/public-scheme';
 import * as Act from '../../store/schemes.actions';
 import { SchemeDetailsComponent } from '../details/details.component';
 import { SchemesList } from '../../model/schemes-lists';
+import { ScreenshotSize } from '../../model/screenshot';
 
 @Component({
     selector: 'schemes-list',
@@ -49,13 +50,24 @@ export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
         readonly searchScrollContainerSelectorFromRoot: boolean,
 
         @Inject('scrollThrottleTime')
-        readonly scrollThrottleTime: number)
+        readonly scrollThrottleTime: number,
+
+        meta: MetaService)
     {
         this.schemes$ = store$.pipe(select(s => s.SCHEMES.schemes.data));
-        this.list$ = store$.pipe(
-            select(x => x.SCHEMES.schemes.list),
-            first()
-        );
+        this.list$ = store$.pipe(select(x => x.SCHEMES.schemes.list));
+        store$.pipe(
+            select(x => x.SCHEMES.schemes.currentScheme),
+            filter(x => !!x),
+            takeUntil(this.disposed)
+        ).subscribe(scheme =>
+        {
+            meta.updatePageMetaData({
+                title: `${scheme!.name} - Midnight Lizard color scheme`,
+                description: (scheme!.description || '').trim(),
+                image: scheme!.screenshots[0].urls[ScreenshotSize.ExtraSmall]
+            });
+        });
     }
 
     ngOnInit(): void
@@ -131,7 +143,7 @@ export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
                     autoFocus: false
                 })
                     .beforeClose()
-                    .pipe(switchMap(_ => self.list$))
+                    .pipe(switchMap(_ => self.list$), takeUntil(self.disposed))
                     .subscribe(list =>
                         self.router.navigate(['schemes', 'index', list, ''], {
                             queryParamsHandling: 'preserve'

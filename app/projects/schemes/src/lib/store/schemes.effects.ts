@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of, Observable, merge } from 'rxjs';
@@ -15,7 +15,7 @@ import { SchemesService } from '../backend/schemes.service';
 import { getFiltersFromRoute, filtersAreEqual } from '../model/schemes-filters';
 import { getSchemesListFromRoute } from '../model/schemes-lists';
 import { getSchemesIdFromRoute } from '../model/public-scheme';
-import { ScreenshotSize } from '../model/screenshot';
+
 
 const signinAction: NotificationAction[] = [{
     route: '/signin',
@@ -38,17 +38,15 @@ export class SchemesEffects
     ) { }
 
     @Effect()
-    currentSchemeChanged$ = this.actions$.ofType(SchActTypes.CurrentSchemeChanged).pipe(
-        filter(event => !!event.payload.currentScheme),
-        map(event =>
-        {
-            const scheme = event.payload.currentScheme!;
-            this.meta.updatePageMetaData({
-                title: `${scheme.name} - Midnight Lizard color scheme`,
-                description: (scheme.description || '').trim(),
-                image: scheme.screenshots[0].urls[ScreenshotSize.ExtraSmall]
-            });
-        })
+    currentSchemeChangeRequested$ = this.actions$.ofType(SchActTypes.CurrentSchemeChangeRequested).pipe(
+        switchMap(event => this.schSvc.getPublicSchemeDetails(event.payload.id).pipe(
+            map(scheme => new SchActs.CurrentSchemeChanged({ currentScheme: scheme })),
+            catchError(error => of(new NotifyUser({
+                message: 'Failed to retrieve color scheme details',
+                level: NotificationLevel.Error,
+                isLocal: true,
+                data: error
+            })))))
     );
 
     @Effect()
@@ -57,16 +55,7 @@ export class SchemesEffects
         const schemeId = getSchemesIdFromRoute(route);
         if (schemeId && (!state.currentScheme || state.currentScheme.id !== schemeId))
         {
-            return merge(
-                of(new SchActs.CurrentSchemeChanged({ currentScheme: undefined })),
-                this.schSvc.getPublicSchemeDetails(schemeId).pipe(
-                    map(scheme => new SchActs.CurrentSchemeChanged({ currentScheme: scheme })),
-                    catchError(error => of(new NotifyUser({
-                        message: 'Failed to retrieve color scheme details',
-                        level: NotificationLevel.Error,
-                        isLocal: true,
-                        data: error
-                    })))));
+            return of(new SchActs.CurrentSchemeChangeRequested({ id: schemeId }));
         }
         return of();
     });

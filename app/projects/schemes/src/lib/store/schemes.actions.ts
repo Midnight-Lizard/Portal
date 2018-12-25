@@ -43,8 +43,14 @@ export class CurrentSchemeChanged
 {
     readonly type = 'CurrentSchemeChanged';
     constructor(readonly payload: Readonly<{
-        currentScheme?: PublicSchemeDetails
+        currentScheme: PublicSchemeDetails
     }>) { }
+}
+
+export class CurrentSchemeChangeRequested
+{
+    readonly type = 'CurrentSchemeChangeRequested';
+    constructor(readonly payload: PublicSchemeIdPayload) { }
 }
 
 export const [LikeScheme, SchemeLiked, LikeSchemeFailed] = createCommandActions({
