@@ -121,7 +121,7 @@ export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
         if (this.env.isBrowserSide)
         {
             const url = encodeURIComponent(document!.location!.href!);
-            return `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            return `https://www.facebook.com/dialog/share?app_id=271115283358654&href=${url}`;
         }
     }
 
