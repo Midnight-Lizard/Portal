@@ -45,12 +45,13 @@
               (click)="toggleSchemeFavorited(scheme)">
         <mat-icon>{{scheme.favorited ? "favorite" : "favorite_border"}}</mat-icon>
       </button> -->
+
       <!-- <button mat-icon-button fxFlexAlign="center"
               #schemeMenuTrigger class="command" matTooltip="More"
               (menuClosed)="schemeMenuTrigger.focus()"
               [matMenuTriggerFor]="schemeMenu">
         <mat-icon>more_vert</mat-icon>
-      </button> -->
+      </button>
       <mat-menu #schemeMenu="matMenu" xPosition="before"
                 overlapTrigger="false">
         <button mat-menu-item matTooltip="Download color scheme file"
@@ -58,12 +59,33 @@
           <mat-icon>file_download</mat-icon>
           <span>Download</span>
         </button>
-        <button mat-menu-item matTooltip="Share"
-                matTooltipPosition="left">
-          <mat-icon>share</mat-icon>
-          <span>Share</span>
-        </button>
+      </mat-menu> -->
+
+      <button *ngIf="supportsNativeShare" mat-icon-button
+              class="command" fxFlexAlign="center"
+              matTooltip="Share" (click)="nativeShare(scheme)">
+        <mat-icon>share</mat-icon>
+      </button>
+      <button *ngIf="!supportsNativeShare" #shareTrigger
+              mat-icon-button class="command" fxFlexAlign="center"
+              [matMenuTriggerFor]="shareMenu" matTooltip="Share"
+              (menuClosed)="shareTrigger.focus()">
+        <mat-icon>share</mat-icon>
+      </button>
+      <mat-menu #shareMenu="matMenu" xPosition="after"
+                overlapTrigger="false">
+        <a mat-menu-item target="_blank" [href]="facebookShareUrl"
+           matTooltipPosition="left" matTooltip="Share this color scheme on Facebook">
+          <mat-icon svgIcon="facebook">share</mat-icon>
+          <span>Share on Facebook</span>
+        </a>
+        <a mat-menu-item target="_blank" [href]="twitterShareUrl"
+           matTooltipPosition="left" matTooltip="Share this color scheme on Twitter">
+          <mat-icon svgIcon="twitter">share</mat-icon>
+          <span>Share on Twitter</span>
+        </a>
       </mat-menu>
+
       <button mat-raised-button #addRemoveButton class="command mat-accent"
               [disabled]="!extensionIsAvailable" (click)="installOrUninstallPublicScheme(scheme)"
               fxFlexAlign="center" [color]="(schemeIsInstalled$|async) ? 'warn' : 'accent'"

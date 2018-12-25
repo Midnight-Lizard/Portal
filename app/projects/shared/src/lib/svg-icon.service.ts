@@ -9,7 +9,9 @@ const svgIcons = [
     { key: 'extension-privacy', path: 'assets/extension-privacy.svg' },
     { key: 'web-privacy', path: 'assets/web-privacy.svg' },
     { key: 'outline-thumb-up', path: 'assets/outline-thumb_up.svg' },
-    { key: 'mark-as-read', path: 'assets/mark-as-read.svg' }
+    { key: 'mark-as-read', path: 'assets/mark-as-read.svg' },
+    { key: 'facebook', path: 'assets/logos/facebook.svg' },
+    { key: 'twitter', path: 'assets/logos/twitter.svg' },
 ];
 
 @Injectable()

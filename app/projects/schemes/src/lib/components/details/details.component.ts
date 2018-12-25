@@ -7,7 +7,7 @@ import
     AfterViewInit, ViewChildren, QueryList, OnDestroy
 } from '@angular/core';
 
-import { NotifyUser, NotificationLevel } from 'core';
+import { NotifyUser, NotificationLevel, SideService } from 'core';
 
 import { PublicScheme, PublicSchemeDetails } from '../../model/public-scheme';
 import { SchemesRootState } from '../../store/schemes.state';
@@ -22,6 +22,7 @@ import { ExtensionService } from '../../extension/extension.service';
 export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
 {
     private subs = new Array<Subscription>();
+    public readonly supportsNativeShare: boolean = false;
     public readonly scheme$: Observable<PublicSchemeDetails[]>;
     public readonly schemeIsInstalled$: Observable<boolean>;
     public get extensionIsAvailable() { return this.extension.isAvailable; }
@@ -29,9 +30,15 @@ export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
     @ViewChildren('addRemoveButton', { read: ElementRef }) addRemoveButton: QueryList<ElementRef>;
 
     constructor(
+        private readonly env: SideService,
         private readonly store$: Store<SchemesRootState>,
         private readonly extension: ExtensionService)
     {
+        if (env.isBrowserSide)
+        {
+            this.supportsNativeShare = !!((navigator as any).share);
+        }
+
         this.scheme$ = store$.pipe(
             select(x => x.SCHEMES.schemes.currentScheme!),
             filter(scheme => !!scheme),
@@ -99,5 +106,31 @@ export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
     ngOnDestroy(): void
     {
         this.subs.forEach(x => x.unsubscribe());
+    }
+
+    nativeShare(scheme: PublicSchemeDetails)
+    {
+        if (this.env.isBrowserSide && (navigator as any).share)
+        {
+            (navigator as any).share({ url: document.location.href });
+        }
+    }
+
+    public get facebookShareUrl()
+    {
+        if (this.env.isBrowserSide)
+        {
+            const url = encodeURIComponent(document.location.href);
+            return `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+        }
+    }
+
+    public get twitterShareUrl()
+    {
+        if (this.env.isBrowserSide)
+        {
+            const url = encodeURIComponent(document.location.href);
+            return `https://twitter.com/share?url=${url}`;
+        }
     }
 }
