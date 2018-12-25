@@ -3,7 +3,7 @@ import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil, filter, map, switchMap, first, delay } from 'rxjs/operators';
-import { Subscription, Observable, Subject } from 'rxjs';
+import { Subscription, Observable, Subject, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
 import { SideService, MetaService } from 'core';
@@ -56,18 +56,25 @@ export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
     {
         this.schemes$ = store$.pipe(select(s => s.SCHEMES.schemes.data));
         this.list$ = store$.pipe(select(x => x.SCHEMES.schemes.list));
-        store$.pipe(
-            select(x => x.SCHEMES.schemes.currentScheme),
-            filter(x => !!x),
-            takeUntil(this.disposed)
-        ).subscribe(scheme =>
-        {
-            meta.updatePageMetaData({
-                title: `${scheme!.name} - Midnight Lizard color scheme`,
-                description: (scheme!.description || '').trim(),
-                image: scheme!.screenshots[0].urls[ScreenshotSize.ExtraSmall]
+
+        combineLatest(
+            this.route.paramMap.pipe(
+                map(x => x.get('id')!),
+                filter(id => !!id)),
+            store$.pipe(
+                select(x => x.SCHEMES.schemes.currentScheme),
+                filter(x => !!x))).pipe(
+                    filter(([id, scheme]) => !!scheme && id === scheme.id),
+                    map(([id, scheme]) => scheme!),
+                    takeUntil(this.disposed))
+            .subscribe(scheme =>
+            {
+                meta.updatePageMetaData({
+                    title: `${scheme.name} - Midnight Lizard color scheme`,
+                    description: (scheme.description || '').trim(),
+                    image: scheme.screenshots[0].urls[ScreenshotSize.ExtraSmall]
+                });
             });
-        });
     }
 
     ngOnInit(): void
