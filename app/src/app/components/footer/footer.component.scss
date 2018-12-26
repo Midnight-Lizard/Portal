@@ -81,6 +81,11 @@
 
 .mat-list-item
 {
+    .mat-list-icon
+    {
+        border-radius: 0!important;
+    }
+
     .instagram-icon:not(important)
     {
         width: 26px;
