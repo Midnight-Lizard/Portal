@@ -1,4 +1,14 @@
 @import 'theme.scss';
+
+body {
+    margin: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
 mat-sidenav-container {
     background-color: $ml-background !important;
     flex: 1 1 100%;
