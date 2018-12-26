@@ -123,7 +123,7 @@ export class SchemesServiceStub
 
     public getPublicSchemeDetails(publicSchemeId: PublicSchemeId)
     {
-        if (Math.random() > 0.3)
+        if (Math.random() > 0.7)
         {
             return throwError('test');
         }
@@ -140,21 +140,21 @@ export class SchemesServiceStub
             liked: Math.random() > 0.5,
             likes: Math.floor(Math.random() * 100),
             screenshots: [
-                this.CreateFakeScreenshot(),
-                this.CreateFakeScreenshot(),
-                this.CreateFakeScreenshot(),
-                this.CreateFakeScreenshot(),
+                this.CreateFakeScreenshot('DuckDuckGo'),
+                this.CreateFakeScreenshot('DuckDuckGo Images'),
+                this.CreateFakeScreenshot('Medium'),
+                this.CreateFakeScreenshot('Wikipedia'),
             ],
             colorScheme: testColorScheme,
             description: lorem
         }).pipe(delay(this.firstDelay));
     }
 
-    private CreateFakeScreenshot(): Screenshot
+    private CreateFakeScreenshot(title: string): Screenshot
     {
         const screenshotUrls = darkSchemes[Math.floor(Math.random() * darkSchemes.length)];
         return {
-            title: this.randomString(16),
+            title: title,
             urls: screenshotUrls
         };
     }
