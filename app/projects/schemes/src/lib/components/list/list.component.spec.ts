@@ -174,10 +174,10 @@ describe(nameOfClass(SchemesListComponent), function ()
         {
             spyOn(router, 'navigate');
             spyOn(dialog, 'open').and
-                .returnValue({ beforeClose: () => of(true) });
+                .returnValue({ beforeClosed: () => of(true) });
         }));
 
-        it(`should open scheme details when clicked on  card`, inject(
+        it(`should open scheme details when clicked on card`, inject(
             [MatDialog, ActivatedRoute], (dialog: MatDialog, route: ActivatedRouteStub) =>
             {
                 route.testParamMap = { id: 'test' };
