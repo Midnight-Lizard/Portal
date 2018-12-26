@@ -34,7 +34,7 @@ describe(nameOfClass(DetailsBarComponent), () =>
                             detailsTitle: 'ACTION',
                             description: 'Test action',
                             route: '/test',
-                            routeParams: { test: 123 }
+                            queryParams: { test: 123 }
                         }]
                     } as NotificationMessage
                 }

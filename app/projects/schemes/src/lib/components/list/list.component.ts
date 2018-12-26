@@ -6,7 +6,7 @@ import { takeUntil, filter, map, switchMap, first, delay } from 'rxjs/operators'
 import { Subscription, Observable, Subject, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
-import { SideService, MetaService } from 'core';
+import { SideService, MetaService, InfoRootState } from 'core';
 import { SchemesRootState } from '../../store/schemes.state';
 import { PublicScheme } from '../../model/public-scheme';
 import * as Act from '../../store/schemes.actions';
@@ -38,7 +38,7 @@ export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
         private readonly env: SideService,
         private readonly media$: ObservableMedia,
         @Inject('MEDIA') @Optional() private readonly lastMedia: string | null,
-        private readonly store$: Store<SchemesRootState>,
+        private readonly store$: Store<SchemesRootState & InfoRootState>,
         private readonly route: ActivatedRoute,
         private readonly router: Router,
         private readonly dialog: MatDialog,
@@ -144,12 +144,21 @@ export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
                 delay(0)
             ).subscribe(id =>
             {
-                self.dialog.open(SchemeDetailsComponent, {
+                const dialog = self.dialog.open(SchemeDetailsComponent, {
                     maxWidth: '85vw',
                     maxHeight: '90vh',
                     autoFocus: false
-                })
-                    .beforeClose()
+                });
+
+                this.store$.pipe(
+                    select(x => x.INFO.notification.lastMessage),
+                    filter(x => !!x && x.correlationId === id),
+                    delay(300),
+                    takeUntil(self.disposed),
+                    takeUntil(dialog.beforeClosed()))
+                    .subscribe(() => dialog.close());
+
+                dialog.beforeClosed()
                     .pipe(switchMap(_ => self.list$), takeUntil(self.disposed))
                     .subscribe(list =>
                         self.router.navigate(['schemes', 'index', list, ''], {

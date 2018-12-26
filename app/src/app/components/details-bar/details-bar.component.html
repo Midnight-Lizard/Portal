@@ -1,57 +1,40 @@
 <div fxLayout="column">
   <div fxLayout="row">
-    <mat-icon class="level"
-              fxFlexAlign="center"
-              [ngClass]="msg.level">{{msg.level}}</mat-icon>
-    <span class="message"
-          fxFlex
-          fxFlexAlign="center">{{msg.message}}</span>
-    <button mat-icon-button
-            matTooltip="Close"
-            (click)="close()">
+    <mat-icon class="level" fxFlexAlign="center" [ngClass]="msg.level">{{msg.level}}</mat-icon>
+    <span class="message" fxFlex fxFlexAlign="center">{{msg.message}}</span>
+    <button mat-icon-button matTooltip="Close" (click)="close()">
       <mat-icon>close</mat-icon>
     </button>
   </div>
   <pre class="details">{{msg.data | json | trim: '"' | replace: lineBreaksRegExp: '\n'}}</pre>
-  <div *ngIf="msg.actions"
-       fxLayoutAlign="end">
-    <ng-template ngFor
-                 let-act
-                 [ngForOf]="msg.actions">
+  <div *ngIf="msg.actions" fxLayoutAlign="end">
+    <ng-template ngFor let-act [ngForOf]="msg.actions">
       <a *ngIf="!act.detailsButtonType || act.detailsButtonType === 'raised'"
-         mat-raised-button
-         fxFlexAlign="center"
-         [color]="act.color || 'primary'"
-         [matTooltip]="act.description"
-         [routerLink]="act.route"
-         (click)="close()">
+         mat-raised-button fxFlexAlign="center" [color]="act.color || 'primary'"
+         [matTooltip]="act.description" [routerLink]="act.route"
+         [queryParams]="act.queryParams" (click)="close()"
+         [queryParamsHandling]="act.queryParamsHandling">
         {{act.detailsTitle}}
       </a>
       <a *ngIf="act.detailsButtonType === 'stroked'"
-         mat-stroked-button
-         fxFlexAlign="center"
-         [color]="act.color || 'primary'"
-         [matTooltip]="act.description"
-         [routerLink]="act.route"
-         (click)="close()">
+         mat-stroked-button fxFlexAlign="center" [color]="act.color || 'primary'"
+         [matTooltip]="act.description" [routerLink]="act.route"
+         [queryParams]="act.queryParams" (click)="close()"
+         [queryParamsHandling]="act.queryParamsHandling">
         {{act.detailsTitle}}
       </a>
       <a *ngIf="act.detailsButtonType === 'flat'"
-         mat-flat-button
-         fxFlexAlign="center"
-         [color]="act.color || 'primary'"
-         [matTooltip]="act.description"
-         [routerLink]="act.route"
-         (click)="close()">
+         mat-flat-button fxFlexAlign="center" [color]="act.color || 'primary'"
+         [matTooltip]="act.description" [routerLink]="act.route"
+         [queryParams]="act.queryParams" (click)="close()"
+         [queryParamsHandling]="act.queryParamsHandling">
         {{act.detailsTitle}}
       </a>
       <a *ngIf="act.detailsButtonType === 'basic'"
-         mat-button
-         fxFlexAlign="center"
-         [color]="act.color || 'primary'"
-         [matTooltip]="act.description"
-         [routerLink]="act.route"
-         (click)="close()">
+         mat-button fxFlexAlign="center" [color]="act.color || 'primary'"
+         [matTooltip]="act.description" [routerLink]="act.route"
+         [queryParams]="act.queryParams" (click)="close()"
+         [queryParamsHandling]="act.queryParamsHandling">
         {{act.detailsTitle}}
       </a>
     </ng-template>

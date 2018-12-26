@@ -6,7 +6,7 @@ import { switchMap, filter, map, withLatestFrom, catchError } from 'rxjs/operato
 import
 {
     createNavigationHandler, NotifyUser, NotificationLevel, AuthRootState,
-    NavigationFailed, NotificationAction, MetaService
+    NavigationFailed, NotificationAction, MetaService, ActionButtonType, ActionColor
 } from 'core';
 import { SchemesState, SchemesRootState } from './schemes.state';
 import { SchemesAction, SchemesActionTypes as SchActTypes } from './schemes.action-sets';
@@ -39,13 +39,25 @@ export class SchemesEffects
 
     @Effect()
     currentSchemeChangeRequested$ = this.actions$.ofType(SchActTypes.CurrentSchemeChangeRequested).pipe(
-        switchMap(event => this.schSvc.getPublicSchemeDetails(event.payload.id).pipe(
+        withLatestFrom(this.store$),
+        switchMap(([event, store]) => this.schSvc.getPublicSchemeDetails(event.payload.id).pipe(
             map(scheme => new SchActs.CurrentSchemeChanged({ currentScheme: scheme })),
             catchError(error => of(new NotifyUser({
                 message: 'Failed to retrieve color scheme details',
+                correlationId: event.payload.id,
                 level: NotificationLevel.Error,
                 isLocal: true,
-                data: error
+                data: error,
+                actions: [{
+                    infoTitle: 'RETRY',
+                    detailsTitle: 'RETRY',
+                    description: 'Retry to open color scheme details',
+                    infoButtonType: ActionButtonType.Raised,
+                    detailsButtonType: ActionButtonType.Raised,
+                    color: ActionColor.Accent,
+                    route: `schemes/index/${store.SCHEMES.schemes.list}/${event.payload.id}`,
+                    queryParamsHandling: 'preserve'
+                }]
             })))))
     );
 

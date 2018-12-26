@@ -24,6 +24,7 @@ export interface NotificationState
 export interface NotificationMessage
 {
     readonly id?: number;
+    readonly correlationId?: string;
     readonly level: NotificationLevel;
     readonly message: string;
     readonly isLocal: boolean;
@@ -37,7 +38,8 @@ export interface NotificationAction
     readonly detailsTitle: string;
     readonly description: string;
     readonly route: string;
-    readonly routeParams?: Params;
+    readonly queryParams?: Params;
+    readonly queryParamsHandling?: 'merge' | 'preserve' | '' | null;
     readonly color?: ActionColor;
     readonly infoButtonType?: ActionButtonType;
     readonly detailsButtonType?: ActionButtonType;
