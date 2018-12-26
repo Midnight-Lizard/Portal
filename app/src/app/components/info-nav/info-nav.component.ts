@@ -6,13 +6,13 @@ import { Observable, Subject } from 'rxjs';
 import
 {
     InfoRootState, NotificationMessage, DismissAllNotifications,
-    DismissNotification, NotificationLevel
+    DismissNotification, NotificationLevel, SideService
 } from 'core';
 import { DetailsBarComponent } from '../details-bar/details-bar.component';
 import { InfoBarComponent } from '../info-bar/info-bar.component';
 
 const notificationDuration = new Map<NotificationLevel, number>([
-    [NotificationLevel.Info, 10000999],
+    [NotificationLevel.Info, 10000],
     [NotificationLevel.Warning, 20000],
     [NotificationLevel.Error, 90000]
 ]);
@@ -29,6 +29,7 @@ export class InfoNavComponent implements OnDestroy
     readonly msgCount$: Observable<number>;
 
     constructor(
+        env: SideService,
         snackBar: MatSnackBar,
         private readonly store$: Store<InfoRootState>,
         private readonly bottomSheet: MatBottomSheet)
@@ -37,14 +38,17 @@ export class InfoNavComponent implements OnDestroy
         this.msgCount$ = this.notofications$.pipe(
             map(notifications => notifications ? notifications.length : 0)
         );
-        store$.pipe(
-            select(x => x.INFO.notification.lastMessage),
-            filter(msg => !!msg),
-            takeUntil(this.disposed)
-        ).subscribe(msg => snackBar.openFromComponent(InfoBarComponent, {
-            data: msg,
-            duration: notificationDuration.get(msg!.level)
-        }));
+        if (env.isBrowserSide)
+        {
+            store$.pipe(
+                select(x => x.INFO.notification.lastMessage),
+                filter(msg => !!msg),
+                takeUntil(this.disposed)
+            ).subscribe(msg => snackBar.openFromComponent(InfoBarComponent, {
+                data: msg,
+                duration: notificationDuration.get(msg!.level)
+            }));
+        }
     }
 
     dismissAll()

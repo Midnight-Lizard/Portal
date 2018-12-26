@@ -63,18 +63,19 @@ export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
                 filter(id => !!id)),
             store$.pipe(
                 select(x => x.SCHEMES.schemes.currentScheme),
-                filter(x => !!x))).pipe(
-                    filter(([id, scheme]) => !!scheme && id === scheme.id),
-                    map(([id, scheme]) => scheme!),
-                    takeUntil(this.disposed))
-            .subscribe(scheme =>
-            {
-                meta.updatePageMetaData({
-                    title: `${scheme.name} - Midnight Lizard color scheme`,
-                    description: (scheme.description || '').trim(),
-                    image: scheme.screenshots[0].urls[ScreenshotSize.ExtraSmall]
-                });
+                filter(x => !!x))
+        ).pipe(
+            filter(([id, scheme]) => !!scheme && id === scheme.id),
+            map(([id, scheme]) => scheme!),
+            takeUntil(this.disposed)
+        ).subscribe(scheme =>
+        {
+            meta.updatePageMetaData({
+                title: `${scheme.name} - Midnight Lizard color scheme`,
+                description: (scheme.description || '').trim(),
+                image: scheme.screenshots[0].urls[ScreenshotSize.ExtraSmall]
             });
+        });
     }
 
     ngOnInit(): void
