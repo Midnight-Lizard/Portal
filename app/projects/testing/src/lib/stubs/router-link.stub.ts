@@ -6,6 +6,8 @@ import { Input, Directive, HostListener } from '@angular/core';
 export class RouterLinkStubDirective
 {
     @Input() routerLink: any;
+    @Input() queryParams: any;
+    @Input() queryParamsHandling: any;
     navigatedTo: any = null;
 
     @HostListener('(click)')
