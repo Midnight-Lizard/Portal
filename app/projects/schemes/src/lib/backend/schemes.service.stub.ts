@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { delay, first } from 'rxjs/operators';
+import { delay, first, map, switchMap } from 'rxjs/operators';
 
 import { SettingsService, User } from 'core';
 
@@ -123,6 +123,10 @@ export class SchemesServiceStub
 
     public getPublicSchemeDetails(publicSchemeId: PublicSchemeId)
     {
+        if (Math.random() > 0.3)
+        {
+            return throwError('test');
+        }
         return new BehaviorSubject<PublicSchemeDetails>({
             id: publicSchemeId,
             generation: 1,
