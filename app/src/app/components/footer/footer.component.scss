@@ -53,17 +53,6 @@
         height: 32px;
     }
 
-    // .home-link:before
-    // {
-    //     content: "";
-    //     background-image: url(/assets/ml-toolbar-icon-128.png);
-    //     background-size: 32px 32px;
-    //     width: 32px;
-    //     height: 32px;
-    //     display: inline-block;
-    //     margin: -10px 5px -10px 0px;
-    // }
-
     .legal
     {
         text-align: center;
@@ -73,6 +62,10 @@
         a:not(.mat-button)
         {
             color: mat-color($ml-accent,A100);
+        }
+        a:not(.mat-button):visited
+        {
+            color: mat-color($ml-visited,A100);
         }
     }
 }

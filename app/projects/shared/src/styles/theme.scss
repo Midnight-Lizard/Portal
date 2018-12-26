@@ -1,6 +1,7 @@
 ﻿@import '~@angular/material/theming';
 $ml-primary: mat-palette($mat-grey, 300, 100, 700);
 $ml-accent: mat-palette($mat-blue, A400, A100, A700);
+$ml-visited: mat-palette($mat-deep-purple, A400, A100, A700);
 $ml-warn: mat-palette($mat-red, 500, A100, A700);
 $ml-alert: mat-palette($mat-yellow, A200, A100, A700);
 $ml-background: rgba(white, 1);
