@@ -130,7 +130,8 @@ export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
         if (this.env.isBrowserSide)
         {
             const url = encodeURIComponent(document!.location!.href!);
-            return `https://twitter.com/intent/tweet?via=MidnightLizard&url=${url}`;
+            // tslint:disable-next-line:max-line-length
+            return `https://twitter.com/intent/tweet?via=MidnightLizard&text=Check+out+a+color+scheme+that+works+on+all+websites&url=${url}`;
         }
     }
 }
