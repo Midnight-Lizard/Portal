@@ -1,6 +1,6 @@
 export enum SchemeSide
 {
-    None = 'none',
+    Any = 'any',
     Dark = 'dark',
     Light = 'light'
 }

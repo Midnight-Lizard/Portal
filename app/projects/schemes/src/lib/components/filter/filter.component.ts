@@ -1,13 +1,13 @@
 ﻿import { Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 
 import { SchemeSide } from '../../model/scheme-side';
 import { SchemesFilters, createRouteParamsFromFilters } from '../../model/schemes-filters';
-import { SchemesFeatureState, SchemesRootState } from '../../store/schemes.state';
+import { SchemesRootState } from '../../store/schemes.state';
 import { ObservableMedia } from '@angular/flex-layout';
 import { MatButtonToggleGroup, MatInput } from '@angular/material';
 
@@ -16,21 +16,21 @@ import { MatButtonToggleGroup, MatInput } from '@angular/material';
     templateUrl: './filter.component.html',
     styleUrls: ['./filter.component.scss']
 })
-export class SchemesFilterComponent implements OnDestroy
+export class SchemesFilterComponent implements OnDestroy, AfterViewInit
 {
     private readonly _storeSub: Subscription;
-    private readonly _mediaSub: Subscription;
+    private _mediaSub: Subscription;
     readonly filtersForm: FormGroup;
-    @ViewChild(MatButtonToggleGroup) sideToggle: MatButtonToggleGroup;
+    @ViewChildren(MatButtonToggleGroup) toggles: QueryList<MatButtonToggleGroup>;
     @ViewChild(MatInput) searchField: MatInput;
 
     constructor(
         router: Router, fb: FormBuilder,
         store: Store<SchemesRootState>,
-        media: ObservableMedia)
+        private readonly media: ObservableMedia)
     {
         this.filtersForm = fb.group({
-            query: '', side: SchemeSide.None
+            query: '', side: SchemeSide.Any, bg: 'any'
         } as SchemesFilters);
 
         this._storeSub = store.pipe(select(s => s.SCHEMES.schemes.filters))
@@ -46,13 +46,16 @@ export class SchemesFilterComponent implements OnDestroy
                 const params = createRouteParamsFromFilters(filters);
                 router.navigate([], { queryParams: params, queryParamsHandling: 'merge' });
             });
+    }
 
-        this._mediaSub = media.subscribe(change =>
+    ngAfterViewInit(): void
+    {
+        this._mediaSub = this.media.subscribe(change =>
         {
             const isSmall = change.matches && change.mqAlias === 'sm';
-            if (this.sideToggle)
+            if (this.toggles)
             {
-                this.sideToggle.vertical = isSmall;
+                this.toggles.forEach(x => x.vertical = isSmall);
             }
             if (this.searchField)
             {
@@ -64,7 +67,13 @@ export class SchemesFilterComponent implements OnDestroy
 
     ngOnDestroy(): void
     {
-        this._storeSub.unsubscribe();
-        this._mediaSub.unsubscribe();
+        if (this._storeSub)
+        {
+            this._storeSub.unsubscribe();
+        }
+        if (this._mediaSub)
+        {
+            this._mediaSub.unsubscribe();
+        }
     }
 }

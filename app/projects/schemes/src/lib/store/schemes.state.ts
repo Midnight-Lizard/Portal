@@ -5,6 +5,7 @@ import { PublicScheme, PublicSchemeDetails } from '../model/public-scheme';
 import { SchemesFilters } from '../model/schemes-filters';
 import { SchemeSide } from '../model/scheme-side';
 import { SchemesList } from '../model/schemes-lists';
+import { HueFilter } from '../model/hue-filter';
 
 export const SchemesFeature: keyof SchemesRootState = 'SCHEMES';
 
@@ -37,7 +38,8 @@ export const schemesInitialState: SchemesFeatureState = {
         list: SchemesList.Empty,
         filters: {
             query: '',
-            side: SchemeSide.None
+            side: SchemeSide.Any,
+            bg: HueFilter.Any
         },
         data: [],
         done: false

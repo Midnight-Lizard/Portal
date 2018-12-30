@@ -19,6 +19,7 @@ import { SchemeSide } from '../../model/scheme-side';
 import { SchemesList } from '../../model/schemes-lists';
 import { PublicScheme } from '../../model/public-scheme';
 import { SchemeSliderComponent } from '../slider/slider.component';
+import { HueFilter } from '../../model/hue-filter';
 
 describe(nameOfClass(SchemesListComponent), function ()
 {
@@ -61,7 +62,7 @@ describe(nameOfClass(SchemesListComponent), function ()
             (store$: Store<SchemesRootState>, schemesService: SchemesService, router: Router) =>
             {
                 schemesService
-                    .getPublicSchemes({ query: '', side: SchemeSide.None }, SchemesList.Full, 4)
+                    .getPublicSchemes({ query: '', side: SchemeSide.Any, bg: HueFilter.Any }, SchemesList.Full, 4)
                     .subscribe(result =>
                     {
                         this.schemes = result.results;

@@ -13,6 +13,7 @@ import { searchQuery, detailsQuery } from './schemes.queries';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
+import { HueFilter } from '../model/hue-filter';
 
 describe(nameOfClass(SchemesService), function (this: {
     apolloStub: jasmine.SpyObj<Apollo>,
@@ -55,12 +56,13 @@ describe(nameOfClass(SchemesService), function (this: {
             query: '231',
             side: SchemeSide.Dark,
             list: SchemesList.Full,
+            bg: HueFilter.Blue,
             pageSize: 42,
             cursor: '321',
             publisherId: '123'
         };
         this.schemesService.getPublicSchemes(
-            { query: variables.query, side: variables.side },
+            { query: variables.query, side: variables.side, bg: variables.bg },
             variables.list, variables.pageSize,
             { claims: { sub: variables.publisherId } } as any,
             variables.cursor)

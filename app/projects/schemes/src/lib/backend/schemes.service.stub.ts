@@ -83,7 +83,7 @@ export class SchemesServiceStub
             done: Math.random() > 0.7,
             results: (Array.apply(null, Array(pageSize)) as null[]).map(() =>
             {
-                const side = filters.side === SchemeSide.None
+                const side = filters.side === SchemeSide.Any
                     ? Math.random() > 0.25 ? SchemeSide.Dark : SchemeSide.Light
                     : filters.side;
                 const screenshots = side === SchemeSide.Dark ? darkSchemes : lightSchemes;
@@ -123,10 +123,10 @@ export class SchemesServiceStub
 
     public getPublicSchemeDetails(publicSchemeId: PublicSchemeId)
     {
-        if (Math.random() > 0.7)
-        {
-            return throwError('test');
-        }
+        // if (Math.random() > 0.7)
+        // {
+        //     return throwError('test');
+        // }
         return new BehaviorSubject<PublicSchemeDetails>({
             id: publicSchemeId,
             generation: 1,

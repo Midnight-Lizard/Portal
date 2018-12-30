@@ -51,6 +51,7 @@ export class SchemesService
             variables: {
                 query: filters.query,
                 side: filters.side,
+                bg: filters.bg,
                 list, pageSize, cursor,
                 publisherId: user ? user.claims.sub : null
             }

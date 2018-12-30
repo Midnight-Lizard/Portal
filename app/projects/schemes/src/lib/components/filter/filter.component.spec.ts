@@ -9,6 +9,7 @@ import { SchemeSide } from '../../model/scheme-side';
 import { SchemesRootState } from '../../store/schemes.state';
 import { SchemesSearchChanged } from '../../store/schemes.actions';
 import { SchemesList } from '../../model/schemes-lists';
+import { HueFilter } from '../../model/hue-filter';
 
 describe(nameOfClass(SchemesFilterComponent), function (this: { router: Router })
 {
@@ -51,7 +52,33 @@ describe(nameOfClass(SchemesFilterComponent), function (this: { router: Router }
                 fixture.detectChanges();
                 TestSchedulerStub.flush();
                 const expectedParams: NavigationExtras = {
-                    queryParams: { q: '', side },
+                    queryParams: { q: '', side, bg: HueFilter.Any },
+                    queryParamsHandling: 'merge'
+                };
+                expect(this.router.navigate).toHaveBeenCalledWith([], expectedParams);
+            });
+        }
+    });
+
+    describe('Hue toggle', function (this: { router: Router })
+    {
+        beforeEach(fakeAsync(() =>
+        {
+            component.filtersForm.get('bg')!.setValue(null);
+            fixture.detectChanges();
+            TestSchedulerStub.flush();
+            this.router = TestBed.get(Router);
+        }));
+
+        for (const hue of Object.values(HueFilter))
+        {
+            it(`should navigate correctly on [${hue}] hue toggle checked`, () =>
+            {
+                component.filtersForm.get('bg')!.setValue(hue);
+                fixture.detectChanges();
+                TestSchedulerStub.flush();
+                const expectedParams: NavigationExtras = {
+                    queryParams: { q: '', side: SchemeSide.Any, bg: hue },
                     queryParamsHandling: 'merge'
                 };
                 expect(this.router.navigate).toHaveBeenCalledWith([], expectedParams);
@@ -66,7 +93,7 @@ describe(nameOfClass(SchemesFilterComponent), function (this: { router: Router }
         fixture.detectChanges();
         TestSchedulerStub.flush();
         const expectedParams: NavigationExtras = {
-            queryParams: { q: testString, side: SchemeSide.None },
+            queryParams: { q: testString, side: SchemeSide.Any, bg: HueFilter.Any },
             queryParamsHandling: 'merge'
         };
         expect(this.router.navigate).toHaveBeenCalledWith([], expectedParams);
@@ -75,7 +102,7 @@ describe(nameOfClass(SchemesFilterComponent), function (this: { router: Router }
     it('should change form values when filters value changes in the store', inject(
         [Store], (store$: Store<SchemesRootState>) =>
         {
-            const testFiltersValue = { query: 'test', side: SchemeSide.Dark };
+            const testFiltersValue = { query: 'test', side: SchemeSide.Dark, bg: HueFilter.Any };
             store$.dispatch(new SchemesSearchChanged({
                 list: SchemesList.Full,
                 filters: testFiltersValue

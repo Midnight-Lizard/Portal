@@ -91,8 +91,8 @@ export const detailsQuery = gql`
 `;
 
 export const searchQuery = gql`
-  query ($query: String, $side: SchemeSide, $list: SchemeList, $publisherId: ID, $cursor: String, $pageSize: Int) {
-    search(query: $query, side: $side, list: $list, publisherId: $publisherId, cursor: $cursor, pageSize: $pageSize) {
+  query ($query: String, $side: SchemeSide, $bg: HueFilter, $list: SchemeList, $publisherId: ID, $cursor: String, $pageSize: Int) {
+    search(query: $query, side: $side, bg: $bg, list: $list, publisherId: $publisherId, cursor: $cursor, pageSize: $pageSize) {
       cursor
       done
       results {

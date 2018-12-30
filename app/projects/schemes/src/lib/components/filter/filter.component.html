@@ -17,16 +17,42 @@
     </button>
   </mat-form-field>
 
-  <mat-button-toggle-group formControlName="side" color="accent"
-                           [ngClass.sm]="{'vertical': true}">
+  <mat-button-toggle-group formControlName="side" class="horizontal"
+                           class="none" [ngClass.sm]="{'vertical': true, 'horizontal': false}">
     <mat-button-toggle value="light" matTooltip="Light side">
       <mat-icon>wb_sunny</mat-icon>
     </mat-button-toggle>
-    <mat-button-toggle value="none" matTooltip="No side filter">
+    <mat-button-toggle value="any" matTooltip="Any side">
       <mat-icon>swap_horiz</mat-icon>
     </mat-button-toggle>
     <mat-button-toggle value="dark" matTooltip="Dark side">
       <mat-icon>brightness_3</mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+  <mat-button-toggle-group formControlName="bg" class="hue horizontal"
+                           appearance="legacy" [ngClass.sm]="{'vertical': true, 'horizontal': false}">
+    <mat-button-toggle value="any" matTooltip="Any background color">&nbsp;
+    </mat-button-toggle>
+    <mat-button-toggle value="red" matTooltip="Filter color schemes
+      with Red background">&nbsp;
+    </mat-button-toggle>
+    <mat-button-toggle value="yellow" matTooltip="Filter color schemes
+      with Yellow background">&nbsp;
+    </mat-button-toggle>
+    <mat-button-toggle value="green" matTooltip="Filter color schemes
+      with Green background">&nbsp;
+    </mat-button-toggle>
+    <mat-button-toggle value="cyan" matTooltip="Filter color schemes
+      with Cyan background">&nbsp;
+    </mat-button-toggle>
+    <mat-button-toggle value="blue" matTooltip="Filter color schemes
+      with Blue background">&nbsp;
+    </mat-button-toggle>
+    <mat-button-toggle value="purple" matTooltip="Filter color schemes
+      with Purple background">&nbsp;
+    </mat-button-toggle>
+    <mat-button-toggle value="gray" matTooltip="Filter color schemes
+      with Gray background">&nbsp;
     </mat-button-toggle>
   </mat-button-toggle-group>
 </form>

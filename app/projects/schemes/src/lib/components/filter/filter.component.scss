@@ -12,6 +12,7 @@
 
     &.vertical {
         width: auto;
+        margin-top: 72px;
         .mat-button-toggle{
             width: 100%;
         }
@@ -27,7 +28,7 @@
     --ml-highlightedbackground-background-color:ButtonBackground;
 }
 
-.mat-button-toggle-checked:not(imp)
+:not(.hue)>.mat-button-toggle-checked:not(imp)
 {
     background-color: mat-color($ml-accent, A100);
     color: $ml-text-color;
@@ -35,4 +36,69 @@
 
 .mat-nav-list {
     margin-top: 40px;
+}
+
+.hue {
+    width: calc(100% - 1px);
+    margin: 20px 1px 1px 1px;
+    &.vertical {
+        margin: 0px 1px 1px 20px;
+        vertical-align: top;
+    }
+    .mat-button-toggle.mat-button-toggle-checked {
+        --sat: 100%;
+    }
+    .mat-button-toggle-checked:after {
+        --ml-ignore:true;
+        content: "\2714";
+        font-size: 22px;
+        color: hsl(calc(var(--start) + (var(--end) - var(--start)) / 2 + 180), 100%, 50%);
+        text-shadow: 0 0 1px black;
+        text-align: center;
+        position: absolute;
+        left: 0; right: 0;
+        line-height: 36px;
+    }
+    .mat-button-toggle {
+        width: 12.5%;
+        --start: 0;
+        --end: 0;
+        --sat: 80%;
+        --ml-backgroundnocontrast-background-color:None;
+        background-image: linear-gradient(to right, hsl(var(--start),var(--sat),50%),hsl(var(--end),var(--sat),50%));
+    }
+    .mat-button-toggle:nth-child(1).mat-button-toggle-checked:after {
+        color:rgb(194, 2, 136);
+        text-shadow: 0 0 1px white;
+    }
+    .mat-button-toggle:nth-child(1) {
+        background-image:radial-gradient(circle at bottom left,hsl(0,var(--sat),50%) 0%,hsl(60,var(--sat),50%) 20%,hsl(120,var(--sat),50%) 40%,hsl(180,var(--sat),45%) 60%,hsl(240,var(--sat),55%) 80%,hsl(300,var(--sat),50%));
+    }
+    .mat-button-toggle:nth-child(2) {
+        --start: 340;
+        --end: 380;
+    }
+    .mat-button-toggle:nth-child(3) {
+        --start: 40;
+        --end: 80;
+    }
+    .mat-button-toggle:nth-child(4) {
+        --start: 100;
+        --end: 140;
+    }
+    .mat-button-toggle:nth-child(5) {
+        --start: 160;
+        --end: 200;
+    }
+    .mat-button-toggle:nth-child(6) {
+        --start: 220;
+        --end: 260;
+    }
+    .mat-button-toggle:nth-child(7) {
+        --start: 280;
+        --end: 320;
+    }
+    .mat-button-toggle:nth-child(8) {
+        background-image: linear-gradient(to right, hsla(0,0%,30%,var(--sat)), hsla(0,0%,60%,var(--sat)));
+    }
 }
