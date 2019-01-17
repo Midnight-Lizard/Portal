@@ -2,10 +2,6 @@
 replicaCount: 1
 image: portal:latest
 pullPolicy: IfNotPresent
-antiAffinity:
-  weight: 100
-  apps:
-    - identity
 service:
   name: portal
   type: NodePort
