@@ -65,14 +65,33 @@
         --end: 0;
         --sat: 80%;
         --ml-backgroundnocontrast-background-color:None;
-        background-image: linear-gradient(to right, hsl(var(--start),var(--sat),50%),hsl(var(--end),var(--sat),50%));
+        --md: calc(var(--end) - var(--start));
+        background-image:
+            linear-gradient(to bottom,
+                hsla(var(--md),var(--sat),15%,0) 0%,
+                hsla(var(--md),var(--sat),15%,0.1) 50%,
+                hsla(var(--md),var(--sat),15%,0.55) 100%
+            ),
+            linear-gradient(to right, hsl(var(--start),var(--sat),50%),hsl(var(--end),var(--sat),50%));
     }
     .mat-button-toggle:nth-child(1).mat-button-toggle-checked:after {
         color:rgb(194, 2, 136);
         text-shadow: 0 0 1px white;
     }
     .mat-button-toggle:nth-child(1) {
-        background-image:radial-gradient(circle at bottom left,hsl(0,var(--sat),50%) 0%,hsl(60,var(--sat),50%) 20%,hsl(120,var(--sat),50%) 40%,hsl(180,var(--sat),45%) 60%,hsl(240,var(--sat),55%) 80%,hsl(300,var(--sat),50%));
+        background-image:
+            linear-gradient(to bottom,
+                hsla(0,0%,20%,0) 0%,
+                hsla(0,0%,20%,0.1) 50%,
+                hsla(0,0%,20%,0.5) 100%
+            ),
+            radial-gradient(circle at bottom left,
+                hsl(0,var(--sat),55%) 0%,
+                hsl(60,var(--sat),45%) 20%,
+                hsl(120,var(--sat),50%) 40%,
+                hsl(180,var(--sat),45%) 60%,
+                hsl(240,var(--sat),55%) 80%,
+                hsl(300,var(--sat),50%));
     }
     .mat-button-toggle:nth-child(2) {
         --start: 340;
@@ -99,6 +118,12 @@
         --end: 320;
     }
     .mat-button-toggle:nth-child(8) {
-        background-image: linear-gradient(to right, hsla(0,0%,30%,var(--sat)), hsla(0,0%,60%,var(--sat)));
+        background-image:
+            linear-gradient(to bottom,
+                hsla(0,0%,10%,0) 0%,
+                hsla(0,0%,10%,0.1) 50%,
+                hsla(0,0%,10%,0.6) 100%
+            ),
+            linear-gradient(to right, hsla(0,0%,30%,var(--sat)), hsla(0,0%,60%,var(--sat)));
     }
 }
