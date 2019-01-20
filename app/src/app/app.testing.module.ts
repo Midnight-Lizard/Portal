@@ -14,8 +14,9 @@ import
 } from 'dist/shared';
 import
 {
-    CoreModule as PortalCoreModule, defaultSettings, InfoFeature,
-    infoReducers, infoInitialState, ConsentService, MetaService, ConsentCookieService
+    defaultSettings, InfoFeature, infoReducers, infoInitialState,
+    ConsentService, MetaService, ConsentCookieService, AuthFeature,
+    authReducers, authInitialState
 } from 'core';
 import { TestingModule } from 'testing';
 import { rootReducers } from './store/app.state';
@@ -31,7 +32,7 @@ import { CookieService } from 'ngx-cookie-service';
         StoreModule.forRoot(rootReducers),
         EffectsModule.forRoot([]),
         StoreModule.forFeature(InfoFeature, infoReducers, { initialState: infoInitialState }),
-
+        StoreModule.forFeature(AuthFeature, authReducers, { initialState: authInitialState }),
     ],
     exports: [
         PortalSharedModule, PortalLoadingModule, FormsModule,

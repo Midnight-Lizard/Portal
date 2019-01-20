@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, OnDestroy } from '@angular/core';
-import { ObservableMedia, MediaChange } from '@angular/flex-layout';
+import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
 
 import { SideService, ConsentCookieService, NoConsentAction } from 'core';
@@ -20,13 +20,13 @@ export class AppComponent implements OnDestroy
     private readonly mediaSubscription: Subscription;
 
     constructor(
-        media: ObservableMedia,
+        mediaObserver: MediaObserver,
         cookieService: ConsentCookieService,
         iconService: SvgIconService,
         readonly env: SideService)
     {
         iconService.registerSvgIcons();
-        this.mediaSubscription = media.subscribe((change: MediaChange) =>
+        this.mediaSubscription = mediaObserver.media$.subscribe((change: MediaChange) =>
         {
             if (env.isBrowserSide)
             {

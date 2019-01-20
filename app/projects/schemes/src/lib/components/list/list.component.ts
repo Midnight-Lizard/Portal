@@ -1,5 +1,5 @@
 ﻿import { Component, OnDestroy, TrackByFunction, HostBinding, Inject, Optional, OnInit, AfterViewInit } from '@angular/core';
-import { ObservableMedia, MediaChange } from '@angular/flex-layout';
+import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil, filter, map, switchMap, first, delay } from 'rxjs/operators';
@@ -36,7 +36,7 @@ export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
 
     constructor(
         private readonly env: SideService,
-        private readonly media$: ObservableMedia,
+        private readonly mediaObserver: MediaObserver,
         @Inject('MEDIA') @Optional() private readonly lastMedia: string | null,
         private readonly store$: Store<SchemesRootState & InfoRootState>,
         private readonly route: ActivatedRoute,
@@ -90,7 +90,7 @@ export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
             self.isLoading = !done;
         });
 
-        this._mediaSub = this.media$.subscribe((change: MediaChange) =>
+        this._mediaSub = this.mediaObserver.media$.subscribe((change: MediaChange) =>
         {
             let mq = this.lastMedia || 'default';
             if (this.env.isBrowserSide && change.matches)
