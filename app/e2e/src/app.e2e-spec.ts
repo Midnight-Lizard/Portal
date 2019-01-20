@@ -16,9 +16,9 @@ describe('portal', () =>
             page.navigateTo(Route.Home);
         });
 
-        it('should display lorem ipsum', () =>
+        it('should display title', () =>
         {
-            expect(page.getMainContentAsText()).toMatch(/Lorem ipsum/);
+            expect(page.getMainContentAsText()).toMatch(/Midnight Lizard/);
         });
     });
 

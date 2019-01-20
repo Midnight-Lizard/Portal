@@ -37,10 +37,9 @@ COPY ./projects ./projects
 RUN npm run test:ci:libs
 COPY . .
 RUN npm run test:ci
-# e2e tests don't fucking work in GitLab runner...
-# COPY --from=ng-build /build/dist ./dist
-# COPY ./e2e ./e2e
-# RUN npm run e2e:ci
+COPY --from=ng-build /build/dist ./dist
+COPY ./e2e ./e2e
+RUN npm run e2e:ci
 
 #===========================================#
 #								SSR IMAGE										#
