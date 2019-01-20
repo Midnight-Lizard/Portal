@@ -1,7 +1,7 @@
 #===========================================#
 #							ANGULAR	BUILD									#
 #===========================================#
-FROM node:8-alpine as ng-build
+FROM node:10-alpine as ng-build
 WORKDIR /build
 COPY ./package.json .
 RUN npm install
@@ -17,7 +17,7 @@ RUN npm run ${BUILD_CMD}
 #===========================================#
 #							ANGULAR	TEST									#
 #===========================================#
-FROM node:8-slim as ng-test
+FROM node:10-slim as ng-test
 RUN apt-get update && apt-get install -y wget --no-install-recommends \
     && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
@@ -45,7 +45,7 @@ RUN npm run test:ci
 #===========================================#
 #								SSR IMAGE										#
 #===========================================#
-FROM node:8-alpine as ssr-image
+FROM node:10-alpine as ssr-image
 WORKDIR /app
 EXPOSE 80
 EXPOSE 9229
