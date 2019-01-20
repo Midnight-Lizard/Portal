@@ -11,7 +11,7 @@
        [fxHide.lt-sm]="!state.isActive" [attr.badge]="item.badge">
       <mat-icon *ngIf="item.link==='/home'" class="logo"
                 svgIcon="midnight-lizard"></mat-icon>
-      {{item.title}}
+      {{item.toolbarTitle}}
     </a>
   </nav>
   <span fxFlex></span>
@@ -25,7 +25,7 @@
        [routerLink]="[item.link]" [matTooltip]="item.tooltip"
        matTooltipPosition="left" [attr.badge]="item.badge">
       <mat-icon>{{item.icon}}</mat-icon>
-      {{item.title}}
+      {{item.menuTitle}}
     </a>
   </mat-menu>
   <ml-info-nav></ml-info-nav>
