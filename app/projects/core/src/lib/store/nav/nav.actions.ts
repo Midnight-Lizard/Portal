@@ -8,9 +8,9 @@ import
 
 export declare interface ActionErrorPayload { error: any; }
 
-export class RouterNavigation // implements RouterNavigationAction
+export class RouterNavigation implements RouterNavigationAction
 {
-    readonly type: 'RouterNavigation' = ROUTER_NAVIGATION as any;
+    readonly type = ROUTER_NAVIGATION;
     readonly payload: RouterNavigationPayload<RouterStateSnapshot>;
     constructor() { }
 }

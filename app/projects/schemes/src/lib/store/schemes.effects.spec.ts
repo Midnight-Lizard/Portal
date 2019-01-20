@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 
 import { InfoActionTypes, NotifyUser } from 'core';
 import { nameOfClass, TestSchedulerStub } from 'testing';
-import { SchemesService } from '../backend/schemes.service';
 import { SchemesTestingModule } from '../schemes.testing.module';
 import { SchemesAction as Action, SchemesActionTypes as ActionType } from './schemes.action-sets';
 import * as Act from './schemes.actions';

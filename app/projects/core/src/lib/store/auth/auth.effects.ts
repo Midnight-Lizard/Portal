@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of, interval, Observable, timer } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
@@ -19,7 +19,7 @@ export class AuthEffects
 {
     private readonly refreshInterval: number;
     constructor(
-        protected readonly actions$: Actions<AuthAction, typeof AuthActions>,
+        protected readonly actions$: Actions<AuthAction>,
         protected readonly store$: Store<AuthRootState>,
         protected readonly auth: AuthService,
         protected readonly settingsService: SettingsService)
@@ -27,7 +27,8 @@ export class AuthEffects
         this.refreshInterval = +this.settingsService.getSettings().PORTAL_AUTH_REFRESH_INTERVAL;
     }
 
-    @Effect() refreshUser$ = this.actions$.ofType(AuthActionTypes.RefreshUser).pipe(
+    @Effect() refreshUser$ = this.actions$.pipe(
+        ofType(AuthActionTypes.RefreshUser),
         switchMap(act => timer(act.payload.immediately ? 0 : this.refreshInterval, this.refreshInterval)),
         switchMap(i => this.auth.refreshUser().pipe(
             map(user => new AuthActions.UserChanged(user)),
@@ -46,7 +47,8 @@ export class AuthEffects
         ))
     );
 
-    @Effect() refreshSystem$ = this.actions$.ofType(AuthActionTypes.RefreshSystem).pipe(
+    @Effect() refreshSystem$ = this.actions$.pipe(
+        ofType(AuthActionTypes.RefreshSystem),
         switchMap(act => timer(act.payload.immediately ? 0 : this.refreshInterval, this.refreshInterval)),
         switchMap(i => this.auth.refreshSystem().pipe(
             map(system => new AuthActions.SystemChanged(system)),

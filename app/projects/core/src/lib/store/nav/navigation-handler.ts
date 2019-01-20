@@ -1,4 +1,4 @@
-﻿import { Actions } from '@ngrx/effects';
+﻿import { Actions, ofType } from '@ngrx/effects';
 import { ActivatedRouteSnapshot, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { of, Observable, ObservableInput } from 'rxjs';
@@ -24,14 +24,15 @@ export function createNavigationHandler<
     TAction extends ActionsUnion<TModule>,
     TModule extends ActionsModule,
     TRootState, TState>(
-        actions$: Actions<TAction, TModule>,
+        actions$: Actions<TAction>,
         store$: Store<TRootState>,
         stateSelector: IStateSelector<TRootState, TState>)
 {
     return <TResult>(section: RegExp, callback: INavigationCallback<TState, TResult>) =>
     {
-        const route$ = (actions$ as any as Actions<NavAction, typeof NavActions>)
-            .ofType(NavActionTypes.RouterNavigation).pipe(
+        const route$ = (actions$ as any as Actions<NavAction>)
+            .pipe(
+                ofType(NavActionTypes.RouterNavigation),
                 filter(navAction =>
                 {
                     return section.test(navAction.payload.routerState.url);

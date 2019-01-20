@@ -1,5 +1,5 @@
 ﻿export class NothingToExport
 {
-    type = 'Nothing';
+    readonly type = 'Nothing';
     constructor() { }
 }

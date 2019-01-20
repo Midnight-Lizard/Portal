@@ -13,7 +13,7 @@ import * as AppActions from './app.actions';
 export class AppEffects
 {
     constructor(
-        protected readonly actions$: Actions<AppAction, typeof AppActions>,
+        protected readonly actions$: Actions<AppAction>,
         protected readonly store$: Store<RootState>,
         protected readonly router: Router
     ) { }

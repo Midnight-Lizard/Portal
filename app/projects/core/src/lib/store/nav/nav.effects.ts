@@ -1,6 +1,6 @@
 ﻿import { ActivatedRouteSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Effect, Actions, ofType } from '@ngrx/effects';
 import { of, Observable } from 'rxjs';
 import { switchMap, filter, map } from 'rxjs/operators';
 
@@ -14,11 +14,12 @@ import { MetaService } from '../../meta/meta.service';
 export class NavEffects
 {
     constructor(
-        private readonly actions$: Actions<NavAction, typeof NavActions>,
+        private readonly actions$: Actions<NavAction>,
         private readonly metaService: MetaService
     ) { }
 
-    @Effect() refreshUser$ = this.actions$.ofType(NavActionTypes.NavigationFailed).pipe(
+    @Effect() refreshUser$ = this.actions$.pipe(
+        ofType(NavActionTypes.NavigationFailed),
         switchMap(user => of(new NotifyUser({
             message: 'Navigation has failed',
             level: NotificationLevel.Error,
@@ -27,7 +28,8 @@ export class NavEffects
         })))
     );
 
-    @Effect() handleNavigation$ = this.actions$.ofType(NavActionTypes.RouterNavigation).pipe(
+    @Effect() handleNavigation$ = this.actions$.pipe(
+        ofType(NavActionTypes.RouterNavigation),
         map(act =>
         {
             this.metaService.updatePageMetaData(this.getLastChild(act.payload.routerState.root).data || {});

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of, Observable, merge } from 'rxjs';
 import { switchMap, filter, map, withLatestFrom, catchError } from 'rxjs/operators';
@@ -31,14 +31,15 @@ export class SchemesEffects
         this.actions$, this.store$, (store) => store.SCHEMES.schemes);
 
     constructor(
-        private readonly actions$: Actions<SchemesAction, typeof SchActs>,
+        private readonly actions$: Actions<SchemesAction>,
         private readonly store$: Store<SchemesRootState & AuthRootState>,
         private readonly schSvc: SchemesService,
         private readonly meta: MetaService
     ) { }
 
     @Effect()
-    currentSchemeChangeRequested$ = this.actions$.ofType(SchActTypes.CurrentSchemeChangeRequested).pipe(
+    currentSchemeChangeRequested$ = this.actions$.pipe(
+        ofType(SchActTypes.CurrentSchemeChangeRequested),
         withLatestFrom(this.store$),
         switchMap(([event, store]) => this.schSvc.getPublicSchemeDetails(event.payload.id).pipe(
             map(scheme => new SchActs.CurrentSchemeChanged({ currentScheme: scheme })),
@@ -88,7 +89,8 @@ export class SchemesEffects
     });
 
     @Effect()
-    onSearchChanged$ = this.actions$.ofType(SchActTypes.SchemesSearchChanged).pipe(
+    onSearchChanged$ = this.actions$.pipe(
+        ofType(SchActTypes.SchemesSearchChanged),
         withLatestFrom(this.store$),
         switchMap(([act, state]) => this.schSvc.getPublicSchemes(
             act.payload.filters, act.payload.list, 10, state.AUTH.user, null).pipe(
@@ -108,7 +110,8 @@ export class SchemesEffects
     );
 
     @Effect()
-    loadNextChunk$ = this.actions$.ofType(SchActTypes.LoadNextSchemesChunk).pipe(
+    loadNextChunk$ = this.actions$.pipe(
+        ofType(SchActTypes.LoadNextSchemesChunk),
         withLatestFrom(this.store$),
         switchMap(([act, state]) => this.schSvc.getPublicSchemes(
             state.SCHEMES.schemes.filters, state.SCHEMES.schemes.list, 10,
@@ -128,7 +131,8 @@ export class SchemesEffects
     );
 
     @Effect()
-    likeScheme$ = this.actions$.ofType(SchActTypes.LikeScheme).pipe(
+    likeScheme$ = this.actions$.pipe(
+        ofType(SchActTypes.LikeScheme),
         withLatestFrom(this.store$),
         switchMap(([act, state]) =>
         {
@@ -152,7 +156,8 @@ export class SchemesEffects
     );
 
     @Effect()
-    dislikeScheme$ = this.actions$.ofType(SchActTypes.DislikeScheme).pipe(
+    dislikeScheme$ = this.actions$.pipe(
+        ofType(SchActTypes.DislikeScheme),
         withLatestFrom(this.store$),
         switchMap(([act, state]) =>
         {
@@ -176,7 +181,8 @@ export class SchemesEffects
     );
 
     @Effect()
-    addSchemeToFavorites$ = this.actions$.ofType(SchActTypes.AddSchemeToFavorites).pipe(
+    addSchemeToFavorites$ = this.actions$.pipe(
+        ofType(SchActTypes.AddSchemeToFavorites),
         withLatestFrom(this.store$),
         switchMap(([act, state]) =>
         {
@@ -197,7 +203,8 @@ export class SchemesEffects
     );
 
     @Effect()
-    removeSchemeFromFavorites$ = this.actions$.ofType(SchActTypes.RemoveSchemeFromFavorites).pipe(
+    removeSchemeFromFavorites$ = this.actions$.pipe(
+        ofType(SchActTypes.RemoveSchemeFromFavorites),
         withLatestFrom(this.store$),
         switchMap(([act, state]) =>
         {

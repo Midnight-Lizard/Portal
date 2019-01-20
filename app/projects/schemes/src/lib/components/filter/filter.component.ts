@@ -8,7 +8,7 @@ import { debounceTime } from 'rxjs/operators';
 import { SchemeSide } from '../../model/scheme-side';
 import { SchemesFilters, createRouteParamsFromFilters } from '../../model/schemes-filters';
 import { SchemesRootState } from '../../store/schemes.state';
-import { ObservableMedia } from '@angular/flex-layout';
+import { MediaObserver } from '@angular/flex-layout';
 import { MatButtonToggleGroup, MatInput } from '@angular/material';
 
 @Component({
@@ -27,7 +27,7 @@ export class SchemesFilterComponent implements OnDestroy, AfterViewInit
     constructor(
         router: Router, fb: FormBuilder,
         store: Store<SchemesRootState>,
-        private readonly media: ObservableMedia)
+        private readonly mediaObserver: MediaObserver)
     {
         this.filtersForm = fb.group({
             query: '', side: SchemeSide.Any, bg: 'any'
@@ -50,7 +50,7 @@ export class SchemesFilterComponent implements OnDestroy, AfterViewInit
 
     ngAfterViewInit(): void
     {
-        this._mediaSub = this.media.subscribe(change =>
+        this._mediaSub = this.mediaObserver.media$.subscribe(change =>
         {
             const isSmall = change.matches && change.mqAlias === 'sm';
             if (this.toggles)

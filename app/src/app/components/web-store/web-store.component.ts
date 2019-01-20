@@ -1,6 +1,6 @@
 import { Component, ViewChildren, QueryList, OnDestroy, ElementRef } from '@angular/core';
 import { MatNavList } from '@angular/material';
-import { ObservableMedia } from '@angular/flex-layout';
+import { MediaObserver } from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
 
 import { SideService } from 'core';
@@ -16,11 +16,11 @@ export class WebStoreComponent implements OnDestroy
 
     @ViewChildren(MatNavList, { read: ElementRef }) navLinks: QueryList<ElementRef>;
 
-    constructor(media: ObservableMedia, env: SideService)
+    constructor(mediaObserver: MediaObserver, env: SideService)
     {
         if (env.isBrowserSide)
         {
-            this._mediaSub = media.subscribe(change =>
+            this._mediaSub = mediaObserver.media$.subscribe(change =>
             {
                 const isSmall = change.matches && change.mqAlias === 'xs';
                 if (this.navLinks)
