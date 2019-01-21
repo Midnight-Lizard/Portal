@@ -79,8 +79,9 @@
           <mat-icon svgIcon="facebook">share</mat-icon>
           <span>Share on Facebook</span>
         </a>
-        <a mat-menu-item target="_blank" [href]="twitterShareUrl"
-           matTooltipPosition="left" matTooltip="Share this color scheme on Twitter">
+        <a mat-menu-item target="_blank" rel="noopener"
+           [href]="twitterShareUrl" matTooltipPosition="left"
+           matTooltip="Share this color scheme on Twitter">
           <mat-icon svgIcon="twitter">share</mat-icon>
           <span>Share on Twitter</span>
         </a>
