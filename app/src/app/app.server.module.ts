@@ -17,7 +17,7 @@ import { AssetsInterceptor } from './assets-interceptor';
         ServerModule, ServerTransferStateModule,
         AppSharedModule,
         NoopAnimationsModule,
-        FlexLayoutServerModule,
+        // FlexLayoutServerModule,
         ModuleMapLoaderModule
     ],
     bootstrap: [AppComponent],

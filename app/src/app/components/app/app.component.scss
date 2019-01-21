@@ -18,7 +18,7 @@ mat-sidenav-container {
     overflow-y: scroll;
 }
 
-.root.server .mat-drawer-content {
+.root.server .mat-drawer[style*="visible"]+.cdk-focus-trap-anchor+.mat-drawer-content {
     margin-left: 20% !important;
 }
 

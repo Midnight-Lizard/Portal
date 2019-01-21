@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnDestroy, Inject, Optional } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
 
@@ -20,20 +20,26 @@ export class AppComponent implements OnDestroy
     private readonly mediaSubscription: Subscription;
 
     constructor(
+        @Inject('MEDIA') @Optional()
+        private readonly lastMedia: string | null,
         mediaObserver: MediaObserver,
         cookieService: ConsentCookieService,
         iconService: SvgIconService,
         readonly env: SideService)
     {
         iconService.registerSvgIcons();
+        console.log(`lastMedia: ${lastMedia}`);
         this.mediaSubscription = mediaObserver.media$.subscribe((change: MediaChange) =>
         {
+            console.log(change);
+            let mq = this.lastMedia || 'sm';
             if (env.isBrowserSide)
             {
                 cookieService.set(AppConstants.Cookies.Media, change.mqAlias,
                     NoConsentAction.SilentlySkipOperation, 30, '/');
+                mq = change.mqAlias;
             }
-            if (/xs|sm/.test(change.mqAlias))
+            if (/xs|sm/.test(mq))
             {
                 this.sidenavIsOpened = false;
                 this.sidenavMode = 'over';
