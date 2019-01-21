@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env) => {
   const isDevBuild = !(env && env.prod);
@@ -60,13 +59,6 @@ module.exports = (env) => {
         })
       ] :
       [ // prod
-        new UglifyJsPlugin({
-          uglifyOptions: {
-            mangle: false,
-            compress: false,
-            comments: false
-          }
-        })
       ])
   }
 }
