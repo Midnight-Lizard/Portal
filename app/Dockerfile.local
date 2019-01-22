@@ -1,0 +1,113 @@
+#===========================================#
+#             ROOT BUILD IMAGE              #
+#===========================================#
+FROM node:10-alpine as root-build
+WORKDIR /build
+COPY ./package.json .
+RUN npm install
+COPY ./*.json ./
+
+#===========================================#
+#              ROOT TESTS IMAGE             #
+#===========================================#
+FROM node:10-slim as root-tests
+RUN apt-get update && apt-get install -y wget procps --no-install-recommends \
+    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+    && apt-get update \
+    && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst ttf-freefont \
+      --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get purge --auto-remove -y curl \
+    && rm -rf /src/*.deb
+WORKDIR /test
+COPY ./package.json .
+COPY --from=root-build /build/node_modules ./node_modules
+# reinstalling sass since the base image is different
+RUN npm i node-sass
+COPY ./*.json ./
+COPY ./src/*.json ./src/
+COPY ./projects/testing ./projects/testing
+
+#===========================================#
+#           TESTING LIB BUILD               #
+#===========================================#
+FROM root-build as testing-lib-build
+COPY ./projects/testing ./projects/testing
+RUN npm run build:dev:testing
+
+#===========================================#
+#             CORE LIB BUILD                #
+#===========================================#
+FROM testing-lib-build as core-lib-build
+COPY ./projects/core ./projects/core
+RUN npm run build:prod:core
+
+#===========================================#
+#             CORE LIB TESTS                #
+#===========================================#
+FROM root-tests as core-tests
+COPY ./projects/core ./projects/core
+RUN npm run test:ci:core
+
+#===========================================#
+#            SHARED LIB BUILD               #
+#===========================================#
+FROM core-lib-build as shared-lib-build
+COPY ./projects/shared ./projects/shared
+RUN npm run build:prod:shared
+
+#===========================================#
+#            SHARED LIB TESTS               #
+#===========================================#
+FROM core-tests as shared-tests
+COPY ./projects/shared ./projects/shared
+RUN npm run test:ci:shared
+
+#===========================================#
+#            SCHEMES LIB BUILD              #
+#===========================================#
+FROM shared-lib-build as schemes-lib-build
+COPY ./projects/schemes ./projects/schemes
+RUN npm run build:prod:schemes
+
+#===========================================#
+#            SCHEMES LIB TESTS              #
+#===========================================#
+FROM shared-tests as schemes-tests
+COPY ./projects/schemes ./projects/schemes
+RUN npm run test:ci:schemes
+
+#===========================================#
+#             MAIN APP BUILD                #
+#===========================================#
+FROM root-build as ng-build
+COPY --from=testing-lib-build /build/dist/testing ./dist/testing
+COPY --from=core-lib-build /build/dist/core ./dist/core
+COPY --from=shared-lib-build /build/dist/shared ./dist/shared
+COPY --from=schemes-lib-build /build/dist/schemes ./dist/schemes
+COPY ./*.* ./
+COPY ./src ./src
+RUN npm run build:prod
+
+#===========================================#
+#              MAIN APP TESTS               #
+#===========================================#
+FROM root-tests as main-tests
+COPY . .
+RUN npm run test:ci
+COPY --from=ng-build /build/dist ./dist
+COPY ./e2e ./e2e
+RUN npm run e2e:ci
+
+#===========================================#
+#                 SSR IMAGE                 #
+#===========================================#
+FROM node:10-alpine as ssr-image
+WORKDIR /app
+EXPOSE 80
+COPY ./package.json .
+COPY --from=ng-build /build/dist/*.* ./dist/
+COPY --from=ng-build /build/dist/portal-browser ./dist/portal-browser
+COPY --from=ng-build /build/dist/portal-server ./dist/portal-server
+ENTRYPOINT npm run start:ssr

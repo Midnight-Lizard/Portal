@@ -4,6 +4,7 @@
 **/.vs
 **/.git
 **/Dockerfile
+**/Dockerfile.local
 **/node_modules/
 **/dist/
 **/coverage/
