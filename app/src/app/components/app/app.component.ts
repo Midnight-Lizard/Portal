@@ -28,10 +28,8 @@ export class AppComponent implements OnDestroy
         readonly env: SideService)
     {
         iconService.registerSvgIcons();
-        console.log(`lastMedia: ${lastMedia}`);
         this.mediaSubscription = mediaObserver.media$.subscribe((change: MediaChange) =>
         {
-            console.log(change);
             let mq = this.lastMedia || 'sm';
             if (env.isBrowserSide)
             {
