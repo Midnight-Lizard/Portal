@@ -17,19 +17,22 @@ import { NotificationLevel } from '../info/info.state';
 @Injectable()
 export class AuthEffects
 {
-    private readonly refreshInterval: number;
+    private readonly userRefreshInterval: number;
+    private readonly systemRefreshInterval: number;
     constructor(
         protected readonly actions$: Actions<AuthAction>,
         protected readonly store$: Store<AuthRootState>,
         protected readonly auth: AuthService,
         protected readonly settingsService: SettingsService)
     {
-        this.refreshInterval = +this.settingsService.getSettings().PORTAL_AUTH_REFRESH_INTERVAL;
+        const settings = this.settingsService.getSettings();
+        this.userRefreshInterval = +settings.PORTAL_USER_AUTH_REFRESH_INTERVAL;
+        this.systemRefreshInterval = +settings.PORTAL_SYSTEM_AUTH_REFRESH_INTERVAL;
     }
 
     @Effect() refreshUser$ = this.actions$.pipe(
         ofType(AuthActionTypes.RefreshUser),
-        switchMap(act => timer(act.payload.immediately ? 0 : this.refreshInterval, this.refreshInterval)),
+        switchMap(act => timer(act.payload.immediately ? 0 : this.userRefreshInterval, this.userRefreshInterval)),
         switchMap(i => this.auth.refreshUser().pipe(
             map(user => new AuthActions.UserChanged(user)),
             catchError(error =>
@@ -49,7 +52,7 @@ export class AuthEffects
 
     @Effect() refreshSystem$ = this.actions$.pipe(
         ofType(AuthActionTypes.RefreshSystem),
-        switchMap(act => timer(act.payload.immediately ? 0 : this.refreshInterval, this.refreshInterval)),
+        switchMap(act => timer(act.payload.immediately ? 0 : this.systemRefreshInterval, this.systemRefreshInterval)),
         switchMap(i => this.auth.refreshSystem().pipe(
             map(system => new AuthActions.SystemChanged(system)),
             catchError(error =>

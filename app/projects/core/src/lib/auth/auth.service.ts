@@ -37,7 +37,7 @@ export class AuthService
                 {
                     if (user || cookieService.get(AuthConstants.Cookies.SignedIn) === 'true')
                     {
-                        store$.dispatch(new AuthActions.RefreshUser({ immediately: !user }));
+                        store$.dispatch(new AuthActions.RefreshUser({ immediately: !user || user.expired }));
                     }
                 });
 

@@ -5,7 +5,8 @@
     readonly SCHEMES_QUERIER_URL: string;
     readonly SCHEMES_COMMANDER_URL: string;
     /** Refresh tokens interval in miliseconds */
-    readonly PORTAL_AUTH_REFRESH_INTERVAL: string;
+    readonly PORTAL_USER_AUTH_REFRESH_INTERVAL: string;
+    readonly PORTAL_SYSTEM_AUTH_REFRESH_INTERVAL: string;
     readonly USE_AUTH: string;
 }
 
@@ -14,6 +15,7 @@ export const defaultSettings: Settings = {
     PORTAL_URL: 'http://localhost:7000',
     SCHEMES_QUERIER_URL: 'http://localhost:7010',
     SCHEMES_COMMANDER_URL: 'http://localhost:7011',
-    PORTAL_AUTH_REFRESH_INTERVAL: '10000',
+    PORTAL_USER_AUTH_REFRESH_INTERVAL: '10000',
+    PORTAL_SYSTEM_AUTH_REFRESH_INTERVAL: '10000',
     USE_AUTH: false.toString()
 };
