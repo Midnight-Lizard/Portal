@@ -1,105 +1,109 @@
-<div class="section" fxLayout="row" fxLayoutAlign="center"
-     fxLayoutGap="50px">
-  <mat-icon class="image logo" ngClass.xs="small"
-            fxFlexAlign="center" svgIcon="midnight-lizard"></mat-icon>
-  <div class="content" fxLayout="column" fxFlexAlign="center"
-       fxFlex="45%">
-    <h1>Midnight Lizard</h1>
-    <p class="details">Custom color schemes for all
-      websites</p>
-  </div>
+<div class="section" ngClass.xs="small" gdAlignRows="center start"
+     gdAlignColumns="center center" gdColumns="auto 50px 45%"
+     gdAreas="img md start | img md title | img md desc | img md end"
+     gdAlignRows.xs="center center" gdColumns.xs="120px 20px calc(100% - 170px)"
+     gdAreas.xs="img md title | desc desc desc">
+  <h1 gdArea="title" ngClass="" ngClass.xs="small">Midnight
+    Lizard</h1>
+  <mat-icon gdArea="img" class="image logo" ngClass.xs="small"
+            svgIcon="midnight-lizard"></mat-icon>
+  <p gdArea="desc" class="details">Custom color schemes for
+    all
+    websites</p>
 </div>
 
-<div class="section" fxLayout="row" fxLayoutAlign="center"
-     fxLayoutGap="50px">
-  <div class="content" fxLayout="column" fxFlex="45%"
-       fxFlexAlign="center">
-    <h2>Choose your mode</h2>
-    <p class="details">
-      In addition to dark and night mode color schemes,
-      Midnight Lizard has a wide range of light and
-      colorful predefined color schemes and you can create
-      your own.
-    </p>
-  </div>
-  <div fxFlexAlign="center" ngClass.xs="small" class="image-container sides">
+<div class="section" ngClass.xs="small" gdAlignRows="center start"
+     gdAlignColumns="center center" gdColumns="45% 50px auto"
+     gdAreas="start md img | title md img | desc md img | end md img"
+     gdColumns.xs="calc(100% - 150px) 120px" gdAreas.xs="title img | desc desc">
+  <h2 gdArea="title" ngClass="" ngClass.xs="small">Choose
+    your mode</h2>
+  <div gdArea="img" ngClass.xs="small" class="image-container sides">
     <img class="image" ngClass.xs="small" src="assets/intro/sides.svg">
   </div>
+  <p gdArea="desc" class="details">
+    In addition to dark and night mode color schemes,
+    Midnight Lizard has a wide range of light and
+    colorful predefined color schemes and you can create
+    your own.
+  </p>
 </div>
 
-<div class="section" fxLayout="row" fxLayoutAlign="center"
-     fxLayoutGap="50px">
-  <img class="image" ngClass.xs="small" fxFlexAlign="center"
-       src="assets/intro/schemes.svg">
-  <div class="content" fxLayout="column" fxFlexAlign="center"
-       fxFlex="45%">
-    <h2>Choose your colors</h2>
-    <p class="details">
-      You can choose from a wide rage of predefined color
-      schemes or create your own with any colors you want
-    </p>
-  </div>
+<div class="section" ngClass.xs="small" gdAlignRows="center start"
+     gdAlignColumns="center center" gdColumns="auto 50px 45%"
+     gdAreas="img md start | img md title | img md desc | img md end"
+     gdColumns.xs="120px 20px calc(100% - 170px)"
+     gdAreas.xs="img md title | desc desc desc">
+  <h2 gdArea="title" ngClass="" ngClass.xs="small">Choose
+    your colors</h2>
+  <img gdArea="img" class="image" ngClass.xs="small" src="assets/intro/schemes.svg">
+  <p gdArea="desc" class="details">
+    You can choose from a wide rage of predefined color
+    schemes or create your own with any colors you want
+  </p>
 </div>
 
-<div class="section" fxLayout="row" fxLayoutAlign="center"
-     fxLayoutGap="50px">
-  <div class="content" fxLayout="column" fxFlex="45%"
-       fxFlexAlign="center">
-    <h2>Improve accessibility</h2>
-    <p class="details">
-      You can choose from a wide range of predefined color
-      schemes for accessibility or create your own by
-      adjusting to your needs
-    </p>
-  </div>
-  <div fxFlexAlign="center" ngClass.xs="small" class="image-container contrast">
+<div class="section" ngClass.xs="small" gdAlignRows="center start"
+     gdAlignColumns="center center" gdColumns="45% 50px auto"
+     gdAreas="start md img | title md img | desc md img | end md img"
+     gdColumns.xs="calc(100% - 150px) 120px" gdAreas.xs="title img | desc desc">
+  <h2 gdArea="title" ngClass="" ngClass.xs="small">Improve
+    accessibility</h2>
+  <div gdArea="img" ngClass.xs="small" class="image-container contrast">
     <img class="image" ngClass.xs="small" src="assets/intro/contrast.svg">
   </div>
+  <p gdArea="desc" class="details">
+    You can choose from a wide range of predefined color
+    schemes for accessibility or create your own by
+    adjusting to your needs
+  </p>
 </div>
 
-<div class="section" fxLayout="row" fxLayoutAlign="center"
-     fxLayoutGap="50px">
-  <div fxFlexAlign="center" ngClass.xs="small" class="image-container schedule">
+<div class="section" ngClass.xs="small" gdAlignRows="center start"
+     gdAlignColumns="center center" gdColumns="auto 50px 45%"
+     gdAreas="img md start | img md title | img md desc | img md end"
+     gdColumns.xs="120px 20px calc(100% - 170px)"
+     gdAreas.xs="img md title | desc desc desc">
+  <h2 gdArea="title" ngClass="" ngClass.xs="small">Choose
+    your schedule</h2>
+  <div gdArea="img" ngClass.xs="small" class="image-container schedule">
     <img class="image" ngClass.xs="small" src="assets/intro/schedule.svg">
   </div>
-  <div class="content" fxLayout="column" fxFlex="45%"
-       fxFlexAlign="center">
-    <h2>Choose your schedule</h2>
-    <p class="details">
-      You can specify when extension should be
-      automatically activated and deactivated
-    </p>
-  </div>
+  <p gdArea="desc" class="details">
+    You can specify when extension should be
+    automatically activated and deactivated
+  </p>
 </div>
 
-<div class="section" fxLayout="row" fxLayoutAlign="center"
-     fxLayoutGap="50px">
-  <div class="content" fxLayout="column" fxFlex="45%"
-       fxFlexAlign="center">
-    <h2>Choose your device</h2>
-    <p class="details">
-      Midnight Lizard can be used on all devices supported
-      by Chromium-based browsers and Firefox browser
-    </p>
-  </div>
-  <div fxFlexAlign="center" ngClass.xs="small" class="image-container devices">
+<div class="section" ngClass.xs="small" gdAlignRows="center start"
+     gdAlignColumns="center center" gdColumns="45% 50px auto"
+     gdAreas="start md img | title md img | desc md img | end md img"
+     gdColumns.xs="calc(100% - 150px) 120px" gdAreas.xs="title img | desc desc">
+  <h2 gdArea="title" ngClass="" ngClass.xs="small">Choose
+    your device</h2>
+  <div gdArea="img" ngClass.xs="small" class="image-container devices">
     <img class="image" ngClass.xs="small" src="assets/intro/devices.svg">
   </div>
+  <p gdArea="desc" class="details">
+    Midnight Lizard can be used on all devices supported
+    by Chromium-based browsers and Firefox browser
+  </p>
 </div>
 
-<div class="section" fxLayout="row" fxLayoutAlign="center"
-     fxLayoutGap="50px">
-  <div fxFlexAlign="center" ngClass.xs="small" class="image-container blue-light-filter">
+<div class="section" ngClass.xs="small" gdAlignRows="center start"
+     gdAlignColumns="center center" gdColumns="auto 50px 45%"
+     gdAreas="img md start | img md title | img md desc | img md end"
+     gdColumns.xs="120px 20px calc(100% - 170px)"
+     gdAreas.xs="img md title | desc desc desc">
+  <h2 gdArea="title" ngClass="" ngClass.xs="small">Protect
+    your eyes</h2>
+  <div gdArea="img" ngClass.xs="small" class="image-container blue-light-filter">
     <img class="image" ngClass.xs="small" src="assets/intro/blue-light-filter.svg">
   </div>
-  <div class="content" fxLayout="column" fxFlex="45%"
-       fxFlexAlign="center">
-    <h2>Protect your eyes</h2>
-    <p class="details">
-      Protect your eyes by applying blue light filter at
-      evening time to emulate natural sunlight patterns
-    </p>
-  </div>
+  <p gdArea="desc" class="details">
+    Protect your eyes by applying blue light filter at
+    evening time to emulate natural sunlight patterns
+  </p>
 </div>
 
 <svg style="height: 0px; position: absolute; --ml-ignore:true;">
