@@ -127,7 +127,7 @@
     "tsickle": "^0.34.0",
     "tslib": "^1.9.3",
     "tslint": "^5.12.1",
-    "typescript": "^3.2.4",
+    "typescript": "3.2.4",
     "webpack-cli": "^3.2.1"
   }
 }
