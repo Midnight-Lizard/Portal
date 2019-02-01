@@ -112,7 +112,30 @@
     <schemes-slider fxFlexAlign.lt-lg="center"
                     [screenshots]="scheme.screenshots"></schemes-slider>
     <div ngClass.lt-lg="bottom" fxFlexAlign.lt-lg="center"
-         class="description">{{scheme.description}}</div>
+         class="description">
+      <mat-error *ngIf="!extensionIsAvailable"> Midnight
+        Lizard extension should be installed and
+        enabled on this page in order to add color
+        schemes to your browser.
+        <mat-nav-list fxLayout="row">
+          <a mat-list-item target="_blank" rel="noopener"
+             matTooltip="Install Midnight Lizard from Chrome Web Store"
+             href="https://chrome.google.com/webstore/detail/midnight-lizard/pbnndmlekkboofhnbonilimejonapojg">
+            <img matListIcon src="assets/logos/chrome.svg">
+            <p matLine>Chrome</p>
+            <p matLine>Web Store</p>
+          </a>
+          <a mat-list-item target="_blank" rel="noopener"
+             matTooltip="Install Midnight Lizard from Firefox Add-ons"
+             href="https://addons.mozilla.org/en-US/firefox/addon/midnight-lizard-quantum?src=external-portal">
+            <img matListIcon src="assets/logos/firefox.svg">
+            <p matLine>Firefox</p>
+            <p matLine>Add-ons</p>
+          </a>
+        </mat-nav-list>
+        <mat-divider color="warn"></mat-divider><br />
+      </mat-error>{{scheme.description}}
+    </div>
   </div>
 </ng-template>
 <common-loading></common-loading>
