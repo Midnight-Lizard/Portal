@@ -47,16 +47,15 @@ auth.initAuth(settings, secrets).then(() =>
         name: 'node.sid',
         rolling: true,
         store: new MemoryStore({
-            checkPeriod: 2 * H24, // prune expired entries every 24h
-            dispose: (sid: string) => auth.removeUserTokens(sid)
+            checkPeriod: 2 * H24, // prune expired entries every 48h
         }),
         cookie: {
             maxAge: 2 * H24,
             secure: false // settings.PORTAL_URL.startsWith('https')
         },
         secret: secrets.PORTAL_SESSION_SECRET || 'secret',
-        resave: false,
-        saveUninitialized: false
+        resave: true,
+        saveUninitialized: true
     }));
 
     app.use(((err, req, res, next) =>

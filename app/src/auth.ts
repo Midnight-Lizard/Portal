@@ -239,8 +239,3 @@ export async function getNewSystemToken(maxRetries = 3): Promise<System>
 }
 
 const timeout = (ms: number) => new Promise(res => setTimeout(res, ms));
-
-export function removeUserTokens(sessionId: string)
-{
-    _tokens.delete(sessionId);
-}
