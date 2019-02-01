@@ -1,7 +1,6 @@
 import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
 import { enableProdMode } from '@angular/core';
-// Express Engine
 import { ngExpressEngine } from '@nguniversal/express-engine';
 // Import module map for lazy loading
 import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
@@ -17,9 +16,7 @@ import * as auth from './src/auth';
 import * as session from 'express-session';
 import { Settings, defaultSettings, AuthConstants, User } from 'core';
 import { AppConstants } from './src/app/app.constants';
-// import { readFileSync } from 'fs';
 const MemoryStore = require('memorystore')(session);
-// const domino = require('domino');
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
@@ -37,23 +34,6 @@ const DIST_FOLDER = join(process.cwd(), 'dist');
 // NOTE: leave this as require() since this file is built Dynamically from webpack
 const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/portal-server/main');
 const H24 = 86400000;
-
-// const index = readFileSync(join(DIST_FOLDER, 'portal-browser', 'index.html'), 'utf8');
-// const win = domino.createWindow(index, settings.PORTAL_URL);
-// (global as any).window = win;
-// (global as any).document = win.document;
-// Object.defineProperty(win.document.body.style, 'transform', {
-//     value: () => ({
-//         enumerable: true,
-//         configurable: true
-//     })
-// });
-// Object.defineProperty(win.document.body.style, 'box-shadow', {
-//     value: () => ({
-//         enumerable: true,
-//         configurable: true
-//     })
-// });
 
 auth.initAuth(settings, secrets).then(() =>
 {
@@ -186,20 +166,7 @@ auth.initAuth(settings, secrets).then(() =>
     } // auth end
 
     // All regular routes use the Universal engine
-    app.get('*', async (req, res) =>
-    {
-        res.render('index', {
-            req, res,
-            providers: [
-                { provide: 'ORIGIN_URL', useValue: settings.PORTAL_URL },
-                { provide: 'SETTINGS', useValue: settings },
-                { provide: 'USER', useValue: auth.getUser(req.session!.id) },
-                { provide: 'SYSTEM', useValue: await auth.getNewSystemToken(1) },
-                { provide: 'MEDIA', useValue: req.cookies[AppConstants.Cookies.Media] },
-                { provide: 'DIST_PATH', useValue: DIST_FOLDER }
-            ]
-        });
-    });
+    app.get('*', async (req, res) => await renderApp(req, res));
 
     // Start up the Node server
     app.listen(PORT, () =>
@@ -207,6 +174,21 @@ auth.initAuth(settings, secrets).then(() =>
         console.log(`Node Express server listening on http://localhost:${PORT}`);
     });
 });
+
+async function renderApp(req: express.Request, res: express.Response)
+{
+    res.render('index', {
+        req, res,
+        providers: [
+            { provide: 'ORIGIN_URL', useValue: settings.PORTAL_URL },
+            { provide: 'SETTINGS', useValue: settings },
+            { provide: 'USER', useValue: auth.getUser(req.session!.id) },
+            { provide: 'SYSTEM', useValue: await auth.getNewSystemToken(1) },
+            { provide: 'MEDIA', useValue: req.cookies[AppConstants.Cookies.Media] },
+            { provide: 'DIST_PATH', useValue: DIST_FOLDER }
+        ]
+    });
+}
 
 function setAuthCookie(req: express.Request, res: express.Response, user: User | null)
 {
