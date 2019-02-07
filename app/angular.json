@@ -38,7 +38,8 @@
               "src/styles.scss",
               "dist/shared/styles/material-icons.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "es5BrowserSupport": true
           },
           "configurations": {
             "debug": {
