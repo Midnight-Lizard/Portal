@@ -45,7 +45,7 @@ export class CommanderComponent
                         headers: new HttpHeaders()
                             .set('Authorization', `Bearer ${user.access_token}`)
                             .set('api-version', '1.0')
-                            .set('schema-version', '10.1.6'),
+                            .set('schema-version', '10.2.0'),
                         observe: 'response'
                     }).pipe(catchError(x => of(x)))
                     .subscribe(resp => this.apiForm
@@ -70,7 +70,7 @@ export class CommanderComponent
                         headers: new HttpHeaders()
                             .set('Authorization', `Bearer ${user.access_token}`)
                             .set('api-version', '1.0')
-                            .set('schema-version', '10.1.6'),
+                            .set('schema-version', '10.2.0'),
                         observe: 'response'
                     }).pipe(catchError(x => of(x)))
                     .subscribe(resp => this.apiForm
