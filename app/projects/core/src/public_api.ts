@@ -37,3 +37,7 @@ export * from './lib/meta/meta-data';
 export * from './lib/meta/meta.service';
 
 export * from './lib/sitemap/sitemap';
+
+export * from './lib/impressions/impression';
+export * from './lib/impressions/impressions.service';
+export * from './lib/impressions/impressions.service.stub';

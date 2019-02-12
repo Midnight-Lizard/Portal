@@ -16,5 +16,6 @@ env:
   PORTAL_URL: https://midnight-lizard.org
   SCHEMES_QUERIER_URL: https://schemes-querier.midnight-lizard.org
   SCHEMES_COMMANDER_URL: https://schemes-commander.midnight-lizard.org
+  IMPRESSIONS_COMMANDER_URL: https://impressions-commander.midnight-lizard.org
   PORTAL_USER_AUTH_REFRESH_INTERVAL: 270000
   PORTAL_SYSTEM_AUTH_REFRESH_INTERVAL: 270000

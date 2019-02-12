@@ -84,12 +84,12 @@ describe(nameOfClass(SchemesListComponent), function ()
             expect(cards.length).toEqual(this.schemes.length);
         });
 
-        xit(`should dispatch LikeScheme or DislikeScheme action on click`, inject(
+        it(`should dispatch LikeScheme or DislikeScheme action on click`, inject(
             [Store], (store$: Store<SchemesRootState>) =>
             {
                 const likeButton = fixture.debugElement
                     .queryAll(By.css('mat-card'))[0]
-                    .queryAll(By.directive(MatButton))[0];
+                    .queryAll(By.directive(MatButton))[1];
                 click(likeButton);
                 fixture.detectChanges();
                 const expectedAction = this.schemes[0].liked
@@ -98,12 +98,12 @@ describe(nameOfClass(SchemesListComponent), function ()
                 expect(store$.dispatch).toHaveBeenCalledWith(expectedAction);
             }));
 
-        xit(`should dispatch correct Favorites management action on click`, inject(
+        it(`should dispatch correct Favorites management action on click`, inject(
             [Store], (store$: Store<SchemesRootState>) =>
             {
                 const favoritesButton = fixture.debugElement
                     .queryAll(By.css('mat-card'))[0]
-                    .queryAll(By.directive(MatButton))[1];
+                    .queryAll(By.directive(MatButton))[0];
                 click(favoritesButton);
                 fixture.detectChanges();
                 const expectedAction = this.schemes[0].favorited

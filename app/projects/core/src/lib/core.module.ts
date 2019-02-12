@@ -19,13 +19,14 @@ import { Title, Meta } from '@angular/platform-browser';
 import { MetaService } from './meta/meta.service';
 import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { SettingsService } from './settings/settings.service';
+import { ImpressionsService } from './impressions/impressions.service';
 
 const effects = [AuthEffects, NavEffects, InfoEffects];
 const providers = [
     ...effects,
     AuthService, SettingsService, SideService, Actions, Title, Meta, MetaService,
     CookieService, ConsentCookieService, ConsentService,
-    ValidateConsentGuard, AcceptConsentGuard,
+    ValidateConsentGuard, AcceptConsentGuard, ImpressionsService
 ];
 
 @NgModule({

@@ -1,10 +1,11 @@
 <ng-template ngFor let-scheme [ngForTrackBy]="trackById"
              [ngForOf]="scheme$|async">
-  <div mat-dialog-title fxLayout="row" fxLayout.lt-sm="column"
-       fxLayoutGap.lt-sm="10px">
+  <div mat-dialog-title fxLayout="row"
+       fxLayout.lt-sm="column" fxLayoutGap.lt-sm="10px">
     <div fxFlexAlign="center" fxFlexAlign.lt-sm="start">
       {{scheme.name}}
-      <div class="publisher" [matTooltip]="scheme.publisher.community ? 'Community member' : 'Midnight Lizard team'">
+      <div class="publisher"
+           [matTooltip]="scheme.publisher.community ? 'Community member' : 'Midnight Lizard team'">
         by {{scheme.publisher.name}}
         <mat-icon color="accent">{{scheme.publisher.community
           ? 'people' : 'verified_user'}}
@@ -14,22 +15,28 @@
     <s fxFlex></s>
     <div fxLayout="row" fxFlexAlign="center"
          fxFlexAlign.lt-sm="end" ngClass.lt-md="small">
-      <!-- <button mat-icon-button
-              class="command"
-              #button
+      <button mat-icon-button class="command"
+              fxFlexAlign="center"
+              [color]="scheme.favorited ? 'warn' : ''"
+              [matTooltip]="scheme.favorited ? 'Remove from your favorites' : 'Add to your favorites'"
+              (click)="toggleSchemeFavorited(scheme)">
+        <mat-icon>
+          {{scheme.favorited ? "favorite" : "favorite_border"}}
+        </mat-icon>
+      </button>
+      <button mat-icon-button class="command"
               fxFlexAlign="center"
               [color]="scheme.liked ? 'accent' : ''"
-              [matTooltip]="scheme.liked ? 'Remove like' : 'Add like'"
+              [matTooltip]="scheme.liked ? 'Remove your like' : 'Add your like'"
               (click)="toggleSchemeLiked(scheme)">
-        <mat-icon *ngIf="scheme.liked"
-                  matBadgeColor="warn"
+        <mat-icon *ngIf="scheme.liked" matBadgeColor="warn"
                   matBadgeSize="medium"
                   matBadgeOverlap="true"
                   matBadgePosition="below before"
                   [matBadgeHidden]="!scheme.likes"
-                  [matBadge]="scheme.likes">thumb_up</mat-icon>
-        <mat-icon *ngIf="!scheme.liked"
-                  matBadgeColor="warn"
+                  [matBadge]="scheme.likes">thumb_up
+        </mat-icon>
+        <mat-icon *ngIf="!scheme.liked" matBadgeColor="warn"
                   matBadgeSize="medium"
                   matBadgeOverlap="true"
                   matBadgePosition="below before"
@@ -37,14 +44,6 @@
                   [matBadgeHidden]="!scheme.likes"
                   [matBadge]="scheme.likes"></mat-icon>
       </button>
-      <button mat-icon-button
-              class="command"
-              fxFlexAlign="center"
-              [color]="scheme.favorited ? 'warn' : ''"
-              [matTooltip]="scheme.favorited ? 'Remove from favorites' : 'Add to favorites'"
-              (click)="toggleSchemeFavorited(scheme)">
-        <mat-icon>{{scheme.favorited ? "favorite" : "favorite_border"}}</mat-icon>
-      </button> -->
 
       <!-- <button mat-icon-button fxFlexAlign="center"
               #schemeMenuTrigger class="command" matTooltip="More"
@@ -63,33 +62,41 @@
 
       <button *ngIf="supportsNativeShare" mat-icon-button
               class="command" fxFlexAlign="center"
-              matTooltip="Share" (click)="nativeShare(scheme)">
+              matTooltip="Share"
+              (click)="nativeShare(scheme)">
         <mat-icon>share</mat-icon>
       </button>
       <button *ngIf="!supportsNativeShare" #shareTrigger
-              mat-icon-button class="command" fxFlexAlign="center"
-              [matMenuTriggerFor]="shareMenu" matTooltip="Share"
+              mat-icon-button class="command"
+              fxFlexAlign="center"
+              [matMenuTriggerFor]="shareMenu"
+              matTooltip="Share"
               (menuClosed)="shareTrigger.focus()">
         <mat-icon>share</mat-icon>
       </button>
       <mat-menu #shareMenu="matMenu" xPosition="after"
                 overlapTrigger="false">
         <a mat-menu-item [href]="facebookShareUrl"
-           matTooltipPosition="left" matTooltip="Share this color scheme on Facebook">
+           matTooltipPosition="left"
+           matTooltip="Share this color scheme on Facebook">
           <mat-icon svgIcon="facebook">share</mat-icon>
           <span>Share on Facebook</span>
         </a>
         <a mat-menu-item target="_blank" rel="noopener"
-           [href]="twitterShareUrl" matTooltipPosition="left"
+           [href]="twitterShareUrl"
+           matTooltipPosition="left"
            matTooltip="Share this color scheme on Twitter">
           <mat-icon svgIcon="twitter">share</mat-icon>
           <span>Share on Twitter</span>
         </a>
       </mat-menu>
 
-      <button mat-raised-button #addRemoveButton class="command mat-accent"
-              [disabled]="!extensionIsAvailable" (click)="installOrUninstallPublicScheme(scheme)"
-              fxFlexAlign="center" [color]="(schemeIsInstalled$|async) ? 'warn' : 'accent'"
+      <button mat-raised-button #addRemoveButton
+              class="command mat-accent"
+              [disabled]="!extensionIsAvailable"
+              (click)="installOrUninstallPublicScheme(scheme)"
+              fxFlexAlign="center"
+              [color]="(schemeIsInstalled$|async) ? 'warn' : 'accent'"
               [matTooltip]="(schemeIsInstalled$|async)
                 ? 'Remove color scheme ‘'+ scheme.name + '’ from Midnight Lizard extension in your browser'
                 : 'Add color scheme ‘' + scheme.name + '’ into Midnight Lizard extension in your browser'">
@@ -97,11 +104,13 @@
           {{ (schemeIsInstalled$|async) ? 'REMOVE FROM
           BROWSER' : 'ADD TO BROWSER' }}
         </span>
-        <span fxHide fxShow.lt-md>{{
+        <span fxHide
+              fxShow.lt-md>{{
           (schemeIsInstalled$|async) ? 'REMOVE' : 'ADD'}}</span>
       </button>
     </div>
-    <button mat-icon-button mat-dialog-close title="Close color scheme details">
+    <button mat-icon-button mat-dialog-close
+            title="Close color scheme details">
       <mat-icon>close</mat-icon>
     </button>
   </div>
@@ -110,7 +119,8 @@
        ngClass.lt-sm="scrollable-content big-padding"
        fxLayout.lt-lg="column">
     <schemes-slider fxFlexAlign.lt-lg="center"
-                    [screenshots]="scheme.screenshots"></schemes-slider>
+                    [screenshots]="scheme.screenshots">
+    </schemes-slider>
     <div ngClass.lt-lg="bottom" fxFlexAlign.lt-lg="center"
          class="description">
       <mat-error *ngIf="!extensionIsAvailable"> Midnight

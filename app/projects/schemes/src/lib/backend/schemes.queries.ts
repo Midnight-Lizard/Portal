@@ -9,12 +9,15 @@ export const listQuery = gql`
 `;
 
 export const detailsQuery = gql`
-  query ($id: ID) {
+  query ($id: ID, $currentUserId: ID) {
     details(id: $id) {
       id
       name
       description
       generation
+      likes
+      liked(by: $currentUserId)
+      favorited(by: $currentUserId)
       publisher {
         id
         name
@@ -91,13 +94,16 @@ export const detailsQuery = gql`
 `;
 
 export const searchQuery = gql`
-  query ($query: String, $side: SchemeSide, $bg: HueFilter, $list: SchemeList, $publisherId: ID, $cursor: String, $pageSize: Int) {
-    search(query: $query, side: $side, bg: $bg, list: $list, publisherId: $publisherId, cursor: $cursor, pageSize: $pageSize) {
+  query ($query: String, $side: SchemeSide, $bg: HueFilter, $list: SchemeList, $currentUserId: ID, $cursor: String, $pageSize: Int) {
+    search(query: $query, side: $side, bg: $bg, list: $list, currentUserId: $currentUserId, cursor: $cursor, pageSize: $pageSize) {
       cursor
       done
       results {
         id
         name
+        likes
+        liked(by: $currentUserId)
+        favorited(by: $currentUserId)
         publisher {
           id
           name

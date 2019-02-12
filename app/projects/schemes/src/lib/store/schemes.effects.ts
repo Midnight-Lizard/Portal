@@ -6,7 +6,8 @@ import { switchMap, filter, map, withLatestFrom, catchError } from 'rxjs/operato
 import
 {
     createNavigationHandler, NotifyUser, NotificationLevel, AuthRootState,
-    NavigationFailed, NotificationAction, MetaService, ActionButtonType, ActionColor
+    NavigationFailed, NotificationAction, MetaService, ActionButtonType,
+    ActionColor, ImpressionAction, ImpressionType, ImpressionsObjectType
 } from 'core';
 import { SchemesState, SchemesRootState } from './schemes.state';
 import { SchemesAction, SchemesActionTypes as SchActTypes } from './schemes.action-sets';
@@ -16,6 +17,7 @@ import { getFiltersFromRoute, filtersAreEqual } from '../model/schemes-filters';
 import { getSchemesListFromRoute } from '../model/schemes-lists';
 import { getSchemesIdFromRoute } from '../model/public-scheme';
 
+import { ImpressionsService } from 'core';
 
 const signinAction: NotificationAction[] = [{
     route: '/signin',
@@ -34,7 +36,8 @@ export class SchemesEffects
         private readonly actions$: Actions<SchemesAction>,
         private readonly store$: Store<SchemesRootState & AuthRootState>,
         private readonly schSvc: SchemesService,
-        private readonly meta: MetaService
+        private readonly meta: MetaService,
+        private readonly impressions: ImpressionsService
     ) { }
 
     @Effect()
@@ -138,11 +141,21 @@ export class SchemesEffects
         {
             if (state.AUTH && state.AUTH.user)
             {
-                // TODO: implement real like
-                return of(new SchActs.SchemeLiked({
-                    ...act.payload,
-                    likes: 123
-                })) as any;
+                return this.impressions.perform({
+                    action: ImpressionAction.Add,
+                    user: state.AUTH.user,
+                    type: ImpressionType.Likes,
+                    object: {
+                        ObjectType: ImpressionsObjectType.PublicScheme,
+                        AggregateId: act.payload.id
+            }
+                }).pipe(catchError(error => [
+                    new SchActs.LikeSchemeFailed(act.payload),
+                    new NotifyUser({
+                        message: 'Failed to add a like to a color scheme',
+                        level: NotificationLevel.Error,
+                        isLocal: true, data: error
+                    })]));
             }
             return [
                 new SchActs.LikeSchemeFailed(act.payload),
@@ -163,11 +176,21 @@ export class SchemesEffects
         {
             if (state.AUTH && state.AUTH.user)
             {
-                // TODO: implement real dislike
-                return of(new SchActs.SchemeDisliked({
-                    ...act.payload,
-                    likes: 123
-                })) as any;
+                return this.impressions.perform({
+                    action: ImpressionAction.Remove,
+                    user: state.AUTH.user,
+                    type: ImpressionType.Likes,
+                    object: {
+                        ObjectType: ImpressionsObjectType.PublicScheme,
+                        AggregateId: act.payload.id
+                    }
+                }).pipe(catchError(error => [
+                    new SchActs.DislikeSchemeFailed(act.payload),
+                    new NotifyUser({
+                        message: 'Failed to remove a like from a color scheme',
+                        level: NotificationLevel.Error,
+                        isLocal: true, data: error
+                    })]));
             }
             return [
                 new SchActs.DislikeSchemeFailed(act.payload),
@@ -188,8 +211,21 @@ export class SchemesEffects
         {
             if (state.AUTH && state.AUTH.user)
             {
-                // TODO: implement real add
-                return of(new SchActs.SchemeAddedToFavorites(act.payload)) as any;
+                return this.impressions.perform({
+                    action: ImpressionAction.Add,
+                    user: state.AUTH.user,
+                    type: ImpressionType.Favorites,
+                    object: {
+                        ObjectType: ImpressionsObjectType.PublicScheme,
+                        AggregateId: act.payload.id
+                    }
+                }).pipe(catchError(error => [
+                    new SchActs.AddSchemeToFavoritesFailed(act.payload),
+                    new NotifyUser({
+                        message: 'Failed to add a color scheme to your favorites',
+                        level: NotificationLevel.Error,
+                        isLocal: true, data: error
+                    })]));
             }
             return [
                 new SchActs.AddSchemeToFavoritesFailed(act.payload),
@@ -210,8 +246,21 @@ export class SchemesEffects
         {
             if (state.AUTH && state.AUTH.user)
             {
-                // TODO: implement real remove
-                return of(new SchActs.SchemeRemovedFromFavorites(act.payload)) as any;
+                return this.impressions.perform({
+                    action: ImpressionAction.Remove,
+                    user: state.AUTH.user,
+                    type: ImpressionType.Likes,
+                    object: {
+                        ObjectType: ImpressionsObjectType.PublicScheme,
+                        AggregateId: act.payload.id
+                    }
+                }).pipe(catchError(error => [
+                    new SchActs.RemoveSchemeFromFavoritesFailed(act.payload),
+                    new NotifyUser({
+                        message: 'Failed to remove a color scheme from your favorites',
+                        level: NotificationLevel.Error,
+                        isLocal: true, data: error
+                    })]));
             }
             return [
                 new SchActs.RemoveSchemeFromFavoritesFailed(act.payload),
