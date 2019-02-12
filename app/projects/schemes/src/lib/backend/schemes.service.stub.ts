@@ -99,8 +99,8 @@ export class SchemesServiceStub
                             list === SchemesList.Original ? false :
                                 Math.random() > 0.5
                     },
-                    favorited: Math.random() > 0.5,
-                    liked: Math.random() > 0.5,
+                    favorited: list === SchemesList.Favorites ? true : Math.random() > 0.5,
+                    liked: list === SchemesList.LikedSchemes ? true : Math.random() > 0.5,
                     likes: Math.floor(Math.random() * 100),
                     screenshots: [{
                         title: '',
