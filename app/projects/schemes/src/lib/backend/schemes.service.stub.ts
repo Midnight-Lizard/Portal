@@ -121,7 +121,7 @@ export class SchemesServiceStub
         })).pipe(delay(this.firstDelay));
     }
 
-    public getPublicSchemeDetails(publicSchemeId: PublicSchemeId)
+    public getPublicSchemeDetails(publicSchemeId: PublicSchemeId, user?: User | null)
     {
         // if (Math.random() > 0.7)
         // {

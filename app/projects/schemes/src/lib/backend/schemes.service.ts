@@ -53,7 +53,7 @@ export class SchemesService
                 side: filters.side,
                 bg: filters.bg,
                 list, pageSize, cursor,
-                publisherId: user ? user.claims.sub : null
+                currentUserId: user ? user.claims.sub : null
             }
         }).pipe(map(x => x.data.search));
     }
@@ -65,11 +65,14 @@ export class SchemesService
         }).pipe(map(x => x.data.search));
     }
 
-    public getPublicSchemeDetails(publicSchemeId: PublicSchemeId)
+    public getPublicSchemeDetails(publicSchemeId: PublicSchemeId, user?: User | null)
     {
         return this.apollo.query<SchemesDetailsResult>({
             query: detailsQuery,
-            variables: { id: publicSchemeId }
+            variables: {
+                id: publicSchemeId,
+                currentUserId: user ? user.claims.sub : null
+            }
         }).pipe(map(x => x.data.details));
     }
 }

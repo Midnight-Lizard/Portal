@@ -44,7 +44,7 @@ export class SchemesEffects
     currentSchemeChangeRequested$ = this.actions$.pipe(
         ofType(SchActTypes.CurrentSchemeChangeRequested),
         withLatestFrom(this.store$),
-        switchMap(([event, store]) => this.schSvc.getPublicSchemeDetails(event.payload.id).pipe(
+        switchMap(([event, store]) => this.schSvc.getPublicSchemeDetails(event.payload.id, store.AUTH.user).pipe(
             map(scheme => new SchActs.CurrentSchemeChanged({ currentScheme: scheme })),
             catchError(error => of(new NotifyUser({
                 message: 'Failed to retrieve color scheme details',
