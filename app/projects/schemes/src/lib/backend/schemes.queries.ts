@@ -88,6 +88,8 @@ export const detailsQuery = gql`
         linkHueGravity
         borderHueGravity
         scrollbarStyle
+        maxBackgroundImageSize
+        hideBigBackgroundImages
       }
     }
   }
