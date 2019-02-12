@@ -18,7 +18,7 @@ let systemClientCredentials: string;
 let systemClientOptions: string;
 const _tokens = new Map<string, any>();
 const scopes = [
-    'openid', 'profile', 'schemes-commander', 'offline_access'
+    'openid', 'profile', 'schemes-commander', 'impressions-commander', 'offline_access'
 ].join(' ');
 const signInCallbackUrl = (settings: Settings) => url.resolve(settings.PORTAL_URL, 'signedin');
 const signOutCallbackUrl = (settings: Settings) => url.resolve(settings.PORTAL_URL, 'signedout');
