@@ -31,7 +31,7 @@ export class SchemesService
             filter(x => !!x),
             map(x => x!.access_token),
             first());
-        const uri = settingsService.getSettings().SCHEMES_QUERIER_URL.replace(/\/$/, '') + '/query';
+        const uri = settingsService.getSettings().SCHEMES_QUERIER_URL;
         const http = httpLink.create({ uri });
         const auth = setContext(async () => ({
             headers: {
