@@ -59,12 +59,12 @@ describe(nameOfClass(SchemesService), function (this: {
             bg: HueFilter.Blue,
             pageSize: 42,
             cursor: '321',
-            publisherId: '123'
+            currentUserId: '123'
         };
         this.schemesService.getPublicSchemes(
             { query: variables.query, side: variables.side, bg: variables.bg },
             variables.list, variables.pageSize,
-            { claims: { sub: variables.publisherId } } as any,
+            { claims: { sub: variables.currentUserId } } as any,
             variables.cursor)
             .subscribe().unsubscribe();
         expect(this.apolloStub.query).toHaveBeenCalledWith({
@@ -74,9 +74,12 @@ describe(nameOfClass(SchemesService), function (this: {
 
     it('should use apollo to get schemes details', () =>
     {
-        const variables = { id: 'test-id' };
-        this.schemesService.getPublicSchemeDetails(variables.id)
-            .subscribe().unsubscribe();
+        const variables = { id: 'test-id', currentUserId: '123' };
+        this.schemesService.getPublicSchemeDetails(variables.id, {
+            claims: {
+                sub: variables.currentUserId
+            }
+        } as any).subscribe().unsubscribe();
         expect(this.apolloStub.query).toHaveBeenCalledWith({
             query: detailsQuery, variables
         });
