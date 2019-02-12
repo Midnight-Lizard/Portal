@@ -4,7 +4,7 @@
     <ng-template mat-tab-label>
       <mat-icon [matTooltip]="ss.title" fxHide fxShow.lt-md>image</mat-icon>
       <span class="image-index" fxHide fxShow.lt-md>{{ix+1}}</span>
-      <span fxHide.lt-md fxShow>{{ss.title}}</span>
+      <span fxHide.lt-md fxShow class="notranslate">{{ss.title}}</span>
     </ng-template>
     <ng-template matTabContent>
       <img class="screenshot ml-ignore" [src]="ss.urls['lg']"

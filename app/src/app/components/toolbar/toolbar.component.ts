@@ -14,7 +14,7 @@ export class ToolbarComponent
         toolbarTitle: string, menuTitle: string, tooltip: string
     }>([
         {
-            icon: 'home', link: '/home', class: 'home-link mat-button',
+            icon: 'home', link: '/home', class: 'home-link notranslate mat-button',
             toolbarTitle: 'Midnight Lizard', menuTitle: 'Midnight Lizard', tooltip: 'Home'
         },
         {
