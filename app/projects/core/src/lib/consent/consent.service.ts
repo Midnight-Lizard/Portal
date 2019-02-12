@@ -28,7 +28,7 @@ export class ConsentService
         this.notificationIds.clear();
     }
 
-    validateConsent(noConsentAction: NoConsentAction)
+    validateConsent(noConsentAction: NoConsentAction, callbackUrl?: string)
     {
         if (this.cookieService.check(this._cookieName))
         {
@@ -54,10 +54,11 @@ export class ConsentService
                     infoButtonType: ActionButtonType.Basic,
                     detailsButtonType: ActionButtonType.Basic
                 }, {
-                    infoTitle: 'ALLOW COOKIES',
-                    detailsTitle: 'ALLOW COOKIES',
-                    description: 'Allow to use cookies',
+                    infoTitle: 'ALLOW AND CONTINUE',
+                    detailsTitle: 'ALLOW COOKIES AND CONTINUE',
+                    description: 'Allow to use cookies and continue',
                     route: '/accept-consent',
+                    queryParams: { callbackUrl },
                     color: ActionColor.Accent,
                     infoButtonType: ActionButtonType.Raised,
                     detailsButtonType: ActionButtonType.Raised

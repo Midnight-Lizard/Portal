@@ -13,6 +13,8 @@ export class ValidateConsentGuard implements CanActivate
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean
     {
-        return this.consentService.validateConsent(NoConsentAction.SkipOperationAndNotifyUser);
+        return this.consentService.validateConsent(
+            NoConsentAction.SkipOperationAndNotifyUser,
+            state.url);
     }
 }
