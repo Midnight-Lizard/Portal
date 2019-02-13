@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 import { SettingsService } from '../settings/settings.service';
 import { UserImpression } from './impression';
@@ -29,7 +30,7 @@ export class ImpressionsService
 
         return this.http.post(
             this.urlJoin(this.commanderUrl, impression.type, impression.action),
-            impression.object, { headers });
+            impression.object, { headers }).pipe(map(x => undefined));
     }
 
     private urlJoin(...urlParts: string[])
