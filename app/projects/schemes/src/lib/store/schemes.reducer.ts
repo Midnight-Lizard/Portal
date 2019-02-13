@@ -45,7 +45,7 @@ export function schemesReducer(state: SchemesState, action: SchemesAction): Sche
             };
         }
 
-        case SchemesActionTypes.SchemeLiked: {
+        case SchemesActionTypes.LikeScheme: {
             return updateScheme(state, action.payload.id, scheme => ({
                 liked: true,
                 likes: scheme.likes + 1
@@ -59,7 +59,7 @@ export function schemesReducer(state: SchemesState, action: SchemesAction): Sche
             }));
         }
 
-        case SchemesActionTypes.SchemeDisliked: {
+        case SchemesActionTypes.DislikeScheme: {
             return updateScheme(state, action.payload.id, scheme => ({
                 liked: false,
                 likes: scheme.likes - 1
@@ -73,6 +73,7 @@ export function schemesReducer(state: SchemesState, action: SchemesAction): Sche
             }));
         }
 
+        case SchemesActionTypes.AddSchemeToFavorites:
         case SchemesActionTypes.SchemeAddedToFavorites: {
             return updateScheme(state, action.payload.id, {
                 favorited: true
@@ -85,6 +86,7 @@ export function schemesReducer(state: SchemesState, action: SchemesAction): Sche
             });
         }
 
+        case SchemesActionTypes.RemoveSchemeFromFavorites:
         case SchemesActionTypes.SchemeRemovedFromFavorites: {
             return updateScheme(state, action.payload.id, {
                 favorited: false
