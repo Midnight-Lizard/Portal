@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 
 import { SettingsService } from '../settings/settings.service';
 import { UserImpression } from './impression';
@@ -28,9 +27,9 @@ export class ImpressionsService
             .set('schema-version', schemaVersion)
             .set('api-version', apiVersion);
 
-        return this.http.post(
+        return this.http.post<string>(
             this.urlJoin(this.commanderUrl, impression.type, impression.action),
-            impression.object, { headers }).pipe(map(x => undefined));
+            impression.object, { headers });
     }
 
     private urlJoin(...urlParts: string[])

@@ -149,7 +149,11 @@ export class SchemesEffects
                         ObjectType: ImpressionsObjectType.PublicScheme,
                         AggregateId: act.payload.id
             }
-                }).pipe(catchError(error => [
+                }).pipe(
+                    map(correlationId => new SchActs.SchemeLiked({
+                        correlationId, id: act.payload.id
+                    })),
+                    catchError(error => [
                     new SchActs.LikeSchemeFailed(act.payload),
                     new NotifyUser({
                         message: 'Failed to add a like to a color scheme',
@@ -184,7 +188,11 @@ export class SchemesEffects
                         ObjectType: ImpressionsObjectType.PublicScheme,
                         AggregateId: act.payload.id
                     }
-                }).pipe(catchError(error => [
+                }).pipe(
+                    map(correlationId => new SchActs.SchemeDisliked({
+                        correlationId, id: act.payload.id
+                    })),
+                    catchError(error => [
                     new SchActs.DislikeSchemeFailed(act.payload),
                     new NotifyUser({
                         message: 'Failed to remove a like from a color scheme',
@@ -219,7 +227,11 @@ export class SchemesEffects
                         ObjectType: ImpressionsObjectType.PublicScheme,
                         AggregateId: act.payload.id
                     }
-                }).pipe(catchError(error => [
+                }).pipe(
+                    map(correlationId => new SchActs.SchemeAddedToFavorites({
+                        correlationId, id: act.payload.id
+                    })),
+                    catchError(error => [
                     new SchActs.AddSchemeToFavoritesFailed(act.payload),
                     new NotifyUser({
                         message: 'Failed to add a color scheme to your favorites',
@@ -254,7 +266,11 @@ export class SchemesEffects
                         ObjectType: ImpressionsObjectType.PublicScheme,
                         AggregateId: act.payload.id
                     }
-                }).pipe(catchError(error => [
+                }).pipe(
+                    map(correlationId => new SchActs.SchemeRemovedFromFavorites({
+                        correlationId, id: act.payload.id
+                    })),
+                    catchError(error => [
                     new SchActs.RemoveSchemeFromFavoritesFailed(act.payload),
                     new NotifyUser({
                         message: 'Failed to remove a color scheme from your favorites',

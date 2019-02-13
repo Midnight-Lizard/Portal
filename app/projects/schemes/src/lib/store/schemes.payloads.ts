@@ -5,8 +5,8 @@ export class PublicSchemeIdPayload
     readonly id: PublicSchemeId;
 }
 
-export class PublicSchemeLikesPayload
+export class PublicSchemeSuccessPayload
 {
     readonly id: PublicSchemeId;
-    readonly likes: number;
+    readonly correlationId: string;
 }

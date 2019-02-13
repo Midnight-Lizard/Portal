@@ -34,10 +34,9 @@ describe(nameOfClass(SchemesEffects), function ()
         it(`should dispatch ${ActionType.LikeSchemeFailed} and ${
             InfoActionTypes.NotifyUser} actions when user is not signed in`, () =>
             {
-                const testId = 'test', testLikes = 123;
+                const testId = 'test';
 
-                actions$ = hot('-a', { a: new Act.LikeScheme({ id: testId }) });
-                // schemesService.likeScheme.and.returnValue(cold('-r|', { r: { likes: testLikes } }));
+                actions$ = hot('-l', { l: new Act.LikeScheme({ id: testId }) });
 
                 const nextAction = cold('-(en)', {
                     e: new Act.LikeSchemeFailed({ id: testId }),
@@ -55,7 +54,6 @@ describe(nameOfClass(SchemesEffects), function ()
                 const testId = 'test';
 
                 actions$ = hot('-a', { a: new Act.AddSchemeToFavorites({ id: testId }) });
-                // schemesService.likeScheme.and.returnValue(cold('-r|', { r: { likes: testLikes } }));
 
                 const nextAction = cold('-(en)', {
                     e: new Act.AddSchemeToFavoritesFailed({ id: testId }),

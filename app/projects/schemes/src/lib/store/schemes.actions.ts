@@ -2,7 +2,7 @@
 import { SchemesFilters } from '../model/schemes-filters';
 import { SchemesList } from '../model/schemes-lists';
 import { PublicScheme, PublicSchemeDetails } from '../model/public-scheme';
-import { PublicSchemeIdPayload, PublicSchemeLikesPayload } from './schemes.payloads';
+import { PublicSchemeIdPayload, PublicSchemeSuccessPayload } from './schemes.payloads';
 
 export class LoadNextSchemesChunk
 {
@@ -58,7 +58,7 @@ export const [LikeScheme, SchemeLiked, LikeSchemeFailed] = createCommandActions(
     successName: 'SchemeLiked',
     failureName: 'LikeSchemeFailed',
     commandPayload: new PublicSchemeIdPayload(),
-    successPayload: new PublicSchemeLikesPayload()
+    successPayload: new PublicSchemeSuccessPayload()
 });
 
 export const [DislikeScheme, SchemeDisliked, DislikeSchemeFailed] = createCommandActions({
@@ -66,19 +66,21 @@ export const [DislikeScheme, SchemeDisliked, DislikeSchemeFailed] = createComman
     successName: 'SchemeDisliked',
     failureName: 'DislikeSchemeFailed',
     commandPayload: new PublicSchemeIdPayload(),
-    successPayload: new PublicSchemeLikesPayload()
+    successPayload: new PublicSchemeSuccessPayload()
 });
 
 export const [AddSchemeToFavorites, SchemeAddedToFavorites, AddSchemeToFavoritesFailed] = createCommandActions({
     commandName: 'AddSchemeToFavorites',
     successName: 'SchemeAddedToFavorites',
     failureName: 'AddSchemeToFavoritesFailed',
-    commandPayload: new PublicSchemeIdPayload()
+    commandPayload: new PublicSchemeIdPayload(),
+    successPayload: new PublicSchemeSuccessPayload()
 });
 
 export const [RemoveSchemeFromFavorites, SchemeRemovedFromFavorites, RemoveSchemeFromFavoritesFailed] = createCommandActions({
     commandName: 'RemoveSchemeFromFavorites',
     successName: 'SchemeRemovedFromFavorites',
     failureName: 'RemoveSchemeFromFavoritesFailed',
-    commandPayload: new PublicSchemeIdPayload()
+    commandPayload: new PublicSchemeIdPayload(),
+    successPayload: new PublicSchemeSuccessPayload()
 });

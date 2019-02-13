@@ -3,14 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { SettingsService } from '../settings/settings.service';
 import { UserImpression } from './impression';
-import { empty, Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ImpressionsServiceStub
 {
-    nextResult: Observable<any> = empty();
+    nextResult: Observable<string> = of('correlation-id');
 
     constructor() { }
 
