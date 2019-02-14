@@ -24,7 +24,7 @@ describe(nameOfClass(SchemesService), function (this: {
     beforeEach(() =>
     {
         this.apolloStub = jasmine.createSpyObj<Apollo>('ApolloStub',
-            ['query', 'create']);
+            ['query', 'create', 'getClient']);
         this.apolloStub.query.and.returnValue(new Subject());
 
         TestBed.configureTestingModule({
