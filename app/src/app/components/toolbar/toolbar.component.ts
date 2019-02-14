@@ -18,7 +18,7 @@ export class ToolbarComponent
             toolbarTitle: 'Midnight Lizard', menuTitle: 'Midnight Lizard', tooltip: 'Home'
         },
         {
-            icon: 'palette', link: '/schemes', class: 'normal-link mat-button', badge: 'beta',
+            icon: 'palette', link: '/schemes', class: 'normal-link mat-button', badge: undefined,
             toolbarTitle: 'COLOR SCHEMES', menuTitle: 'Color Schemes', tooltip: 'Color schemes'
         },
         // { icon: 'book', link: '/docs', title: 'DOCS', tooltip: 'Documentation', class: 'normal-link mat-button' },
