@@ -4,7 +4,8 @@ import { HttpLink } from 'apollo-angular-link-http';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { Observable } from 'rxjs';
-import { first, switchMap, map, filter } from 'rxjs/operators';
+import { first, map, filter } from 'rxjs/operators';
+import ApolloClient from 'apollo-client';
 
 import { SettingsService, AuthRootState, User } from 'core';
 
@@ -12,7 +13,11 @@ import { SchemesFilters } from '../model/schemes-filters';
 import { PublicScheme, PublicSchemeId, PublicSchemeDetails } from '../model/public-scheme';
 import { SchemesList } from '../model/schemes-lists';
 import { SchemesSearchResults } from '../model/schemes-search-results';
-import { searchQuery, detailsQuery, listQuery } from './schemes.queries';
+import
+{
+    searchQuery, detailsQuery, listQuery,
+    likesUpdateFragment, favoritesUpdateFragment
+} from './schemes.queries';
 import { Store, select } from '@ngrx/store';
 import { SchemesDetailsResult } from '../model/schemes-details-result';
 import { SchemesListResults } from '../model/schemes-list-results';
@@ -20,6 +25,7 @@ import { SchemesListResults } from '../model/schemes-list-results';
 @Injectable()
 export class SchemesService
 {
+    private readonly apolloClient: ApolloClient<any>;
     constructor(
         httpLink: HttpLink,
         store$: Store<AuthRootState>,
@@ -42,6 +48,7 @@ export class SchemesService
             link: auth.concat(http),
             cache: new InMemoryCache()
         });
+        this.apolloClient = apollo.getClient();
     }
 
     public getPublicSchemes(filters: SchemesFilters, list: SchemesList, pageSize: number, user?: User | null, cursor?: string | null)
@@ -74,5 +81,25 @@ export class SchemesService
                 currentUserId: user ? user.claims.sub : null
             }
         }).pipe(map(x => x.data.details));
+    }
+
+    public updatePublicSchemeLikes(publicScheme: PublicScheme, user: User)
+    {
+        this.apolloClient.writeFragment({
+            fragment: likesUpdateFragment,
+            id: `PublicSchemeType:${publicScheme.id}`,
+            data: publicScheme,
+            variables: { currentUserId: user.claims.sub }
+        });
+    }
+
+    public updatePublicSchemeFavorites(publicScheme: PublicScheme, user: User)
+    {
+        this.apolloClient.writeFragment({
+            fragment: favoritesUpdateFragment,
+            id: `PublicSchemeType:${publicScheme.id}`,
+            data: publicScheme,
+            variables: { currentUserId: user.claims.sub }
+        });
     }
 }

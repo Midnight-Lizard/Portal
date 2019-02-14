@@ -1,5 +1,18 @@
 import gql from 'graphql-tag';
 
+export const likesUpdateFragment = gql`
+  fragment likesUpdateFragment on PublicSchemeType {
+    likes
+    liked(by: $currentUserId)
+  }
+`;
+
+export const favoritesUpdateFragment = gql`
+  fragment favoritesUpdateFragment on PublicSchemeType {
+    favorited(by: $currentUserId)
+  }
+`;
+
 export const listQuery = gql`
   query {
     search(pageSize: 99) {

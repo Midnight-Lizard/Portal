@@ -21,20 +21,23 @@ export const hmrBootstrap = (module: any, bootstrap: () => Promise<NgModuleRef<a
 export function setHmrDefaults()
 {
     authInitialState.user = {
-        access_token: '53690129ca22e5671dac0c79b4f8dc50527bbc893f8f7dc3424f5b2bc49e47a1',
+        access_token: '***',
         expired: false,
         claims: {
             name: 'hmr',
             preferred_username: 'hmr',
-            sub: 'none',
+            sub: 'cb6e68c5-c7b9-4bd7-8f53-b84592184725',
             profile: 'none'
         }
     };
 
     authInitialState.system = {
-        access_token: 'fbb8163ec7f2ae6700e91fca03e811834fb14e07f3f0ebd074f87290cce1f838'
+        access_token: '***'
     };
 
-    (defaultSettings as any).SCHEMES_QUERIER_URL = 'http://192.168.1.44:31005';
+    // (defaultSettings as any).SCHEMES_QUERIER_URL = 'http://192.168.1.44:31005';
+
+    (defaultSettings as any).SCHEMES_QUERIER_URL = 'https://midnight-lizard.org/schemes/querier';
+    (defaultSettings as any).IMPRESSIONS_COMMANDER_URL = 'https://midnight-lizard.org/impressions/commander';
 }
 

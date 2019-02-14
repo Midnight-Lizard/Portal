@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { of, Observable, merge } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { switchMap, filter, map, withLatestFrom, catchError } from 'rxjs/operators';
 import
 {
     createNavigationHandler, NotifyUser, NotificationLevel, AuthRootState,
-    NavigationFailed, NotificationAction, MetaService, ActionButtonType,
+    ImpressionsService, NotificationAction, MetaService, ActionButtonType,
     ActionColor, ImpressionAction, ImpressionType, ImpressionsObjectType
 } from 'core';
 import { SchemesState, SchemesRootState } from './schemes.state';
@@ -15,9 +15,8 @@ import * as SchActs from './schemes.actions';
 import { SchemesService } from '../backend/schemes.service';
 import { getFiltersFromRoute, filtersAreEqual } from '../model/schemes-filters';
 import { getSchemesListFromRoute } from '../model/schemes-lists';
-import { getSchemesIdFromRoute } from '../model/public-scheme';
+import { getSchemesIdFromRoute, PublicSchemeId } from '../model/public-scheme';
 
-import { ImpressionsService } from 'core';
 
 const signinAction: NotificationAction[] = [{
     route: '/signin',
@@ -148,18 +147,18 @@ export class SchemesEffects
                     object: {
                         ObjectType: ImpressionsObjectType.PublicScheme,
                         AggregateId: act.payload.id
-            }
+                    }
                 }).pipe(
                     map(correlationId => new SchActs.SchemeLiked({
                         correlationId, id: act.payload.id
                     })),
                     catchError(error => [
-                    new SchActs.LikeSchemeFailed(act.payload),
-                    new NotifyUser({
-                        message: 'Failed to add a like to a color scheme',
-                        level: NotificationLevel.Error,
-                        isLocal: true, data: error
-                    })]));
+                        new SchActs.LikeSchemeFailed(act.payload),
+                        new NotifyUser({
+                            message: 'Failed to add a like to a color scheme',
+                            level: NotificationLevel.Error,
+                            isLocal: true, data: error
+                        })]));
             }
             return [
                 new SchActs.LikeSchemeFailed(act.payload),
@@ -193,12 +192,12 @@ export class SchemesEffects
                         correlationId, id: act.payload.id
                     })),
                     catchError(error => [
-                    new SchActs.DislikeSchemeFailed(act.payload),
-                    new NotifyUser({
-                        message: 'Failed to remove a like from a color scheme',
-                        level: NotificationLevel.Error,
-                        isLocal: true, data: error
-                    })]));
+                        new SchActs.DislikeSchemeFailed(act.payload),
+                        new NotifyUser({
+                            message: 'Failed to remove a like from a color scheme',
+                            level: NotificationLevel.Error,
+                            isLocal: true, data: error
+                        })]));
             }
             return [
                 new SchActs.DislikeSchemeFailed(act.payload),
@@ -208,6 +207,21 @@ export class SchemesEffects
                     isLocal: true,
                     actions: signinAction
                 })];
+        })
+    );
+
+    @Effect({ dispatch: false })
+    schemeLikedOrDisliked$ = this.actions$.pipe(
+        ofType(SchActTypes.SchemeLiked, SchActTypes.SchemeDisliked),
+        withLatestFrom(this.store$),
+        filter(([act, state]) => !!state.AUTH.user),
+        map(([act, state]) =>
+        {
+            const scheme = this.findSchemeInStore(act.payload.id, state);
+            if (scheme)
+            {
+                this.schSvc.updatePublicSchemeLikes(scheme, state.AUTH.user!);
+            }
         })
     );
 
@@ -232,12 +246,12 @@ export class SchemesEffects
                         correlationId, id: act.payload.id
                     })),
                     catchError(error => [
-                    new SchActs.AddSchemeToFavoritesFailed(act.payload),
-                    new NotifyUser({
-                        message: 'Failed to add a color scheme to your favorites',
-                        level: NotificationLevel.Error,
-                        isLocal: true, data: error
-                    })]));
+                        new SchActs.AddSchemeToFavoritesFailed(act.payload),
+                        new NotifyUser({
+                            message: 'Failed to add a color scheme to your favorites',
+                            level: NotificationLevel.Error,
+                            isLocal: true, data: error
+                        })]));
             }
             return [
                 new SchActs.AddSchemeToFavoritesFailed(act.payload),
@@ -261,7 +275,7 @@ export class SchemesEffects
                 return this.impressions.perform({
                     action: ImpressionAction.Remove,
                     user: state.AUTH.user,
-                    type: ImpressionType.Likes,
+                    type: ImpressionType.Favorites,
                     object: {
                         ObjectType: ImpressionsObjectType.PublicScheme,
                         AggregateId: act.payload.id
@@ -271,12 +285,12 @@ export class SchemesEffects
                         correlationId, id: act.payload.id
                     })),
                     catchError(error => [
-                    new SchActs.RemoveSchemeFromFavoritesFailed(act.payload),
-                    new NotifyUser({
-                        message: 'Failed to remove a color scheme from your favorites',
-                        level: NotificationLevel.Error,
-                        isLocal: true, data: error
-                    })]));
+                        new SchActs.RemoveSchemeFromFavoritesFailed(act.payload),
+                        new NotifyUser({
+                            message: 'Failed to remove a color scheme from your favorites',
+                            level: NotificationLevel.Error,
+                            isLocal: true, data: error
+                        })]));
             }
             return [
                 new SchActs.RemoveSchemeFromFavoritesFailed(act.payload),
@@ -288,4 +302,35 @@ export class SchemesEffects
                 })];
         })
     );
+
+    @Effect({ dispatch: false })
+    schemeAddedToOrRemovedFromFavorites$ = this.actions$.pipe(
+        ofType(SchActTypes.SchemeAddedToFavorites, SchActTypes.SchemeRemovedFromFavorites),
+        withLatestFrom(this.store$),
+        filter(([act, state]) => !!state.AUTH.user),
+        map(([act, state]) =>
+        {
+            const scheme = this.findSchemeInStore(act.payload.id, state);
+            if (scheme)
+            {
+                this.schSvc.updatePublicSchemeFavorites(scheme, state.AUTH.user!);
+            }
+        })
+    );
+
+    private findSchemeInStore(id: PublicSchemeId, store: SchemesRootState)
+    {
+        if (store.SCHEMES.schemes.currentScheme && store.SCHEMES.schemes.currentScheme.id === id)
+        {
+            return store.SCHEMES.schemes.currentScheme;
+        }
+        else
+        {
+            const index = store.SCHEMES.schemes.data.findIndex(s => s.id === id);
+            if (index !== -1)
+            {
+                return store.SCHEMES.schemes.data[index];
+            }
+        }
+    }
 }
