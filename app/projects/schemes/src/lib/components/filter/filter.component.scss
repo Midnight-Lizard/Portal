@@ -5,7 +5,7 @@
     width: 100%;
 }
 
-.mat-button-toggle-group
+schemes-filter .mat-button-toggle-group
 {
     width: 100%;
     text-align: center;
@@ -19,7 +19,7 @@
     }
 }
 
-.mat-button-toggle
+schemes-filter .mat-button-toggle
 {
     width: 34%;
     text-align: center;
@@ -28,17 +28,17 @@
     --ml-highlightedbackground-background-color:ButtonBackground;
 }
 
-:not(.hue)>.mat-button-toggle-checked:not(imp)
+schemes-filter :not(.hue)>.mat-button-toggle-checked:not(imp)
 {
     background-color: mat-color($ml-accent, A100);
     color: $ml-text-color;
 }
 
-.mat-nav-list {
+schemes-filter .mat-nav-list {
     margin-top: 40px;
 }
 
-.hue {
+schemes-filter .hue {
     width: calc(100% - 1px);
     margin: 20px 1px 1px 1px;
     &.vertical {
@@ -48,11 +48,11 @@
     .mat-button-toggle.mat-button-toggle-checked {
         --sat: 100%;
     }
-    .mat-button-toggle-checked:after {
+    .mat-button-toggle-checked:not(#imp):after {
         --ml-ignore:true;
         content: "\2714";
         font-size: 22px;
-        color: hsl(calc(var(--start) + (var(--end) - var(--start)) / 2 + 180), 100%, 50%);
+        color: hsl(calc(var(--start) + (var(--end) - var(--start)) / 2 + 180), 100%, 50%)!important;
         text-shadow: 0 0 1px black;
         text-align: center;
         position: absolute;
@@ -66,16 +66,17 @@
         --sat: 80%;
         --ml-backgroundnocontrast-background-color:None;
         --md: calc(var(--end) - var(--start));
+        --brightness: 50%;
         background-image:
             linear-gradient(to bottom,
                 hsla(var(--md),var(--sat),15%,0) 0%,
                 hsla(var(--md),var(--sat),15%,0.1) 50%,
                 hsla(var(--md),var(--sat),15%,0.55) 100%
             ),
-            linear-gradient(to right, hsl(var(--start),var(--sat),50%),hsl(var(--end),var(--sat),50%));
+            linear-gradient(to right, hsl(var(--start),var(--sat),var(--brightness)),hsl(var(--end),var(--sat),var(--brightness)));
     }
-    .mat-button-toggle:nth-child(1).mat-button-toggle-checked:after {
-        color:rgb(194, 2, 136);
+    .mat-button-toggle:nth-child(1).mat-button-toggle-checked:not(#imp):after {
+        color:rgb(194, 2, 136)!important;
         text-shadow: 0 0 1px white;
     }
     .mat-button-toggle:nth-child(1) {
@@ -126,4 +127,20 @@
             ),
             linear-gradient(to right, hsla(0,0%,30%,var(--sat)), hsla(0,0%,60%,var(--sat)));
     }
+}
+
+html[ml-mode="simple"]:not(#imp) schemes-filter {
+  .hue {
+    .mat-button-toggle:not(#imp) {
+      >.mat-button-toggle-button:not(#imp) {
+        background-color: transparent!important;
+      }
+    }
+  }
+}
+
+html[ml-mode="filter"]:not([ml-stage="preload"]) schemes-filter {
+  .hue {
+    filter: var(--ml-image-revert-filter)!important;
+  }
 }

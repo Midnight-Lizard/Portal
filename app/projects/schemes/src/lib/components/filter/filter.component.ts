@@ -1,6 +1,6 @@
 ﻿import { Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { Component, OnDestroy, ViewChild, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, ViewChild, ViewChildren, QueryList, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
@@ -14,7 +14,8 @@ import { MatButtonToggleGroup, MatInput } from '@angular/material';
 @Component({
     selector: 'schemes-filter',
     templateUrl: './filter.component.html',
-    styleUrls: ['./filter.component.scss']
+    styleUrls: ['./filter.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class SchemesFilterComponent implements OnDestroy, AfterViewInit
 {
