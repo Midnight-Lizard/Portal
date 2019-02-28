@@ -163,3 +163,15 @@ nav .logo.mat-icon {
     min-width: 20px!important;
     width: auto!important;
 }
+
+html[ml-mode="filter"]:not([ml-stage="preload"]) {
+  .cdk-overlay-dark-backdrop {
+    background: rgba(255,255,255, 0.32);
+  }
+  .mat-dialog-container {
+    box-shadow:
+      0px 11px 15px -7px rgba(128,128,128, 0.2),
+      0px 24px 38px 3px rgba(128,128,128, 0.14),
+      0px 9px 46px 8px rgba(128,128,128, 0.12);
+  }
+}
