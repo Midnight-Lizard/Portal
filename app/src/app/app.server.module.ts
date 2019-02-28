@@ -11,6 +11,7 @@ import { RootState, STORE_STATE_KEY, loadServerInitialState } from './store/app.
 import { AppComponent } from './components/app/app.component';
 import { AppSharedModule } from './app.shared.module';
 import { AssetsInterceptor } from './assets-interceptor';
+import { StoreTransferStateService } from './store/store-transfer-state.service';
 
 @NgModule({
     imports: [
@@ -21,23 +22,21 @@ import { AssetsInterceptor } from './assets-interceptor';
         ModuleMapLoaderModule
     ],
     bootstrap: [AppComponent],
-    providers: [{
-        provide: INITIAL_STATE,
-        useFactory: loadServerInitialState,
-        deps: ['USER', 'SYSTEM']
-    }, {
-        provide: HTTP_INTERCEPTORS,
-        useClass: AssetsInterceptor,
-        multi: true
-    }]
+    providers: [
+        StoreTransferStateService,
+        {
+            provide: INITIAL_STATE,
+            useFactory: loadServerInitialState,
+            deps: ['USER', 'SYSTEM']
+        }, {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AssetsInterceptor,
+            multi: true
+        }]
 })
 export class AppServerModule
 {
-    constructor(
-        state: TransferState,
-        store$: Store<RootState>)
+    constructor(storeTransStateService: StoreTransferStateService)
     {
-        store$.pipe(select(x => x))
-            .subscribe(store => state.set(STORE_STATE_KEY, store));
     }
 }
