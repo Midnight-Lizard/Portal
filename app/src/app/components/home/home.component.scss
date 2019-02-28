@@ -50,6 +50,11 @@
     }
 }
 
+:host-context(html[ml-mode="filter"]:not([ml-stage="preload"])) .image-container {
+  filter: var(--ml-image-revert-filter)!important;
+  img { filter: none!important; }
+}
+
 .image-container:after {
     content: "";
     --ml-ignore:true;
