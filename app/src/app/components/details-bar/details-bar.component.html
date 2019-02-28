@@ -7,7 +7,7 @@
     </button>
   </div>
   <pre class="details">{{msg.data | json | trim: '"' | replace: lineBreaksRegExp: '\n'}}</pre>
-  <div *ngIf="msg.actions" fxLayoutAlign="end">
+  <div *ngIf="msg.actions" fxLayoutAlign="end" fxLayout="row" fxLayoutGap="5px">
     <ng-template ngFor let-act [ngForOf]="msg.actions">
       <a *ngIf="!act.detailsButtonType || act.detailsButtonType === 'raised'"
          mat-raised-button fxFlexAlign="center" [color]="act.color || 'primary'"
