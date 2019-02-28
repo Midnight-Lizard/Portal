@@ -7,7 +7,7 @@ import
     AfterViewInit, ViewChildren, QueryList, OnDestroy
 } from '@angular/core';
 
-import { NotifyUser, NotificationLevel, SideService } from 'core';
+import { NotifyUser, NotificationLevel, SideService, ActionColor, ActionButtonType } from 'core';
 
 import { PublicScheme, PublicSchemeDetails } from '../../model/public-scheme';
 import { SchemesRootState } from '../../store/schemes.state';
@@ -87,17 +87,38 @@ export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
                 withLatestFrom(this.scheme$),
                 map(([installedIds, scheme]) => ({
                     schemeName: scheme[0].name,
-                    installed: installedIds.includes(scheme[0].id)
+                    installed: installedIds.includes(scheme[0].id),
+                    id: scheme[0].id
                 }))
             ).subscribe(x =>
             {
                 const message = x.installed
                     ? `Color scheme ‘${x.schemeName}’ has been successfully installed.`
                     : `Color scheme ‘${x.schemeName}’ has been successfully uninstalled.`;
+
                 this.store$.dispatch(new NotifyUser({
                     message: message,
                     level: NotificationLevel.Info,
                     isLocal: true,
+                    actions: x.installed ? [{
+                        infoTitle: 'APPLY HERE',
+                        detailsTitle: 'APPLY HERE',
+                        description: `Apply color scheme ‘${x.schemeName}’ on this website`,
+                        route: 'schemes/apply',
+                        queryParams: { id: x.id },
+                        color: ActionColor.Accent,
+                        infoButtonType: ActionButtonType.Raised,
+                        detailsButtonType: ActionButtonType.Raised
+                    }, {
+                        infoTitle: 'SET AS DEFAULT',
+                        detailsTitle: 'SET AS DEFAULT',
+                        description: `Set color scheme ‘${x.schemeName}’ as default for all websites`,
+                        route: 'schemes/set-as-default',
+                        queryParams: { id: x.id },
+                        color: ActionColor.Warn,
+                        infoButtonType: ActionButtonType.Raised,
+                        detailsButtonType: ActionButtonType.Raised
+                    }] : undefined
                 }));
             }));
         }

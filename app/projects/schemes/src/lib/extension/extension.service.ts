@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, Subject, ReplaySubject } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-import { SideService, NotifyUser, NotificationLevel } from 'core';
+import { SideService, NotifyUser, NotificationLevel, SettingsService } from 'core';
 
 import { PublicSchemeDetails, PublicSchemeId } from '../model/public-scheme';
 import { ExtensionMessage, ExtensionMessageType, GetInstalledPublicSchemes } from './extension-messages';
@@ -13,13 +13,18 @@ export class ExtensionService
 {
     private extensionConnection?: chrome.runtime.Port;
     private readonly _installedPublicSchemes = new ReplaySubject<PublicSchemeId[]>(1);
+    private hostName: string;
     public get installedPublicSchemes$() { return this._installedPublicSchemes.asObservable(); }
 
-    constructor(
+    constructor(settings: SettingsService,
         private readonly env: SideService,
         private readonly ngZone: NgZone,
         private readonly store$: Store<{}>)
     {
+        if (env.isBrowserSide)
+        {
+            this.hostName = new URL(settings.getSettings().PORTAL_URL).hostname;
+        }
         if (this.tryOpenConnection(this.extensionConnection))
         {
             this.extensionConnection.postMessage(new GetInstalledPublicSchemes());
@@ -29,7 +34,18 @@ export class ExtensionService
     public get isAvailable()
     {
         return this.env.isBrowserSide &&
-            document.documentElement!.hasAttribute('ml-is-active');
+            document.documentElement!.hasAttribute('ml-mode');
+    }
+
+    public get extensionVersion()
+    {
+        if (this.env.isBrowserSide)
+        {
+            return document.defaultView!
+                .getComputedStyle(document.documentElement)
+                .getPropertyValue('--ml-version');
+        }
+        return null;
     }
 
     private onExtensionMessage(message: ExtensionMessage, port: chrome.runtime.Port)
@@ -81,6 +97,29 @@ export class ExtensionService
         {
             this.extensionConnection.postMessage({
                 type: 'UninstallPublicScheme',
+                publicSchemeId: publicSchemeId
+            });
+        }
+    }
+
+    public applyPublicScheme(publicSchemeId: PublicSchemeId)
+    {
+        if (this.tryOpenConnection(this.extensionConnection))
+        {
+            this.extensionConnection.postMessage({
+                type: 'ApplyPublicScheme',
+                publicSchemeId: publicSchemeId,
+                hostName: this.hostName
+            });
+        }
+    }
+
+    public setPublicSchemeAsDefault(publicSchemeId: PublicSchemeId)
+    {
+        if (this.tryOpenConnection(this.extensionConnection))
+        {
+            this.extensionConnection.postMessage({
+                type: 'SetPublicSchemeAsDefault',
                 publicSchemeId: publicSchemeId
             });
         }

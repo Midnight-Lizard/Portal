@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Route } from '@angular/router';
 
+import { MetaData } from 'core';
+
 import { SchemesFilterComponent } from './components/filter/filter.component';
 import { SchemesNavigationComponent } from './components/navigation/navigation.component';
 import { SchemesListComponent } from './components/list/list.component';
 import { SchemesList } from './model/schemes-lists';
-import { MetaData } from 'core';
+import { ExtensionGuard } from './extension/extension.guard';
 
 const index = 'index';
 
@@ -20,6 +22,8 @@ const meta: MetaData = {
 };
 
 const routes: Routes = [
+    { path: 'apply', canActivate: [ExtensionGuard], data: { ephemeral: true } },
+    { path: 'set-as-default', canActivate: [ExtensionGuard], data: { ephemeral: true } },
     {
         path: `${index}/:list/:id`, children: [
             { path: '', component: SchemesListComponent, data: meta },
