@@ -46,7 +46,7 @@ export class InfoNavComponent implements OnDestroy
                 takeUntil(this.disposed)
             ).subscribe(msg => snackBar.openFromComponent(InfoBarComponent, {
                 data: msg,
-                duration: notificationDuration.get(msg!.level)
+                duration: msg!.customTimeoutMs || notificationDuration.get(msg!.level)
             }));
         }
     }

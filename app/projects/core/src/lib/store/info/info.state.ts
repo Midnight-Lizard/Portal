@@ -26,6 +26,7 @@ export interface NotificationMessage
     readonly id?: number;
     readonly correlationId?: string;
     readonly level: NotificationLevel;
+    readonly customTimeoutMs?: number;
     readonly message: string;
     readonly isLocal: boolean;
     readonly data?: any;

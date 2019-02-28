@@ -100,6 +100,7 @@ export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
                     message: message,
                     level: NotificationLevel.Info,
                     isLocal: true,
+                    customTimeoutMs: x.installed ? 30000 : 10000,
                     actions: x.installed ? [{
                         infoTitle: 'APPLY HERE',
                         detailsTitle: 'APPLY HERE',
