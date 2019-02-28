@@ -1,5 +1,22 @@
 ﻿@import 'theme.scss';
 
+:host-context(html[ml-mode="filter"]:not([ml-stage="preload"])) {
+  .footer-root
+  {
+    background-color: white;
+    text-shadow: 0px 0px 1px white;
+    color: black;
+  }
+  .social-list
+  {
+      a, svg
+      {
+          color: black;
+          fill: black;
+      }
+  }
+}
+
 .footer-root
 {
     background-color: mat-color($ml-primary, 800);
@@ -130,32 +147,27 @@
 
 .mat-list-item:hover
 {
-    p
-    {
+    p {
         text-decoration: underline;
     }
 
-    .instagram-icon
-    {
+    .instagram-icon:not(#imp) {
         fill: #ff99eb;
     }
 
-    .twitter-icon
-    {
+    .twitter-icon:not(#imp) {
         fill: rgb(29, 161, 242);
     }
 
-    .google-plus-icon
-    {
+    .google-plus-icon:not(#imp) {
         fill: #ff7366;
     }
 
-    .facebook-icon
-    {
+    .facebook-icon:not(#imp) {
         fill: #6496ff;
     }
 
-    .github-icon {
+    .github-icon:not(#imp) {
         fill: #0361cc;
     }
 
