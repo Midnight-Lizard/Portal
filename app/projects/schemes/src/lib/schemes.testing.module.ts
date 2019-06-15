@@ -55,5 +55,5 @@ export class SchemesTestingModule
 }
 
 export const MetaServiceStub = {
-    updatePageMetaData: () => { }
+    updatePageMetaData: function () { }
 };
