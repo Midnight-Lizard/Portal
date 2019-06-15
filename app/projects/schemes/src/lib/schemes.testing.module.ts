@@ -45,7 +45,6 @@ export class SchemesTestingModule
             ngModule: SchemesTestingModule,
             providers: [
                 Actions, SvgIconService, SchemesServiceStub,
-                TestingModule.forRoot().providers!,
                 { provide: ImpressionsService, useClass: ImpressionsServiceStub },
                 { provide: SchemesService, useClass: SchemesServiceStub },
                 { provide: ExtensionService, useClass: ExtensionServiceStub },
