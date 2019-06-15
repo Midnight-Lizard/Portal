@@ -61,8 +61,8 @@ export const routes: Routes = [
             { path: '', component: WebStoreComponent, outlet: 'right-side' },
         ]
     },
-    { path: 'schemes', loadChildren: './lazy/schemes.loader.module#SchemesLoaderModule' },
-    { path: 'sitemap', loadChildren: './sitemap/sitemap.module#SiteMapModule' },
+    { path: 'schemes', loadChildren: () => import('./lazy/schemes.loader.module').then(m => m.SchemesLoaderModule) },
+    { path: 'sitemap', loadChildren: () => import('./sitemap/sitemap.module').then(m => m.SiteMapModule) },
     {
         path: 'signin', component: ReloadFromServerComponent,
         data: meta['signin'], canActivate: [ValidateConsentGuard]

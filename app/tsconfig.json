@@ -2,6 +2,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "downlevelIteration": true,
+    "module": "esnext",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -14,7 +16,7 @@
     "noImplicitThis": true,
     "noImplicitReturns": false,
     "strictNullChecks": true,
-    "target": "es5",
+    "target": "es2015",
     "rootDir": "./",
     "typeRoots": [
       "node_modules/@types"

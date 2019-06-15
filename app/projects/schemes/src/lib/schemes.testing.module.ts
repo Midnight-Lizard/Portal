@@ -54,7 +54,7 @@ export class SchemesTestingModule
                         updatePageMetaData: () => { }
                     }
                 }
-            ]
+            ] as any[]
         };
     }
 }
