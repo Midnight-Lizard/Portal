@@ -23,7 +23,7 @@ export class SchemesFilterComponent implements OnDestroy, AfterViewInit
     private _mediaSub: Subscription;
     readonly filtersForm: FormGroup;
     @ViewChildren(MatButtonToggleGroup) toggles: QueryList<MatButtonToggleGroup>;
-    @ViewChild(MatInput) searchField: MatInput;
+    @ViewChild(MatInput, { static: true }) searchField: MatInput;
 
     constructor(
         router: Router, fb: FormBuilder,

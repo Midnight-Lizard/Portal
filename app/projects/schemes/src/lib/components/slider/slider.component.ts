@@ -10,7 +10,7 @@ import { Screenshot } from '../../model/screenshot';
 })
 export class SchemeSliderComponent
 {
-    @ViewChild('tabs')
+    @ViewChild('tabs', { static: true })
     tabs: MatTabGroup;
 
     @Input()
