@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, inject, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { MatButton } from '@angular/material';
+import { MatButton } from '@angular/material/button';
 import { Store } from '@ngrx/store';
 
 import { nameOfClass, TestSchedulerStub, click } from 'testing';

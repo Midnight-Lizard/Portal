@@ -1,4 +1,4 @@
-﻿import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { Component, OnDestroy, ViewChild, ViewChildren, QueryList, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -9,7 +9,8 @@ import { SchemeSide } from '../../model/scheme-side';
 import { SchemesFilters, createRouteParamsFromFilters } from '../../model/schemes-filters';
 import { SchemesRootState } from '../../store/schemes.state';
 import { MediaObserver } from '@angular/flex-layout';
-import { MatButtonToggleGroup, MatInput } from '@angular/material';
+import { MatButtonToggleGroup } from '@angular/material/button-toggle';
+import { MatInput } from '@angular/material/input';
 
 @Component({
     selector: 'schemes-filter',

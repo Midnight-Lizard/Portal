@@ -1,6 +1,6 @@
-﻿import { Component, OnDestroy, TrackByFunction, HostBinding, Inject, Optional, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, TrackByFunction, HostBinding, Inject, Optional, OnInit, AfterViewInit } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil, filter, map, switchMap, first, delay } from 'rxjs/operators';
 import { Subscription, Observable, Subject, combineLatest } from 'rxjs';

@@ -1,4 +1,5 @@
-import { MAT_SNACK_BAR_DATA, MatSnackBarRef, MatBottomSheet } from '@angular/material';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { skip, take, takeUntil } from 'rxjs/operators';

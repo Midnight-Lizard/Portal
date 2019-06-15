@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { MatSnackBar, MatMenu, MatMenuTrigger } from '@angular/material';
+import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { By } from '@angular/platform-browser';
 
 import { nameOfClass, click } from 'testing';

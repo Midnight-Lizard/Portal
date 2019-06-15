@@ -1,5 +1,5 @@
 import { Component, ViewChildren, QueryList, OnDestroy, ElementRef } from '@angular/core';
-import { MatNavList } from '@angular/material';
+import { MatNavList } from '@angular/material/list';
 import { MediaObserver } from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
 

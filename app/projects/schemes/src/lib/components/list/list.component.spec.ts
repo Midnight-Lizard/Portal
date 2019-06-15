@@ -2,7 +2,9 @@ import { ComponentFixture, TestBed, inject, fakeAsync } from '@angular/core/test
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
-import { MatButton, MatCard, MatDialog } from '@angular/material';
+import { MatButton } from '@angular/material/button';
+import { MatCard } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { Store, select } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 import { of } from 'rxjs';
