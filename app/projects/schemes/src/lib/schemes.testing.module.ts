@@ -48,12 +48,12 @@ export class SchemesTestingModule
                 { provide: ImpressionsService, useClass: ImpressionsServiceStub },
                 { provide: SchemesService, useClass: SchemesServiceStub },
                 { provide: ExtensionService, useClass: ExtensionServiceStub },
-                {
-                    provide: MetaService, useValue: {
-                        updatePageMetaData: () => { }
-                    }
-                }
+                { provide: MetaService, useValue: MetaServiceStub }
             ] as any[]
         };
     }
 }
+
+export const MetaServiceStub = {
+    updatePageMetaData: () => { }
+};
