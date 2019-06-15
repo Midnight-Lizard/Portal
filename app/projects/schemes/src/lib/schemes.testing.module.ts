@@ -9,7 +9,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModule, materialModules, LoadingModule, SvgIconService } from 'shared';
 import { TestingModule } from 'testing';
-import { MetaService, ImpressionsService, ImpressionsServiceStub } from 'core';
+import { MetaService, MetaServiceStub, ImpressionsService, ImpressionsServiceStub } from 'core';
 
 import { SchemesFeature, schemesReducers, schemesInitialState } from './store/schemes.state';
 import { SchemesService } from './backend/schemes.service';
@@ -48,12 +48,8 @@ export class SchemesTestingModule
                 { provide: ImpressionsService, useClass: ImpressionsServiceStub },
                 { provide: SchemesService, useClass: SchemesServiceStub },
                 { provide: ExtensionService, useClass: ExtensionServiceStub },
-                { provide: MetaService, useValue: MetaServiceStub }
+                { provide: MetaService, useClass: MetaServiceStub }
             ] as any[]
         };
     }
 }
-
-export const MetaServiceStub = {
-    updatePageMetaData: function () { }
-};
