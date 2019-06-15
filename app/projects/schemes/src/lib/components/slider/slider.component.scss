@@ -70,13 +70,13 @@ form {
     opacity: 1;
 }
 
-.mat-tab-group /deep/ .mat-tab-label {
+.mat-tab-group ::ng-deep .mat-tab-label {
     height: 32px;
     min-width: 32px!important;
     padding: 0!important;
 }
 
-.mat-tab-group /deep/ .mat-tab-body-content {
+.mat-tab-group ::ng-deep .mat-tab-body-content {
     overflow: hidden;
 }
 
