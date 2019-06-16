@@ -15,8 +15,8 @@ describe(nameOfClass(DetailsBarComponent), () =>
     beforeEach(async(() =>
     {
         const bottomSheetRefStub = jasmine
-            .createSpyObj<MatBottomSheetRef<DetailsBarComponent>>('BottomSheetRefStub',
-                Object.keys(MatBottomSheetRef.prototype) as Array<keyof MatBottomSheetRef>);
+            .createSpyObj<MatBottomSheetRef<DetailsBarComponent>>(
+                'BottomSheetRefStub', ['dismiss']);
         TestBed.configureTestingModule({
             declarations: [DetailsBarComponent],
             imports: [AppTestingModule.forRoot()],

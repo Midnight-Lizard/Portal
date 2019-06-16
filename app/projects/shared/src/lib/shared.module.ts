@@ -1,4 +1,4 @@
-import { NgModule, Inject, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -14,11 +14,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -28,10 +26,9 @@ import { ReplacePipe } from './pipes/string/replace.pipe';
 export const materialModules = [
     MatButtonModule, MatCheckboxModule, MatToolbarModule, MatListModule,
     MatSidenavModule, MatIconModule, MatInputModule, MatMenuModule,
-    MatTooltipModule, MatProgressSpinnerModule, MatPaginatorModule,
-    MatSortModule, MatButtonToggleModule, MatGridListModule,
-    MatCardModule, MatBadgeModule, MatSnackBarModule, MatTabsModule,
-    MatBottomSheetModule, MatDialogModule
+    MatTooltipModule, MatProgressSpinnerModule, MatButtonToggleModule,
+    MatGridListModule, MatCardModule, MatBadgeModule, MatSnackBarModule,
+    MatTabsModule, MatBottomSheetModule, MatDialogModule
 ];
 
 export const pipes = [ReplacePipe];
