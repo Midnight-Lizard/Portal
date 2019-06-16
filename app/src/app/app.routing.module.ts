@@ -61,7 +61,7 @@ export const routes: Routes = [
             { path: '', component: WebStoreComponent, outlet: 'right-side' },
         ]
     },
-    { path: 'schemes', loadChildren: () => import('./lazy/schemes.loader.module').then(m => m.SchemesLoaderModule) },
+    { path: 'schemes', loadChildren: () => import('schemes').then(m => m.SchemesModule) },
     { path: 'sitemap', loadChildren: () => import('./sitemap/sitemap.module').then(m => m.SiteMapModule) },
     {
         path: 'signin', component: ReloadFromServerComponent,
