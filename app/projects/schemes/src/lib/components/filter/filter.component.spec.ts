@@ -2,7 +2,7 @@ import { fakeAsync, ComponentFixture, TestBed, tick, inject } from '@angular/cor
 import { Router, NavigationExtras } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { nameOfClass, TestSchedulerStub } from 'testing';
+import { nameOfClass, TestSchedulerStub, TestingModule } from 'testing';
 import { SchemesFilterComponent } from './filter.component';
 import { SchemesTestingModule } from '../../schemes.testing.module';
 import { SchemeSide } from '../../model/scheme-side';
@@ -21,7 +21,7 @@ describe(nameOfClass(SchemesFilterComponent), function (this: { router: Router }
         TestSchedulerStub.init();
         TestBed.configureTestingModule({
             declarations: [SchemesFilterComponent],
-            imports: [SchemesTestingModule.forRoot()],
+            imports: [SchemesTestingModule.forRoot(), TestingModule.forRoot()],
         }).compileComponents();
     }));
 

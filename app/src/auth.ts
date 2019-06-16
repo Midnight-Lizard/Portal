@@ -2,7 +2,7 @@ import * as url from 'url';
 import { Settings, User, System } from 'core';
 
 const { Issuer } = require('openid-client');
-const fetch = require('node-fetch');
+const fetch = require('node-fetch') as typeof window.fetch;
 const querystring = require('querystring');
 
 export class Secrets

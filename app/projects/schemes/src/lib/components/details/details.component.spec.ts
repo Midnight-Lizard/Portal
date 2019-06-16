@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { MatButton } from '@angular/material/button';
 import { Store } from '@ngrx/store';
 
-import { nameOfClass, TestSchedulerStub, click } from 'testing';
+import { nameOfClass, TestSchedulerStub, click, TestingModule } from 'testing';
 import { SchemeDetailsComponent } from './details.component';
 import { SchemesTestingModule } from '../../schemes.testing.module';
 import { SchemesService } from '../../backend/schemes.service';
@@ -22,7 +22,7 @@ describe(nameOfClass(SchemeDetailsComponent), function ()
         TestSchedulerStub.init();
         TestBed.configureTestingModule({
             declarations: [SchemeDetailsComponent, SchemeSliderComponent],
-            imports: [SchemesTestingModule.forRoot()]
+            imports: [SchemesTestingModule.forRoot(), TestingModule.forRoot()]
         }).compileComponents();
     }));
 

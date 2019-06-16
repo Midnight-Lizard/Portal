@@ -1,7 +1,7 @@
 ﻿import { TestScheduler } from 'rxjs/testing';
 import { Type } from '@angular/core';
 import { Observable, Operator, of } from 'rxjs';
-import { getTestScheduler } from 'jasmine-marbles';
+import { getTestScheduler, initTestScheduler, addMatchers } from 'jasmine-marbles';
 import * as operators from 'rxjs/operators/';
 
 export abstract class TestSchedulerStub
@@ -10,6 +10,8 @@ export abstract class TestSchedulerStub
 
     static init(maxFrames: number = 1000)
     {
+        initTestScheduler();
+        addMatchers();
         $this.scheduler = getTestScheduler();
         $this.scheduler.maxFrames = maxFrames;
         $this.inject($this.scheduler);

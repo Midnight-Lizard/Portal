@@ -49,7 +49,7 @@ export class SchemesTestingModule
                 { provide: SchemesService, useClass: SchemesServiceStub },
                 { provide: ExtensionService, useClass: ExtensionServiceStub },
                 { provide: MetaService, useClass: MetaServiceStub }
-            ] as any[]
+            ]
         };
     }
 }

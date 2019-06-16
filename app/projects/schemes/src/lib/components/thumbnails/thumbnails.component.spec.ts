@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { nameOfClass } from 'testing';
+import { nameOfClass, TestingModule } from 'testing';
 import { SchemesThumbnailsComponent } from './thumbnails.component';
 import { SchemesTestingModule } from '../../schemes.testing.module';
 import { ScreenshotSize } from '../../model/screenshot';
@@ -14,7 +14,7 @@ describe(nameOfClass(SchemesThumbnailsComponent), () =>
     {
         TestBed.configureTestingModule({
             declarations: [SchemesThumbnailsComponent],
-            imports: [SchemesTestingModule.forRoot()]
+            imports: [SchemesTestingModule.forRoot(), TestingModule.forRoot()]
         }).compileComponents();
     }));
 

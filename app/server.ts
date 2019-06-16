@@ -70,7 +70,7 @@ auth.initAuth(settings, secrets).then(() =>
         providers: [
             provideModuleMap(LAZY_MODULE_MAP)
         ]
-    }));
+    }) as any);
 
     app.set('view engine', 'html');
     app.set('views', join(DIST_FOLDER, 'portal-browser'));

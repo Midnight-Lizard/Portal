@@ -9,7 +9,7 @@ import { Store, select } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import { nameOfClass, TestSchedulerStub, click, ActivatedRouteStub } from 'testing';
+import { nameOfClass, TestSchedulerStub, click, ActivatedRouteStub, TestingModule } from 'testing';
 import { SchemesListComponent } from './list.component';
 import { SchemesTestingModule } from '../../schemes.testing.module';
 import { SchemeDetailsComponent } from '../details/details.component';
@@ -47,7 +47,9 @@ describe(nameOfClass(SchemesListComponent), function ()
                 SchemesListComponent, SchemeDetailsComponent,
                 SchemesThumbnailsComponent, SchemeSliderComponent
             ],
-            imports: [SchemesTestingModule.forRoot(), InfiniteScrollModule]
+            imports: [
+                SchemesTestingModule.forRoot(), TestingModule.forRoot(), InfiniteScrollModule
+            ]
         }).compileComponents();
     }));
 
@@ -177,7 +179,7 @@ describe(nameOfClass(SchemesListComponent), function ()
         {
             spyOn(router, 'navigate');
             spyOn(dialog, 'open').and
-                .returnValue({ beforeClosed: () => of(true) });
+                .returnValue({ beforeClosed: () => of(true) } as any);
         }));
 
         it(`should open scheme details when clicked on card`, inject(
