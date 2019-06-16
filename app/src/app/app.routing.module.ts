@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { RouterModule, PreloadAllModules } from '@angular/router';
 
 import { ValidateConsentGuard, AcceptConsentGuard, MetaData } from 'core';
 
