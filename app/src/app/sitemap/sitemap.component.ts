@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { Section } from 'core';
 import { SchemesSiteMapService } from 'schemes';
 
-import { routes } from '../app.routing.module';
+import { routes } from '../app.routes';
 
 @Component({
     selector: 'ml-sitemap',
