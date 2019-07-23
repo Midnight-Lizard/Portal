@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 while [ "$1" != "" ]; do
     case $1 in
@@ -28,5 +29,4 @@ base64 -i key.txt -d > key.json
 gcloud auth activate-service-account --key-file key.json;
 gcloud config set compute/zone $GCE_CLUSTER_ZONE;
 gcloud config set project $PROJECT;
-gcloud config set container/use_client_certificate True;
 gcloud container clusters get-credentials $GCE_CLUSTER_NAME;
