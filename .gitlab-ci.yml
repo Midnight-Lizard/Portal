@@ -17,4 +17,4 @@ pages:
   - npm install
   - npm run build:prod:libs
   - npm run build:prod:client
-  - mv dist/portal-browser/ public/
+  - mv dist/portal-browser/ ../public/
