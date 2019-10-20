@@ -10,6 +10,7 @@ pages:
   only:
   - pages
   script:
+  - cd app
   - npm install
   - npm run build:prod:libs
   - npm run build:prod:client
