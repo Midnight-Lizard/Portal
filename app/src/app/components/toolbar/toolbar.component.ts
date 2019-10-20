@@ -1,4 +1,5 @@
 ﻿import { Component, EventEmitter, Output } from '@angular/core';
+import { SettingsService } from 'core';
 
 @Component({
     selector: 'ml-toolbar',
@@ -7,6 +8,16 @@
 })
 export class ToolbarComponent
 {
+    public readonly showUserNav: boolean;
+
+    constructor(settingsService: SettingsService)
+    {
+        const settings = settingsService.getSettings();
+        this.showUserNav = settings &&
+            settings.USE_AUTH === true.toString() &&
+            settings.IS_STAND_ALONE !== true.toString();
+    }
+
     @Output() sidenavToggleClick = new EventEmitter<never>();
 
     public readonly items = new Set<{
