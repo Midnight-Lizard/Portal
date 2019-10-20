@@ -9,6 +9,9 @@ pages:
   stage: deploy
   only:
   - pages
+  artifacts:
+    paths:
+    - public
   script:
   - cd app
   - npm install
