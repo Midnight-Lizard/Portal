@@ -18,3 +18,4 @@ pages:
   - npm run build:prod:libs
   - npm run build:prod:client
   - mv dist/portal-browser/ ../public/
+  - cp ../public/index.html ../public/404.html
