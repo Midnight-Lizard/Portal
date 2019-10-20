@@ -3,30 +3,14 @@ services:
 - docker:dind
 variables:
   DOCKER_DRIVER: overlay
-  PROJ: portal
-  GROUP: midnight-lizard
 
-docker-build:
-  stage: build
-  only:
-  - master
-  script:
-  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY;
-  - docker build -t $CI_REGISTRY/$GROUP/$PROJ:$CI_PIPELINE_ID ./app;
-  - docker push $CI_REGISTRY/$GROUP/$PROJ:$CI_PIPELINE_ID;
-
-gce-deploy:
-  image: google/cloud-sdk
+pages:
+  image: node:10-alpine
   stage: deploy
   only:
-  - master
+  - pages
   script:
-  - chmod +x ./shell/gcloud-config.sh
-  - ./shell/gcloud-config.sh -k "$GCE_KEY" -z $GCE_CLUSTER_ZONE -p $GCE_PROJECT -c $GCE_CLUSTER_NAME
-  - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
-  - helm init --upgrade
-  - >-
-    helm upgrade --install
-    --set image=$CI_REGISTRY/$GROUP/$PROJ:$CI_PIPELINE_ID
-    --set secrets.sessionSecret=$PORTAL_SESSION_SECRET
-    $PROJ ./kube/$PROJ
+  - npm install
+  - npm run build:prod:libs
+  - npm run build:prod:client
+  - mv dist/portal-browser/ public/
