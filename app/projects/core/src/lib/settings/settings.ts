@@ -9,6 +9,7 @@
     readonly PORTAL_USER_AUTH_REFRESH_INTERVAL: string;
     readonly PORTAL_SYSTEM_AUTH_REFRESH_INTERVAL: string;
     readonly USE_AUTH: string;
+    readonly IS_STAND_ALONE: string;
 }
 
 export const defaultSettings: Settings = {
@@ -19,5 +20,6 @@ export const defaultSettings: Settings = {
     IMPRESSIONS_COMMANDER_URL: 'http://localhost:7070',
     PORTAL_USER_AUTH_REFRESH_INTERVAL: '10000',
     PORTAL_SYSTEM_AUTH_REFRESH_INTERVAL: '10000',
-    USE_AUTH: false.toString()
+    USE_AUTH: 'false',
+    IS_STAND_ALONE: 'true'
 };
