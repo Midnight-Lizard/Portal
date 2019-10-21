@@ -16,6 +16,7 @@
     <div fxLayout="row" fxFlexAlign="center"
          fxFlexAlign.lt-sm="end" ngClass.lt-md="small">
       <button mat-icon-button class="command"
+              [disabled]="disableImpressions"
               fxFlexAlign="center"
               [color]="scheme.favorited ? 'warn' : ''"
               [matTooltip]="scheme.favorited ? 'Remove from your favorites' : 'Add to your favorites'"
@@ -25,6 +26,7 @@
         </mat-icon>
       </button>
       <button mat-icon-button class="command"
+              [disabled]="disableImpressions"
               fxFlexAlign="center"
               [color]="scheme.liked ? 'accent' : ''"
               [matTooltip]="scheme.liked ? 'Remove your like' : 'Add your like'"

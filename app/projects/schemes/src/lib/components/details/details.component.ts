@@ -7,7 +7,11 @@ import
     AfterViewInit, ViewChildren, QueryList, OnDestroy
 } from '@angular/core';
 
-import { NotifyUser, NotificationLevel, SideService, ActionColor, ActionButtonType } from 'core';
+import
+{
+    NotifyUser, NotificationLevel, SideService, ActionColor,
+    ActionButtonType, SettingsService
+} from 'core';
 
 import { PublicScheme, PublicSchemeDetails } from '../../model/public-scheme';
 import { SchemesRootState } from '../../store/schemes.state';
@@ -22,6 +26,7 @@ import { ExtensionService } from '../../extension/extension.service';
 export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
 {
     private subs = new Array<Subscription>();
+    public readonly disableImpressions: boolean;
     public readonly supportsNativeShare: boolean = false;
     public readonly scheme$: Observable<PublicSchemeDetails[]>;
     public readonly schemeIsInstalled$: Observable<boolean>;
@@ -32,8 +37,11 @@ export class SchemeDetailsComponent implements AfterViewInit, OnDestroy
     constructor(
         private readonly env: SideService,
         private readonly store$: Store<SchemesRootState>,
+        private readonly settingsService: SettingsService,
         private readonly extension: ExtensionService)
     {
+        this.disableImpressions = settingsService.getSettings().IS_STAND_ALONE === true.toString();
+
         if (env.isBrowserSide)
         {
             this.supportsNativeShare = !!((navigator as any).share);

@@ -9,7 +9,13 @@ import { Store, select } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import { nameOfClass, TestSchedulerStub, click, ActivatedRouteStub, TestingModule } from 'testing';
+import
+{
+    nameOfClass, TestSchedulerStub, click,
+    ActivatedRouteStub, TestingModule
+} from 'testing';
+import { testSettings } from 'core';
+
 import { SchemesListComponent } from './list.component';
 import { SchemesTestingModule } from '../../schemes.testing.module';
 import { SchemeDetailsComponent } from '../details/details.component';
@@ -38,7 +44,9 @@ describe(nameOfClass(SchemesListComponent), function ()
                     providers: [
                         { provide: 'scrollThrottleTime', useValue: 0 },
                         { provide: 'scrollContainerSelector', useValue: undefined },
-                        { provide: 'searchScrollContainerSelectorFromRoot', useValue: false }]
+                        { provide: 'searchScrollContainerSelectorFromRoot', useValue: false },
+                        { provide: 'SETTINGS', useValue: testSettings }
+                    ]
                 }
             }
         );

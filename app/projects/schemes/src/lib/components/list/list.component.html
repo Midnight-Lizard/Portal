@@ -24,6 +24,7 @@
         </span>
         <span fxFlex></span>
         <button mat-icon-button fxFlexAlign.md="center"
+                [disabled]="disableImpressions"
                 ngClass.md="small"
                 [color]="scheme.favorited ? 'warn' : ''"
                 [matTooltip]="scheme.favorited ? 'Remove from your favorites' : 'Add to your favorites'"
@@ -33,6 +34,7 @@
           </mat-icon>
         </button>
         <button mat-icon-button fxFlexAlign.md="center"
+                [disabled]="disableImpressions"
                 ngClass.md="small"
                 [color]="scheme.liked ? 'accent' : ''"
                 [matTooltip]="scheme.liked ? 'Remove your like' : 'Add your like'"

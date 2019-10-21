@@ -6,7 +6,7 @@ import { takeUntil, filter, map, switchMap, first, delay } from 'rxjs/operators'
 import { Subscription, Observable, Subject, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
-import { SideService, MetaService, InfoRootState } from 'core';
+import { SideService, MetaService, InfoRootState, SettingsService } from 'core';
 import { SchemesRootState } from '../../store/schemes.state';
 import { PublicScheme } from '../../model/public-scheme';
 import * as Act from '../../store/schemes.actions';
@@ -30,6 +30,7 @@ export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
     aspect = '4:5';
     private readonly disposed = new Subject<boolean>();
     readonly schemes$: Observable<PublicScheme[]>;
+    readonly disableImpressions: boolean;
     private readonly list$: Observable<SchemesList>;
     private _mediaSub: Subscription;
     @HostBinding('class.show-loading') isLoading = false;
@@ -42,6 +43,7 @@ export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
         private readonly route: ActivatedRoute,
         private readonly router: Router,
         private readonly dialog: MatDialog,
+        private readonly settingsService: SettingsService,
 
         @Inject('scrollContainerSelector')
         readonly scrollContainerSelector: string,
@@ -54,6 +56,7 @@ export class SchemesListComponent implements OnDestroy, OnInit, AfterViewInit
 
         meta: MetaService)
     {
+        this.disableImpressions = settingsService.getSettings().IS_STAND_ALONE === true.toString();
         this.schemes$ = store$.pipe(select(s => s.SCHEMES.schemes.data));
         this.list$ = store$.pipe(select(x => x.SCHEMES.schemes.list));
 

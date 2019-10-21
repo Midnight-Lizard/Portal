@@ -23,3 +23,15 @@ export const defaultSettings: Settings = {
     USE_AUTH: 'false',
     IS_STAND_ALONE: 'true'
 };
+
+export const testSettings: Settings = {
+    IDENTITY_URL: 'http://192.168.1.35:32006',
+    PORTAL_URL: 'http://localhost:7000',
+    SCHEMES_QUERIER_URL: 'http://localhost:7010',
+    SCHEMES_COMMANDER_URL: 'http://localhost:7011',
+    IMPRESSIONS_COMMANDER_URL: 'http://localhost:7070',
+    PORTAL_USER_AUTH_REFRESH_INTERVAL: '10000',
+    PORTAL_SYSTEM_AUTH_REFRESH_INTERVAL: '10000',
+    USE_AUTH: 'false',
+    IS_STAND_ALONE: 'false'
+};

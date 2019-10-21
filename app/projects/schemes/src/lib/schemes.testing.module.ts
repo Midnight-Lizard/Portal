@@ -16,6 +16,7 @@ import { SchemesService } from './backend/schemes.service';
 import { SchemesServiceStub } from './backend/schemes.service.stub';
 import { ExtensionService } from './extension/extension.service';
 import { ExtensionServiceStub } from './extension/extension.service.stub';
+import { TransferState } from '@angular/platform-browser';
 
 @NgModule({
     imports: [
@@ -48,7 +49,8 @@ export class SchemesTestingModule
                 { provide: ImpressionsService, useClass: ImpressionsServiceStub },
                 { provide: SchemesService, useClass: SchemesServiceStub },
                 { provide: ExtensionService, useClass: ExtensionServiceStub },
-                { provide: MetaService, useClass: MetaServiceStub }
+                { provide: MetaService, useClass: MetaServiceStub },
+                { provide: TransferState, useValue: new Map() }
             ]
         };
     }
