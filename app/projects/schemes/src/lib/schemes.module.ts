@@ -20,7 +20,7 @@ import { SchemeDetailsComponent } from './components/details/details.component';
 import { SchemeSliderComponent } from './components/slider/slider.component';
 import { ExtensionService } from './extension/extension.service';
 import { ExtensionGuard } from './extension/extension.guard';
-import { StandAloneSchemesService } from './backend/schemes.service.stand-alone';
+import { getSchemesService } from './backend/schemes.service.resolver';
 
 @NgModule({
     declarations: [
@@ -49,17 +49,3 @@ import { StandAloneSchemesService } from './backend/schemes.service.stand-alone'
     entryComponents: [SchemeDetailsComponent]
 })
 export class SchemesModule { }
-
-export function getSchemesService(
-    httpLink: HttpLink, store$: Store<AuthRootState>,
-    settingsService: SettingsService, apollo: Apollo)
-{
-    if (settingsService.getSettings().IS_STAND_ALONE)
-    {
-        return new StandAloneSchemesService();
-    }
-    else
-    {
-        return new SchemesService(httpLink, store$, settingsService, apollo);
-    }
-}

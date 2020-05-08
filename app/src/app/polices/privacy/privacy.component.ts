@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SettingsService } from 'core';
+import { SettingsService, SideService } from 'core';
 
 @Component({
     selector: 'ml-privacy',
@@ -10,8 +10,15 @@ export class PrivacyComponent
 {
     readonly portalUrl: string;
 
-    constructor(private readonly settings: SettingsService)
+    constructor(settings: SettingsService, env: SideService)
     {
-        this.portalUrl = settings.getSettings().PORTAL_URL;
+        if (env.isBrowserSide)
+        {
+            this.portalUrl = window.location.host;
+        }
+        else
+        {
+            this.portalUrl = settings.getSettings().PORTAL_URL;
+        }
     }
 }
