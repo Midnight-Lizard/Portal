@@ -175,3 +175,14 @@ html[ml-mode="filter"]:not([ml-stage="preload"]) {
       0px 9px 46px 8px rgba(128,128,128, 0.12);
   }
 }
+
+html[ml-mode="complex"] {
+  .mat-sidenav,
+  .mat-dialog-container {
+    background-color: var(--ml-main-background-color)!important;
+    --ml-background-background-color:None;
+    * {
+      --ml-background-background-color:Background!important;
+    }
+  }
+}

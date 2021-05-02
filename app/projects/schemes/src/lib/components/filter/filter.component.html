@@ -3,14 +3,7 @@
     <button mat-icon-button matPrefix matTooltip="Search">
       <mat-icon>search</mat-icon>
     </button>
-    <input matInput formControlName="query" placeholder="Search query"
-           matTooltip="+&emsp;AND
-               &thinsp;|&emsp;OR
-               &ndash;&emsp;NOT
-               *&emsp;any ending
-               ~&emsp;fuzzy word
-               &quot; &quot;&emsp;phrase
-               ( )&emsp;precedence">
+    <input matInput formControlName="query" placeholder="Search query">
     <button mat-icon-button matSuffix matTooltip="Clear filter"
             (click)="filtersForm.get('query')!.setValue('')">
       <mat-icon>clear</mat-icon>
